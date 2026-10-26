@@ -238,37 +238,37 @@
 </head>
 <body>
 
-<!-- SPLASH SCREEN -->
+<!-- SPLASH ANIMADO -->
 <div id="splash">
   <h1 class="serif">Original.</h1>
   <div class="line-loader"></div>
 </div>
 
-<!-- TOP BAR -->
+<!-- HEADER FLOTANTE -->
 <header class="top-bar">
   <h1 id="topTitle">Catálogo</h1>
 </header>
 
-<!-- BOTTOM NAV -->
+<!-- BOTTOM NAV APP -->
 <nav class="bottom-nav">
   <div class="nav-item active" onclick="switchView('catalogo', 'Catálogo', this)">
-    <i class="fa-solid fa-gem"></i>
+    <i class="fa-solid fa-layer-group"></i>
     <span>Catálogo</span>
   </div>
   <div class="nav-item" onclick="switchView('sorteos', 'Sorteos', this)">
     <i class="fa-solid fa-ticket"></i>
     <span>Sorteos</span>
   </div>
-  <div class="nav-item" onclick="switchView('info', 'Información', this)">
-    <i class="fa-solid fa-bars-staggered"></i>
-    <span>Info</span>
+  <div class="nav-item" onclick="switchView('info', 'Importante', this)">
+    <i class="fa-solid fa-circle-info"></i>
+    <span>Importante</span>
   </div>
 </nav>
 
 <!-- CARRITO FLOTANTE -->
 <div class="fab-cart" id="fabCart">
   <div class="fab-info"><i class="fa-solid fa-bag-shopping"></i> <span id="cartCount">0</span> Ítems</div>
-  <button class="fab-btn" onclick="sendCart()">Pedir</button>
+  <button class="fab-btn" onclick="sendCart()">Hacer Pedido</button>
 </div>
 
 <!-- BOTTOM SHEET (TABLERO SORTEOS) -->
@@ -536,6 +536,15 @@
       var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
       var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEF_IMG;
       
+      // --- MAGIA PARA ARREGLAR LINKS DE GOOGLE DRIVE ---
+      if (foto.includes('drive.google.com')) {
+        const match = foto.match(/\/d\/([a-zA-Z0-9_-]+)/) || foto.match(/id=([a-zA-Z0-9_-]+)/);
+        if (match && match[1]) {
+          foto = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+        }
+      }
+      // ---------------------------------------------------
+
       let old = "", tag = "";
       if(idx % 4 === 0) { old = `<span class="p-old">$180,000</span>`; tag = `<span class="p-tag badge-down">Bajó</span>`; }
       else if(idx % 5 === 0) { old = `<span class="p-old">$120,000</span>`; tag = `<span class="p-tag badge-up">Subió</span>`; }
@@ -593,7 +602,7 @@
   });
 
   function askAvailability() {
-    openWhatsApp(`Hola! Quiero este perfume: ${currentSearchTerm}`);
+    openWhatsApp(`Hola! Quiero preguntar por la disponibilidad y precio final de este perfume: ${currentSearchTerm}`);
   }
 
   // ==========================================
