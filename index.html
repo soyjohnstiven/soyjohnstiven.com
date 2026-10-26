@@ -3,25 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
 <title>Perfumería Original</title>
+
+<!-- PWA & Apple Web App Tags -->
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Perfumería">
 <meta name="theme-color" content="#F2F2F7">
 
+<!-- Iconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
   :root {
-    /* Paleta Oficial Apple iOS */
+    /* Paleta Oficial iOS Light Mode */
     --bg-app: #F2F2F7; 
     --bg-card: #FFFFFF;
     --text-main: #000000;
+    --text-secondary: #3C3C43;
     --text-muted: #8A8A8E;
     --apple-blue: #007AFF;
     --border: #E5E5EA;
     
-    --nav-height: 85px;
+    --nav-height: 83px;
+    --top-height: 60px;
     --safe-bottom: env(safe-area-inset-bottom, 20px);
+    
+    /* Efectos y Radios */
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 4px 15px rgba(0,0,0,0.04);
+    --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -29,281 +44,299 @@
   body {
     background-color: var(--bg-app);
     color: var(--text-main);
-    /* Tipografía nativa de Apple (San Francisco) */
+    /* Tipografía nativa Apple */
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px);
   }
 
-  /* SPLASH SCREEN */
+  /* SPLASH SCREEN (Carga Inicial) */
   #splash {
     position: fixed; inset: 0; background: var(--bg-card); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     transition: opacity 0.5s ease;
   }
-  .spinner { width: 30px; height: 30px; border: 3px solid var(--border); border-top-color: var(--text-muted); border-radius: 50%; animation: spin 1s linear infinite; }
+  .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--text-muted); border-radius: 50%; animation: spin 1s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* TÍTULOS GRANDES IOS */
-  .large-title { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; margin: 20px 20px 15px 20px; }
-  .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; margin: 30px 20px 15px 20px; display: flex; justify-content: space-between; align-items: flex-end;}
-  .section-title a { font-size: 15px; color: var(--apple-blue); font-weight: 400; text-decoration: none; }
-
-  /* HEADER FLOTANTE TIPO IOS */
-  header {
-    position: sticky; top: 0; z-index: 1000; padding: 15px 20px; height: 60px;
-    background: rgba(242, 242, 247, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid transparent;
-    transition: border-bottom 0.3s;
+  /* ESTRUCTURA PRINCIPAL (Centrado para PC) */
+  .app-container {
+    max-width: 1200px; margin: 0 auto;
+    padding-top: var(--top-height);
+    padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px);
+    display: flex; flex-direction: column; min-height: 100vh;
   }
-  header.scrolled { border-bottom: 1px solid var(--border); background: rgba(255, 255, 255, 0.85); }
-  .brand-small { font-size: 17px; font-weight: 600; opacity: 0; transition: opacity 0.3s;}
-  header.scrolled .brand-small { opacity: 1; }
 
-  /* TAB BAR IOS (BOTTOM NAV) */
+  /* TOP BAR (Glassmorphism iOS) */
+  .top-bar {
+    position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height);
+    background: rgba(242, 242, 247, 0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .top-bar h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.4px; }
+
+  /* BOTTOM NAVIGATION BAR */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom));
-    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid var(--border); z-index: 2000;
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-top: 1px solid rgba(0,0,0,0.1); z-index: 2000;
     display: flex; justify-content: space-around; padding-bottom: var(--safe-bottom);
   }
   .nav-item {
     flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-    color: var(--text-muted); font-size: 10px; font-weight: 500; transition: 0.2s;
+    color: var(--text-muted); font-size: 10px; font-weight: 500; cursor: pointer; transition: 0.2s;
   }
   .nav-item i { font-size: 22px; margin-bottom: 2px;}
   .nav-item.active { color: var(--apple-blue); }
 
   /* VISTAS */
-  .view { display: none; animation: fadeView 0.3s ease; }
+  .view { display: none; padding: 20px 5%; animation: fadeView 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .view.active { display: block; }
-  @keyframes fadeView { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* TIPOGRAFÍAS iOS */
+  .large-title { font-size: 34px; font-weight: 800; letter-spacing: -1px; margin-bottom: 25px; line-height: 1.1;}
+  .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 0 15px 0; }
 
   /* =========================================
-     MÓDULO 1: TIENDA (APP STORE STYLE)
+     CATÁLOGO & BUSCADOR
      ========================================= */
-  
-  /* Botón PDF (Banner Destacado) */
-  .featured-banner {
-    display: block; margin: 0 20px 25px 20px; text-decoration: none;
-    border-radius: 16px; overflow: hidden; position: relative;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08); background: #1C1C1E; color: white;
+  .search-box {
+    display: flex; align-items: center; background: #E3E3E8; padding: 12px 16px;
+    border-radius: 12px; margin-bottom: 25px; gap: 10px;
   }
-  .fb-content { padding: 25px 20px; position: relative; z-index: 2;}
-  .fb-subtitle { font-size: 11px; font-weight: 700; color: #8E8E93; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;}
-  .fb-title { font-size: 28px; font-weight: 800; line-height: 1.1; margin-bottom: 15px;}
-  .fb-btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; display: inline-block;}
-
-  /* Buscador iOS */
-  .ios-search {
-    margin: 0 20px 20px 20px; display: flex; align-items: center;
-    background: #E3E3E8; border-radius: 10px; padding: 10px 15px; gap: 10px;
+  .search-box i { color: var(--text-muted); font-size: 18px; }
+  .search-box input {
+    border: none; background: transparent; width: 100%; font-size: 17px;
+    font-family: inherit; outline: none; color: var(--text-main);
   }
-  .ios-search i { color: var(--text-muted); font-size: 16px; }
-  .ios-search input { border: none; background: transparent; width: 100%; font-size: 17px; font-family: inherit; outline: none; color: var(--text-main);}
-  .ios-search input::placeholder { color: var(--text-muted); }
 
-  /* Estado Vacío Buscador */
-  .empty-state { text-align: center; padding: 40px 20px; }
-  .empty-state h3 { font-size: 20px; font-weight: 700; margin-bottom: 20px;}
-  .btn-ask { background: var(--apple-blue); color: white; border: none; padding: 14px 20px; border-radius: 12px; font-size: 13px; font-weight: 700; width: 100%; cursor: pointer;}
+  .btn-pdf {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg-card); padding: 18px 20px; border-radius: var(--radius-lg);
+    text-decoration: none; color: var(--text-main); box-shadow: var(--shadow-sm);
+    margin-bottom: 30px; border: 1px solid var(--border); transition: var(--transition);
+  }
+  .btn-pdf:active { transform: scale(0.97); }
+  .pdf-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 2px;}
+  .pdf-info p { font-size: 13px; color: var(--text-muted);}
+  .btn-pdf i { font-size: 24px; color: #FF3B30; }
 
-  /* Carrusel Horizontal (Apps Style) */
-  .ios-carousel {
+  .notice-text { font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 20px; padding: 0 10px; line-height: 1.4;}
+
+  /* CARRUSEL MEDELLÍN (Horizontal Snap) */
+  .medellin-carousel {
     display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-    padding: 10px 20px 20px 20px; margin-left: 0;
+    padding-bottom: 15px; margin: 0 -5% 30px -5%; padding-left: 5%; padding-right: 5%;
   }
-  .ios-carousel::-webkit-scrollbar { display: none; }
+  .medellin-carousel::-webkit-scrollbar { display: none; }
   
   .card-ios {
-    min-width: 160px; max-width: 160px; scroll-snap-align: start;
-    display: flex; flex-direction: column; gap: 10px; cursor: pointer;
+    min-width: 150px; max-width: 150px; scroll-snap-align: start;
+    background: var(--bg-card); border-radius: var(--radius-lg); padding: 12px;
+    box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
   }
-  .card-ios-img { width: 100%; aspect-ratio: 1; background: var(--bg-card); border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 15px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;}
-  .card-ios-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply;}
-  .card-ios-info h4 { font-size: 13px; font-weight: 600; line-height: 1.2; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
-  .card-ios-info p { font-size: 11px; color: var(--text-muted); margin-bottom: 8px;}
+  @media(min-width: 768px) { .card-ios { min-width: 180px; max-width: 180px; } }
   
-  .get-btn {
-    background: #F2F2F7; color: var(--apple-blue); border: none; padding: 6px 0; width: 70px;
-    border-radius: 16px; font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s;
-  }
-  .get-btn.selected { background: var(--apple-blue); color: white; width: 100%;}
+  .card-img { width: 100%; aspect-ratio: 1; background: var(--bg-app); border-radius: var(--radius-md); padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;}
+  .card-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .card-title { font-size: 13px; font-weight: 600; line-height: 1.2; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 32px;}
+  .card-price { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;}
+  .btn-get { background: #F2F2F7; color: var(--apple-blue); border: none; padding: 8px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s;}
+  .btn-get.selected { background: var(--apple-blue); color: white;}
 
-  /* Grid Vertical (Listado completo) */
-  .list-view { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; }
-  .list-item { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid var(--border); padding-bottom: 15px;}
-  .list-item:last-child { border-bottom: none; }
-  .list-img { width: 70px; height: 70px; background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border); padding: 8px; flex-shrink: 0;}
-  .list-img img { width: 100%; height: 100%; object-fit: contain; }
-  .list-data { flex: 1; }
-  .list-data h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px;}
-  .list-data p { font-size: 13px; color: var(--text-muted);}
-  
-  /* CARRITO FLOTANTE (ESTILO APPLE PAY) */
-  .apple-cart {
-    position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150%);
+  /* GRID CATÁLOGO NACIONAL (Adaptable a PC) */
+  .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  @media(min-width: 768px){ .product-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media(min-width: 1024px){ .product-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .empty-state { text-align: center; padding: 40px 10px; }
+  .empty-state i { font-size: 40px; color: var(--border); margin-bottom: 15px;}
+  .empty-state h3 { font-size: 18px; font-weight: 600; margin-bottom: 20px;}
+  .btn-ask { background: var(--apple-blue); color: white; border: none; padding: 16px 20px; border-radius: 14px; font-size: 13px; font-weight: 600; width: 100%; cursor: pointer;}
+
+  /* CARRITO FLOTANTE (Píldora) */
+  .fab-cart {
+    position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150px);
     width: 90%; max-width: 400px; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
-    padding: 16px 20px; border-radius: 24px; display: flex; justify-content: space-between; align-items: center;
-    z-index: 1500; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 1px solid var(--border); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 14px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center;
+    z-index: 1500; box-shadow: var(--shadow-md); border: 1px solid var(--border); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .apple-cart.show { transform: translateX(-50%) translateY(0); }
-  .ac-info { display: flex; align-items: center; gap: 12px; }
-  .ac-icon { background: var(--text-main); color: white; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px;}
-  .ac-text h4 { font-size: 14px; font-weight: 600;}
-  .ac-text p { font-size: 11px; color: var(--text-muted);}
-  .ac-btn { background: var(--apple-blue); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 700; font-size: 13px;}
+  .fab-cart.show { transform: translateX(-50%) translateY(0); }
+  .ac-text { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600;}
+  .ac-btn { background: var(--apple-blue); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer;}
 
   /* =========================================
-     MÓDULO 2: SORTEOS
+     MÓDULO 2: SORTEOS (INTERACTIVOS)
      ========================================= */
-  .sorteo-card-ios {
-    margin: 0 20px 25px 20px; background: var(--bg-card); border-radius: 20px; padding: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  .sorteo-card {
+    background: var(--bg-card); border-radius: var(--radius-lg); padding: 25px 20px;
+    box-shadow: var(--shadow-sm); margin-bottom: 20px; cursor: pointer; transition: 0.2s;
   }
-  .sc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
+  .sorteo-card:active { transform: scale(0.97); }
+  .sc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
+  .sc-title { font-size: 18px; font-weight: 700; }
   .sc-tag { background: #E5F0FF; color: var(--apple-blue); padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase;}
-  
-  .board-legend { display: flex; justify-content: center; gap: 15px; font-size: 11px; font-weight: 500; margin-bottom: 20px; color: var(--text-muted);}
-  .leg-item { display: flex; align-items: center; gap: 5px; }
-  .leg-box { width: 12px; height: 12px; border-radius: 3px; }
+  .sc-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 15px;}
+  .sc-btn { display: inline-block; background: var(--bg-app); color: var(--apple-blue); padding: 10px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; text-decoration: none;}
 
-  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
-  .b-cell {
-    aspect-ratio: 1; border-radius: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-    font-size: 12px; font-weight: 600; cursor: pointer;
+  /* MODAL TABLERO DE SORTEO (BOTTOM SHEET TIPO IOS) */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+    z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s;
   }
-  .b-cell.libre { background: var(--apple-blue); color: white; }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .bottom-sheet {
+    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-app);
+    border-radius: 24px 24px 0 0; padding: 25px 20px; transform: translateY(100%);
+    transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 90vh; overflow-y: auto;
+  }
+  @media(min-width: 768px) {
+    .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 24px; bottom: 20px; max-height: 80vh; }
+  }
+  .bottom-sheet.active { transform: translateY(0); }
+  .sheet-handle { width: 36px; height: 5px; background: #C7C7CC; border-radius: 5px; margin: 0 auto 20px auto; }
+  
+  .leyenda-board { display: flex; justify-content: center; gap: 15px; font-size: 11px; font-weight: 500; margin-bottom: 25px;}
+  .leg-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted);}
+  .leg-box { width: 14px; height: 14px; border-radius: 4px; }
+  
+  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+  .b-cell {
+    aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.1s;
+  }
+  .b-cell:active { transform: scale(0.9); }
+  .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); box-shadow: 0 2px 8px rgba(0,0,0,0.05);}
   .b-cell.pendiente { background: #E5E5EA; color: #8E8E93; pointer-events: none;}
   .b-cell.ocupado { background: transparent; color: #C7C7CC; pointer-events: none; border: 1px solid #E5E5EA; }
   .b-cell.ocupado span { font-size: 8px; text-decoration: line-through; margin-top: -2px;}
 
-  .winner-list-ios { padding: 0 20px; }
-  .w-item { background: var(--bg-card); border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);}
-  .w-item i { font-size: 24px; color: #FFCC00; }
+  /* Carrusel de Ganadores */
+  .winners-carousel { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; margin: 0 -5%; padding-left: 5%; padding-right: 5%;}
+  .winner-card {
+    min-width: 260px; scroll-snap-align: start; background: var(--bg-card); padding: 20px;
+    border-radius: var(--radius-lg); display: flex; gap: 15px; align-items: center; box-shadow: var(--shadow-sm);
+  }
+  .w-icon { font-size: 28px; color: #FFCC00; }
+  .w-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px;}
+  .w-info p { font-size: 12px; color: var(--text-muted);}
 
   /* =========================================
-     MÓDULO 3: INFORMACIÓN (AJUSTES IOS)
+     MÓDULO 3: INFORMACIÓN
      ========================================= */
-  .settings-group {
-    background: var(--bg-card); border-radius: 12px; margin: 0 20px 25px 20px; overflow: hidden;
-  }
-  .settings-row {
-    display: flex; align-items: center; padding: 15px; border-bottom: 1px solid var(--border); gap: 15px;
-  }
-  .settings-row:last-child { border-bottom: none; }
-  .s-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; flex-shrink: 0;}
+  .info-group { background: var(--bg-card); border-radius: var(--radius-lg); margin-bottom: 25px; overflow: hidden; box-shadow: var(--shadow-sm);}
+  .info-row { display: flex; align-items: flex-start; padding: 20px; border-bottom: 1px solid var(--border); gap: 15px; }
+  .info-row:last-child { border-bottom: none; }
+  .s-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; flex-shrink: 0;}
   .s-text { flex: 1; }
-  .s-text h4 { font-size: 15px; font-weight: 500; color: var(--text-main); margin-bottom: 2px;}
-  .s-text p { font-size: 12px; color: var(--text-muted); line-height: 1.4;}
+  .s-text h4 { font-size: 16px; font-weight: 600; margin-bottom: 6px;}
+  .s-text p { font-size: 13px; color: var(--text-muted); line-height: 1.4;}
   
-  .s-btn { background: var(--bg-app); color: var(--apple-blue); border: none; padding: 8px 12px; border-radius: 16px; font-size: 13px; font-weight: 600; text-decoration: none;}
+  .track-widget { background: var(--bg-app); padding: 15px; border-radius: 12px; margin-top: 15px; text-align: center;}
+  .track-widget a { color: var(--apple-blue); font-size: 13px; font-weight: 600; text-decoration: none;}
 
-  .vip-banner {
-    margin: 0 20px; background: #34C759; border-radius: 16px; padding: 20px; color: white;
-    display: flex; align-items: center; gap: 15px; cursor: pointer; box-shadow: 0 8px 20px rgba(52, 199, 89, 0.2);
-  }
 </style>
 </head>
 <body>
 
-<!-- SPLASH SCREEN -->
 <div id="splash">
   <div class="spinner"></div>
 </div>
 
-<!-- HEADER IOS -->
-<header id="mainHeader">
-  <div class="brand-small">Perfumería Original</div>
+<header class="top-bar" id="mainHeader">
+  <h1 id="topTitle">CATÁLOGO</h1>
 </header>
 
-<!-- BOTTOM NAV -->
+<!-- Navegación Apple Style -->
 <nav class="bottom-nav">
-  <div class="nav-item active" onclick="switchView('tienda', this)">
+  <div class="nav-item active" onclick="switchView('tienda', 'CATÁLOGO', this)">
     <i class="fa-solid fa-layer-group"></i>
     <span>Catálogo</span>
   </div>
-  <div class="nav-item" onclick="switchView('sorteos', this)">
-    <i class="fa-solid fa-gift"></i>
+  <div class="nav-item" onclick="switchView('sorteos', 'SORTEOS', this)">
+    <i class="fa-solid fa-ticket"></i>
     <span>Sorteos</span>
   </div>
-  <div class="nav-item" onclick="switchView('info', this)">
+  <div class="nav-item" onclick="switchView('info', 'INFORMACIÓN', this)">
     <i class="fa-solid fa-circle-info"></i>
     <span>Info</span>
   </div>
 </nav>
 
-<!-- CARRITO FLOTANTE (APPLE PAY STYLE) -->
-<div class="apple-cart" id="appleCart">
-  <div class="ac-info">
-    <div class="ac-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-    <div class="ac-text">
-      <h4>Tu Pedido</h4>
-      <p><span id="cartCount">0</span> artículos seleccionados</p>
-    </div>
+<!-- Carrito Flotante -->
+<div class="fab-cart" id="appleCart">
+  <div class="ac-text">
+    <i class="fa-solid fa-bag-shopping" style="font-size:18px;"></i> 
+    <span><span id="cartCount">0</span> seleccionados</span>
   </div>
   <button class="ac-btn" onclick="sendCart()">Pedir</button>
 </div>
 
-<div class="main-wrapper">
+<!-- Modal Tablero Sorteo (Bottom Sheet) -->
+<div class="modal-overlay" id="sheetOverlay" onclick="closeSheet(event)">
+  <div class="bottom-sheet" id="sheetSorteo">
+    <div class="sheet-handle"></div>
+    <h3 style="font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 20px;">Selecciona tu Puesto</h3>
+    
+    <div class="leyenda-board">
+      <div class="leg-item"><div class="leg-box" style="background: var(--apple-blue);"></div> Libre</div>
+      <div class="leg-item"><div class="leg-box" style="background: #E5E5EA;"></div> Pendiente</div>
+      <div class="leg-item"><div class="leg-box" style="border: 1px solid #E5E5EA;"></div> Vendido</div>
+    </div>
+
+    <div class="board-grid" id="boardGrid">
+      <!-- Inyectado JS -->
+    </div>
+  </div>
+</div>
+
+
+<div class="app-container">
 
   <!-- =========================================
        VISTA 1: TIENDA
        ========================================= -->
   <section id="viewTienda" class="view active">
     
-    <h1 class="large-title">Catálogo</h1>
+    <h1 class="large-title">Descubre</h1>
 
-    <!-- Botón PDF Destacado -->
-    <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="featured-banner">
-      <div class="fb-content">
-        <div class="fb-subtitle">CATÁLOGO COMPLETO</div>
-        <h3 class="fb-title">Explora nuestra<br>colección en PDF.</h3>
-        <div class="fb-btn">Ver Catálogo</div>
+    <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="btn-pdf">
+      <div class="pdf-info">
+        <h3>Catálogo PDF</h3>
+        <p>Visualiza toda la colección.</p>
       </div>
-      <!-- Fondo oscuro puro como lo dicta Apple para cards destacadas -->
+      <i class="fa-solid fa-file-pdf"></i>
     </a>
 
-    <!-- Buscador IOS -->
-    <div class="ios-search">
+    <div class="search-box">
       <i class="fa-solid fa-magnifying-glass"></i>
       <input type="text" id="searchInput" placeholder="Buscar perfumes...">
     </div>
 
-    <!-- Contenedor Resultados -->
     <div id="searchResults">
       
-      <!-- Carrusel Medellín (Entrega Inmediata) -->
-      <div class="section-title">
-        <span>Entrega Inmediata (Medellín)</span>
-      </div>
-      <p style="margin: 0 20px 15px 20px; font-size: 13px; color: var(--text-muted); line-height: 1.4;">
-        Fotos de muestra. Para que funcione este carrusel, debes subir los links de las imágenes a Google Sheets. Solo precio al detal.
-      </p>
-      <div class="ios-carousel" id="medellinCarousel">
-        <!-- Mockup Visual -->
-        <div class="card-ios">
-          <div class="card-ios-img"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80" alt="Perfume"></div>
-          <div class="card-ios-info"><h4>Lattafa Asad</h4><p>$180,000</p></div>
-          <button class="get-btn" onclick="openWhatsApp('Hola! Quiero este perfume: Lattafa Asad')">OBTENER</button>
-        </div>
-        <div class="card-ios">
-          <div class="card-ios-img"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80" alt="Perfume"></div>
-          <div class="card-ios-info"><h4>Afnan 9PM</h4><p>$150,000</p></div>
-          <button class="get-btn" onclick="openWhatsApp('Hola! Quiero este perfume: Afnan 9PM')">OBTENER</button>
-        </div>
+      <!-- Carrusel Medellín -->
+      <h2 class="section-title">
+        Entrega Inmediata
+        <span style="font-size: 13px; font-weight: 500; color: var(--text-muted); background: #E5E5EA; padding: 4px 10px; border-radius: 12px;">Medellín</span>
+      </h2>
+      <p class="notice-text">Aplica únicamente precio al detal para entrega inmediata.</p>
+      
+      <div class="medellin-carousel" id="medellinContainer">
+        <!-- Inyectado JS (Desde el link de Medellín) -->
       </div>
 
-      <!-- Lista Catálogo General -->
-      <div class="section-title">
-        <span>Catálogo Nacional</span>
-      </div>
-      <div class="list-view" id="catalogList">
-        <!-- Inyectado por JS -->
-      </div>
+      <!-- Catálogo Nacional -->
+      <h2 class="section-title">Catálogo Nacional</h2>
+      <p class="notice-text">Es mejor preguntar por el precio final de cada perfume, ya que todos varían. Así como pueden aumentar, pueden disminuir.</p>
 
+      <div class="product-grid" id="catalogGrid">
+        <!-- Inyectado JS -->
+      </div>
     </div>
+
   </section>
 
   <!-- =========================================
@@ -312,36 +345,13 @@
   <section id="viewSorteos" class="view">
     <h1 class="large-title">Sorteos</h1>
 
+    <!-- Sorteos Activos (Tarjetas) -->
     <div id="sorteosList">
-      <!-- Sorteo 1 -->
-      <div class="sorteo-card-ios">
-        <div class="sc-header">
-          <h3 style="font-size: 18px;">Sorteo Activo</h3>
-          <span class="sc-tag">EN VIVO</span>
-        </div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;" id="descS1">Cargando...</p>
-        
-        <div class="board-legend">
-          <div class="leg-item"><div class="leg-box" style="background: var(--apple-blue);"></div> Libre</div>
-          <div class="leg-item"><div class="leg-box" style="background: #E5E5EA;"></div> Pendiente</div>
-          <div class="leg-item"><div class="leg-box" style="border: 1px solid #E5E5EA;"></div> Vendido</div>
-        </div>
-        <div class="board-grid" id="board1"></div>
-      </div>
-
-      <!-- Sorteo 2 -->
-      <div class="sorteo-card-ios">
-        <div class="sc-header">
-          <h3 style="font-size: 18px;">Sorteo Activo</h3>
-          <span class="sc-tag">EN VIVO</span>
-        </div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;" id="descS2">Cargando...</p>
-        <div class="board-grid" id="board2"></div>
-      </div>
+      <!-- Inyectado JS -->
     </div>
 
     <h2 class="section-title">Ganadores Anteriores</h2>
-    <div class="winner-list-ios" id="winnersContainer">
+    <div class="winners-carousel" id="winnersContainer">
       <!-- Inyectado JS -->
     </div>
   </section>
@@ -350,40 +360,45 @@
        VISTA 3: INFORMACIÓN
        ========================================= -->
   <section id="viewInfo" class="view">
-    <h1 class="large-title">Políticas</h1>
+    <h1 class="large-title">Información</h1>
 
-    <div class="settings-group">
-      <div class="settings-row">
+    <div class="info-group">
+      <div class="info-row">
         <div class="s-icon" style="background: #007AFF;"><i class="fa-solid fa-truck-fast"></i></div>
         <div class="s-text">
           <h4>Envíos Nacionales</h4>
-          <p>Inter Rapidísimo (1-3 días). Única forma válida para acceder a precios al por mayor.</p>
+          <p>Inter Rapidísimo (llega de 1 a 3 días). <strong>Única forma válida para acceder a precios al por mayor.</strong></p>
+          <div class="track-widget">
+            <a href="https://www.interrapidisimo.com/sigue-tu-envio/" target="_blank">Rastrear envío en Inter Rapidísimo</a>
+          </div>
         </div>
-        <a href="https://www.interrapidisimo.com/sigue-tu-envio/" target="_blank" class="s-btn">Rastrear</a>
       </div>
 
-      <div class="settings-row">
+      <div class="info-row">
         <div class="s-icon" style="background: #34C759;"><i class="fa-solid fa-motorcycle"></i></div>
         <div class="s-text">
-          <h4>Entregas Medellín</h4>
-          <p>Entrega inmediata en la ciudad. Solo aplica precio al detal.</p>
+          <h4>Entregas en Medellín</h4>
+          <p>Servicio para entrega inmediata en la ciudad. <strong>Los precios al detal solo son válidos para entregas inmediatas.</strong></p>
         </div>
       </div>
 
-      <div class="settings-row">
+      <div class="info-row">
         <div class="s-icon" style="background: #FF9500;"><i class="fa-solid fa-credit-card"></i></div>
         <div class="s-text">
           <h4>Medios de Pago</h4>
-          <p>Nequi, Bancolombia, DaviPlata, Llave.</p>
+          <p>Nequi, Bancolombia, Llave y mucho más.</p>
         </div>
       </div>
     </div>
 
-    <div class="vip-banner" onclick="openWhatsApp('Hola! Quiero guardar el contacto para ver los estados.')">
-      <i class="fa-brands fa-whatsapp"></i>
-      <div>
-        <h4 style="font-size: 16px; font-weight: 700; margin-bottom: 2px;">Estados Exclusivos</h4>
-        <p style="font-size: 13px;">Agrégame para no perderte las ofertas.</p>
+    <!-- Botón Comunidad -->
+    <div class="info-group" style="cursor: pointer;" onclick="openWhatsApp('Hola. Quiero agregarlos a mis contactos para ver los estados y promociones.')">
+      <div class="info-row" style="align-items: center;">
+        <div class="s-icon" style="background: #34C759; width: 45px; height: 45px; font-size: 22px;"><i class="fa-brands fa-whatsapp"></i></div>
+        <div class="s-text">
+          <h4>Comunidad Exclusiva</h4>
+          <p>Agrégame para ver mis estados y no perderte las mejores promociones.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -392,20 +407,16 @@
 
 <script>
   // ==========================================
-  // NAVEGACIÓN Y EFECTOS IOS
+  // NAVEGACIÓN IOS
   // ==========================================
-  function switchView(viewId, element) {
+  function switchView(viewId, title, element) {
     document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1)).classList.add('active');
     element.classList.add('active');
-    window.scrollTo(0, 0);
+    document.getElementById('topTitle').innerText = title;
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
-
-  window.addEventListener('scroll', () => {
-    const header = document.getElementById('mainHeader');
-    window.scrollY > 40 ? header.classList.add('scrolled') : header.classList.remove('scrolled');
-  });
 
   // ==========================================
   // WHATSAPP Y CARRITO
@@ -420,12 +431,12 @@
       cart.splice(idx, 1);
       btn.style.background = "#F2F2F7";
       btn.style.color = "var(--apple-blue)";
-      btn.innerText = "OBTENER";
+      btn.innerText = "Agregar";
     } else {
       cart.push(name);
       btn.style.background = "var(--apple-blue)";
       btn.style.color = "white";
-      btn.innerText = "LISTO";
+      btn.innerText = "Listo";
     }
     updateCartUI();
   }
@@ -442,12 +453,54 @@
   }
 
   // ==========================================
-  // PARSER DE CATÁLOGO (SHEETS)
+  // BOTTOM SHEET TABLERO (MODAL)
   // ==========================================
-  const SHEET_CATALOGO = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
-  const DEFAULT_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
-  let catalogo = [];
+  function openSorteoSheet(pDataStr) {
+    const pData = JSON.parse(pDataStr);
+    renderBoardTablero(pData);
+    
+    const overlay = document.getElementById('sheetOverlay');
+    const sheet = document.getElementById('sheetSorteo');
+    overlay.classList.add('active');
+    setTimeout(() => sheet.classList.add('active'), 10);
+  }
 
+  function closeSheet(e) {
+    if(e && e.target.id !== 'sheetOverlay') return;
+    document.getElementById('sheetSorteo').classList.remove('active');
+    document.getElementById('sheetOverlay').classList.remove('active');
+  }
+
+  function renderBoardTablero(puestosData) {
+    const board = document.getElementById('boardGrid');
+    let html = '';
+    for(let i = 1; i <= 100; i++) {
+      const numStr = i < 10 ? '0' + i : '' + i;
+      const puesto = puestosData.find(p => p.numeros.includes(numStr));
+      
+      if(puesto) {
+        if(puesto.estado === 'ocupado') {
+          html += `<div class="b-cell ocupado">X<span>${numStr}</span></div>`;
+        } else if(puesto.estado === 'pendiente') {
+          html += `<div class="b-cell pendiente">P</div>`;
+        } else {
+          html += `<div class="b-cell libre" onclick="pedirPuesto('${numStr}')">${numStr}</div>`;
+        }
+      } else {
+        html += `<div class="b-cell libre" onclick="pedirPuesto('${numStr}')">${numStr}</div>`;
+      }
+    }
+    board.innerHTML = html;
+  }
+
+  function pedirPuesto(num) { 
+    closeSheet();
+    openWhatsApp(`Hola! Quiero este puesto en el sorteo: ${num}`); 
+  }
+
+  // ==========================================
+  // DATOS Y PARSEO
+  // ==========================================
   function parseCSV(t){
     var rows=[], row=[], f='', inQ=false;
     for(var i=0; i<t.length; i++){
@@ -459,108 +512,150 @@
   }
   function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+  const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
+  
+  // URLS
+  const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
+  const URL_MEDELLIN = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=491056335&single=true&output=csv';
+  const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
+  const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
+
+  let catNacional = [];
+  let catMedellin = [];
+  let allWinners = [];
+
   document.addEventListener('DOMContentLoaded', () => {
-    cargarSorteos();
+    // 1. Cargar Sorteos
+    fetchSorteos();
     
-    fetch(SHEET_CATALOGO + '&t=' + new Date().getTime())
+    // 2. Cargar Medellín
+    fetch(URL_MEDELLIN + '&t=' + new Date().getTime())
       .then(r => r.text())
       .then(csv => {
-        var rows = parseCSV(csv).slice(1);
-        catalogo = rows.map(cols => {
-          if(!cols || cols.length < 2) return null;
-          var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
-          var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
-          var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEFAULT_IMG;
-          return { nombre, precio, foto };
-        }).filter(Boolean);
+        catMedellin = processCatalog(csv);
+        renderMedellin(catMedellin);
+      });
+
+    // 3. Cargar Nacional
+    fetch(URL_NACIONAL + '&t=' + new Date().getTime())
+      .then(r => r.text())
+      .then(csv => {
+        catNacional = processCatalog(csv);
+        renderCatalog(catNacional);
         
-        renderCatalog(catalogo);
-        
+        // Quitar Splash
         setTimeout(() => {
           const s = document.getElementById('splash');
           s.style.opacity = '0';
           setTimeout(() => s.style.display = 'none', 500);
-        }, 500);
+        }, 800);
       });
   });
 
-  function renderCatalog(lista) {
-    const listEl = document.getElementById('catalogList');
-    if(lista.length === 0) return;
-    listEl.innerHTML = lista.map(p => {
+  function processCatalog(csvData) {
+    return parseCSV(csvData).slice(1).map(cols => {
+      if(!cols || cols.length < 2) return null;
+      var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
+      var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
+      var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEF_IMG;
+      return { nombre, precio, foto };
+    }).filter(Boolean);
+  }
+
+  function renderMedellin(lista) {
+    const cont = document.getElementById('medellinContainer');
+    if(lista.length === 0) { cont.innerHTML = '<p style="font-size:12px; margin-left:20px;">No hay inventario local ahora mismo.</p>'; return; }
+    cont.innerHTML = lista.map(p => {
       const isSel = cart.includes(p.nombre);
       const bg = isSel ? 'var(--apple-blue)' : '#F2F2F7';
       const col = isSel ? 'white' : 'var(--apple-blue)';
       const txt = isSel ? 'LISTO' : 'OBTENER';
-      
       return `
-      <div class="list-item">
-        <div class="list-img"><img src="${esc(p.foto)}" onerror="this.src='${DEFAULT_IMG}'" loading="lazy"></div>
-        <div class="list-data">
-          <h4>${esc(p.nombre)}</h4>
-          <p>${esc(p.precio)}</p>
-        </div>
-        <button class="get-btn" style="background:${bg}; color:${col};" onclick="toggleCart('${esc(p.nombre)}', this)">${txt}</button>
+      <div class="card-ios">
+        <div class="card-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
+        <h4 class="card-title">${esc(p.nombre)}</h4>
+        <p class="card-price">${esc(p.precio)}</p>
+        <button class="btn-get" style="background:${bg}; color:${col};" onclick="toggleCart('${esc(p.nombre)}', this)">${txt}</button>
       </div>
     `}).join('');
   }
 
-  // Buscador con estado vacío (Alerta y WhatsApp)
+  function renderCatalog(lista) {
+    const grid = document.getElementById('catalogGrid');
+    if(lista.length === 0) return;
+    grid.innerHTML = lista.map(p => {
+      const isSel = cart.includes(p.nombre);
+      const bg = isSel ? 'var(--apple-blue)' : '#F2F2F7';
+      const col = isSel ? 'white' : 'var(--apple-blue)';
+      const txt = isSel ? 'Listo' : 'Agregar';
+      return `
+      <div class="card-ios" style="width:100%; max-width:100%;">
+        <div class="card-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
+        <h4 class="card-title">${esc(p.nombre)}</h4>
+        <p class="card-price">${esc(p.precio)}</p>
+        <button class="btn-get" style="background:${bg}; color:${col}; width:100%;" onclick="toggleCart('${esc(p.nombre)}', this)">${txt}</button>
+      </div>
+    `}).join('');
+  }
+
+  // BUSCADOR INTELIGENTE
   document.getElementById('searchInput').addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase().trim();
     const resContainer = document.getElementById('searchResults');
     
     if(!term) { 
       resContainer.innerHTML = `
-        <div class="section-title"><span>Entrega Inmediata (Medellín)</span></div>
-        <p style="margin: 0 20px 15px 20px; font-size: 13px; color: var(--text-muted); line-height: 1.4;">Fotos de muestra. Para que funcione este carrusel, debes subir los links de las imágenes a Google Sheets.</p>
-        <div class="ios-carousel" id="medellinCarousel">
-          <div class="card-ios"><div class="card-ios-img"><img src="${DEFAULT_IMG}"></div><div class="card-ios-info"><h4>Lattafa Asad</h4><p>$180,000</p></div><button class="get-btn" onclick="openWhatsApp('Hola! Quiero este perfume: Lattafa Asad')">OBTENER</button></div>
-          <div class="card-ios"><div class="card-ios-img"><img src="${DEFAULT_IMG}"></div><div class="card-ios-info"><h4>Afnan 9PM</h4><p>$150,000</p></div><button class="get-btn" onclick="openWhatsApp('Hola! Quiero este perfume: Afnan 9PM')">OBTENER</button></div>
-        </div>
-        <div class="section-title"><span>Catálogo Nacional</span></div>
-        <div class="list-view" id="catalogList"></div>
+        <h2 class="section-title">Entrega Inmediata <span style="font-size: 13px; font-weight: 500; color: var(--text-muted); background: #E5E5EA; padding: 4px 10px; border-radius: 12px;">Medellín</span></h2>
+        <p class="notice-text">Aplica únicamente precio al detal para entrega inmediata.</p>
+        <div class="medellin-carousel" id="medellinContainer"></div>
+        <h2 class="section-title">Catálogo Nacional</h2>
+        <p class="notice-text">Es mejor preguntar por el precio final de cada perfume, ya que todos varían. Así como pueden aumentar, pueden disminuir.</p>
+        <div class="product-grid" id="catalogGrid"></div>
       `;
-      renderCatalog(catalogo);
+      renderMedellin(catMedellin);
+      renderCatalog(catNacional);
       return; 
     }
     
-    const filtrado = catalogo.filter(p => p.nombre.toLowerCase().includes(term));
+    const filtradoMedellin = catMedellin.filter(p => p.nombre.toLowerCase().includes(term));
+    const filtradoNacional = catNacional.filter(p => p.nombre.toLowerCase().includes(term));
     
-    if(filtrado.length === 0) {
+    if(filtradoMedellin.length === 0 && filtradoNacional.length === 0) {
       resContainer.innerHTML = `
         <div class="empty-state">
-          <i class="fa-solid fa-magnifying-glass" style="font-size: 40px; color: var(--border); margin-bottom: 15px;"></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
           <h3>No encontrado</h3>
           <button class="btn-ask" onclick="openWhatsApp('Hola! Quiero preguntar por la disponibilidad y precio final de este perfume: ${esc(term)}')">PREGUNTA POR DISPONIBILIDAD Y PRECIO FINAL</button>
         </div>
       `;
     } else {
-      resContainer.innerHTML = `<div class="list-view" id="catalogList"></div>`;
-      renderCatalog(filtrado);
+      resContainer.innerHTML = `<div class="product-grid" id="catalogGrid"></div>`;
+      // Unir ambos arreglos y quitar duplicados para resultados de búsqueda global
+      const combined = [...filtradoMedellin, ...filtradoNacional];
+      const unique = combined.filter((v, i, a) => a.findIndex(t => (t.nombre === v.nombre)) === i);
+      renderCatalog(unique);
     }
   });
 
   // ==========================================
-  // TABLERO DE SORTEOS Y GANADORES
+  // CARGA DE SORTEOS Y GANADORES
   // ==========================================
-  const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
-  const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
-  let allWinners = [];
-
-  function cargarSorteos() {
+  function fetchSorteos() {
     allWinners = [];
-    fetchSorteo(URL_S1, 1);
-    fetchSorteo(URL_S2, 2);
+    document.getElementById('sorteosList').innerHTML = '';
+    fetchSorteoData(URL_S1);
+    fetchSorteoData(URL_S2);
   }
 
-  function fetchSorteo(url, num) {
+  function fetchSorteoData(url) {
     fetch(url + '&t=' + new Date().getTime())
       .then(r => r.text())
       .then(csv => {
         var rows = parseCSV(csv).slice(1);
         if (rows.length > 0 && rows[0].length >= 7) {
-          document.getElementById('descS' + num).innerText = `Premio: ${rows[0][4] ? rows[0][4].trim() : ''} - Valor: ${rows[0][6] ? rows[0][6].trim() : ''}`;
+          const title = rows[0][3] ? rows[0][3].trim() : 'Sorteo Especial';
+          const desc = rows[0][4] ? rows[0][4].trim() : '';
+          const price = rows[0][6] ? rows[0][6].trim() : '--';
           
           let pData = rows.map(cols => {
             if(!cols || cols.length < 3 || !cols[0].trim()) return null;
@@ -574,15 +669,23 @@
             return { id: cols[0].trim(), numeros: arr, estado: estado };
           }).filter(Boolean);
 
-          renderBoard(pData, num);
+          const list = document.getElementById('sorteosList');
+          list.innerHTML += `
+            <div class="sorteo-card" onclick='openSorteoSheet(\`${JSON.stringify(pData)}\`)'>
+              <div class="sc-header"><h3 class="sc-title">${title}</h3><span class="sc-tag">En Vivo</span></div>
+              <p class="sc-desc">Premio: ${desc}</p>
+              <div style="font-size:16px; font-weight:700;">${price} <span style="font-size:11px; font-weight:500; color:var(--text-muted);">/ PUESTO</span></div>
+              <div class="sc-btn" style="margin-top:15px;"><i class="fa-solid fa-list-ol"></i> Ver Tablero</div>
+            </div>
+          `;
         }
-        // Ganadores
+        
         rows.forEach(cols => {
           if (cols.length >= 8 && cols[7] && cols[7].trim() !== '') {
             allWinners.push({
               num: cols[7].trim(),
-              name: (cols.length > 8 && cols[8]) ? cols[8].trim() : 'Ganador(a)',
-              prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Premio Exclusivo'
+              name: (cols.length > 8 && cols[8]) ? cols[8].trim() : 'Ganador',
+              prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Perfume'
             });
           }
         });
@@ -590,34 +693,15 @@
       });
   }
 
-  function renderBoard(pData, num) {
-    const board = document.getElementById('board' + num);
-    let html = '';
-    for(let i = 1; i <= 100; i++) {
-      const nStr = i < 10 ? '0' + i : '' + i;
-      const p = pData.find(x => x.numeros.includes(nStr));
-      if(p) {
-        if(p.estado === 'ocupado') html += `<div class="b-cell ocupado">X<span>${nStr}</span></div>`;
-        else if(p.estado === 'pendiente') html += `<div class="b-cell pendiente">${nStr}</div>`;
-        else html += `<div class="b-cell libre" onclick="pedirPuesto('${nStr}')">${nStr}</div>`;
-      } else {
-        html += `<div class="b-cell libre" onclick="pedirPuesto('${nStr}')">${nStr}</div>`;
-      }
-    }
-    board.innerHTML = html;
-  }
-
-  function pedirPuesto(num) { openWhatsApp(`Hola! Quiero este puesto en el sorteo: ${num}`); }
-
   function renderWinners() {
-    const wc = document.getElementById('winnersContainer');
+    const wContainer = document.getElementById('winnersContainer');
     if(allWinners.length === 0) return;
-    wc.innerHTML = allWinners.map(w => `
-      <div class="w-item">
-        <i class="fa-solid fa-trophy"></i>
-        <div>
-          <h4 style="font-size:15px; font-weight:600;">${w.name} - Puesto ${w.num}</h4>
-          <p style="font-size:12px; color:var(--text-muted);">Ganó: ${w.prize}</p>
+    wContainer.innerHTML = allWinners.map(w => `
+      <div class="winner-card">
+        <div class="w-icon"><i class="fa-solid fa-trophy" style="color: #FF9500;"></i></div>
+        <div class="w-info">
+          <h4>${w.name} - Puesto ${w.num}</h4>
+          <p>Premio: ${w.prize}</p>
         </div>
       </div>
     `).join('');
