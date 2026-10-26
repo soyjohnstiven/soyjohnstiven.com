@@ -4,46 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<!-- Etiquetas PWA y Redes -->
-<meta property="og:title" content="Perfumería Original | Catálogo Oficial 2026">
-<meta property="og:description" content="Descubre nuestra colección de perfumería 100% original. Envíos nacionales y domicilios en Medellín.">
+<!-- Etiquetas PWA y Open Graph -->
+<meta property="og:title" content="Perfumería Original | Tienda Oficial">
+<meta property="og:description" content="Perfumería 100% original. Envíos nacionales y domicilios en Medellín.">
 <meta property="og:type" content="website">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Perfumería">
-<meta name="theme-color" content="#FF6600">
+<meta name="theme-color" content="#ffffff">
 
 <title>Perfumería Original</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
   :root {
-    --bg-main: #FDFDFD;
-    --bg-card: #FFFFFF;
-    --text-dark: #1A1A1A;
-    --text-muted: #757575;
+    /* Paleta E-commerce Premium (Estilo Apple/Zara) */
+    --bg-body: #F5F5F7; /* Gris muy claro para el fondo general */
+    --bg-surface: #FFFFFF; /* Blanco puro para tarjetas */
+    --text-main: #1D1D1F; /* Negro suave */
+    --text-muted: #86868B;
+    --border-light: #E5E5EA;
     
-    /* LA NUEVA PALETA DE COLORES */
-    --accent: #FF6600; /* Naranja Vibrante */
-    --accent-dark: #E65C00;
-    --accent-light: #FFF0E6;
+    --accent: #000000; /* Botones principales */
+    --accent-blue: #0071E3; /* Enlaces y detalles */
     
-    --border-color: #EEEEEE;
-    --nav-height: 80px;
+    --nav-height: 75px;
     --top-height: 60px;
-    --radius: 16px;
+    --radius-lg: 18px;
+    --radius-md: 12px;
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   
   body {
-    background-color: var(--bg-main);
-    color: var(--text-dark);
+    background-color: var(--bg-body);
+    color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
     -webkit-font-smoothing: antialiased;
     padding-top: var(--top-height);
@@ -51,213 +51,209 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
-  
-  /* PANTALLA DE CARGA (Estilo Lujo Oscuro + Naranja) */
+  /* PANTALLA DE CARGA ELEGANTE */
   #splashScreen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--text-dark); z-index: 9999;
+    background-color: var(--bg-surface); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: var(--bg-card); transition: opacity 0.8s ease;
+    transition: opacity 0.6s ease;
   }
-  #splashScreen h1 { font-size: 28px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); text-shadow: 0 0 20px rgba(255, 102, 0, 0.3);}
-  #splashScreen p { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #AAA; margin-top: 15px; animation: pulse 1.5s infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+  #splashScreen h1 { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: var(--text-main); }
+  .spinner { margin-top: 15px; width: 24px; height: 24px; border: 3px solid var(--border-light); border-top-color: var(--text-main); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* CABECERA TOP SUPERIOR */
+  /* CABECERA (TOP BAR) */
   .top-bar {
     position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height);
-    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-bottom: 2px solid var(--accent); z-index: 1000;
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-light); z-index: 1000;
     display: flex; justify-content: space-between; align-items: center; padding: 0 5%;
-    box-shadow: 0 4px 15px rgba(255, 102, 0, 0.05);
   }
-  .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dark); }
-  .live-counter { font-size: 11px; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 6px; background: var(--accent-light); padding: 5px 12px; border-radius: 50px;}
-  .live-dot { width: 6px; height: 6px; background-color: var(--accent); border-radius: 50%; animation: blink 1.5s infinite; }
+  .top-bar h1 { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;}
+  .live-counter {
+    background: rgba(0,0,0,0.05); padding: 6px 10px; border-radius: 20px;
+    font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 6px; color: var(--text-main);
+  }
+  .live-dot { width: 6px; height: 6px; background-color: #34C759; border-radius: 50%; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  /* NAVEGACIÓN INFERIOR (BOTTOM BAR) */
+  /* NAVEGACIÓN INFERIOR */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
-    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-    border-top: 1px solid var(--border-color); z-index: 2000;
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-light); z-index: 2000;
     display: flex; justify-content: space-around; align-items: center; padding-bottom: env(safe-area-inset-bottom);
-    box-shadow: 0 -10px 25px rgba(0,0,0,0.04);
   }
   .nav-item {
-    display: flex; flex-direction: column; align-items: center; gap: 5px;
-    color: var(--text-muted); font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer;
-    transition: var(--transition); width: 33%;
+    display: flex; flex-direction: column; align-items: center; gap: 4px; width: 33%;
+    color: var(--text-muted); font-size: 10px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: var(--transition);
   }
-  .nav-item i { font-size: 22px; transition: var(--transition); }
-  .nav-item.active { color: var(--accent); }
-  .nav-item.active i { transform: translateY(-4px); filter: drop-shadow(0 4px 6px rgba(255,102,0,0.3));}
+  .nav-item i { font-size: 20px; transition: transform 0.2s; }
+  .nav-item.active { color: var(--text-main); }
+  .nav-item.active i { transform: translateY(-2px); color: var(--text-main); }
 
-  /* VISTAS Y ANIMACIONES SCROLL */
-  .view-section { display: none; padding: 25px 5%; max-width: 1000px; margin: 0 auto; animation: fadeIn 0.4s ease; }
+  /* VISTAS */
+  .view-section { display: none; padding: 20px 5%; max-width: 1000px; margin: 0 auto; animation: fadeView 0.3s ease; }
   .view-section.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
-  .reveal.active { opacity: 1; transform: translateY(0); }
+  @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* COMPONENTES COMPARTIDOS */
-  .section-title { font-size: 24px; margin-bottom: 20px; color: var(--text-dark); position: relative; display: inline-block;}
-  .section-title::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 40px; height: 3px; background: var(--accent); border-radius: 2px;}
-  
-  .info-card {
-    background: var(--bg-card); border-radius: var(--radius); padding: 25px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid var(--border-color);
-    position: relative; overflow: hidden;
+  /* =========================================
+     MÓDULO 1: LA TIENDA (CATÁLOGO)
+     ========================================= */
+  .search-container { position: relative; margin-bottom: 20px; }
+  .search-container input {
+    width: 100%; padding: 14px 40px 14px 18px; border-radius: var(--radius-md); border: none;
+    background: var(--bg-surface); box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; outline: none; transition: var(--transition);
   }
-  
-  .btn-outline {
-    background: transparent; color: var(--accent); border: 2px solid var(--accent); padding: 12px 15px;
-    border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800;
-    text-transform: uppercase; cursor: pointer; transition: var(--transition); width: 100%; margin-top: 10px;
-  }
-  .btn-outline.selected { background: var(--accent); color: var(--bg-card); box-shadow: 0 6px 15px rgba(255,102,0,0.3);}
+  .search-container input:focus { box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+  .search-container i { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-  /* MÓDULO 1: CATÁLOGO */
-  .search-wrapper { position: relative; margin-bottom: 30px; }
-  .search-wrapper input {
-    width: 100%; padding: 16px 40px 16px 20px; border-radius: 12px; border: 1px solid var(--border-color);
-    background: var(--bg-card); font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; outline: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: var(--transition);
+  /* Banner Medellín */
+  .delivery-banner {
+    background: var(--bg-surface); border-radius: var(--radius-md); padding: 15px 20px;
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03); border-left: 4px solid #34C759;
   }
-  .search-wrapper input:focus { border-color: var(--accent); box-shadow: 0 4px 15px rgba(255,102,0,0.1); }
-  .search-wrapper i { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 16px;}
-  
-  .medellin-badge { display: inline-block; background: var(--accent-light); color: var(--accent-dark); font-size: 11px; font-weight: 800; padding: 6px 12px; border-radius: 6px; margin-bottom: 12px; text-transform: uppercase; border: 1px solid rgba(255,102,0,0.2);}
-  
-  .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  .delivery-banner div h3 { font-size: 13px; font-weight: 800; margin-bottom: 3px;}
+  .delivery-banner div p { font-size: 11px; color: var(--text-muted); font-weight: 500;}
+  .delivery-banner i { font-size: 24px; color: #34C759; }
+
+  /* Botón PDF */
+  .btn-pdf {
+    display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+    background: var(--bg-surface); color: var(--text-main); padding: 14px; border-radius: var(--radius-md);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; text-decoration: none; margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid var(--border-light);
+  }
+
+  /* Grid de Productos */
+  .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   @media(min-width: 768px){ .product-grid { grid-template-columns: repeat(4, 1fr); } }
   
   .product-card {
-    background: var(--bg-card); border-radius: 12px; padding: 15px; text-align: center;
-    border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: var(--transition);
+    background: var(--bg-surface); border-radius: var(--radius-lg); padding: 12px;
+    display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border: 1px solid transparent; transition: var(--transition);
   }
-  .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(255,102,0,0.1); border-color: var(--accent-light);}
+  .product-img-box {
+    width: 100%; aspect-ratio: 1; background: var(--bg-body); border-radius: var(--radius-md);
+    margin-bottom: 12px; display: flex; align-items: center; justify-content: center; padding: 10px; cursor: pointer;
+  }
+  .product-img-box img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .product-info { flex: 1; display: flex; flex-direction: column; }
+  .product-name { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; height: 34px; overflow: hidden; cursor: pointer;}
   
-  .product-img { width: 100%; aspect-ratio: 1; background: var(--bg-main); border-radius: 8px; margin-bottom: 15px; object-fit: contain; mix-blend-mode: multiply; padding: 10px;}
-  .product-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700; margin-bottom: 5px; height: 42px; overflow: hidden; color: var(--text-dark);}
-  .price-wrapper { margin-bottom: 10px; }
-  .price-current { font-size: 15px; font-weight: 800; color: var(--accent-dark); }
-  .price-old { font-size: 11px; color: var(--text-muted); text-decoration: line-through; margin-left: 5px; }
-  .price-tag { font-size: 9px; font-weight: 800; padding: 3px 6px; border-radius: 4px; margin-left: 5px; vertical-align: middle; text-transform: uppercase;}
+  /* Precios e Indicadores */
+  .price-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 12px; }
+  .price-main { font-size: 15px; font-weight: 800; color: var(--text-main); }
+  .price-old { font-size: 10px; color: var(--text-muted); text-decoration: line-through; }
+  .price-tag { font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;}
   .tag-down { background: #E8F5E9; color: #2E7D32; }
-  .tag-up { background: var(--accent-light); color: var(--accent-dark); }
+  .tag-up { background: #FFEBEE; color: #C62828; }
 
-  /* CARRITO FLOTANTE */
+  /* Botón Agregar */
+  .btn-add {
+    background: var(--bg-body); color: var(--text-main); border: none; padding: 10px;
+    border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; cursor: pointer; transition: var(--transition); width: 100%; margin-top: auto;
+  }
+  .btn-add.selected { background: var(--accent); color: white; }
+
+  /* Carrito Flotante */
   .floating-cart {
-    position: fixed; bottom: calc(var(--nav-height) + 15px); left: 5%; width: 90%; max-width: 500px;
-    left: 50%; transform: translateX(-50%) translateY(100px); opacity: 0;
-    background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: var(--bg-card); 
-    padding: 15px 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; z-index: 1500;
-    box-shadow: 0 10px 30px rgba(255,102,0,0.4); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: fixed; bottom: calc(var(--nav-height) + 15px); left: 50%; transform: translateX(-50%) translateY(100px);
+    width: 90%; max-width: 400px; background: rgba(29, 29, 31, 0.95); backdrop-filter: blur(10px);
+    color: white; padding: 12px 20px; border-radius: 50px; display: flex; justify-content: space-between; align-items: center;
+    z-index: 1500; opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   }
   .floating-cart.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-  .cart-info { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px;}
-  .cart-info i { font-size: 20px; }
-  .cart-btn { background: var(--bg-card); color: var(--accent-dark); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+  .cart-text { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px;}
+  .cart-action { background: white; color: black; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 11px; cursor: pointer; text-transform: uppercase;}
 
-  /* BOTÓN PDF */
-  .btn-pdf {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    background: var(--text-dark); color: var(--bg-card); border: none;
-    padding: 14px 25px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800;
-    letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border-radius: 50px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15); width: 100%; margin-bottom: 40px;
+  /* =========================================
+     MÓDULO 2: SORTEOS (MÁS VIDA Y LUJO)
+     ========================================= */
+  .raffle-banner {
+    background: linear-gradient(135deg, #1D1D1F 0%, #000000 100%); border-radius: var(--radius-lg);
+    padding: 30px 20px; text-align: center; color: white; margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative; overflow: hidden;
   }
-  .btn-pdf i { font-size: 16px; color: var(--accent); }
-
-  /* INFORMACIÓN IMPORTANTE (ALERTA) */
-  .important-notice {
-    background: var(--accent-light); border-left: 4px solid var(--accent);
-    padding: 18px 20px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; gap: 8px; margin-bottom: 30px;
-  }
-  .important-notice h4 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; color: var(--accent-dark); letter-spacing: 1px; display: flex; align-items: center; gap: 8px; text-transform: uppercase;}
-  .important-notice p { font-size: 12px; font-weight: 600; color: var(--text-dark); line-height: 1.5; }
-
-  /* MÓDULO 2: TOAST NOTIFICATIONS */
-  .toast-container {
-    position: fixed; top: calc(var(--top-height) + 15px); left: 50%; transform: translateX(-50%);
-    z-index: 2000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; width: 90%; max-width: 400px;
-  }
-  .toast {
-    background: rgba(26, 26, 26, 0.95); backdrop-filter: blur(10px); color: white;
-    padding: 14px 20px; border-radius: 12px; font-size: 11px; font-weight: 600; text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15); opacity: 0; transform: translateY(-20px); transition: all 0.5s ease;
-    border-left: 3px solid var(--accent);
-  }
-  .toast.show { opacity: 1; transform: translateY(0); }
-
-  /* MÓDULO 3: SORTEOS */
-  .raffle-header { text-align: center; margin-bottom: 40px; }
-  .raffle-header h1 { font-size: 32px; color: var(--accent-dark); margin-bottom: 8px;}
-  .raffle-header p { font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase;}
+  .raffle-banner::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 60%); pointer-events: none;}
+  .r-status { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 50px; font-size: 9px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;}
+  .r-title { font-size: 24px; font-weight: 800; margin-bottom: 8px; color: #F5E6BE; /* Tono dorado tenue */ }
+  .r-desc { font-size: 12px; font-weight: 500; color: #CCC; margin-bottom: 20px;}
   
-  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; margin-top: 25px;}
+  /* Tablero Sorteo */
+  .board-legend { display: flex; justify-content: center; gap: 15px; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;}
+  .leg-item { display: flex; align-items: center; gap: 5px; color: var(--text-muted);}
+  .leg-box { width: 12px; height: 12px; border-radius: 3px; }
+  
+  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; background: var(--bg-surface); padding: 15px; border-radius: var(--radius-lg); box-shadow: 0 4px 20px rgba(0,0,0,0.03);}
   .cell-num {
-    aspect-ratio: 1; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    font-size: 13px; font-weight: 700; cursor: pointer; transition: var(--transition);
+    aspect-ratio: 1; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    font-size: 12px; font-weight: 700; cursor: pointer; transition: transform 0.1s;
   }
   .cell-num:active { transform: scale(0.9); }
-  .cell-num.available { color: var(--accent-dark); box-shadow: 0 2px 5px rgba(255,102,0,0.1);}
-  .cell-num.pending { background: var(--bg-main); color: var(--text-muted); cursor: not-allowed; border: 1px dashed #CCC; }
-  .cell-num.occupied { background: var(--text-dark); color: var(--bg-card); cursor: not-allowed; border-color: var(--text-dark); }
-  .cell-num.occupied span { font-size: 8px; color: var(--accent); margin-top: -2px; text-decoration: none; font-weight: 800;}
+  .cell-num.available { background: var(--bg-body); color: var(--text-main); border: 1px solid var(--border-light); }
+  .cell-num.pending { background: #F0F0F0; color: #A0A0A0; border: 1px dashed #CCC; cursor: not-allowed;}
+  .cell-num.occupied { background: var(--text-main); color: white; cursor: not-allowed; }
+  .cell-num.occupied span { font-size: 7px; color: #AAA; text-decoration: line-through; margin-top: -2px;}
 
-  .winners-track { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 15px; scrollbar-width: none; }
-  .winner-card { min-width: 260px; scroll-snap-align: center; background: linear-gradient(135deg, var(--text-dark), #333); color: white; padding: 25px 20px; border-radius: 12px; border-bottom: 4px solid var(--accent);}
-  .winner-card h4 { font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; color: #CCC; margin-bottom: 8px; letter-spacing: 1px;}
-  .winner-card .prize { font-size: 20px; font-family: 'Cormorant Garamond', serif; font-weight: 700; color: var(--accent);}
+  /* Ganadores */
+  .section-subtitle { font-size: 16px; font-weight: 800; margin: 40px 0 15px 0; color: var(--text-main); }
+  .winners-track { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 10px;}
+  .winner-card {
+    min-width: 260px; scroll-snap-align: center; background: var(--bg-surface); padding: 20px;
+    border-radius: var(--radius-md); border: 1px solid var(--border-light); display: flex; gap: 15px; align-items: center;
+  }
+  .w-icon { width: 40px; height: 40px; background: #F5E6BE; color: #B8860B; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px;}
+  .w-info h4 { font-size: 13px; font-weight: 800; margin-bottom: 2px;}
+  .w-info p { font-size: 11px; color: var(--text-muted); font-weight: 500;}
 
-  /* MÓDULO 4: INFORMACIÓN */
-  .info-list { display: flex; flex-direction: column; gap: 25px; margin-bottom: 10px;}
-  .info-row { display: flex; gap: 15px; align-items: flex-start; }
-  .info-row i { font-size: 22px; color: var(--accent); width: 30px; text-align: center; margin-top: 2px;}
-  .info-row div { flex: 1; }
-  .info-row h4 { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; margin-bottom: 6px; text-transform: uppercase; color: var(--text-dark);}
-  .info-row p { font-size: 12.5px; color: var(--text-muted); line-height: 1.6; font-weight: 500;}
+  /* =========================================
+     MÓDULO 3: INFORMACIÓN (DECENTE Y LIMPIA)
+     ========================================= */
+  .info-block { background: var(--bg-surface); border-radius: var(--radius-lg); padding: 25px 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.03); margin-bottom: 20px;}
+  .info-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-light); }
+  .info-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .info-icon { width: 35px; height: 35px; background: var(--bg-body); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 16px; flex-shrink: 0;}
+  .info-text h4 { font-size: 13px; font-weight: 800; margin-bottom: 5px; text-transform: uppercase;}
+  .info-text p { font-size: 12px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
   
-  .tracking-box { background: var(--accent-light); padding: 15px; border-radius: 8px; border: 1px dashed var(--accent); text-align: center; margin-top: 12px;}
-  .tracking-box a { color: var(--accent-dark); font-weight: 800; font-size: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;}
+  .track-btn { display: inline-block; margin-top: 10px; padding: 8px 15px; background: var(--bg-body); border-radius: 6px; font-size: 11px; font-weight: 700; color: var(--text-main); text-decoration: none;}
+  
+  .pay-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;}
+  .pay-tag { font-size: 10px; font-weight: 700; background: var(--bg-body); padding: 5px 10px; border-radius: 4px;}
 
-  .payment-methods { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap;}
-  .pay-badge { background: var(--text-dark); color: var(--bg-card); font-size: 10px; font-weight: 700; padding: 6px 12px; border-radius: 6px; text-transform: uppercase;}
+  /* Banner VIP WhatsApp */
+  .vip-card { background: #25D366; border-radius: var(--radius-lg); padding: 25px; color: white; display: flex; align-items: center; gap: 15px; cursor: pointer; box-shadow: 0 10px 20px rgba(37,211,102,0.2);}
+  .vip-card i { font-size: 35px; }
+  .vip-card h4 { font-size: 14px; font-weight: 800; margin-bottom: 4px; text-transform: uppercase;}
+  .vip-card p { font-size: 11px; font-weight: 500; opacity: 0.9;}
 
-  .vip-banner { background: linear-gradient(135deg, #25D366, #1DA851); color: white; padding: 25px; border-radius: 12px; text-align: center; cursor: pointer; box-shadow: 0 10px 25px rgba(37,211,102,0.3); }
-  .vip-banner i { font-size: 32px; margin-bottom: 12px; }
-  .vip-banner h4 { font-size: 15px; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px;}
-  .vip-banner p { font-size: 12px; font-weight: 600; opacity: 0.9; line-height: 1.5;}
-
-  /* MODAL PERFUME (Flotante) */
+  /* MODAL DE PERFUME (Flotante) */
   .modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
-    z-index: 3000; display: none; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.3s ease;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+    z-index: 3000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
   }
   .modal-overlay.show { opacity: 1; display: flex; }
-  .modal-content {
-    background: var(--bg-card); width: 90%; max-width: 400px; border-radius: 16px;
-    padding: 30px 25px; text-align: center; position: relative;
-    transform: translateY(30px); transition: transform 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  .modal-card {
+    background: var(--bg-surface); width: 90%; max-width: 380px; border-radius: var(--radius-lg);
+    padding: 25px; text-align: center; position: relative; transform: translateY(20px); transition: transform 0.3s;
   }
-  .modal-overlay.show .modal-content { transform: translateY(0); }
-  .close-modal {
-    position: absolute; top: 15px; right: 15px; background: var(--bg-main); border: 1px solid var(--border-color);
-    width: 35px; height: 35px; border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--text-dark);
-    display: flex; justify-content: center; align-items: center; transition: var(--transition);
-  }
-  .close-modal:hover { background: var(--accent); color: white; border-color: var(--accent); }
-  .modal-img { width: 100%; aspect-ratio: 1; background: var(--bg-main); border-radius: 12px; margin-bottom: 20px; padding: 15px; display: flex; justify-content: center; align-items: center;}
-  .modal-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-  .modal-brand { font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-  .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; line-height: 1.1; margin-bottom: 15px; color: var(--text-dark); }
-  .modal-price { font-size: 22px; font-weight: 800; margin-bottom: 25px; color: var(--text-dark); }
+  .modal-overlay.show .modal-card { transform: translateY(0); }
+  .close-btn { position: absolute; top: 15px; right: 15px; width: 30px; height: 30px; border: none; border-radius: 50%; background: var(--bg-body); font-size: 14px; cursor: pointer; }
+  .m-img { width: 100%; aspect-ratio: 1; background: var(--bg-body); border-radius: var(--radius-md); padding: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;}
+  .m-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply;}
+  .m-title { font-size: 18px; font-weight: 800; margin-bottom: 5px; color: var(--text-main);}
+  .m-price { font-size: 18px; font-weight: 700; margin-bottom: 20px;}
+  .btn-modal-wa { width: 100%; background: var(--text-main); color: white; border: none; padding: 14px; border-radius: var(--radius-md); font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer;}
+
+  /* TOAST NOTIFICATIONS */
+  .toast-wrapper { position: fixed; top: calc(var(--top-height) + 10px); left: 50%; transform: translateX(-50%); z-index: 2000; display: flex; flex-direction: column; gap: 8px; pointer-events: none;}
+  .toast { background: rgba(29, 29, 31, 0.9); backdrop-filter: blur(10px); color: white; padding: 12px 20px; border-radius: 50px; font-size: 11px; font-weight: 500; display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(-10px); transition: all 0.4s ease;}
+  .toast.show { opacity: 1; transform: translateY(0); }
   
 </style>
 </head>
@@ -265,14 +261,14 @@
 
 <!-- Pantalla de Carga -->
 <div id="splashScreen">
-  <h1>Original</h1>
-  <p>Cargando Colección</p>
+  <h1>PERFUMERÍA</h1>
+  <div class="spinner"></div>
 </div>
 
-<!-- Notificaciones Toast -->
-<div class="toast-container" id="toastContainer"></div>
+<!-- Notificaciones -->
+<div class="toast-wrapper" id="toastContainer"></div>
 
-<!-- Cabecera Superior -->
+<!-- Top Bar -->
 <header class="top-bar">
   <h1 id="topTitle">Catálogo</h1>
   <div class="live-counter">
@@ -281,14 +277,14 @@
   </div>
 </header>
 
-<!-- Navegación Inferior -->
+<!-- Bottom Nav -->
 <nav class="bottom-nav">
   <div class="nav-item active" onclick="switchView('catalogo', 'Catálogo', this)">
-    <i class="fa-solid fa-gem"></i>
+    <i class="fa-solid fa-store"></i>
     <span>Catálogo</span>
   </div>
   <div class="nav-item" onclick="switchView('sorteos', 'Sorteos Activos', this)">
-    <i class="fa-solid fa-ticket"></i>
+    <i class="fa-solid fa-ticket-simple"></i>
     <span>Sorteos</span>
   </div>
   <div class="nav-item" onclick="switchView('info', 'Información', this)">
@@ -299,23 +295,18 @@
 
 <!-- Carrito Flotante -->
 <div class="floating-cart" id="floatingCart">
-  <div class="cart-info"><i class="fa-solid fa-bag-shopping"></i> <span id="cartCount">0</span> seleccionados</div>
-  <button class="cart-btn" onclick="sendCart()">Pedir Ahora</button>
+  <div class="cart-text"><i class="fa-solid fa-bag-shopping"></i> <span id="cartCount">0</span> seleccionados</div>
+  <button class="cart-action" onclick="sendCart()">Pedir</button>
 </div>
 
-<!-- MODAL FLOTANTE DE PERFUME -->
+<!-- Modal Perfume -->
 <div class="modal-overlay" id="perfumeModal" onclick="closeModal(event)">
-  <div class="modal-content">
-    <button class="close-modal" onclick="closeModalBtn()"><i class="fa-solid fa-xmark"></i></button>
-    <div class="modal-img">
-      <img id="modalImg" src="" alt="Perfume">
-    </div>
-    <div class="modal-brand" id="modalBrand">Marca</div>
-    <h3 class="modal-title" id="modalTitle">Nombre del Perfume</h3>
-    <div class="modal-price" id="modalPrice">$000.000</div>
-    <button class="btn-outline selected" style="padding: 16px; font-size: 13px;" onclick="buyFromModal()">
-      <i class="fa-brands fa-whatsapp" style="margin-right: 5px;"></i> Solicitar Directo
-    </button>
+  <div class="modal-card">
+    <button class="close-btn" onclick="closeModalBtn()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="m-img"><img id="modalImg" src="" alt="Perfume"></div>
+    <h3 class="m-title" id="modalTitle">Nombre</h3>
+    <div class="m-price" id="modalPrice">$0</div>
+    <button class="btn-modal-wa" onclick="buyFromModal()">Solicitar por WhatsApp</button>
   </div>
 </div>
 
@@ -326,34 +317,32 @@
        ========================================= -->
   <section id="viewCatalogo" class="view-section active">
     
-    <!-- AVISO DE PRECIOS -->
-    <div class="important-notice reveal">
-      <h4><i class="fa-solid fa-circle-exclamation"></i> Información Importante</h4>
-      <p>Es mejor preguntar por el precio final de cada perfume, ya que todos varían. Así como pueden aumentar, pueden disminuir.</p>
-    </div>
-
     <!-- Buscador -->
-    <div class="search-wrapper reveal">
-      <input type="text" id="searchInput" placeholder="Buscar por nombre o marca...">
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Buscar perfume...">
       <i class="fa-solid fa-magnifying-glass"></i>
     </div>
 
-    <!-- Sección Medellín (Placeholder Drive) -->
-    <div class="info-card reveal" style="border: 1px solid var(--accent); background: var(--bg-card);">
-      <div class="medellin-badge"><i class="fa-solid fa-bolt" style="margin-right: 5px;"></i> Entrega Inmediata Medellín</div>
-      <h3 style="font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; margin-bottom: 8px;">Solo Precio al Detal</h3>
-      <p style="font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5;">Conectaremos esta sección a tu Google Drive para mostrar las fotos del stock local al instante.</p>
+    <!-- Banner Medellín (Placeholder Drive) -->
+    <div class="delivery-banner">
+      <div>
+        <h3>Entrega Inmediata Medellín</h3>
+        <p>Solo aplica precio al detal.</p>
+      </div>
+      <i class="fa-solid fa-bolt"></i>
     </div>
 
-    <!-- BOTÓN DESCARGAR PDF -->
-    <div class="reveal">
-      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="btn-pdf">
-        <i class="fa-solid fa-file-pdf"></i> Ver Catálogo Completo (PDF)
-      </a>
-    </div>
+    <!-- Botón PDF -->
+    <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="btn-pdf">
+      <i class="fa-regular fa-file-pdf" style="color: #FF3B30; font-size: 16px;"></i> Ver Catálogo Completo
+    </a>
 
-    <!-- Catálogo General -->
-    <h2 class="section-title reveal">Catálogo Nacional</h2>
+    <!-- Info Precios -->
+    <p style="font-size: 11px; color: var(--text-muted); font-weight: 500; text-align: center; margin-bottom: 15px; line-height: 1.5;">
+      * IMPORTANTE: Consultar el precio final de cada perfume. Así como pueden bajar, pueden subir.
+    </p>
+
+    <!-- Grid de Productos -->
     <div class="product-grid" id="catalogGrid">
       <!-- Inyectado por JS -->
     </div>
@@ -365,31 +354,43 @@
        ========================================= -->
   <section id="viewSorteos" class="view-section">
     
-    <div class="raffle-header reveal">
-      <h1>Sorteos Activos</h1>
-      <p>Adquiere tu puesto y participa</p>
+    <!-- Banner Sorteo Principal -->
+    <div class="raffle-banner">
+      <span class="r-status">Sorteo Activo</span>
+      <h2 class="r-title">Lattafa Asad + Club de Nuit</h2>
+      <p class="r-desc">Adquiere tu puesto y participa por este combo exclusivo.</p>
+      <div style="font-size: 18px; font-weight: 800;">$15.000 <span style="font-size: 10px; font-weight:500;">/ puesto</span></div>
     </div>
 
-    <div class="info-card reveal" style="text-align: center; border-color: var(--accent);">
-      <h2 style="font-size: 24px; margin-bottom: 8px; color: var(--accent-dark);">Gran Sorteo</h2>
-      <p style="font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 25px;">Selecciona tu puesto en el tablero.</p>
-      
-      <!-- LEYENDA -->
-      <div style="display: flex; justify-content: center; gap: 15px; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px;">
-        <span style="color: var(--accent-dark);"><i class="fa-solid fa-square" style="color:var(--bg-card); border:2px solid var(--border-color);"></i> Libre</span>
-        <span style="color: var(--text-muted);"><i class="fa-solid fa-square" style="color:var(--bg-main); border:1px dashed #CCC;"></i> Pendiente</span>
-        <span style="color: var(--text-dark);"><i class="fa-solid fa-square" style="color:var(--text-dark);"></i> Vendido</span>
-      </div>
-
-      <div class="board-grid" id="boardGrid">
-        <!-- Inyectado por JS -->
-      </div>
+    <!-- Tablero -->
+    <h3 style="font-size: 14px; font-weight: 800; text-align: center; margin-bottom: 15px;">Selecciona tu puesto</h3>
+    <div class="board-legend">
+      <div class="leg-item"><div class="leg-box" style="border: 1px solid var(--border-light); background: var(--bg-body);"></div> Libre</div>
+      <div class="leg-item"><div class="leg-box" style="border: 1px dashed #CCC; background: #F0F0F0;"></div> Pendiente</div>
+      <div class="leg-item"><div class="leg-box" style="background: var(--text-main);"></div> Vendido</div>
     </div>
-
-    <!-- Salón de Ganadores -->
-    <h2 class="section-title reveal" style="margin-top: 50px;">Ganadores Anteriores</h2>
-    <div class="winners-track reveal" id="winnersContainer">
+    
+    <div class="board-grid" id="boardGrid">
       <!-- Inyectado por JS -->
+    </div>
+
+    <!-- Ganadores -->
+    <h2 class="section-subtitle">Ganadores Anteriores</h2>
+    <div class="winners-track" id="winnersContainer">
+      <div class="winner-card">
+        <div class="w-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div class="w-info">
+          <h4>Sara M. - Puesto 07</h4>
+          <p>Ganadora Sorteo #44 (Afnan 9PM)</p>
+        </div>
+      </div>
+      <div class="winner-card">
+        <div class="w-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div class="w-info">
+          <h4>Daniel O. - Puesto 14</h4>
+          <p>Ganador Sorteo #43 (Lattafa Asad)</p>
+        </div>
+      </div>
     </div>
 
   </section>
@@ -399,55 +400,48 @@
        ========================================= -->
   <section id="viewInfo" class="view-section">
     
-    <h2 class="section-title reveal" style="margin-bottom: 30px;">Políticas y Envíos</h2>
-
-    <div class="info-card reveal">
-      <div class="info-list">
-        
-        <div class="info-row">
-          <i class="fa-solid fa-truck-fast"></i>
-          <div>
-            <h4>Envíos a Todo el País</h4>
-            <p>Despachos por Inter Rapidísimo (llega de 1 a 3 días). Esta es la <strong>única opción válida</strong> para acceder a precios al por mayor.</p>
-            <div class="tracking-box">
-              <p style="font-size: 11px; font-weight:600; margin-bottom: 6px;">¿Ya realizaste tu pedido y tienes tu guía?</p>
-              <a href="https://www.interrapidisimo.com/sigue-tu-envio/" target="_blank">Rastrear aquí <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-          </div>
+    <div class="info-block">
+      
+      <div class="info-item">
+        <div class="info-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="info-text">
+          <h4>Envíos Nacionales</h4>
+          <p>Despachos por Inter Rapidísimo (llega de 1 a 3 días). <strong>Única forma válida para acceder a precios mayoristas.</strong></p>
+          <a href="https://www.interrapidisimo.com/sigue-tu-envio/" target="_blank" class="track-btn">Rastrear mi guía</a>
         </div>
-
-        <div style="height: 1px; background: var(--border-color); margin: 10px 0;"></div>
-
-        <div class="info-row">
-          <i class="fa-solid fa-motorcycle"></i>
-          <div>
-            <h4>Entregas en Medellín</h4>
-            <p>Servicio para entrega inmediata en la ciudad. Los precios al detal <strong>solo son válidos</strong> para estas entregas inmediatas.</p>
-          </div>
-        </div>
-
-        <div style="height: 1px; background: var(--border-color); margin: 10px 0;"></div>
-
-        <div class="info-row">
-          <i class="fa-solid fa-wallet"></i>
-          <div>
-            <h4>Medios de Pago</h4>
-            <div class="payment-methods">
-              <span class="pay-badge">Nequi</span>
-              <span class="pay-badge">Bancolombia</span>
-              <span class="pay-badge">DaviPlata</span>
-              <span class="pay-badge">Y mucho más...</span>
-            </div>
-          </div>
-        </div>
-
       </div>
+
+      <div class="info-item">
+        <div class="info-icon"><i class="fa-solid fa-motorcycle"></i></div>
+        <div class="info-text">
+          <h4>Entregas en Medellín</h4>
+          <p>Servicio para entrega inmediata en la ciudad. En esta modalidad <strong>solo aplica precio al detal.</strong></p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon"><i class="fa-solid fa-credit-card"></i></div>
+        <div class="info-text">
+          <h4>Medios de Pago</h4>
+          <p>Recibimos pagos seguros a través de:</p>
+          <div class="pay-grid">
+            <span class="pay-tag">Nequi</span>
+            <span class="pay-tag">Bancolombia</span>
+            <span class="pay-tag">DaviPlata</span>
+            <span class="pay-tag">Llave</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="vip-banner reveal" onclick="openWhatsApp('Hola. Vengo de la tienda, quiero guardar el contacto para ver los estados.')">
+    <!-- Botón VIP WhatsApp -->
+    <div class="vip-card" onclick="openWhatsApp('Hola. Quiero agregarlos a mis contactos para ver los estados.')">
       <i class="fa-brands fa-whatsapp"></i>
-      <h4>Comunidad Exclusiva</h4>
-      <p>Agrégame para ver mis estados y no perderte de las mejores promociones.</p>
+      <div>
+        <h4>Comunidad Exclusiva</h4>
+        <p>Agréganos y no te pierdas nuestras promociones en estados.</p>
+      </div>
     </div>
 
   </section>
@@ -456,7 +450,7 @@
 
 <script>
   // ==========================================
-  // LÓGICA DE NAVEGACIÓN Y SCROLL
+  // NAVEGACIÓN Y TABS
   // ==========================================
   function switchView(viewId, title, element) {
     document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
@@ -465,33 +459,15 @@
     element.classList.add('active');
     document.getElementById('topTitle').innerText = title;
     window.scrollTo(0, 0);
-    observeElements();
-    if(viewId === 'sorteos') { loadSorteoMockup(); } 
-  }
-
-  const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); }
-    });
-  }, observerOptions);
-
-  function observeElements() {
-    document.querySelectorAll('.reveal').forEach(el => {
-      el.classList.remove('active'); 
-      setTimeout(() => observer.observe(el), 50);
-    });
   }
 
   // ==========================================
-  // CRO: CONTADOR EN VIVO Y TOASTS
+  // LÓGICAS DE MARKETING (Contador y Toasts)
   // ==========================================
   function initLiveCounter() {
     let base = 19;
-    const day = new Date().getDay(); 
     const increments = [7, 13, 9, 20, 11, 15, 8]; 
-    const step = increments[day];
-
+    const step = increments[new Date().getDay()];
     setInterval(() => {
       base += step;
       document.getElementById('counterValue').innerText = base;
@@ -499,119 +475,105 @@
   }
 
   function showToasts() {
-    const notifications = [
+    const notifs = [
       "Sara acaba de pedir Club de Nuit Intense",
       "David acaba de pedir Lattafa Asad",
       "Camila acaba de pedir Afnan 9PM"
     ];
     const container = document.getElementById('toastContainer');
     
-    notifications.forEach((msg, index) => {
+    notifs.forEach((msg, idx) => {
       setTimeout(() => {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerHTML = `<i class="fa-solid fa-bag-shopping" style="color:var(--accent); margin-right:8px;"></i> ${msg}`;
-        container.appendChild(toast);
-        
-        setTimeout(() => toast.classList.add('show'), 100);
+        const t = document.createElement('div');
+        t.className = 'toast';
+        t.innerHTML = `<i class="fa-solid fa-bell" style="color:#34C759;"></i> ${msg}`;
+        container.appendChild(t);
+        setTimeout(() => t.classList.add('show'), 100);
         setTimeout(() => {
-          toast.classList.remove('show');
-          setTimeout(() => toast.remove(), 500);
+          t.classList.remove('show');
+          setTimeout(() => t.remove(), 400);
         }, 3000);
-
-      }, (index + 1) * 4000); 
+      }, (idx + 1) * 3500); 
     });
   }
 
   // ==========================================
-  // WHATSAPP Y CARRITO
+  // CARRITO Y WHATSAPP
   // ==========================================
   const PHONE_NUMBER = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); }
 
   let cart = [];
   function toggleCart(name, e) {
-    e.stopPropagation(); // Evita que abra el modal al tocar el botón
-    const btnElement = e.target;
+    e.stopPropagation();
+    const btn = e.target;
     const index = cart.indexOf(name);
     if(index > -1) {
       cart.splice(index, 1);
-      btnElement.classList.remove('selected');
-      btnElement.innerText = "Agregar";
+      btn.classList.remove('selected');
+      btn.innerText = "Agregar";
     } else {
       cart.push(name);
-      btnElement.classList.add('selected');
-      btnElement.innerText = "Seleccionado";
+      btn.classList.add('selected');
+      btn.innerText = "Seleccionado";
     }
     updateCartUI();
   }
 
   function updateCartUI() {
     const cartEl = document.getElementById('floatingCart');
-    const countEl = document.getElementById('cartCount');
-    countEl.innerText = cart.length;
-    if(cart.length > 0) {
-      cartEl.classList.add('show');
-    } else {
-      cartEl.classList.remove('show');
-    }
+    document.getElementById('cartCount').innerText = cart.length;
+    cart.length > 0 ? cartEl.classList.add('show') : cartEl.classList.remove('show');
   }
 
   function sendCart() {
     const items = cart.join(", ");
-    const msg = `Hola. Quiero solicitar el siguiente pedido: ${items}.`;
-    openWhatsApp(msg);
+    openWhatsApp(`Hola. Quiero solicitar el siguiente pedido: ${items}.`);
   }
 
-  // ==========================================
-  // LÓGICA DEL MODAL DE PERFUMES
-  // ==========================================
+  // Modal Flotante
   let currentPerfume = "";
-  function openPerfumeModal(nombre, precio, foto, marca) {
+  function openPerfumeModal(nombre, precio, foto) {
     currentPerfume = nombre;
     document.getElementById('modalTitle').innerText = nombre;
     document.getElementById('modalPrice').innerText = precio;
-    document.getElementById('modalBrand').innerText = marca;
     document.getElementById('modalImg').src = foto;
-    
-    const modal = document.getElementById('perfumeModal');
-    modal.style.display = 'flex';
-    setTimeout(() => { modal.classList.add('show'); }, 10);
+    const m = document.getElementById('perfumeModal');
+    m.style.display = 'flex';
+    setTimeout(() => m.classList.add('show'), 10);
   }
-
-  function closeModal(e) { if(e.target.id === 'perfumeModal') { closeModalBtn(); } }
+  function closeModal(e) { if(e.target.id === 'perfumeModal') closeModalBtn(); }
   function closeModalBtn() {
-    const modal = document.getElementById('perfumeModal');
-    modal.classList.remove('show');
-    setTimeout(() => { modal.style.display = 'none'; }, 300);
+    const m = document.getElementById('perfumeModal');
+    m.classList.remove('show');
+    setTimeout(() => m.style.display = 'none', 300);
   }
-
   function buyFromModal() {
     closeModalBtn();
-    const msg = `Hola. Quiero solicitar el siguiente pedido: ${currentPerfume}.`;
-    openWhatsApp(msg);
+    openWhatsApp(`Hola. Quiero solicitar el siguiente pedido: ${currentPerfume}.`);
   }
 
   // ==========================================
-  // CATÁLOGO (SHEET PARSER)
+  // PARSER DE CATÁLOGO (SHEETS)
   // ==========================================
   const SHEET_CATALOGO = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
   const DEFAULT_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
   let catalogo = [];
 
-  function parseCSV(text){
-    var rows = [], row = [], field = '', inQ = false;
-    for(var i = 0; i < text.length; i++){
-      var c = text[i];
-      if(inQ){ if(c === '"'){ if(text[i+1] === '"'){ field += '"'; i++; } else { inQ = false; } } else { field += c; } }
-      else { if(c === '"'){ inQ = true; } else if(c === ','){ row.push(field); field = ''; } else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; } else if(c !== '\r'){ field += c; } }
+  function parseCSV(t){
+    var rows=[], row=[], f='', inQ=false;
+    for(var i=0; i<t.length; i++){
+      var c=t[i];
+      if(inQ){ if(c==='"'){ if(t[i+1]==='"'){ f+='"'; i++; } else inQ=false; } else f+=c; }
+      else { if(c==='"') inQ=true; else if(c===','){ row.push(f); f=''; } else if(c==='\n'){ row.push(f); rows.push(row); row=[]; f=''; } else if(c!=='\r') f+=c; }
     }
-    if(field !== '' || row.length){ row.push(field); rows.push(row); } return rows;
+    if(f!==''||row.length){ row.push(f); rows.push(row); } return rows;
   }
-  function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
   document.addEventListener('DOMContentLoaded', () => {
     initLiveCounter();
+    renderBoardTablero(); // Cargar mockup del sorteo
     
     fetch(SHEET_CATALOGO + '&t=' + new Date().getTime())
       .then(r => r.text())
@@ -619,30 +581,25 @@
         var rows = parseCSV(csv).slice(1);
         catalogo = rows.map((cols, idx) => {
           if(!cols || cols.length < 2) return null;
-          var nombre = String(cols[0] || '').replace(/"/g, '').trim(); if(!nombre) return null;
-          var precio = String(cols[1] || '').replace(/"/g, '').trim(); precio = precio ? (precio.charAt(0) === '$' ? precio : '$' + precio) : '';
-          var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g, '').trim() : DEFAULT_IMG;
+          var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
+          var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
+          var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEFAULT_IMG;
           
-          let oldPriceHtml = "";
-          let tagHtml = "";
-          // LOGICA VISUAL DE FLUCTUACION
-          if (idx % 4 === 0) {
-            oldPriceHtml = `<span class="price-old">$180,000</span>`;
-            tagHtml = `<span class="price-tag tag-down"><i class="fa-solid fa-arrow-trend-down"></i> Bajó</span>`;
-          } else if (idx % 5 === 0) {
-            oldPriceHtml = `<span class="price-old">$120,000</span>`;
-            tagHtml = `<span class="price-tag tag-up"><i class="fa-solid fa-arrow-trend-up"></i> Subió</span>`;
-          }
+          let old = "", tag = "";
+          // Lógica visual de fluctuación de precios (Simulación)
+          if(idx % 4 === 0) { old = `<span class="price-old">$180,000</span>`; tag = `<span class="price-tag tag-down">Bajó</span>`; }
+          else if(idx % 5 === 0) { old = `<span class="price-old">$120,000</span>`; tag = `<span class="price-tag tag-up">Subió</span>`; }
 
-          return { nombre, precio, foto, marca: "PERFUMERÍA", oldPriceHtml, tagHtml };
+          return { nombre, precio, foto, old, tag };
         }).filter(Boolean);
         
         renderCatalog(catalogo);
+        
+        // Quitar pantalla de carga
         setTimeout(() => {
-          const splash = document.getElementById('splashScreen');
-          splash.style.opacity = '0';
-          setTimeout(() => splash.style.display = 'none', 800);
-          observeElements();
+          const s = document.getElementById('splashScreen');
+          s.style.opacity = '0';
+          setTimeout(() => s.style.display = 'none', 600);
           showToasts();
         }, 800);
       });
@@ -653,70 +610,49 @@
     if(lista.length === 0) return;
     grid.innerHTML = lista.map(p => {
       const isSelected = cart.includes(p.nombre);
-      const btnClass = isSelected ? 'btn-outline selected' : 'btn-outline';
-      const btnText = isSelected ? 'Seleccionado' : 'Agregar';
+      const btnCls = isSelected ? 'btn-add selected' : 'btn-add';
+      const btnTxt = isSelected ? 'Seleccionado' : 'Agregar';
       
       return `
-      <div class="product-card reveal" onclick="openPerfumeModal('${esc(p.nombre)}', '${esc(p.precio)}', '${esc(p.foto)}', '${esc(p.marca)}')">
-        <div>
-          <img class="product-img" src="${esc(p.foto)}" onerror="this.src='${DEFAULT_IMG}'" loading="lazy">
+      <div class="product-card" onclick="openPerfumeModal('${esc(p.nombre)}', '${esc(p.precio)}', '${esc(p.foto)}')">
+        <div class="product-img-box"><img src="${esc(p.foto)}" onerror="this.src='${DEFAULT_IMG}'" loading="lazy"></div>
+        <div class="product-info">
           <h3 class="product-name">${esc(p.nombre)}</h3>
-          <div class="price-wrapper">
-            <span class="price-current">${esc(p.precio)}</span>
-            ${p.oldPriceHtml} ${p.tagHtml}
-          </div>
+          <div class="price-row"><span class="price-main">${esc(p.precio)}</span> ${p.old} ${p.tag}</div>
+          <button class="${btnCls}" onclick="toggleCart('${esc(p.nombre)}', event)">${btnTxt}</button>
         </div>
-        <button class="${btnClass}" onclick="toggleCart('${esc(p.nombre)}', event)">${btnText}</button>
       </div>
     `}).join('');
-    observeElements();
   }
 
-  // BUSCADOR
+  // Buscador
   document.getElementById('searchInput').addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase().trim();
     if(!term) { renderCatalog(catalogo); return; }
-    const filtrado = catalogo.filter(p => p.nombre.toLowerCase().includes(term));
-    renderCatalog(filtrado);
+    renderCatalog(catalogo.filter(p => p.nombre.toLowerCase().includes(term)));
   });
 
   // ==========================================
-  // SORTEOS (TABLERO MOCKUP CON REGLAS)
+  // TABLERO DE SORTEO (LÓGICA VISUAL)
   // ==========================================
-  function loadSorteoMockup() {
+  function renderBoardTablero() {
     const board = document.getElementById('boardGrid');
-    if(board.innerHTML.trim() === "") {
-      let html = '';
-      for(let i = 1; i <= 100; i++) {
-        const numStr = i < 10 ? '0' + i : '' + i;
-        
-        // Simular estados
-        if(i % 12 === 0 || i === 7) {
-          // Vendido (X y numero tachado)
-          html += `<div class="cell-num occupied" onclick="alert('Este puesto ya fue adquirido.')">X<span>${numStr}</span></div>`;
-        } else if (i % 8 === 0) {
-          // Pendiente
-          html += `<div class="cell-num pending" onclick="alert('Este puesto está pendiente por confirmar por otro cliente.')">${numStr}</div>`;
-        } else {
-          // Disponible
-          html += `<div class="cell-num available" onclick="seleccionarPuesto('${numStr}')">${numStr}</div>`;
-        }
+    let html = '';
+    for(let i = 1; i <= 100; i++) {
+      const numStr = i < 10 ? '0' + i : '' + i;
+      if(i % 12 === 0 || i === 7) {
+        html += `<div class="cell-num occupied" onclick="alert('Este puesto ya fue adquirido.')">X<span>${numStr}</span></div>`;
+      } else if (i % 8 === 0) {
+        html += `<div class="cell-num pending" onclick="alert('Pendiente por confirmar.')">${numStr}</div>`;
+      } else {
+        html += `<div class="cell-num available" onclick="seleccionarPuesto('${numStr}')">${numStr}</div>`;
       }
-      board.innerHTML = html;
-
-      // Ganadores Anteriores (Elegantes)
-      const winners = document.getElementById('winnersContainer');
-      winners.innerHTML = `
-        <div class="winner-card"><p>Ganador Sorteo #45</p><div class="prize">Lattafa Asad</div><h4>Daniel O. - Puesto 14</h4></div>
-        <div class="winner-card" style="background:var(--accent-dark); border-color:var(--text-dark);"><p>Ganador Sorteo #44</p><div class="prize" style="color:white;">Afnan 9PM</div><h4 style="color:white;">Sara M. - Puesto 07</h4></div>
-        <div class="winner-card"><p>Ganador Sorteo #43</p><div class="prize">Club de Nuit</div><h4>Carlos T. - Puesto 88</h4></div>
-      `;
     }
+    board.innerHTML = html;
   }
 
   function seleccionarPuesto(num) {
-    const msg = `Hola. Quiero solicitar el puesto número ${num} para el sorteo activo.`;
-    openWhatsApp(msg);
+    openWhatsApp(`Hola. Quiero solicitar el puesto número ${num} para el sorteo activo.`);
   }
 
 </script>
