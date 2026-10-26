@@ -16,12 +16,12 @@
     --bg-card: #FFFFFF;
     --text-main: #1C1C1E;
     --text-muted: #8E8E93;
-    --apple-blue: #3399FF; /* Azul más clarito y vibrante */
+    --apple-blue: #3399FF; 
     --apple-blue-light: #EBF4FF;
     
     --border: rgba(0, 0, 0, 0.08);
     --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     
     --nav-height: 85px;
     --top-height: 60px;
@@ -39,7 +39,7 @@
     
     --border: rgba(255, 255, 255, 0.1);
     --glass-bg: rgba(28, 28, 30, 0.85);
-    --glass-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -47,6 +47,7 @@
   body {
     background-color: var(--bg-base);
     color: var(--text-main);
+    /* Tipografía suavizada: pesos regulares y medios */
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased; overflow-x: hidden;
     padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px);
@@ -56,7 +57,7 @@
   /* =========================================
      ANIMACIONES GLOBALES
      ========================================= */
-  .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .reveal { opacity: 0; transform: translateY(15px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
   /* =========================================
@@ -65,7 +66,7 @@
   .top-notification {
     position: fixed; top: 0; left: 0; width: 100%;
     background: var(--apple-blue); color: #FFF;
-    padding: 12px 20px; font-size: 12px; font-weight: 700; text-align: center; letter-spacing: 0.5px;
+    padding: 12px 20px; font-size: 12px; font-weight: 600; text-align: center; letter-spacing: 0.3px;
     z-index: 10001; transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex; justify-content: center; align-items: center; gap: 10px;
   }
@@ -80,24 +81,17 @@
     transition: opacity 0.5s ease;
   }
   
-  /* Animaciones exactas que pediste */
   .splash-greeting { 
-    font-size: 38px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; color: var(--apple-blue);
+    font-size: 34px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; color: var(--apple-blue);
     opacity: 0; transform: scale(0.9); animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .splash-user { 
-    font-size: 16px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px;
-    opacity: 0; transform: translateY(30px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    font-size: 15px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.5px;
+    opacity: 0; transform: translateY(20px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
   }
 
-  @keyframes popIn {
-    0% { opacity: 0; transform: scale(0.9); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes slideUpFade {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
 
   /* =========================================
      CABECERA & DARK MODE
@@ -108,13 +102,13 @@
     border-bottom: 1px solid transparent; transition: 0.3s;
   }
   .top-bar.scrolled { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-  .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s;}
+  .top-bar h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; opacity: 0; transition: 0.3s;}
   .top-bar.scrolled h1 { opacity: 1; }
-  .theme-toggle { font-size: 22px; color: var(--apple-blue); cursor: pointer; background: none; border: none; transition: 0.2s;}
+  .theme-toggle { font-size: 20px; color: var(--apple-blue); cursor: pointer; background: none; border: none; transition: 0.2s;}
   .theme-toggle:active { transform: scale(0.9); }
 
-  .large-title { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; margin: calc(var(--top-height) + 15px) 20px 25px 20px; }
-  .section-title { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
+  .large-title { font-size: 32px; font-weight: 700; letter-spacing: -1px; margin: calc(var(--top-height) + 15px) 20px 25px 20px; }
+  .section-title { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
 
   /* =========================================
      NAVEGACIÓN INFERIOR
@@ -125,9 +119,9 @@
     background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
     border-top: 1px solid var(--border);
   }
-  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--text-muted); font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-  .nav-item i { font-size: 22px; margin-bottom: 2px;}
-  .nav-item.active { color: var(--apple-blue); }
+  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--text-muted); font-size: 10px; font-weight: 500; cursor: pointer; transition: 0.2s; }
+  .nav-item i { font-size: 20px; margin-bottom: 2px;}
+  .nav-item.active { color: var(--apple-blue); font-weight: 600;}
 
   /* CONTENEDOR EXTENDIDO (PC) */
   .app-container { max-width: 1400px; margin: 0 auto; padding: 0 2%; }
@@ -137,30 +131,39 @@
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   /* =========================================
-     TIENDA (BOTONES LARGOS)
+     TIENDA (CUADRÍCULA 2X2)
      ========================================= */
-  .action-stack { display: flex; flex-direction: column; gap: 18px; padding: 0 20px; margin-bottom: 30px; }
-  .action-banner {
-    display: flex; align-items: center; justify-content: space-between; padding: 22px 25px;
-    border-radius: 20px; text-decoration: none; color: var(--text-main); cursor: pointer;
-    background: var(--bg-card); box-shadow: var(--glass-shadow); border: 1px solid var(--border);
-    transition: transform 0.2s;
+  .action-grid { 
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; 
+    padding: 0 20px; margin-bottom: 30px; 
   }
-  .action-banner:active { transform: scale(0.97); }
-  .ab-text h3 { font-size: 17px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px;}
-  .ab-text p { font-size: 13px; color: var(--text-muted); line-height: 1.4;}
+  .action-box {
+    background: var(--bg-card); border-radius: 20px; padding: 20px 15px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; text-decoration: none; color: var(--text-main);
+    box-shadow: var(--glass-shadow); border: 1px solid var(--border);
+    transition: transform 0.2s; cursor: pointer; min-height: 120px;
+  }
+  .action-box:active { transform: scale(0.97); }
+  .ab-icon { font-size: 28px; margin-bottom: 12px; color: var(--apple-blue); }
+  .ab-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; line-height: 1.2;}
+  .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3;}
   
-  .icon-circle { width: 50px; height: 50px; border-radius: 50%; background: var(--apple-blue-light); color: var(--apple-blue); display: flex; align-items: center; justify-content: center; font-size: 22px;}
+  /* Status Box (4to cuadro) */
+  .status-box { background: var(--apple-blue-light); border-color: transparent;}
+  body.dark-mode .status-box { background: rgba(51, 153, 255, 0.05); border-color: rgba(51, 153, 255, 0.1); }
+  .status-offline { background: rgba(142, 142, 147, 0.1); opacity: 0.8; }
 
   /* BUSCADOR */
   .search-container { margin: 0 20px 20px 20px; }
-  .search-box { display: flex; align-items: center; border-radius: 16px; padding: 14px 18px; gap: 12px; background: rgba(142, 142, 147, 0.1); border: 1px solid var(--border);}
+  .search-box { display: flex; align-items: center; border-radius: 14px; padding: 14px 18px; gap: 12px; background: rgba(142, 142, 147, 0.08); border: 1px solid var(--border);}
   .search-box i { color: var(--text-muted); font-size: 16px; }
-  .search-box input { border: none; background: transparent; width: 100%; font-size: 16px; outline: none; color: var(--text-main);}
-  .search-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 500; line-height: 1.5; padding: 0 10px;}
+  .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main);}
+  .search-box input::placeholder { color: var(--text-muted); }
+  .search-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 400; line-height: 1.4; padding: 0 10px;}
 
   .empty-state { text-align: center; padding: 40px 20px; }
-  .btn-ask { background: var(--apple-blue); color: #FFF; border: none; padding: 16px 20px; border-radius: 14px; font-size: 13px; font-weight: 700; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase;}
+  .btn-ask { background: var(--apple-blue); color: #FFF; border: none; padding: 15px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase;}
 
   /* GRID DE PRODUCTOS */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
@@ -168,27 +171,27 @@
   @media(min-width: 900px){ .product-grid { grid-template-columns: repeat(4, 1fr); } }
   @media(min-width: 1200px){ .product-grid { grid-template-columns: repeat(5, 1fr); } }
   
-  .prod-card { background: var(--bg-card); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; box-shadow: var(--glass-shadow); border: 1px solid var(--border);}
-  .prod-img { width: 100%; aspect-ratio: 1; background: var(--bg-base); border-radius: 14px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);}
+  .prod-card { background: var(--bg-card); border-radius: 18px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; box-shadow: var(--glass-shadow); border: 1px solid var(--border);}
+  .prod-img { width: 100%; aspect-ratio: 1; background: var(--bg-base); border-radius: 12px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);}
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   body.dark-mode .prod-img img { mix-blend-mode: normal; }
   
-  .prod-title { font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 36px;}
+  .prod-title { font-size: 13px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 34px;}
   .prod-prices { display: flex; align-items: center; gap: 8px; margin-bottom: 15px;}
-  .price-main { font-size: 15px; font-weight: 800; color: var(--text-main); }
-  .price-fake { font-size: 11px; font-weight: 500; color: var(--text-muted); text-decoration: line-through;}
+  .price-main { font-size: 14px; font-weight: 700; color: var(--text-main); }
+  .price-fake { font-size: 10px; font-weight: 400; color: var(--text-muted); text-decoration: line-through;}
   
-  .btn-get { background: var(--apple-blue-light); color: var(--apple-blue); border: none; padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 800; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
+  .btn-get { background: var(--apple-blue-light); color: var(--apple-blue); border: none; padding: 9px 12px; border-radius: 10px; font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
   .btn-get.selected { background: var(--apple-blue); color: #FFF; }
 
   /* CARRITO FLOTANTE */
-  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150px); width: 92%; max-width: 450px; background: var(--apple-blue); color: #FFF; padding: 12px 15px 12px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1500; box-shadow: 0 10px 40px rgba(51, 153, 255, 0.4); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;}
+  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150px); width: 92%; max-width: 450px; background: var(--apple-blue); color: #FFF; padding: 12px 15px 12px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1500; box-shadow: 0 10px 40px rgba(51, 153, 255, 0.3); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;}
   .ios-cart.show { transform: translateX(-50%) translateY(0); }
-  .cart-text { font-size: 15px; font-weight: 700;}
-  .btn-cart { background: #FFF; color: var(--apple-blue); border: none; padding: 10px 20px; border-radius: 20px; font-weight: 800; font-size: 13px; cursor: pointer; pointer-events: none;}
+  .cart-text { font-size: 14px; font-weight: 600;}
+  .btn-cart { background: #FFF; color: var(--apple-blue); border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; font-size: 12px; cursor: pointer; pointer-events: none;}
 
   /* MODALES / BOTTOM SHEETS */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
   .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card); border-radius: 24px 24px 0 0; padding: 25px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; overflow-y: auto; display: none;}
@@ -199,46 +202,46 @@
   /* Detalles Carrito */
   .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border);}
   .cart-item-info { flex: 1; margin-right: 15px; }
-  .cart-item-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;}
-  .cart-item-price { font-size: 13px; color: var(--text-muted); font-weight: 500;}
+  .cart-item-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; line-height: 1.2;}
+  .cart-item-price { font-size: 12px; color: var(--text-muted); font-weight: 500;}
   .cart-controls { display: flex; align-items: center; gap: 15px; background: var(--bg-app); border-radius: 30px; padding: 6px 16px;}
-  .c-btn { background: none; border: none; font-size: 20px; color: var(--apple-blue); cursor: pointer; font-weight: bold;}
-  .c-qty { font-size: 16px; font-weight: 700; min-width: 20px; text-align: center;}
+  .c-btn { background: none; border: none; font-size: 18px; color: var(--apple-blue); cursor: pointer; font-weight: bold;}
+  .c-qty { font-size: 14px; font-weight: 600; min-width: 20px; text-align: center;}
 
   /* POP-UP WHATSAPP (17s) */
-  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); background: var(--bg-card); width: 90%; max-width: 400px; border-radius: 24px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; box-shadow: var(--glass-shadow); border: 1px solid var(--border);}
+  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); background: var(--bg-card); width: 90%; max-width: 380px; border-radius: 24px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; box-shadow: var(--glass-shadow); border: 1px solid var(--border);}
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%);}
-  .close-cm { position: absolute; top: 15px; right: 15px; background: var(--bg-app); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-muted); cursor: pointer;}
+  .close-cm { position: absolute; top: 15px; right: 15px; background: var(--bg-app); border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 14px; color: var(--text-muted); cursor: pointer;}
 
   /* =========================================
      DINÁMICAS (SORTEOS) Y GANADORES
      ========================================= */
-  .raffle-card { background: var(--bg-card); border-radius: 24px; margin: 0 20px 25px 20px; padding: 30px 25px; text-align: center; box-shadow: var(--glass-shadow); border: 1px solid var(--border); }
-  .r-tag { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 8px 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
-  .r-title { font-size: 24px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px;}
-  .btn-board { background: var(--apple-blue); color: #FFF; border: none; padding: 16px 20px; border-radius: 14px; font-size: 14px; font-weight: 800; width: 100%; cursor: pointer; margin-top: 15px;}
+  .raffle-card { background: var(--bg-card); border-radius: 20px; margin: 0 20px 25px 20px; padding: 25px; text-align: center; box-shadow: var(--glass-shadow); border: 1px solid var(--border); }
+  .r-tag { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;}
+  .r-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px;}
+  .btn-board { background: var(--apple-blue); color: #FFF; border: none; padding: 14px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; width: 100%; cursor: pointer; margin-top: 10px;}
   
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 20px;}
-  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: var(--bg-app); }
+  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--bg-app); }
   .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); border: 1px solid var(--apple-blue);}
   .b-cell.ocupado { background: var(--bg-app); color: var(--text-muted); pointer-events: none;}
-  .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
+  .b-cell.ocupado span { font-size: 8px; text-decoration: line-through;}
 
   /* Carrusel de Ganadores GRANDES */
   .carousel-wrapper { position: relative; width: 100%; padding: 0 20px; margin-bottom: 20px; }
-  .winners-scroll { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px;}
+  .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px;}
   .w-card { 
-    min-width: 320px; scroll-snap-align: start; background: var(--bg-card); padding: 30px; 
-    border-radius: 24px; display: flex; gap: 25px; align-items: center; 
+    min-width: 300px; scroll-snap-align: start; background: var(--bg-card); padding: 25px; 
+    border-radius: 20px; display: flex; gap: 20px; align-items: center; 
     box-shadow: var(--glass-shadow); border: 1px solid var(--border);
   }
   .w-icon-container { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .w-icon-large { font-size: 45px; color: #FFCC00; margin-bottom: 8px;}
-  .w-number { font-size: 32px; font-weight: 800; color: var(--apple-blue); line-height: 1; letter-spacing: -1px;}
-  .w-info h4 { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text-main); letter-spacing: -0.3px;}
-  .w-info p { font-size: 14px; color: var(--text-muted); font-weight: 500; line-height: 1.4;}
+  .w-icon-large { font-size: 38px; color: #FFCC00; margin-bottom: 6px;}
+  .w-number { font-size: 26px; font-weight: 800; color: var(--apple-blue); line-height: 1; letter-spacing: -1px;}
+  .w-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); letter-spacing: -0.3px;}
+  .w-info p { font-size: 12px; color: var(--text-muted); font-weight: 400; line-height: 1.4;}
   
-  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: var(--text-main); font-size: 16px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s;}
+  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.1); color: var(--text-main); font-size: 14px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s;}
   .carousel-btn:active { transform: translateY(-50%) scale(0.9); }
   .carousel-btn.left { left: 0px; }
   .carousel-btn.right { right: 0px; }
@@ -246,17 +249,17 @@
   /* =========================================
      INFORMACIÓN (CUADROS SEPARADOS)
      ========================================= */
-  .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+  .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
   
-  .info-card-large { background: var(--bg-card); border-radius: 24px; padding: 30px 25px; border: 1px solid var(--border); box-shadow: var(--glass-shadow); }
-  .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px;}
-  .ic-icon-box { width: 50px; height: 50px; background: var(--apple-blue-light); color: var(--apple-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px;}
-  .ic-title { font-size: 20px; font-weight: 800; letter-spacing: -0.5px;}
+  .info-card-large { background: var(--bg-card); border-radius: 20px; padding: 25px; border: 1px solid var(--border); box-shadow: var(--glass-shadow); }
+  .ic-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px;}
+  .ic-icon-box { width: 45px; height: 45px; background: var(--apple-blue-light); color: var(--apple-blue); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;}
+  .ic-title { font-size: 16px; font-weight: 700; letter-spacing: -0.3px;}
   
-  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
-  .ic-list li { margin-bottom: 12px; }
-  .ic-list li b { color: var(--text-main); font-weight: 700;}
-  .ic-btn { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 14px 25px; border-radius: 14px; font-size: 14px; font-weight: 800; text-decoration: none; margin-top: 10px;}
+  .ic-list { list-style: none; padding: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5;}
+  .ic-list li { margin-bottom: 10px; }
+  .ic-list li b { color: var(--text-main); font-weight: 600;}
+  .ic-btn { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 12px 20px; border-radius: 12px; font-size: 12px; font-weight: 600; text-decoration: none; margin-top: 5px;}
 
 </style>
 </head>
@@ -278,9 +281,9 @@
 <div class="modal-overlay" id="promoOverlay"></div>
 <div class="center-modal" id="promoModal">
   <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
-  <i class="fa-brands fa-whatsapp" style="font-size: 55px; color: #34C759; margin-bottom: 20px;"></i>
-  <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 12px; line-height: 1.2;">COMUNIDAD VIP</h3>
-  <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
+  <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: #34C759; margin-bottom: 15px;"></i>
+  <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.2;">COMUNIDAD VIP</h3>
+  <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
   <button class="btn-ask" style="background: #34C759; color: white;" onclick="goPromoWA()">AGREGAR A WHATSAPP</button>
 </div>
 
@@ -310,8 +313,8 @@
   <!-- SHEET CARRITO INTERACTIVO -->
   <div class="bottom-sheet" id="sheetCart">
     <div class="sheet-handle"></div>
-    <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px;">Tu Pedido</h3>
-    <div id="cartItemsContainer" style="margin-bottom: 25px; max-height: 50vh; overflow-y: auto;">
+    <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 15px; letter-spacing: -0.5px;">Tu Pedido</h3>
+    <div id="cartItemsContainer" style="margin-bottom: 20px; max-height: 50vh; overflow-y: auto;">
       <!-- Inyectado por JS -->
     </div>
     <button class="btn-ask" onclick="sendCartWA()">ENVIAR PEDIDO POR WHATSAPP</button>
@@ -320,10 +323,10 @@
   <!-- SHEET TABLERO DE PUESTOS -->
   <div class="bottom-sheet" id="sheetSorteo">
     <div class="sheet-handle"></div>
-    <h3 style="font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 20px;">Selecciona tu Puesto</h3>
-    <div style="display:flex; justify-content:center; gap:15px; font-size:12px; font-weight:600; margin-bottom:20px; color:var(--text-muted);">
-      <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; border:1px solid var(--apple-blue); background:var(--bg-card);"></div> Libre</div>
-      <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:var(--bg-app);"></div> Pendiente / Vendido</div>
+    <h3 style="font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 15px;">Selecciona tu Puesto</h3>
+    <div style="display:flex; justify-content:center; gap:15px; font-size:11px; font-weight:500; margin-bottom:15px; color:var(--text-muted);">
+      <div style="display:flex; align-items:center; gap:5px;"><div style="width:12px; height:12px; border-radius:3px; border:1px solid var(--apple-blue); background:var(--bg-card);"></div> Libre</div>
+      <div style="display:flex; align-items:center; gap:5px;"><div style="width:12px; height:12px; border-radius:3px; background:var(--bg-app);"></div> Pendiente / Vendido</div>
     </div>
     <div class="board-grid" id="boardGrid"></div>
   </div>
@@ -336,32 +339,38 @@
     
     <h1 class="large-title reveal">Catálogo</h1>
 
-    <!-- Botones Largos Separados (Apple Style) -->
-    <div class="action-stack">
-      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="action-banner reveal">
-        <div class="ab-text">
-          <h3>Catálogo PDF</h3>
-          <p>Ver colección completa en PDF.</p>
+    <!-- Cuadrícula de Acciones (2x2) -->
+    <div class="action-grid reveal">
+      
+      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="action-box">
+        <i class="fa-solid fa-file-pdf ab-icon" style="color: #FF3B30;"></i>
+        <div>
+          <div class="ab-title">Catálogo PDF</div>
+          <div class="ab-desc">Colección completa</div>
         </div>
-        <div class="icon-circle"><i class="fa-solid fa-file-pdf"></i></div>
       </a>
 
-      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f?usp=sharing" target="_blank" class="action-banner reveal">
-        <div class="ab-text">
-          <h3>Entrega Inmediata</h3>
-          <p>Perfumes disponibles en Medellín.</p>
+      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f?usp=sharing" target="_blank" class="action-box">
+        <i class="fa-brands fa-google-drive ab-icon"></i>
+        <div>
+          <div class="ab-title">Entrega Inmediata</div>
+          <div class="ab-desc">Stock en Medellín</div>
         </div>
-        <div class="icon-circle"><i class="fa-brands fa-google-drive"></i></div>
       </a>
       
-      <!-- Botón Políticas y Envíos Integrado -->
-      <div class="action-banner reveal" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
-        <div class="ab-text">
-          <h3>Políticas y Envíos</h3>
-          <p>Tiempos de entrega y medios de pago.</p>
+      <div class="action-box" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
+        <i class="fa-solid fa-truck-fast ab-icon" style="color: var(--text-main);"></i>
+        <div>
+          <div class="ab-title">Políticas y Envíos</div>
+          <div class="ab-desc">Tiempos y pagos</div>
         </div>
-        <div class="icon-circle" style="background: rgba(128,128,128,0.1); color: var(--text-main);"><i class="fa-solid fa-truck-fast"></i></div>
       </div>
+
+      <!-- Cuadro 4: Estadísticas en Vivo -->
+      <div class="action-box status-box" id="statsBox">
+        <!-- JS inyecta la info según la hora -->
+      </div>
+
     </div>
 
     <!-- Buscador -->
@@ -379,7 +388,7 @@
     </div>
 
     <div class="empty-state" id="emptyState" style="display: none;">
-      <h3 style="margin-bottom:20px; font-weight:600;">No encontramos ese perfume.</h3>
+      <h3 style="margin-bottom:15px; font-weight:600;">No encontramos ese perfume.</h3>
       <button class="btn-ask" onclick="askAvailability()">Preguntar disponibilidad y precio</button>
     </div>
   </section>
@@ -393,7 +402,7 @@
 
     <div class="section-title reveal"><span>Ganadores Anteriores</span></div>
     
-    <!-- Carrusel de Ganadores GIGANTES con flechas -->
+    <!-- Carrusel de Ganadores GRANDES con flechas -->
     <div class="carousel-wrapper reveal">
       <button class="carousel-btn left" onclick="scrollCarousel(-1)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="winners-scroll" id="winnersContainer"></div>
@@ -409,7 +418,6 @@
 
     <div class="info-cards-container">
       
-      <!-- Cuadros Separados -->
       <div class="info-card-large reveal">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-clock"></i></div>
@@ -446,12 +454,12 @@
       </div>
 
       <!-- Botón VIP WhatsApp al final -->
-      <div class="action-banner reveal" style="background: rgba(52,199,89,0.1); border-color: rgba(52,199,89,0.3); padding: 30px 25px;" onclick="openWhatsApp('Hola! Quiero agregarlos a mis contactos para ver los estados y acceder a mejores precios.')">
-        <div class="ab-text">
-          <h3 style="color: #34C759; font-size: 20px;">VER ESTADOS</h3>
-          <p style="color: var(--text-main); font-size: 14px;">Agrégame a WhatsApp para ver mis estados y poder acceder a mejores precios todos los días.</p>
+      <div class="info-card-large reveal" style="background: rgba(52,199,89,0.05); border-color: rgba(52,199,89,0.2); cursor:pointer;" onclick="openWhatsApp('Hola! Quiero agregarlos a mis contactos para ver los estados y acceder a mejores precios.')">
+        <div class="ic-header">
+          <i class="fa-brands fa-whatsapp" style="color: #34C759; font-size: 40px; margin-right: 5px;"></i>
+          <h3 class="ic-title" style="color: #34C759;">VER ESTADOS</h3>
         </div>
-        <i class="fa-brands fa-whatsapp" style="color: #34C759; font-size: 50px;"></i>
+        <p style="font-size: 13px; color: var(--text-main); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados y poder acceder a mejores precios todos los días.</p>
       </div>
 
     </div>
@@ -461,25 +469,60 @@
 
 <script>
   // ==========================================
-  // LÓGICA SPLASH SCREEN (SALUDO HORA COLOMBIA)
+  // LÓGICA SPLASH SCREEN & STATS EN VIVO
   // ==========================================
   document.addEventListener('DOMContentLoaded', () => {
     
-    // Configurar Saludo Dinámico
+    // 1. Saludo Dinámico
     const hour = new Date().getHours();
     let greeting = "¡Buenas noches!";
     if (hour >= 6 && hour < 12) greeting = "¡Buenos días!";
     else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes!";
     document.getElementById('greetingText').innerText = greeting;
 
-    // Quitar splash a los 2 segundos exactos
+    // 2. Lógica del 4to Cuadro (Estadísticas y Horario)
+    const statsBox = document.getElementById('statsBox');
+    if (hour >= 10 && hour < 22) {
+       let baseUsuarios = 12;
+       const incrementos = [8, 10, 2, 5, 2, 1, 5, 3, 2];
+       let seqIndex = 0;
+       
+       function renderStats() {
+          statsBox.innerHTML = `
+            <i class="fa-solid fa-chart-line ab-icon" style="color: #34C759;"></i>
+            <div>
+              <div class="ab-title">Ventas web: 1.195</div>
+              <div class="ab-desc" style="color: #34C759; font-weight:600;">Usuarios conectados: ${baseUsuarios}</div>
+            </div>
+          `;
+       }
+       renderStats();
+       
+       setInterval(() => {
+          baseUsuarios += incrementos[seqIndex % incrementos.length];
+          seqIndex++;
+          renderStats();
+       }, 3000);
+       
+    } else {
+       statsBox.classList.add('status-offline');
+       statsBox.innerHTML = `
+          <i class="fa-solid fa-moon ab-icon" style="color: var(--text-muted);"></i>
+          <div>
+            <div class="ab-title">Fuera de Servicio</div>
+            <div class="ab-desc">NO DISPONIBLE HASTA:<br><b>10:00 a.m.</b></div>
+          </div>
+       `;
+    }
+
+    // 3. Ocultar Splash a los 2s
     setTimeout(() => {
       const s = document.getElementById('splash');
       s.style.opacity = '0';
       setTimeout(() => s.style.display = 'none', 500);
       observeElements();
       
-      // Mostrar notificación superior
+      // Mostrar notificación superior (10s)
       setTimeout(() => {
         const notif = document.getElementById('topNotif');
         notif.classList.add('show');
@@ -488,7 +531,7 @@
 
     }, 2000);
 
-    // Popup de WhatsApp a los 17 Segundos
+    // 4. Popup de WhatsApp a los 17 Segundos
     setTimeout(() => {
       document.getElementById('promoOverlay').classList.add('active');
       document.getElementById('promoModal').classList.add('active');
@@ -547,7 +590,7 @@
   }
 
   // ==========================================
-  // LÓGICA DE CARRITO Y WHATSAPP
+  // LÓGICA DE CARRITO
   // ==========================================
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
@@ -759,7 +802,7 @@
   }
 
   // ==========================================
-  // DINÁMICAS (SORTEOS) Y GANADORES
+  // DINÁMICAS Y GANADORES
   // ==========================================
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
@@ -796,8 +839,8 @@
           <div class="raffle-card glass-panel reveal">
             <span class="r-tag">${statusText}</span>
             <h3 class="r-title">${title}</h3>
-            <p style="font-size:15px; margin-bottom:25px; color:var(--text-muted);">Premio: ${desc}</p>
-            <button class="btn-board" onclick='openBoard(\`${JSON.stringify(pData)}\`)'>Ver Tablero de Puestos</button>
+            <p style="font-size:14px; margin-bottom:20px; color:var(--text-muted);">Premio: ${desc}</p>
+            <button class="btn-ask" style="max-width:100%; border-radius:12px;" onclick='openBoard(\`${JSON.stringify(pData)}\`)'>Ver Tablero de Puestos</button>
           </div>
         `;
       }
