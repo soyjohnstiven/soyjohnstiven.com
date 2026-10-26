@@ -53,11 +53,14 @@
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 
+  /* =========================================
+     ANIMACIONES GLOBALES
+     ========================================= */
   .reveal { opacity: 0; transform: translateY(15px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
   /* =========================================
-     NOTIFICACIÓN PEQUEÑA (TIPO PÍLDORA BLANCA)
+     NOTIFICACIÓN PEQUEÑA (PÍLDORA)
      ========================================= */
   .top-notification {
     position: fixed; top: 15px; left: 50%; transform: translate(-50%, -150%);
@@ -72,7 +75,7 @@
   .top-notification.show { transform: translate(-50%, 0); }
 
   /* =========================================
-     SPLASH SCREEN (BIENVENIDA)
+     SPLASH SCREEN (BIENVENIDA DINÁMICA)
      ========================================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
@@ -146,9 +149,9 @@
   .ab-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; line-height: 1.2;}
   .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3;}
   
-  .status-box { background: var(--bg-card); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;}
-  .stats-val { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 2px;}
-  .stats-label { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px;}
+  .status-box { background: var(--apple-blue-light); border-color: transparent;}
+  body.dark-mode .status-box { background: rgba(51, 153, 255, 0.05); border-color: rgba(51, 153, 255, 0.1); }
+  .status-offline { background: rgba(142, 142, 147, 0.1); opacity: 0.8; }
 
   /* BUSCADOR */
   .search-container { margin: 0 20px 20px 20px; }
@@ -195,6 +198,7 @@
   .bottom-sheet.active { transform: translateY(0); }
   .sheet-handle { width: 40px; height: 5px; background: var(--border); border-radius: 5px; margin: 0 auto 20px auto; }
   
+  /* Detalles Carrito */
   .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border);}
   .cart-item-info { flex: 1; margin-right: 15px; }
   .cart-item-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; line-height: 1.2;}
@@ -285,7 +289,7 @@
 <div class="app-container">
   
   <header class="top-bar" id="mainHeader">
-    <div style="width: 24px;"></div> <!-- Spacer -->
+    <div style="width: 24px;"></div>
     <h1 id="topTitle">Catálogo</h1>
     <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
   </header>
@@ -478,23 +482,21 @@
     // 2. Lógica del 4to Cuadro (Estadísticas Ventas/Usuarios/Estado)
     const statsBox = document.getElementById('statsBox');
     
-    // Configuración base de ventas que crece con los días
-    let ventasBase = parseInt(localStorage.getItem('ventasBase'));
-    if (!ventasBase) {
-      ventasBase = 1196; // Valor inicial
-      localStorage.setItem('ventasBase', ventasBase);
-    }
-    
-    // Posibilidad de sumar ventas a lo largo del día para guardarlo
-    if (Math.random() > 0.6) {
-      const incrementos = [12, 9, 13, 6, 8];
-      ventasBase += incrementos[Math.floor(Math.random() * incrementos.length)];
-      localStorage.setItem('ventasBase', ventasBase);
-    }
+    // Configuración base de ventas
+    let ventasBase = 1196;
+    try {
+      if (localStorage.getItem('ventasBase')) {
+        ventasBase = parseInt(localStorage.getItem('ventasBase'));
+      }
+      if (Math.random() > 0.6) {
+        const incrementos = [12, 9, 13, 6, 8];
+        ventasBase += incrementos[Math.floor(Math.random() * incrementos.length)];
+        localStorage.setItem('ventasBase', ventasBase);
+      }
+    } catch(e) {} // Evitar errores si localStorage está bloqueado
 
     if (hour >= 10 && hour < 22) {
-       // Si está dentro de horario laboral, aplicamos lógica de usuarios montaña rusa
-       let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29; // Inicia entre 29 y 74
+       let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29;
        
        function renderStats() {
           statsBox.innerHTML = `
@@ -507,15 +509,13 @@
        }
        renderStats();
        
-       // Esperar 15 segundos quieto y empezar fluctuación en montaña rusa
+       // Esperar 15 segundos y empezar fluctuación en montaña rusa
        setTimeout(() => {
           setInterval(() => {
             let rnd = Math.random();
-            if(rnd > 0.4) {
-               usuarios += 6; // Sube de a 6
-            } else {
-               usuarios -= 10; // Baja de a 10
-            }
+            if(rnd > 0.4) usuarios += 6; 
+            else usuarios -= 10; 
+            
             if(usuarios < 15) usuarios = 18 + Math.floor(Math.random()*5);
             if(usuarios > 180) usuarios = 160 - Math.floor(Math.random()*15);
             
@@ -537,23 +537,24 @@
        `;
     }
 
-    // 3. Ocultar Splash a los 2s exactos
+    // 3. Ocultar Splash a los 2s exactos y proteger la animación (REVEAL FIX)
     setTimeout(() => {
       const s = document.getElementById('splash');
       s.style.opacity = '0';
       setTimeout(() => s.style.display = 'none', 500);
-      observeElements();
       
-      // 4. Mostrar Notificación superior "Abre en el navegador" (Dura 10s)
+      // Mostrar Notificación superior
       setTimeout(() => {
         const notif = document.getElementById('topNotif');
         notif.classList.add('show');
         setTimeout(() => notif.classList.remove('show'), 10000);
       }, 500);
-
+      
+      // Iniciar el observer inicial
+      observeElements();
     }, 2000);
 
-    // 5. Popup de WhatsApp a los 17 Segundos
+    // 4. Popup de WhatsApp a los 17 Segundos
     setTimeout(() => {
       document.getElementById('promoOverlay').classList.add('active');
       document.getElementById('promoModal').classList.add('active');
@@ -570,7 +571,7 @@
   }
 
   // ==========================================
-  // DARK MODE & NAVEGACIÓN
+  // DARK MODE & NAVEGACIÓN Y REVEAL FIX
   // ==========================================
   function toggleTheme() {
     document.body.classList.toggle('dark-mode');
@@ -582,14 +583,45 @@
     }
   }
 
+  // Observer a prueba de fallos
+  const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); }
+    });
+  }, observerOptions);
+
+  function observeElements() {
+    const activeView = document.querySelector('.view.active');
+    if(!activeView) return;
+    activeView.querySelectorAll('.reveal').forEach(el => {
+      if(!el.classList.contains('active')) {
+        observer.observe(el);
+      }
+    });
+  }
+
   function switchView(viewId, title, element) {
-    document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+    // 1. Resetear todas las vistas y remover animaciones
+    document.querySelectorAll('.view').forEach(v => {
+      v.classList.remove('active');
+      v.querySelectorAll('.reveal').forEach(r => {
+        r.classList.remove('active');
+        observer.unobserve(r); // Es clave remover la observación previa
+      });
+    });
+    
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1)).classList.add('active');
+    
+    // 2. Activar la nueva vista
+    const nextView = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
+    nextView.classList.add('active');
     element.classList.add('active');
     document.getElementById('topTitle').innerText = title;
     window.scrollTo({top: 0, behavior: 'smooth'});
-    observeElements();
+    
+    // 3. Reactivar las animaciones en la vista nueva
+    setTimeout(() => observeElements(), 50);
   }
 
   window.addEventListener('scroll', () => {
@@ -598,7 +630,7 @@
   });
 
   // ==========================================
-  // LÓGICA DE CARRITO Y WHATSAPP (EXACTO)
+  // LÓGICA DE CARRITO Y WHATSAPP 
   // ==========================================
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
@@ -784,7 +816,8 @@
         <button class="${btnCls}" onclick="addDirectToCart('${esc(p.nombre)}', '${esc(p.precio)}', this)">${btnTxt}</button>
       </div>
     `}).join('');
-    observeElements();
+    // Al inyectar elementos nuevos, forzar que el observer los revise
+    setTimeout(() => observeElements(), 50);
   }
 
   let currentSearchTerm = "";
@@ -806,11 +839,11 @@
   });
 
   function askAvailability() { 
-    openWhatsApp(`Hola! Quiero preguntar por la disponibilidad y precio de:\n- ${currentSearchTerm}`); 
+    openWhatsApp(`Hola! Quiero preguntar por la disponibilidad y precio final de este perfume:\n- ${currentSearchTerm}`); 
   }
 
   // ==========================================
-  // DINÁMICAS (SORTEOS) Y GANADORES (MOTOR 3S)
+  // DINÁMICAS Y GANADORES
   // ==========================================
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
