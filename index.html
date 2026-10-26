@@ -43,7 +43,9 @@
 
   h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
 
-  /* SPLASH SCREEN */
+  /* =========================================
+     SPLASH SCREEN
+     ========================================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-main); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -54,7 +56,9 @@
   .line-loader::after { content: ''; position: absolute; left: -20px; top: 0; width: 20px; height: 100%; background: var(--text-dark); animation: load 1.5s infinite ease-in-out; }
   @keyframes load { 100% { left: 40px; } }
 
-  /* CABECERA SUPERIOR */
+  /* =========================================
+     CABECERA SUPERIOR
+     ========================================= */
   .top-bar {
     position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height);
     background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
@@ -63,7 +67,9 @@
   }
   .top-bar h1 { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; }
 
-  /* NAVEGACIÓN INFERIOR */
+  /* =========================================
+     NAVEGACIÓN INFERIOR
+     ========================================= */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom));
     background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
@@ -78,25 +84,34 @@
   .nav-item.active { color: var(--accent); font-weight: 600; }
   .nav-item.active i { transform: translateY(-3px); }
 
-  /* VISTAS Y ANIMACIONES */
+  /* =========================================
+     VISTAS Y ANIMACIONES
+     ========================================= */
   .view { display: none; padding: 0 5%; max-width: 1200px; margin: 0 auto; animation: fadeView 0.5s ease; padding-top: calc(var(--top-height) + 20px); }
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   .title-section { font-size: 26px; font-weight: 600; margin-bottom: 25px; line-height: 1.2; }
   
-  /* TIENDA (CATÁLOGO) */
-  .pdf-banner {
+  /* =========================================
+     MÓDULO 1: TIENDA (CATÁLOGO)
+     ========================================= */
+  
+  /* Botones Destacados (PDF y Drive) */
+  .action-banner {
     display: flex; align-items: center; justify-content: space-between;
     background: var(--bg-alt); padding: 20px; border-radius: 8px; text-decoration: none;
-    color: var(--text-dark); margin-bottom: 25px; border: 1px solid var(--border-color);
+    color: var(--text-dark); margin-bottom: 15px; border: 1px solid var(--border-color);
+    transition: var(--transition);
   }
-  .pdf-banner div h3 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-  .pdf-banner div p { font-size: 11px; color: var(--text-muted); }
-  .pdf-banner i { font-size: 24px; }
+  .action-banner:active { transform: scale(0.98); }
+  .action-banner div h3 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .action-banner div p { font-size: 11px; color: var(--text-muted); }
+  .action-banner i { font-size: 22px; }
 
+  /* Buscador Lineal Elegante */
   .search-line {
-    display: flex; align-items: center; border-bottom: 1px solid var(--text-dark); padding: 10px 0; margin-bottom: 35px;
+    display: flex; align-items: center; border-bottom: 1px solid var(--text-dark); padding: 10px 0; margin-top: 25px; margin-bottom: 35px;
   }
   .search-line i { font-size: 16px; margin-right: 15px; color: var(--text-muted); }
   .search-line input {
@@ -105,6 +120,7 @@
   }
   .search-line input::placeholder { color: var(--text-muted); font-style: italic; }
 
+  /* Estado Vacío (Buscador) */
   .empty-search { text-align: center; padding: 40px 0; display: none; }
   .empty-search h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 20px; font-weight: 500;}
   .btn-ask {
@@ -113,15 +129,16 @@
     letter-spacing: 1px; cursor: pointer; border-radius: 4px; width: 100%;
   }
 
-  .subtitle { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;}
+  /* Subtítulos */
+  .subtitle { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 25px; display: flex; align-items: center; gap: 10px;}
   .subtitle::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
 
-  .medellin-wrapper { margin: 0 -5% 40px -5%; padding: 0 5%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; display: flex; gap: 15px;}
-  
+  /* Grid Nacional */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 15px; margin-bottom: 40px;}
-  @media(min-width: 768px){ .product-grid, .medellin-wrapper { grid-template-columns: repeat(4, 1fr); display: grid; overflow: visible;} }
+  @media(min-width: 768px){ .product-grid { grid-template-columns: repeat(4, 1fr); } }
 
-  .product-card { display: flex; flex-direction: column; scroll-snap-align: start; min-width: 160px; }
+  /* Tarjeta de Producto */
+  .product-card { display: flex; flex-direction: column; min-width: 160px; }
   .p-img { width: 100%; aspect-ratio: 4/5; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; padding: 15px; margin-bottom: 12px; position: relative; border-radius: 4px;}
   .p-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   .p-title { font-size: 14px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; height: 36px; overflow: hidden;}
@@ -136,6 +153,7 @@
   }
   .btn-add.selected { background: var(--text-dark); color: white; }
 
+  /* Aviso de Precios */
   .price-notice { font-size: 10px; color: var(--text-muted); text-align: center; margin-bottom: 30px; font-style: italic; }
 
   /* Carrito Flotante */
@@ -149,7 +167,9 @@
   .fab-info { font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 10px;}
   .fab-btn { background: white; color: black; border: none; padding: 10px 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 2px;}
 
-  /* SORTEOS */
+  /* =========================================
+     MÓDULO 2: SORTEOS
+     ========================================= */
   .sorteo-item { border: 1px solid var(--border-color); padding: 25px; margin-bottom: 25px; text-align: center; background: var(--bg-main); border-radius: 4px;}
   .s-badge { display: inline-block; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--text-dark); padding-bottom: 2px; margin-bottom: 15px;}
   .s-title { font-size: 22px; margin-bottom: 10px; }
@@ -157,6 +177,7 @@
   .s-price { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 25px;}
   .btn-board { background: var(--bg-alt); border: 1px solid var(--border-color); color: var(--text-dark); padding: 12px 25px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; width: 100%; border-radius: 2px;}
 
+  /* Carrusel Ganadores */
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 20px;}
   .winner-card { min-width: 240px; scroll-snap-align: start; padding: 20px; border: 1px solid var(--border-color); background: var(--bg-alt); text-align: center; border-radius: 4px;}
   .winner-card i { font-size: 20px; margin-bottom: 15px; color: var(--text-dark);}
@@ -189,7 +210,9 @@
   .cell.ocu { background: #FAFAFA; color: #CCC; pointer-events: none; }
   .cell.ocu span { font-size: 8px; text-decoration: line-through; margin-top: -2px;}
 
-  /* INFORMACIÓN */
+  /* =========================================
+     MÓDULO 3: INFORMACIÓN
+     ========================================= */
   .accordion-item { border-bottom: 1px solid var(--border-color); padding: 25px 0; }
   .acc-header { display: flex; gap: 15px; align-items: flex-start; }
   .acc-header i { font-size: 20px; width: 25px; margin-top: 2px;}
@@ -241,7 +264,7 @@
 <!-- CARRITO FLOTANTE -->
 <div class="fab-cart" id="fabCart">
   <div class="fab-info"><i class="fa-solid fa-bag-shopping"></i> <span id="cartCount">0</span> Ítems</div>
-  <button class="fab-btn" onclick="sendCart()">Pedir</button>
+  <button class="fab-btn" onclick="sendCart()">Hacer Pedido</button>
 </div>
 
 <!-- BOTTOM SHEET (TABLERO SORTEOS) -->
@@ -265,7 +288,8 @@
        ========================================= -->
   <section id="viewCatalogo" class="view active">
     
-    <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="pdf-banner">
+    <!-- Botón PDF -->
+    <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="action-banner">
       <div>
         <h3>Catálogo PDF</h3>
         <p>Visualizar colección completa</p>
@@ -273,29 +297,36 @@
       <i class="fa-solid fa-arrow-right-long"></i>
     </a>
 
+    <!-- Botón Drive Medellín (Reemplaza el Carrusel) -->
+    <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f?usp=sharing" target="_blank" class="action-banner">
+      <div>
+        <h3>Entrega Inmediata (Medellín)</h3>
+        <p>Ver inventario local. Solo aplica precio al detal.</p>
+      </div>
+      <i class="fa-brands fa-google-drive"></i>
+    </a>
+
+    <!-- Buscador -->
     <div class="search-line">
       <i class="fa-solid fa-magnifying-glass"></i>
       <input type="text" id="searchInput" placeholder="Buscar por nombre o marca...">
     </div>
 
+    <!-- Contenedor Dinámico (Búsqueda o Normal) -->
     <div id="mainContent">
-      <div class="subtitle">Entrega Inmediata (Medellín)</div>
-      <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px; font-style: italic;">Solo aplica precio al detal.</p>
-      <div class="medellin-wrapper" id="medellinContainer">
-        <!-- Inyectado JS -->
-      </div>
-
-      <div class="subtitle" style="margin-top: 10px;">Catálogo Nacional</div>
+      <div class="subtitle">Catálogo Nacional</div>
       <div class="product-grid" id="catalogGrid">
         <!-- Inyectado JS -->
       </div>
       <p class="price-notice">* Pregunta por disponibilidad y precio final. Los valores pueden variar.</p>
     </div>
 
+    <!-- Estado Vacío (Oculto por defecto) -->
     <div class="empty-search" id="emptyState">
       <h3>No encontramos ese perfume.</h3>
       <button class="btn-ask" onclick="askAvailability()">Pregunta por disponibilidad y precio final</button>
     </div>
+
   </section>
 
   <!-- =========================================
@@ -468,20 +499,13 @@
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
   
   const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
-  const URL_MEDELLIN = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=491056335&single=true&output=csv';
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
 
-  let catNacional = [], catMedellin = [], allWinners = [];
+  let catNacional = [], allWinners = [];
 
   document.addEventListener('DOMContentLoaded', () => {
     fetchSorteos();
-    
-    // Cargar Medellín 
-    fetch(URL_MEDELLIN + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
-      catMedellin = processCat(csv);
-      renderCards(catMedellin, 'medellinContainer');
-    });
 
     // Cargar Nacional
     fetch(URL_NACIONAL + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
@@ -542,21 +566,18 @@
     if(!currentSearchTerm) { 
       mainContent.style.display = 'block';
       emptyState.style.display = 'none';
-      renderCards(catMedellin, 'medellinContainer');
       renderCards(catNacional, 'catalogGrid');
       return; 
     }
     
-    const fMed = catMedellin.filter(p => p.nombre.toLowerCase().includes(currentSearchTerm));
     const fNac = catNacional.filter(p => p.nombre.toLowerCase().includes(currentSearchTerm));
     
-    if(fMed.length === 0 && fNac.length === 0) {
+    if(fNac.length === 0) {
       mainContent.style.display = 'none';
       emptyState.style.display = 'block';
     } else {
       mainContent.style.display = 'block';
       emptyState.style.display = 'none';
-      renderCards(fMed, 'medellinContainer');
       renderCards(fNac, 'catalogGrid');
     }
   });
