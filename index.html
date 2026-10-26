@@ -43,9 +43,7 @@
 
   h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
 
-  /* =========================================
-     SPLASH SCREEN
-     ========================================= */
+  /* SPLASH SCREEN */
   #splash {
     position: fixed; inset: 0; background: var(--bg-main); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -56,9 +54,7 @@
   .line-loader::after { content: ''; position: absolute; left: -20px; top: 0; width: 20px; height: 100%; background: var(--text-dark); animation: load 1.5s infinite ease-in-out; }
   @keyframes load { 100% { left: 40px; } }
 
-  /* =========================================
-     CABECERA SUPERIOR
-     ========================================= */
+  /* CABECERA SUPERIOR */
   .top-bar {
     position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height);
     background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
@@ -67,9 +63,7 @@
   }
   .top-bar h1 { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; }
 
-  /* =========================================
-     NAVEGACIÓN INFERIOR
-     ========================================= */
+  /* NAVEGACIÓN INFERIOR */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom));
     background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
@@ -84,20 +78,14 @@
   .nav-item.active { color: var(--accent); font-weight: 600; }
   .nav-item.active i { transform: translateY(-3px); }
 
-  /* =========================================
-     VISTAS Y ANIMACIONES
-     ========================================= */
+  /* VISTAS Y ANIMACIONES */
   .view { display: none; padding: 0 5%; max-width: 1200px; margin: 0 auto; animation: fadeView 0.5s ease; padding-top: calc(var(--top-height) + 20px); }
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   .title-section { font-size: 26px; font-weight: 600; margin-bottom: 25px; line-height: 1.2; }
   
-  /* =========================================
-     MÓDULO 1: TIENDA (CATÁLOGO)
-     ========================================= */
-  
-  /* Botón PDF */
+  /* TIENDA (CATÁLOGO) */
   .pdf-banner {
     display: flex; align-items: center; justify-content: space-between;
     background: var(--bg-alt); padding: 20px; border-radius: 8px; text-decoration: none;
@@ -107,7 +95,6 @@
   .pdf-banner div p { font-size: 11px; color: var(--text-muted); }
   .pdf-banner i { font-size: 24px; }
 
-  /* Buscador Lineal Elegante */
   .search-line {
     display: flex; align-items: center; border-bottom: 1px solid var(--text-dark); padding: 10px 0; margin-bottom: 35px;
   }
@@ -118,7 +105,6 @@
   }
   .search-line input::placeholder { color: var(--text-muted); font-style: italic; }
 
-  /* Estado Vacío (Buscador) */
   .empty-search { text-align: center; padding: 40px 0; display: none; }
   .empty-search h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 20px; font-weight: 500;}
   .btn-ask {
@@ -127,28 +113,21 @@
     letter-spacing: 1px; cursor: pointer; border-radius: 4px; width: 100%;
   }
 
-  /* Subtítulos */
   .subtitle { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;}
   .subtitle::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
 
-  /* Carrusel Medellín */
   .medellin-wrapper { margin: 0 -5% 40px -5%; padding: 0 5%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; display: flex; gap: 15px;}
   
-  /* Grid Nacional */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 15px; margin-bottom: 40px;}
   @media(min-width: 768px){ .product-grid, .medellin-wrapper { grid-template-columns: repeat(4, 1fr); display: grid; overflow: visible;} }
 
-  /* Tarjeta de Producto */
   .product-card { display: flex; flex-direction: column; scroll-snap-align: start; min-width: 160px; }
-  .p-img { width: 100%; aspect-ratio: 4/5; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; padding: 15px; margin-bottom: 12px; position: relative;}
+  .p-img { width: 100%; aspect-ratio: 4/5; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; padding: 15px; margin-bottom: 12px; position: relative; border-radius: 4px;}
   .p-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   .p-title { font-size: 14px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; height: 36px; overflow: hidden;}
   
   .p-prices { display: flex; flex-direction: column; margin-bottom: 12px; }
   .p-current { font-size: 14px; font-weight: 700; }
-  .p-meta { display: flex; align-items: center; gap: 6px; font-size: 10px; margin-top: 2px; height: 12px;}
-  .p-old { color: var(--text-muted); text-decoration: line-through; }
-  .p-tag { font-weight: 600; font-size: 9px; text-transform: uppercase;}
   
   .btn-add {
     background: transparent; border: 1px solid var(--text-dark); color: var(--text-dark);
@@ -157,7 +136,6 @@
   }
   .btn-add.selected { background: var(--text-dark); color: white; }
 
-  /* Aviso de Precios */
   .price-notice { font-size: 10px; color: var(--text-muted); text-align: center; margin-bottom: 30px; font-style: italic; }
 
   /* Carrito Flotante */
@@ -171,19 +149,16 @@
   .fab-info { font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 10px;}
   .fab-btn { background: white; color: black; border: none; padding: 10px 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 2px;}
 
-  /* =========================================
-     MÓDULO 2: SORTEOS
-     ========================================= */
-  .sorteo-item { border: 1px solid var(--border-color); padding: 25px; margin-bottom: 25px; text-align: center; background: var(--bg-main);}
+  /* SORTEOS */
+  .sorteo-item { border: 1px solid var(--border-color); padding: 25px; margin-bottom: 25px; text-align: center; background: var(--bg-main); border-radius: 4px;}
   .s-badge { display: inline-block; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--text-dark); padding-bottom: 2px; margin-bottom: 15px;}
   .s-title { font-size: 22px; margin-bottom: 10px; }
   .s-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
   .s-price { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 25px;}
-  .btn-board { background: var(--bg-alt); border: 1px solid var(--border-color); color: var(--text-dark); padding: 12px 25px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; width: 100%;}
+  .btn-board { background: var(--bg-alt); border: 1px solid var(--border-color); color: var(--text-dark); padding: 12px 25px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; width: 100%; border-radius: 2px;}
 
-  /* Carrusel Ganadores */
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 20px;}
-  .winner-card { min-width: 240px; scroll-snap-align: start; padding: 20px; border: 1px solid var(--border-color); background: var(--bg-alt); text-align: center;}
+  .winner-card { min-width: 240px; scroll-snap-align: start; padding: 20px; border: 1px solid var(--border-color); background: var(--bg-alt); text-align: center; border-radius: 4px;}
   .winner-card i { font-size: 20px; margin-bottom: 15px; color: var(--text-dark);}
   .w-name { font-size: 13px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase;}
   .w-prize { font-size: 11px; color: var(--text-muted); font-style: italic;}
@@ -208,28 +183,26 @@
   .box.ocu { background: var(--text-dark); }
 
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
-  .cell { aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid var(--border-color); }
+  .cell { aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid var(--border-color); border-radius: 2px;}
   .cell.libre { background: var(--bg-main); color: var(--text-dark); }
   .cell.pen { background: var(--bg-alt); color: var(--text-muted); border-style: dashed; pointer-events: none;}
   .cell.ocu { background: #FAFAFA; color: #CCC; pointer-events: none; }
   .cell.ocu span { font-size: 8px; text-decoration: line-through; margin-top: -2px;}
 
-  /* =========================================
-     MÓDULO 3: INFORMACIÓN
-     ========================================= */
+  /* INFORMACIÓN */
   .accordion-item { border-bottom: 1px solid var(--border-color); padding: 25px 0; }
   .acc-header { display: flex; gap: 15px; align-items: flex-start; }
   .acc-header i { font-size: 20px; width: 25px; margin-top: 2px;}
   .acc-text h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;}
   .acc-text p { font-size: 12px; color: var(--text-muted); line-height: 1.6;}
   
-  .tracker { background: var(--bg-alt); padding: 15px; margin-top: 15px; text-align: center; border: 1px solid var(--border-color); }
+  .tracker { background: var(--bg-alt); padding: 15px; margin-top: 15px; text-align: center; border: 1px solid var(--border-color); border-radius: 4px;}
   .tracker a { color: var(--text-dark); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline;}
 
   .pay-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;}
-  .pay-tag { font-size: 10px; padding: 6px 12px; border: 1px solid var(--border-color); font-weight: 600;}
+  .pay-tag { font-size: 10px; padding: 6px 12px; border: 1px solid var(--border-color); font-weight: 600; border-radius: 2px;}
 
-  .vip-box { margin-top: 40px; background: var(--text-dark); color: white; padding: 30px 20px; text-align: center; cursor: pointer;}
+  .vip-box { margin-top: 40px; background: var(--text-dark); color: white; padding: 30px 20px; text-align: center; cursor: pointer; border-radius: 4px;}
   .vip-box i { font-size: 30px; margin-bottom: 15px;}
   .vip-box h4 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;}
   .vip-box p { font-size: 11px; opacity: 0.8; line-height: 1.5;}
@@ -238,37 +211,37 @@
 </head>
 <body>
 
-<!-- SPLASH ANIMADO -->
+<!-- SPLASH SCREEN -->
 <div id="splash">
   <h1 class="serif">Original.</h1>
   <div class="line-loader"></div>
 </div>
 
-<!-- HEADER FLOTANTE -->
+<!-- TOP BAR -->
 <header class="top-bar">
   <h1 id="topTitle">Catálogo</h1>
 </header>
 
-<!-- BOTTOM NAV APP -->
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <div class="nav-item active" onclick="switchView('catalogo', 'Catálogo', this)">
-    <i class="fa-solid fa-layer-group"></i>
+    <i class="fa-solid fa-gem"></i>
     <span>Catálogo</span>
   </div>
   <div class="nav-item" onclick="switchView('sorteos', 'Sorteos', this)">
     <i class="fa-solid fa-ticket"></i>
     <span>Sorteos</span>
   </div>
-  <div class="nav-item" onclick="switchView('info', 'Importante', this)">
-    <i class="fa-solid fa-circle-info"></i>
-    <span>Importante</span>
+  <div class="nav-item" onclick="switchView('info', 'Información', this)">
+    <i class="fa-solid fa-bars-staggered"></i>
+    <span>Info</span>
   </div>
 </nav>
 
 <!-- CARRITO FLOTANTE -->
 <div class="fab-cart" id="fabCart">
   <div class="fab-info"><i class="fa-solid fa-bag-shopping"></i> <span id="cartCount">0</span> Ítems</div>
-  <button class="fab-btn" onclick="sendCart()">Hacer Pedido</button>
+  <button class="fab-btn" onclick="sendCart()">Pedir</button>
 </div>
 
 <!-- BOTTOM SHEET (TABLERO SORTEOS) -->
@@ -292,7 +265,6 @@
        ========================================= -->
   <section id="viewCatalogo" class="view active">
     
-    <!-- Botón PDF -->
     <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="pdf-banner">
       <div>
         <h3>Catálogo PDF</h3>
@@ -301,15 +273,12 @@
       <i class="fa-solid fa-arrow-right-long"></i>
     </a>
 
-    <!-- Buscador -->
     <div class="search-line">
       <i class="fa-solid fa-magnifying-glass"></i>
       <input type="text" id="searchInput" placeholder="Buscar por nombre o marca...">
     </div>
 
-    <!-- Contenedor Dinámico (Búsqueda o Normal) -->
     <div id="mainContent">
-      
       <div class="subtitle">Entrega Inmediata (Medellín)</div>
       <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px; font-style: italic;">Solo aplica precio al detal.</p>
       <div class="medellin-wrapper" id="medellinContainer">
@@ -323,12 +292,10 @@
       <p class="price-notice">* Pregunta por disponibilidad y precio final. Los valores pueden variar.</p>
     </div>
 
-    <!-- Estado Vacío (Oculto por defecto) -->
     <div class="empty-search" id="emptyState">
       <h3>No encontramos ese perfume.</h3>
       <button class="btn-ask" onclick="askAvailability()">Pregunta por disponibilidad y precio final</button>
     </div>
-
   </section>
 
   <!-- =========================================
@@ -392,10 +359,10 @@
       </div>
     </div>
 
-    <div class="vip-box" onclick="openWhatsApp('Hola! Quiero guardar el contacto para ver los estados.')">
+    <div class="vip-box" onclick="openWhatsApp('Hola. Quiero solicitar el acceso para ver sus estados y promociones.')">
       <i class="fa-brands fa-whatsapp"></i>
       <h4>Comunidad Exclusiva</h4>
-      <p>Agrégame a WhatsApp para ver mis estados y no perderte de las mejores promociones.</p>
+      <p>Agréganos a WhatsApp para ver nuestros estados y no perderte de las mejores promociones.</p>
     </div>
   </section>
 
@@ -443,7 +410,7 @@
 
   function sendCart() {
     const items = cart.join(", ");
-    openWhatsApp(`Hola! Quiero este pedido: ${items}`);
+    openWhatsApp(`Hola. Quiero solicitar el siguiente pedido: ${items}.`);
   }
 
   // ==========================================
@@ -481,7 +448,7 @@
 
   function pedirPuesto(num) {
     closeSheet();
-    openWhatsApp(`Hola! Quiero este puesto en el sorteo: ${num}`);
+    openWhatsApp(`Hola. Quiero solicitar el puesto número ${num} para el sorteo activo.`);
   }
 
   // ==========================================
@@ -510,7 +477,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     fetchSorteos();
     
-    // Cargar Medellín (Con tu nuevo link)
+    // Cargar Medellín 
     fetch(URL_MEDELLIN + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
       catMedellin = processCat(csv);
       renderCards(catMedellin, 'medellinContainer');
@@ -530,25 +497,21 @@
   });
 
   function processCat(csvData) {
-    return parseCSV(csvData).slice(1).map((cols, idx) => {
+    return parseCSV(csvData).slice(1).map((cols) => {
       if(!cols || cols.length < 2) return null;
       var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
       var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
       var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEF_IMG;
       
-      // --- MAGIA PARA ARREGLAR LINKS DE GOOGLE DRIVE ---
+      // MAGIA: Traductor de Google Drive a link directo de imagen
       if (foto.includes('drive.google.com')) {
         const match = foto.match(/\/d\/([a-zA-Z0-9_-]+)/) || foto.match(/id=([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
           foto = `https://drive.google.com/uc?export=view&id=${match[1]}`;
         }
       }
-      // ---------------------------------------------------
 
-      let old = "", tag = "";
-      if(idx % 4 === 0) { old = `<span class="p-old">$180,000</span>`; tag = `<span class="p-tag badge-down">Bajó</span>`; }
-      else if(idx % 5 === 0) { old = `<span class="p-old">$120,000</span>`; tag = `<span class="p-tag badge-up">Subió</span>`; }
-      return { nombre, precio, foto, old, tag };
+      return { nombre, precio, foto };
     }).filter(Boolean);
   }
 
@@ -563,16 +526,13 @@
       <div class="product-card">
         <div class="p-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
         <h3 class="p-title serif">${esc(p.nombre)}</h3>
-        <div class="p-prices">
-          <span class="p-current">${esc(p.precio)}</span>
-          <div class="p-meta">${p.old} ${p.tag}</div>
-        </div>
+        <div class="p-prices"><span class="p-current">${esc(p.precio)}</span></div>
         <button class="${btnCls}" onclick="toggleCart('${esc(p.nombre)}', this)">${btnTxt}</button>
       </div>
     `}).join('');
   }
 
-  // BUSCADOR
+  // BUSCADOR INTELIGENTE
   let currentSearchTerm = "";
   document.getElementById('searchInput').addEventListener('input', (e) => {
     currentSearchTerm = e.target.value.toLowerCase().trim();
@@ -602,7 +562,7 @@
   });
 
   function askAvailability() {
-    openWhatsApp(`Hola! Quiero preguntar por la disponibilidad y precio final de este perfume: ${currentSearchTerm}`);
+    openWhatsApp(`Hola. Quiero preguntar por la disponibilidad y precio final de este perfume: ${currentSearchTerm}`);
   }
 
   // ==========================================
