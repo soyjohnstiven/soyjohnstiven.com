@@ -6,7 +6,6 @@
 <title>Perfumería Original</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -63,13 +62,16 @@
      BANNER SUPERIOR 10S
      ========================================= */
   .top-notification {
-    position: fixed; top: 0; left: 0; width: 100%;
-    background: var(--apple-blue); color: #FFF;
-    padding: 12px 20px; font-size: 12px; font-weight: 700; text-align: center; letter-spacing: 0.5px;
-    z-index: 10001; transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    position: fixed; top: 15px; left: 50%; transform: translate(-50%, -150%);
+    width: 90%; max-width: 400px;
+    background: #FFFFFF; color: #000000;
+    padding: 12px 20px; border-radius: 50px;
+    font-size: 11px; font-weight: 600; text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05);
+    z-index: 10001; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex; justify-content: center; align-items: center; gap: 10px;
   }
-  .top-notification.show { transform: translateY(0); }
+  .top-notification.show { transform: translate(-50%, 0); }
 
   /* =========================================
      SPLASH SCREEN (BIENVENIDA DINÁMICA)
@@ -112,8 +114,8 @@
   .theme-toggle { font-size: 22px; color: var(--apple-blue); cursor: pointer; background: none; border: none; transition: 0.2s;}
   .theme-toggle:active { transform: scale(0.9); }
 
-  .large-title { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; margin: calc(var(--top-height) + 15px) 20px 25px 20px; }
-  .section-title { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
+  .large-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 15px) 20px 25px 20px; }
+  .section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
 
   /* =========================================
      NAVEGACIÓN INFERIOR
@@ -136,35 +138,39 @@
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   /* =========================================
-     TIENDA (BOTONES LARGOS)
+     TIENDA (CUADRÍCULA 2x2 APPLE DASHBOARD)
      ========================================= */
-  .action-stack { display: flex; flex-direction: column; gap: 18px; padding: 0 20px; margin-bottom: 30px; }
-  .action-banner {
-    display: flex; align-items: center; justify-content: space-between; padding: 22px 25px;
-    border-radius: 20px; text-decoration: none; color: var(--text-main); cursor: pointer;
-    background: var(--bg-card); box-shadow: var(--glass-shadow); border: 1px solid var(--border);
-    transition: transform 0.2s;
+  .action-grid { 
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; 
+    padding: 0 20px; margin-bottom: 30px; 
   }
-  .action-banner:active { transform: scale(0.97); }
-  .ab-text h3 { font-size: 17px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px;}
-  .ab-text p { font-size: 13px; color: var(--text-muted); line-height: 1.4;}
+  .action-box {
+    background: var(--bg-card); border-radius: 20px; padding: 20px 15px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; text-decoration: none; color: var(--text-main);
+    box-shadow: var(--glass-shadow); border: 1px solid var(--border);
+    transition: transform 0.2s; cursor: pointer; min-height: 135px;
+  }
+  .action-box:active { transform: scale(0.97); }
+  .ab-icon { font-size: 32px; margin-bottom: 12px; color: var(--apple-blue); }
+  .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px;}
+  .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3;}
   
-  .icon-circle { width: 50px; height: 50px; border-radius: 50%; background: var(--apple-blue-light); color: var(--apple-blue); display: flex; align-items: center; justify-content: center; font-size: 22px;}
-
-  /* 4to Cuadro: Estadísticas en vivo */
-  .status-box { background: var(--apple-blue-light); border-color: transparent; text-align: center; justify-content: center;}
-  body.dark-mode .status-box { background: rgba(51, 153, 255, 0.08); border-color: rgba(51, 153, 255, 0.2); }
+  /* Status Box (4to cuadro interactivo) */
+  .status-box { background: var(--apple-blue-light); border-color: transparent;}
+  body.dark-mode .status-box { background: rgba(51, 153, 255, 0.05); border-color: rgba(51, 153, 255, 0.1); }
   .status-offline { background: rgba(142, 142, 147, 0.08); opacity: 0.8; }
 
   /* BUSCADOR */
   .search-container { margin: 0 20px 20px 20px; }
-  .search-box { display: flex; align-items: center; border-radius: 16px; padding: 14px 18px; gap: 12px; background: rgba(142, 142, 147, 0.1); border: 1px solid var(--border);}
+  .search-box { display: flex; align-items: center; border-radius: 14px; padding: 14px 18px; gap: 12px; background: rgba(142, 142, 147, 0.08); border: 1px solid var(--border);}
   .search-box i { color: var(--text-muted); font-size: 16px; }
-  .search-box input { border: none; background: transparent; width: 100%; font-size: 16px; outline: none; color: var(--text-main);}
-  .search-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 500; line-height: 1.5; padding: 0 10px;}
+  .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main);}
+  .search-box input::placeholder { color: var(--text-muted); }
+  .search-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 500; line-height: 1.4; padding: 0 10px;}
 
   .empty-state { text-align: center; padding: 40px 20px; }
-  .btn-ask { background: var(--apple-blue); color: #FFF; border: none; padding: 16px 20px; border-radius: 14px; font-size: 13px; font-weight: 700; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase;}
+  .btn-ask { background: var(--apple-blue); color: #FFF; border: none; padding: 15px 20px; border-radius: 14px; font-size: 13px; font-weight: 700; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase;}
 
   /* GRID DE PRODUCTOS */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
@@ -177,19 +183,19 @@
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   body.dark-mode .prod-img img { mix-blend-mode: normal; }
   
-  .prod-title { font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 36px;}
+  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 34px;}
   .prod-prices { display: flex; align-items: center; gap: 8px; margin-bottom: 15px;}
   .price-main { font-size: 15px; font-weight: 800; color: var(--text-main); }
   .price-fake { font-size: 11px; font-weight: 500; color: var(--text-muted); text-decoration: line-through;}
   
-  .btn-get { background: var(--apple-blue-light); color: var(--apple-blue); border: none; padding: 9px 12px; border-radius: 10px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
+  .btn-get { background: var(--apple-blue-light); color: var(--apple-blue); border: none; padding: 10px 12px; border-radius: 12px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
   .btn-get.selected { background: var(--apple-blue); color: #FFF; }
 
   /* CARRITO FLOTANTE */
   .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150px); width: 92%; max-width: 450px; background: var(--apple-blue); color: #FFF; padding: 12px 15px 12px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1500; box-shadow: 0 10px 40px rgba(51, 153, 255, 0.4); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;}
   .ios-cart.show { transform: translateX(-50%) translateY(0); }
-  .cart-text { font-size: 15px; font-weight: 700;}
-  .btn-cart { background: #FFF; color: var(--apple-blue); border: none; padding: 10px 20px; border-radius: 20px; font-weight: 800; font-size: 13px; cursor: pointer; pointer-events: none;}
+  .cart-text { font-size: 14px; font-weight: 700;}
+  .btn-cart { background: #FFF; color: var(--apple-blue); border: none; padding: 10px 20px; border-radius: 20px; font-weight: 800; font-size: 12px; cursor: pointer; pointer-events: none;}
 
   /* MODALES Y OVERLAYS */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
@@ -200,13 +206,14 @@
   .bottom-sheet.active { transform: translateY(0); }
   .sheet-handle { width: 40px; height: 5px; background: var(--border); border-radius: 5px; margin: 0 auto 20px auto; }
   
+  /* Detalles Carrito */
   .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border);}
   .cart-item-info { flex: 1; margin-right: 15px; }
-  .cart-item-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.2;}
-  .cart-item-price { font-size: 13px; color: var(--text-muted); font-weight: 500;}
+  .cart-item-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;}
+  .cart-item-price { font-size: 12px; color: var(--text-muted); font-weight: 500;}
   .cart-controls { display: flex; align-items: center; gap: 15px; background: var(--bg-app); border-radius: 30px; padding: 6px 16px;}
-  .c-btn { background: none; border: none; font-size: 20px; color: var(--apple-blue); cursor: pointer; font-weight: bold;}
-  .c-qty { font-size: 16px; font-weight: 700; min-width: 20px; text-align: center;}
+  .c-btn { background: none; border: none; font-size: 18px; color: var(--apple-blue); cursor: pointer; font-weight: bold;}
+  .c-qty { font-size: 15px; font-weight: 700; min-width: 20px; text-align: center;}
 
   /* POP-UP WHATSAPP (17s) */
   .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); background: var(--bg-card); width: 90%; max-width: 400px; border-radius: 24px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; box-shadow: var(--glass-shadow); border: 1px solid var(--border);}
@@ -216,16 +223,16 @@
   /* =========================================
      DINÁMICAS (SORTEOS) Y GANADORES
      ========================================= */
-  .raffle-card { background: var(--bg-card); border-radius: 20px; margin: 0 20px 25px 20px; padding: 25px; text-align: center; box-shadow: var(--glass-shadow); border: 1px solid var(--border); }
-  .r-tag { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;}
-  .r-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px;}
-  .btn-board { background: var(--apple-blue); color: #FFF; border: none; padding: 14px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; width: 100%; cursor: pointer; margin-top: 10px;}
+  .raffle-card { background: var(--bg-card); border-radius: 24px; margin: 0 20px 25px 20px; padding: 30px 25px; text-align: center; box-shadow: var(--glass-shadow); border: 1px solid var(--border); }
+  .r-tag { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 8px 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
+  .r-title { font-size: 24px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px;}
+  .btn-board { background: var(--apple-blue); color: #FFF; border: none; padding: 16px 20px; border-radius: 14px; font-size: 14px; font-weight: 800; width: 100%; cursor: pointer; margin-top: 15px;}
   
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 20px;}
-  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--bg-app); }
+  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: var(--bg-app); }
   .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); border: 1px solid var(--apple-blue);}
   .b-cell.ocupado { background: var(--bg-app); color: var(--text-muted); pointer-events: none;}
-  .b-cell.ocupado span { font-size: 8px; text-decoration: line-through;}
+  .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
 
   /* Carrusel de Ganadores GRANDES */
   .carousel-wrapper { position: relative; width: 100%; padding: 0 20px; margin-bottom: 20px; }
@@ -265,10 +272,10 @@
 </head>
 <body>
 
-<!-- BANNER SUPERIOR NAVEGADOR -->
+<!-- NOTIFICACIÓN TIPO PÍLDORA BLANCA (10 SEGUNDOS) -->
 <div class="top-notification" id="topNotif">
-  <i class="fa-brands fa-safari" style="font-size: 16px;"></i>
-  <span>Abre esta página en el navegador oficial de tu celular para una mejor experiencia.</span>
+  <i class="fa-brands fa-safari" style="font-size: 14px;"></i>
+  <span>Abre esta página en el navegador oficial de tu dispositivo para una mejor experiencia.</span>
 </div>
 
 <!-- SPLASH SCREEN DE BIENVENIDA -->
@@ -339,37 +346,38 @@
     
     <h1 class="large-title reveal">Catálogo</h1>
 
-    <!-- Botones Largos Separados (Apple Style) -->
-    <div class="action-stack">
-      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="action-banner reveal">
-        <div class="ab-text">
-          <h3>Catálogo PDF</h3>
-          <p>Ver colección completa en PDF.</p>
+    <!-- Cuadrícula de Acciones (2x2) y Cuadro de Stats en Vivo -->
+    <div class="action-grid reveal">
+      
+      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="action-box">
+        <i class="fa-solid fa-file-pdf ab-icon" style="color: #FF3B30;"></i>
+        <div>
+          <div class="ab-title">Catálogo PDF</div>
+          <div class="ab-desc">Colección completa</div>
         </div>
-        <div class="icon-circle"><i class="fa-solid fa-file-pdf"></i></div>
       </a>
 
-      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f?usp=sharing" target="_blank" class="action-banner reveal">
-        <div class="ab-text">
-          <h3>Entrega Inmediata</h3>
-          <p>Perfumes disponibles en Medellín.</p>
+      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f?usp=sharing" target="_blank" class="action-box">
+        <i class="fa-brands fa-google-drive ab-icon"></i>
+        <div>
+          <div class="ab-title">Entrega Inmediata</div>
+          <div class="ab-desc">Stock local Medellín</div>
         </div>
-        <div class="icon-circle"><i class="fa-brands fa-google-drive"></i></div>
       </a>
       
-      <!-- Botón Políticas y Envíos Integrado -->
-      <div class="action-banner reveal" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
-        <div class="ab-text">
-          <h3>Políticas y Envíos</h3>
-          <p>Tiempos de entrega y medios de pago.</p>
+      <div class="action-box" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
+        <i class="fa-solid fa-truck-fast ab-icon" style="color: var(--text-main);"></i>
+        <div>
+          <div class="ab-title">Políticas y Envíos</div>
+          <div class="ab-desc">Tiempos y métodos de pago</div>
         </div>
-        <div class="icon-circle" style="background: rgba(128,128,128,0.1); color: var(--text-main);"><i class="fa-solid fa-truck-fast"></i></div>
       </div>
-      
-      <!-- Cuadro 4: Estadísticas de Ventas en Vivo -->
-      <div class="action-banner status-box reveal" id="statsBox">
-        <!-- Inyectado por JS (Horario y Lógica Flotante) -->
+
+      <!-- Cuadro 4: Estadísticas de Ventas en Vivo (1206 dinámico) -->
+      <div class="action-box status-box" id="statsBox">
+        <!-- Inyectado por JS -->
       </div>
+
     </div>
 
     <!-- Buscador -->
@@ -453,12 +461,12 @@
       </div>
 
       <!-- Botón VIP WhatsApp al final -->
-      <div class="action-banner reveal" style="background: rgba(52,199,89,0.1); border-color: rgba(52,199,89,0.3); padding: 30px 25px; margin-bottom: 0;" onclick="openWhatsApp('Hola! Quiero agregarlos a mis contactos para ver los estados y acceder a mejores precios.')">
-        <div class="ab-text">
-          <h3 style="color: #34C759; font-size: 20px;">VER ESTADOS</h3>
-          <p style="color: var(--text-main); font-size: 14px;">Agrégame a WhatsApp para ver mis estados y poder acceder a mejores precios todos los días.</p>
+      <div class="info-card-large reveal" style="background: rgba(52,199,89,0.05); border-color: rgba(52,199,89,0.2); cursor:pointer;" onclick="openWhatsApp('Hola! Quiero agregarlos a mis contactos para ver los estados y acceder a mejores precios.')">
+        <div class="ic-header">
+          <i class="fa-brands fa-whatsapp" style="color: #34C759; font-size: 40px; margin-right: 5px;"></i>
+          <h3 class="ic-title" style="color: #34C759;">VER ESTADOS</h3>
         </div>
-        <i class="fa-brands fa-whatsapp" style="color: #34C759; font-size: 50px;"></i>
+        <p style="font-size: 13px; color: var(--text-main); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados y poder acceder a mejores precios todos los días.</p>
       </div>
 
     </div>
@@ -468,42 +476,36 @@
 
 <script>
   // ==========================================
-  // LÓGICA SPLASH, ESTADÍSTICAS Y ALERTAS
+  // LÓGICA SPLASH Y ESTADÍSTICAS EN VIVO
   // ==========================================
   document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Saludo Dinámico y Ortografía
+    // 1. Saludo Dinámico 
     const hour = new Date().getHours();
     let greeting = "¡Buenas noches!";
     if (hour >= 6 && hour < 12) greeting = "¡Buenos días!";
     else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes!";
     document.getElementById('greetingText').innerText = greeting;
 
-    // 2. Lógica del 4to Cuadro (Estadísticas Ventas/Usuarios/Estado)
+    // 2. Lógica del 4to Cuadro (Estadísticas 1.206 Exactas por fecha)
     const statsBox = document.getElementById('statsBox');
     
-    // Configuración base de ventas que crece (INICIA EN 1206)
-    let ventasBase = 1206;
-    try {
-      if (localStorage.getItem('ventasBaseV2')) {
-        ventasBase = parseInt(localStorage.getItem('ventasBaseV2'));
-      }
-      
-      // Probabilidad de sumar ventas a lo largo del día para guardarlo
-      if (Math.random() > 0.4) {
-        const incrementos = [12, 9, 13, 6, 8];
-        ventasBase += incrementos[Math.floor(Math.random() * incrementos.length)];
-        localStorage.setItem('ventasBaseV2', ventasBase);
-      }
-    } catch(e) {} // Evitar errores si localStorage está bloqueado
+    // Fecha de inicio: Octubre 26, 2026 (Fijamos la base exacta)
+    const baseDate = new Date("2026-10-26T00:00:00-05:00").getTime();
+    const now = new Date().getTime();
+    const diffTime = Math.max(0, now - baseDate);
+    // Cada 24 horas transcurridas se suman 13 ventas
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const ventasDia = 1206 + (diffDays * 13);
 
     if (hour >= 10 && hour < 22) {
+       // Montaña rusa de usuarios (De 29 a 74)
        let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29;
        
        function renderStats() {
           statsBox.innerHTML = `
             <div style="display:flex; flex-direction:column; gap: 8px; width: 100%; align-items:center;">
-              <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span id="vCount">${ventasBase.toLocaleString('es-CO')}</span></div>
+              <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span id="vCount">${ventasDia.toLocaleString('es-CO')}</span></div>
               <div style="font-size: 13px; font-weight: 700; color: var(--apple-blue);">USUARIOS CONECTADOS: <span id="uCount">${usuarios}</span></div>
               <div style="color: #34C759; font-weight:700; font-size:11px; margin-top: 5px;">ESTADO: Disponible hasta las 10:00 p.m.</div>
             </div>
@@ -511,7 +513,7 @@
        }
        renderStats();
        
-       // Esperar 15 segundos y empezar fluctuación en montaña rusa
+       // Esperar 15 segundos quieto y empezar fluctuación en montaña rusa
        setTimeout(() => {
           setInterval(() => {
             let rnd = Math.random();
@@ -528,10 +530,11 @@
        
     } else {
        // Fuera de Horario Laboral
+       statsBox.classList.add('status-offline');
        statsBox.style.background = 'rgba(142, 142, 147, 0.08)';
        statsBox.innerHTML = `
           <div style="display:flex; flex-direction:column; gap: 8px; width: 100%; align-items:center;">
-            <div style="font-size: 16px; font-weight: 800; color: var(--text-main); opacity: 0.6;">VENTAS: ${ventasBase.toLocaleString('es-CO')}</div>
+            <div style="font-size: 16px; font-weight: 800; color: var(--text-main); opacity: 0.6;">VENTAS: ${ventasDia.toLocaleString('es-CO')}</div>
             <div style="font-size: 13px; font-weight: 700; color: var(--apple-blue); opacity: 0.6;">USUARIOS CONECTADOS: 0</div>
             <div style="color: #FF3B30; font-weight:700; font-size:11px; margin-top: 5px;">NO DISPONIBLE HASTA: 10:00 a.m.</div>
           </div>
@@ -603,25 +606,22 @@
   }
 
   function switchView(viewId, title, element) {
-    // 1. Resetear todas las vistas y remover animaciones
     document.querySelectorAll('.view').forEach(v => {
       v.classList.remove('active');
       v.querySelectorAll('.reveal').forEach(r => {
         r.classList.remove('active');
-        observer.unobserve(r); // Es clave remover la observación previa
+        observer.unobserve(r); 
       });
     });
     
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     
-    // 2. Activar la nueva vista
     const nextView = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
     nextView.classList.add('active');
     element.classList.add('active');
     document.getElementById('topTitle').innerText = title;
     window.scrollTo({top: 0, behavior: 'smooth'});
     
-    // 3. Reactivar las animaciones en la vista nueva
     setTimeout(() => observeElements(), 50);
   }
 
@@ -817,7 +817,6 @@
         <button class="${btnCls}" onclick="addDirectToCart('${esc(p.nombre)}', '${esc(p.precio)}', this)">${btnTxt}</button>
       </div>
     `}).join('');
-    // Al inyectar elementos nuevos, forzar que el observer los revise
     setTimeout(() => observeElements(), 50);
   }
 
