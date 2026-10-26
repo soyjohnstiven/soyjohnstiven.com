@@ -4,337 +4,329 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
-<title>Perfumería Original</title>
-
-<!-- PWA & Apple Web App Tags -->
+<title>Perfumería Original | Tienda Oficial</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Perfumería">
-<meta name="theme-color" content="#F2F2F7">
+<meta name="theme-color" content="#FFFFFF">
 
-<!-- Iconos -->
+<!-- Tipografías de Alta Costura -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
   :root {
-    /* Paleta Oficial iOS Light Mode */
-    --bg-app: #F2F2F7; 
-    --bg-card: #FFFFFF;
-    --text-main: #000000;
-    --text-secondary: #3C3C43;
-    --text-muted: #8A8A8E;
-    --apple-blue: #007AFF;
-    --border: #E5E5EA;
+    --bg-main: #FFFFFF;
+    --bg-alt: #F8F8F8;
+    --text-dark: #000000;
+    --text-muted: #757575;
+    --accent: #000000;
+    --border-color: #EAEAEA;
     
-    --nav-height: 83px;
-    --top-height: 60px;
-    --safe-bottom: env(safe-area-inset-bottom, 20px);
-    
-    /* Efectos y Radios */
-    --radius-lg: 20px;
-    --radius-md: 14px;
-    --radius-sm: 8px;
-    --shadow-sm: 0 4px 15px rgba(0,0,0,0.04);
-    --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --nav-height: 80px;
+    --top-height: 65px;
+    --safe-bottom: env(safe-area-inset-bottom, 15px);
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   
   body {
-    background-color: var(--bg-app);
-    color: var(--text-main);
-    /* Tipografía nativa Apple */
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    font-family: 'Montserrat', sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-  }
-
-  /* SPLASH SCREEN (Carga Inicial) */
-  #splash {
-    position: fixed; inset: 0; background: var(--bg-card); z-index: 9999;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    transition: opacity 0.5s ease;
-  }
-  .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--text-muted); border-radius: 50%; animation: spin 1s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ESTRUCTURA PRINCIPAL (Centrado para PC) */
-  .app-container {
-    max-width: 1200px; margin: 0 auto;
-    padding-top: var(--top-height);
     padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px);
-    display: flex; flex-direction: column; min-height: 100vh;
   }
 
-  /* TOP BAR (Glassmorphism iOS) */
+  h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+  /* =========================================
+     SPLASH SCREEN
+     ========================================= */
+  #splash {
+    position: fixed; inset: 0; background: var(--bg-main); z-index: 9999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.8s ease;
+  }
+  #splash h1 { font-size: 28px; letter-spacing: 4px; text-transform: uppercase; }
+  .line-loader { width: 40px; height: 1px; background: var(--border-color); margin-top: 15px; position: relative; overflow: hidden; }
+  .line-loader::after { content: ''; position: absolute; left: -20px; top: 0; width: 20px; height: 100%; background: var(--text-dark); animation: load 1.5s infinite ease-in-out; }
+  @keyframes load { 100% { left: 40px; } }
+
+  /* =========================================
+     CABECERA SUPERIOR
+     ========================================= */
   .top-bar {
     position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height);
-    background: rgba(242, 242, 247, 0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000;
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color); z-index: 1000;
     display: flex; justify-content: center; align-items: center;
   }
-  .top-bar h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.4px; }
+  .top-bar h1 { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; }
 
-  /* BOTTOM NAVIGATION BAR */
+  /* =========================================
+     NAVEGACIÓN INFERIOR
+     ========================================= */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom));
-    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-    border-top: 1px solid rgba(0,0,0,0.1); z-index: 2000;
+    background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border-color); z-index: 2000;
     display: flex; justify-content: space-around; padding-bottom: var(--safe-bottom);
   }
   .nav-item {
-    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-    color: var(--text-muted); font-size: 10px; font-weight: 500; cursor: pointer; transition: 0.2s;
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    color: var(--text-muted); font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s;
   }
-  .nav-item i { font-size: 22px; margin-bottom: 2px;}
-  .nav-item.active { color: var(--apple-blue); }
-
-  /* VISTAS */
-  .view { display: none; padding: 20px 5%; animation: fadeView 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
-  .view.active { display: block; }
-  @keyframes fadeView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* TIPOGRAFÍAS iOS */
-  .large-title { font-size: 34px; font-weight: 800; letter-spacing: -1px; margin-bottom: 25px; line-height: 1.1;}
-  .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 0 15px 0; }
+  .nav-item i { font-size: 20px; transition: var(--transition); }
+  .nav-item.active { color: var(--accent); font-weight: 600; }
+  .nav-item.active i { transform: translateY(-3px); }
 
   /* =========================================
-     CATÁLOGO & BUSCADOR
+     VISTAS Y ANIMACIONES
      ========================================= */
-  .search-box {
-    display: flex; align-items: center; background: #E3E3E8; padding: 12px 16px;
-    border-radius: 12px; margin-bottom: 25px; gap: 10px;
-  }
-  .search-box i { color: var(--text-muted); font-size: 18px; }
-  .search-box input {
-    border: none; background: transparent; width: 100%; font-size: 17px;
-    font-family: inherit; outline: none; color: var(--text-main);
-  }
+  .view { display: none; padding: 0 5%; max-width: 1200px; margin: 0 auto; animation: fadeView 0.5s ease; padding-top: calc(var(--top-height) + 20px); }
+  .view.active { display: block; }
+  @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  .btn-pdf {
+  .title-section { font-size: 26px; font-weight: 600; margin-bottom: 25px; line-height: 1.2; }
+  
+  /* =========================================
+     MÓDULO 1: TIENDA (CATÁLOGO)
+     ========================================= */
+  
+  /* Botón PDF */
+  .pdf-banner {
     display: flex; align-items: center; justify-content: space-between;
-    background: var(--bg-card); padding: 18px 20px; border-radius: var(--radius-lg);
-    text-decoration: none; color: var(--text-main); box-shadow: var(--shadow-sm);
-    margin-bottom: 30px; border: 1px solid var(--border); transition: var(--transition);
+    background: var(--bg-alt); padding: 20px; border-radius: 8px; text-decoration: none;
+    color: var(--text-dark); margin-bottom: 25px; border: 1px solid var(--border-color);
   }
-  .btn-pdf:active { transform: scale(0.97); }
-  .pdf-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 2px;}
-  .pdf-info p { font-size: 13px; color: var(--text-muted);}
-  .btn-pdf i { font-size: 24px; color: #FF3B30; }
+  .pdf-banner div h3 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .pdf-banner div p { font-size: 11px; color: var(--text-muted); }
+  .pdf-banner i { font-size: 24px; }
 
-  .notice-text { font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 20px; padding: 0 10px; line-height: 1.4;}
-
-  /* CARRUSEL MEDELLÍN (Horizontal Snap) */
-  .medellin-carousel {
-    display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-    padding-bottom: 15px; margin: 0 -5% 30px -5%; padding-left: 5%; padding-right: 5%;
+  /* Buscador Lineal Elegante */
+  .search-line {
+    display: flex; align-items: center; border-bottom: 1px solid var(--text-dark); padding: 10px 0; margin-bottom: 35px;
   }
-  .medellin-carousel::-webkit-scrollbar { display: none; }
+  .search-line i { font-size: 16px; margin-right: 15px; color: var(--text-muted); }
+  .search-line input {
+    border: none; background: transparent; width: 100%; font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 400; outline: none; color: var(--text-dark);
+  }
+  .search-line input::placeholder { color: var(--text-muted); font-style: italic; }
+
+  /* Estado Vacío (Buscador) */
+  .empty-search { text-align: center; padding: 40px 0; display: none; }
+  .empty-search h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 20px; font-weight: 500;}
+  .btn-ask {
+    background: var(--accent); color: white; border: none; padding: 15px 30px;
+    font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; cursor: pointer; border-radius: 4px; width: 100%;
+  }
+
+  /* Subtítulos */
+  .subtitle { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;}
+  .subtitle::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
+
+  /* Carrusel Medellín */
+  .medellin-wrapper { margin: 0 -5% 40px -5%; padding: 0 5%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; display: flex; gap: 15px;}
   
-  .card-ios {
-    min-width: 150px; max-width: 150px; scroll-snap-align: start;
-    background: var(--bg-card); border-radius: var(--radius-lg); padding: 12px;
-    box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
-  }
-  @media(min-width: 768px) { .card-ios { min-width: 180px; max-width: 180px; } }
+  /* Grid Nacional */
+  .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 15px; margin-bottom: 40px;}
+  @media(min-width: 768px){ .product-grid, .medellin-wrapper { grid-template-columns: repeat(4, 1fr); display: grid; overflow: visible;} }
+
+  /* Tarjeta de Producto */
+  .product-card { display: flex; flex-direction: column; scroll-snap-align: start; min-width: 160px; }
+  .p-img { width: 100%; aspect-ratio: 4/5; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; padding: 15px; margin-bottom: 12px; position: relative;}
+  .p-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .p-title { font-size: 14px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; height: 36px; overflow: hidden;}
   
-  .card-img { width: 100%; aspect-ratio: 1; background: var(--bg-app); border-radius: var(--radius-md); padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;}
-  .card-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-  .card-title { font-size: 13px; font-weight: 600; line-height: 1.2; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 32px;}
-  .card-price { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;}
-  .btn-get { background: #F2F2F7; color: var(--apple-blue); border: none; padding: 8px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s;}
-  .btn-get.selected { background: var(--apple-blue); color: white;}
+  .p-prices { display: flex; flex-direction: column; margin-bottom: 12px; }
+  .p-current { font-size: 14px; font-weight: 700; }
+  .p-meta { display: flex; align-items: center; gap: 6px; font-size: 10px; margin-top: 2px; height: 12px;}
+  .p-old { color: var(--text-muted); text-decoration: line-through; }
+  .p-tag { font-weight: 600; font-size: 9px; text-transform: uppercase;}
+  
+  .btn-add {
+    background: transparent; border: 1px solid var(--text-dark); color: var(--text-dark);
+    padding: 10px; font-family: inherit; font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; cursor: pointer; transition: var(--transition); border-radius: 2px; text-align: center;
+  }
+  .btn-add.selected { background: var(--text-dark); color: white; }
 
-  /* GRID CATÁLOGO NACIONAL (Adaptable a PC) */
-  .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-  @media(min-width: 768px){ .product-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media(min-width: 1024px){ .product-grid { grid-template-columns: repeat(4, 1fr); } }
+  /* Aviso de Precios */
+  .price-notice { font-size: 10px; color: var(--text-muted); text-align: center; margin-bottom: 30px; font-style: italic; }
 
-  .empty-state { text-align: center; padding: 40px 10px; }
-  .empty-state i { font-size: 40px; color: var(--border); margin-bottom: 15px;}
-  .empty-state h3 { font-size: 18px; font-weight: 600; margin-bottom: 20px;}
-  .btn-ask { background: var(--apple-blue); color: white; border: none; padding: 16px 20px; border-radius: 14px; font-size: 13px; font-weight: 600; width: 100%; cursor: pointer;}
-
-  /* CARRITO FLOTANTE (Píldora) */
+  /* Carrito Flotante */
   .fab-cart {
     position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150px);
-    width: 90%; max-width: 400px; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
-    padding: 14px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center;
-    z-index: 1500; box-shadow: var(--shadow-md); border: 1px solid var(--border); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 90%; max-width: 400px; background: var(--text-dark); color: white; padding: 15px 25px; border-radius: 4px;
+    display: flex; justify-content: space-between; align-items: center; z-index: 1500;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: var(--transition);
   }
   .fab-cart.show { transform: translateX(-50%) translateY(0); }
-  .ac-text { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600;}
-  .ac-btn { background: var(--apple-blue); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer;}
+  .fab-info { font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 10px;}
+  .fab-btn { background: white; color: black; border: none; padding: 10px 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 2px;}
 
   /* =========================================
-     MÓDULO 2: SORTEOS (INTERACTIVOS)
+     MÓDULO 2: SORTEOS
      ========================================= */
-  .sorteo-card {
-    background: var(--bg-card); border-radius: var(--radius-lg); padding: 25px 20px;
-    box-shadow: var(--shadow-sm); margin-bottom: 20px; cursor: pointer; transition: 0.2s;
-  }
-  .sorteo-card:active { transform: scale(0.97); }
-  .sc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
-  .sc-title { font-size: 18px; font-weight: 700; }
-  .sc-tag { background: #E5F0FF; color: var(--apple-blue); padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase;}
-  .sc-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 15px;}
-  .sc-btn { display: inline-block; background: var(--bg-app); color: var(--apple-blue); padding: 10px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; text-decoration: none;}
+  .sorteo-item { border: 1px solid var(--border-color); padding: 25px; margin-bottom: 25px; text-align: center; background: var(--bg-main);}
+  .s-badge { display: inline-block; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--text-dark); padding-bottom: 2px; margin-bottom: 15px;}
+  .s-title { font-size: 22px; margin-bottom: 10px; }
+  .s-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .s-price { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 25px;}
+  .btn-board { background: var(--bg-alt); border: 1px solid var(--border-color); color: var(--text-dark); padding: 12px 25px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; width: 100%;}
 
-  /* MODAL TABLERO DE SORTEO (BOTTOM SHEET TIPO IOS) */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
-    z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s;
-  }
-  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  /* Carrusel Ganadores */
+  .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 20px;}
+  .winner-card { min-width: 240px; scroll-snap-align: start; padding: 20px; border: 1px solid var(--border-color); background: var(--bg-alt); text-align: center;}
+  .winner-card i { font-size: 20px; margin-bottom: 15px; color: var(--text-dark);}
+  .w-name { font-size: 13px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase;}
+  .w-prize { font-size: 11px; color: var(--text-muted); font-style: italic;}
+
+  /* BOTTOM SHEET (TABLERO OCULTO) */
+  .sheet-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
+  .sheet-overlay.active { opacity: 1; pointer-events: auto; }
   .bottom-sheet {
-    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-app);
-    border-radius: 24px 24px 0 0; padding: 25px 20px; transform: translateY(100%);
-    transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 90vh; overflow-y: auto;
+    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-main);
+    padding: 30px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 3001;
+    max-height: 85vh; overflow-y: auto; border-top-left-radius: 12px; border-top-right-radius: 12px;
   }
-  @media(min-width: 768px) {
-    .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 24px; bottom: 20px; max-height: 80vh; }
-  }
+  @media(min-width: 768px) { .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 12px; bottom: 20px;} }
   .bottom-sheet.active { transform: translateY(0); }
-  .sheet-handle { width: 36px; height: 5px; background: #C7C7CC; border-radius: 5px; margin: 0 auto 20px auto; }
+  .handle { width: 40px; height: 4px; background: #DDD; margin: 0 auto 25px auto; border-radius: 4px; }
   
-  .leyenda-board { display: flex; justify-content: center; gap: 15px; font-size: 11px; font-weight: 500; margin-bottom: 25px;}
-  .leg-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted);}
-  .leg-box { width: 14px; height: 14px; border-radius: 4px; }
-  
-  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
-  .b-cell {
-    aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-    font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.1s;
-  }
-  .b-cell:active { transform: scale(0.9); }
-  .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); box-shadow: 0 2px 8px rgba(0,0,0,0.05);}
-  .b-cell.pendiente { background: #E5E5EA; color: #8E8E93; pointer-events: none;}
-  .b-cell.ocupado { background: transparent; color: #C7C7CC; pointer-events: none; border: 1px solid #E5E5EA; }
-  .b-cell.ocupado span { font-size: 8px; text-decoration: line-through; margin-top: -2px;}
+  .leyenda { display: flex; justify-content: center; gap: 15px; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px;}
+  .leg-item { display: flex; align-items: center; gap: 6px; }
+  .box { width: 10px; height: 10px; border: 1px solid var(--border-color); }
+  .box.libre { background: var(--bg-main); }
+  .box.pen { background: var(--bg-alt); border-style: dashed; }
+  .box.ocu { background: var(--text-dark); }
 
-  /* Carrusel de Ganadores */
-  .winners-carousel { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; margin: 0 -5%; padding-left: 5%; padding-right: 5%;}
-  .winner-card {
-    min-width: 260px; scroll-snap-align: start; background: var(--bg-card); padding: 20px;
-    border-radius: var(--radius-lg); display: flex; gap: 15px; align-items: center; box-shadow: var(--shadow-sm);
-  }
-  .w-icon { font-size: 28px; color: #FFCC00; }
-  .w-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px;}
-  .w-info p { font-size: 12px; color: var(--text-muted);}
+  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+  .cell { aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid var(--border-color); }
+  .cell.libre { background: var(--bg-main); color: var(--text-dark); }
+  .cell.pen { background: var(--bg-alt); color: var(--text-muted); border-style: dashed; pointer-events: none;}
+  .cell.ocu { background: #FAFAFA; color: #CCC; pointer-events: none; }
+  .cell.ocu span { font-size: 8px; text-decoration: line-through; margin-top: -2px;}
 
   /* =========================================
      MÓDULO 3: INFORMACIÓN
      ========================================= */
-  .info-group { background: var(--bg-card); border-radius: var(--radius-lg); margin-bottom: 25px; overflow: hidden; box-shadow: var(--shadow-sm);}
-  .info-row { display: flex; align-items: flex-start; padding: 20px; border-bottom: 1px solid var(--border); gap: 15px; }
-  .info-row:last-child { border-bottom: none; }
-  .s-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; flex-shrink: 0;}
-  .s-text { flex: 1; }
-  .s-text h4 { font-size: 16px; font-weight: 600; margin-bottom: 6px;}
-  .s-text p { font-size: 13px; color: var(--text-muted); line-height: 1.4;}
+  .accordion-item { border-bottom: 1px solid var(--border-color); padding: 25px 0; }
+  .acc-header { display: flex; gap: 15px; align-items: flex-start; }
+  .acc-header i { font-size: 20px; width: 25px; margin-top: 2px;}
+  .acc-text h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;}
+  .acc-text p { font-size: 12px; color: var(--text-muted); line-height: 1.6;}
   
-  .track-widget { background: var(--bg-app); padding: 15px; border-radius: 12px; margin-top: 15px; text-align: center;}
-  .track-widget a { color: var(--apple-blue); font-size: 13px; font-weight: 600; text-decoration: none;}
+  .tracker { background: var(--bg-alt); padding: 15px; margin-top: 15px; text-align: center; border: 1px solid var(--border-color); }
+  .tracker a { color: var(--text-dark); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline;}
+
+  .pay-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;}
+  .pay-tag { font-size: 10px; padding: 6px 12px; border: 1px solid var(--border-color); font-weight: 600;}
+
+  .vip-box { margin-top: 40px; background: var(--text-dark); color: white; padding: 30px 20px; text-align: center; cursor: pointer;}
+  .vip-box i { font-size: 30px; margin-bottom: 15px;}
+  .vip-box h4 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;}
+  .vip-box p { font-size: 11px; opacity: 0.8; line-height: 1.5;}
 
 </style>
 </head>
 <body>
 
+<!-- SPLASH SCREEN -->
 <div id="splash">
-  <div class="spinner"></div>
+  <h1 class="serif">Original.</h1>
+  <div class="line-loader"></div>
 </div>
 
-<header class="top-bar" id="mainHeader">
-  <h1 id="topTitle">CATÁLOGO</h1>
+<!-- TOP BAR -->
+<header class="top-bar">
+  <h1 id="topTitle">Catálogo</h1>
 </header>
 
-<!-- Navegación Apple Style -->
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <div class="nav-item active" onclick="switchView('tienda', 'CATÁLOGO', this)">
-    <i class="fa-solid fa-layer-group"></i>
+  <div class="nav-item active" onclick="switchView('catalogo', 'Catálogo', this)">
+    <i class="fa-solid fa-gem"></i>
     <span>Catálogo</span>
   </div>
-  <div class="nav-item" onclick="switchView('sorteos', 'SORTEOS', this)">
+  <div class="nav-item" onclick="switchView('sorteos', 'Sorteos', this)">
     <i class="fa-solid fa-ticket"></i>
     <span>Sorteos</span>
   </div>
-  <div class="nav-item" onclick="switchView('info', 'INFORMACIÓN', this)">
-    <i class="fa-solid fa-circle-info"></i>
+  <div class="nav-item" onclick="switchView('info', 'Información', this)">
+    <i class="fa-solid fa-bars-staggered"></i>
     <span>Info</span>
   </div>
 </nav>
 
-<!-- Carrito Flotante -->
-<div class="fab-cart" id="appleCart">
-  <div class="ac-text">
-    <i class="fa-solid fa-bag-shopping" style="font-size:18px;"></i> 
-    <span><span id="cartCount">0</span> seleccionados</span>
-  </div>
-  <button class="ac-btn" onclick="sendCart()">Pedir</button>
+<!-- CARRITO FLOTANTE -->
+<div class="fab-cart" id="fabCart">
+  <div class="fab-info"><i class="fa-solid fa-bag-shopping"></i> <span id="cartCount">0</span> Ítems</div>
+  <button class="fab-btn" onclick="sendCart()">Pedir</button>
 </div>
 
-<!-- Modal Tablero Sorteo (Bottom Sheet) -->
-<div class="modal-overlay" id="sheetOverlay" onclick="closeSheet(event)">
-  <div class="bottom-sheet" id="sheetSorteo">
-    <div class="sheet-handle"></div>
-    <h3 style="font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 20px;">Selecciona tu Puesto</h3>
-    
-    <div class="leyenda-board">
-      <div class="leg-item"><div class="leg-box" style="background: var(--apple-blue);"></div> Libre</div>
-      <div class="leg-item"><div class="leg-box" style="background: #E5E5EA;"></div> Pendiente</div>
-      <div class="leg-item"><div class="leg-box" style="border: 1px solid #E5E5EA;"></div> Vendido</div>
+<!-- BOTTOM SHEET (TABLERO SORTEOS) -->
+<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet(event)">
+  <div class="bottom-sheet" id="sheetBoard">
+    <div class="handle"></div>
+    <h3 class="serif" style="font-size: 22px; text-align: center; margin-bottom: 20px;">Selecciona tu Puesto</h3>
+    <div class="leyenda">
+      <div class="leg-item"><div class="box libre"></div> Libre</div>
+      <div class="leg-item"><div class="box pen"></div> Pendiente</div>
+      <div class="leg-item"><div class="box ocu"></div> Vendido</div>
     </div>
-
-    <div class="board-grid" id="boardGrid">
-      <!-- Inyectado JS -->
-    </div>
+    <div class="board-grid" id="boardGrid"></div>
   </div>
 </div>
 
-
-<div class="app-container">
+<div class="main-wrapper">
 
   <!-- =========================================
-       VISTA 1: TIENDA
+       VISTA 1: CATÁLOGO
        ========================================= -->
-  <section id="viewTienda" class="view active">
+  <section id="viewCatalogo" class="view active">
     
-    <h1 class="large-title">Descubre</h1>
-
-    <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="btn-pdf">
-      <div class="pdf-info">
+    <!-- Botón PDF -->
+    <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view?usp=sharing" target="_blank" class="pdf-banner">
+      <div>
         <h3>Catálogo PDF</h3>
-        <p>Visualiza toda la colección.</p>
+        <p>Visualizar colección completa</p>
       </div>
-      <i class="fa-solid fa-file-pdf"></i>
+      <i class="fa-solid fa-arrow-right-long"></i>
     </a>
 
-    <div class="search-box">
+    <!-- Buscador -->
+    <div class="search-line">
       <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" id="searchInput" placeholder="Buscar perfumes...">
+      <input type="text" id="searchInput" placeholder="Buscar por nombre o marca...">
     </div>
 
-    <div id="searchResults">
+    <!-- Contenedor Dinámico (Búsqueda o Normal) -->
+    <div id="mainContent">
       
-      <!-- Carrusel Medellín -->
-      <h2 class="section-title">
-        Entrega Inmediata
-        <span style="font-size: 13px; font-weight: 500; color: var(--text-muted); background: #E5E5EA; padding: 4px 10px; border-radius: 12px;">Medellín</span>
-      </h2>
-      <p class="notice-text">Aplica únicamente precio al detal para entrega inmediata.</p>
-      
-      <div class="medellin-carousel" id="medellinContainer">
-        <!-- Inyectado JS (Desde el link de Medellín) -->
+      <div class="subtitle">Entrega Inmediata (Medellín)</div>
+      <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px; font-style: italic;">Solo aplica precio al detal.</p>
+      <div class="medellin-wrapper" id="medellinContainer">
+        <!-- Inyectado JS -->
       </div>
 
-      <!-- Catálogo Nacional -->
-      <h2 class="section-title">Catálogo Nacional</h2>
-      <p class="notice-text">Es mejor preguntar por el precio final de cada perfume, ya que todos varían. Así como pueden aumentar, pueden disminuir.</p>
-
+      <div class="subtitle" style="margin-top: 10px;">Catálogo Nacional</div>
       <div class="product-grid" id="catalogGrid">
         <!-- Inyectado JS -->
       </div>
+      <p class="price-notice">* Pregunta por disponibilidad y precio final. Los valores pueden variar.</p>
+    </div>
+
+    <!-- Estado Vacío (Oculto por defecto) -->
+    <div class="empty-search" id="emptyState">
+      <h3>No encontramos ese perfume.</h3>
+      <button class="btn-ask" onclick="askAvailability()">Pregunta por disponibilidad y precio final</button>
     </div>
 
   </section>
@@ -343,15 +335,14 @@
        VISTA 2: SORTEOS
        ========================================= -->
   <section id="viewSorteos" class="view">
-    <h1 class="large-title">Sorteos</h1>
-
-    <!-- Sorteos Activos (Tarjetas) -->
+    <div class="title-section serif">Dinámicas<br>Activas.</div>
+    
     <div id="sorteosList">
       <!-- Inyectado JS -->
     </div>
 
-    <h2 class="section-title">Ganadores Anteriores</h2>
-    <div class="winners-carousel" id="winnersContainer">
+    <div class="subtitle" style="margin-top: 40px;">Ganadores Anteriores</div>
+    <div class="winners-scroll" id="winnersContainer">
       <!-- Inyectado JS -->
     </div>
   </section>
@@ -360,46 +351,51 @@
        VISTA 3: INFORMACIÓN
        ========================================= -->
   <section id="viewInfo" class="view">
-    <h1 class="large-title">Información</h1>
+    <div class="title-section serif">Políticas &<br>Envíos.</div>
 
-    <div class="info-group">
-      <div class="info-row">
-        <div class="s-icon" style="background: #007AFF;"><i class="fa-solid fa-truck-fast"></i></div>
-        <div class="s-text">
-          <h4>Envíos Nacionales</h4>
-          <p>Inter Rapidísimo (llega de 1 a 3 días). <strong>Única forma válida para acceder a precios al por mayor.</strong></p>
-          <div class="track-widget">
-            <a href="https://www.interrapidisimo.com/sigue-tu-envio/" target="_blank">Rastrear envío en Inter Rapidísimo</a>
+    <div class="accordion-item">
+      <div class="acc-header">
+        <i class="fa-solid fa-truck-fast"></i>
+        <div class="acc-text">
+          <h4>Envíos a todo el país</h4>
+          <p>Despachamos por Inter Rapidísimo (1 a 3 días). <strong>Esta es la única opción para aplicar precios al por mayor.</strong></p>
+          <div class="tracker">
+            <p style="font-size:10px; text-transform:uppercase; margin-bottom:8px;">¿Ya realizaste tu pedido?</p>
+            <a href="https://www.interrapidisimo.com/sigue-tu-envio/" target="_blank">Rastrear Guía Aquí</a>
           </div>
-        </div>
-      </div>
-
-      <div class="info-row">
-        <div class="s-icon" style="background: #34C759;"><i class="fa-solid fa-motorcycle"></i></div>
-        <div class="s-text">
-          <h4>Entregas en Medellín</h4>
-          <p>Servicio para entrega inmediata en la ciudad. <strong>Los precios al detal solo son válidos para entregas inmediatas.</strong></p>
-        </div>
-      </div>
-
-      <div class="info-row">
-        <div class="s-icon" style="background: #FF9500;"><i class="fa-solid fa-credit-card"></i></div>
-        <div class="s-text">
-          <h4>Medios de Pago</h4>
-          <p>Nequi, Bancolombia, Llave y mucho más.</p>
         </div>
       </div>
     </div>
 
-    <!-- Botón Comunidad -->
-    <div class="info-group" style="cursor: pointer;" onclick="openWhatsApp('Hola. Quiero agregarlos a mis contactos para ver los estados y promociones.')">
-      <div class="info-row" style="align-items: center;">
-        <div class="s-icon" style="background: #34C759; width: 45px; height: 45px; font-size: 22px;"><i class="fa-brands fa-whatsapp"></i></div>
-        <div class="s-text">
-          <h4>Comunidad Exclusiva</h4>
-          <p>Agrégame para ver mis estados y no perderte las mejores promociones.</p>
+    <div class="accordion-item">
+      <div class="acc-header">
+        <i class="fa-solid fa-motorcycle"></i>
+        <div class="acc-text">
+          <h4>Entregas en Medellín</h4>
+          <p>Disponemos de entrega inmediata en la ciudad. En esta modalidad <strong>solo son válidos los precios al detal.</strong></p>
         </div>
       </div>
+    </div>
+
+    <div class="accordion-item" style="border:none;">
+      <div class="acc-header">
+        <i class="fa-solid fa-credit-card"></i>
+        <div class="acc-text">
+          <h4>Medios de Pago</h4>
+          <div class="pay-list">
+            <span class="pay-tag">Nequi</span>
+            <span class="pay-tag">Bancolombia</span>
+            <span class="pay-tag">Llave</span>
+            <span class="pay-tag">DaviPlata</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vip-box" onclick="openWhatsApp('Hola! Quiero guardar el contacto para ver los estados.')">
+      <i class="fa-brands fa-whatsapp"></i>
+      <h4>Comunidad Exclusiva</h4>
+      <p>Agrégame a WhatsApp para ver mis estados y no perderte de las mejores promociones.</p>
     </div>
   </section>
 
@@ -407,7 +403,7 @@
 
 <script>
   // ==========================================
-  // NAVEGACIÓN IOS
+  // NAVEGACIÓN
   // ==========================================
   function switchView(viewId, title, element) {
     document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
@@ -429,77 +425,67 @@
     const idx = cart.indexOf(name);
     if(idx > -1) {
       cart.splice(idx, 1);
-      btn.style.background = "#F2F2F7";
-      btn.style.color = "var(--apple-blue)";
+      btn.classList.remove('selected');
       btn.innerText = "Agregar";
     } else {
       cart.push(name);
-      btn.style.background = "var(--apple-blue)";
-      btn.style.color = "white";
-      btn.innerText = "Listo";
+      btn.classList.add('selected');
+      btn.innerText = "Seleccionado";
     }
     updateCartUI();
   }
 
   function updateCartUI() {
-    const fab = document.getElementById('appleCart');
+    const fab = document.getElementById('fabCart');
     document.getElementById('cartCount').innerText = cart.length;
     cart.length > 0 ? fab.classList.add('show') : fab.classList.remove('show');
   }
 
   function sendCart() {
     const items = cart.join(", ");
-    openWhatsApp(`Hola! Quiero este perfume: ${items}`);
+    openWhatsApp(`Hola! Quiero este pedido: ${items}`);
   }
 
   // ==========================================
-  // BOTTOM SHEET TABLERO (MODAL)
+  // BOTTOM SHEET TABLERO
   // ==========================================
-  function openSorteoSheet(pDataStr) {
-    const pData = JSON.parse(pDataStr);
-    renderBoardTablero(pData);
-    
-    const overlay = document.getElementById('sheetOverlay');
-    const sheet = document.getElementById('sheetSorteo');
-    overlay.classList.add('active');
-    setTimeout(() => sheet.classList.add('active'), 10);
+  function openBoard(pDataStr) {
+    renderBoard(JSON.parse(pDataStr));
+    document.getElementById('sheetOverlay').classList.add('active');
+    setTimeout(() => document.getElementById('sheetBoard').classList.add('active'), 10);
   }
 
   function closeSheet(e) {
     if(e && e.target.id !== 'sheetOverlay') return;
-    document.getElementById('sheetSorteo').classList.remove('active');
+    document.getElementById('sheetBoard').classList.remove('active');
     document.getElementById('sheetOverlay').classList.remove('active');
   }
 
-  function renderBoardTablero(puestosData) {
+  function renderBoard(puestosData) {
     const board = document.getElementById('boardGrid');
     let html = '';
     for(let i = 1; i <= 100; i++) {
-      const numStr = i < 10 ? '0' + i : '' + i;
-      const puesto = puestosData.find(p => p.numeros.includes(numStr));
+      const num = i < 10 ? '0' + i : '' + i;
+      const p = puestosData.find(x => x.numeros.includes(num));
       
-      if(puesto) {
-        if(puesto.estado === 'ocupado') {
-          html += `<div class="b-cell ocupado">X<span>${numStr}</span></div>`;
-        } else if(puesto.estado === 'pendiente') {
-          html += `<div class="b-cell pendiente">P</div>`;
-        } else {
-          html += `<div class="b-cell libre" onclick="pedirPuesto('${numStr}')">${numStr}</div>`;
-        }
+      if(p) {
+        if(p.estado === 'ocupado') html += `<div class="cell ocu">X<span>${num}</span></div>`;
+        else if(p.estado === 'pendiente') html += `<div class="cell pen">${num}</div>`;
+        else html += `<div class="cell libre" onclick="pedirPuesto('${num}')">${num}</div>`;
       } else {
-        html += `<div class="b-cell libre" onclick="pedirPuesto('${numStr}')">${numStr}</div>`;
+        html += `<div class="cell libre" onclick="pedirPuesto('${num}')">${num}</div>`;
       }
     }
     board.innerHTML = html;
   }
 
-  function pedirPuesto(num) { 
+  function pedirPuesto(num) {
     closeSheet();
-    openWhatsApp(`Hola! Quiero este puesto en el sorteo: ${num}`); 
+    openWhatsApp(`Hola! Quiero este puesto en el sorteo: ${num}`);
   }
 
   // ==========================================
-  // DATOS Y PARSEO
+  // DATOS Y PARSER
   // ==========================================
   function parseCSV(t){
     var rows=[], row=[], f='', inQ=false;
@@ -514,135 +500,106 @@
 
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
   
-  // URLS
   const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
   const URL_MEDELLIN = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=491056335&single=true&output=csv';
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
 
-  let catNacional = [];
-  let catMedellin = [];
-  let allWinners = [];
+  let catNacional = [], catMedellin = [], allWinners = [];
 
   document.addEventListener('DOMContentLoaded', () => {
-    // 1. Cargar Sorteos
     fetchSorteos();
     
-    // 2. Cargar Medellín
-    fetch(URL_MEDELLIN + '&t=' + new Date().getTime())
-      .then(r => r.text())
-      .then(csv => {
-        catMedellin = processCatalog(csv);
-        renderMedellin(catMedellin);
-      });
+    // Cargar Medellín (Con tu nuevo link)
+    fetch(URL_MEDELLIN + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      catMedellin = processCat(csv);
+      renderCards(catMedellin, 'medellinContainer');
+    });
 
-    // 3. Cargar Nacional
-    fetch(URL_NACIONAL + '&t=' + new Date().getTime())
-      .then(r => r.text())
-      .then(csv => {
-        catNacional = processCatalog(csv);
-        renderCatalog(catNacional);
-        
-        // Quitar Splash
-        setTimeout(() => {
-          const s = document.getElementById('splash');
-          s.style.opacity = '0';
-          setTimeout(() => s.style.display = 'none', 500);
-        }, 800);
-      });
+    // Cargar Nacional
+    fetch(URL_NACIONAL + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      catNacional = processCat(csv);
+      renderCards(catNacional, 'catalogGrid');
+      
+      setTimeout(() => {
+        const s = document.getElementById('splash');
+        s.style.opacity = '0';
+        setTimeout(() => s.style.display = 'none', 800);
+      }, 500);
+    });
   });
 
-  function processCatalog(csvData) {
-    return parseCSV(csvData).slice(1).map(cols => {
+  function processCat(csvData) {
+    return parseCSV(csvData).slice(1).map((cols, idx) => {
       if(!cols || cols.length < 2) return null;
       var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
       var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
       var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEF_IMG;
-      return { nombre, precio, foto };
+      
+      let old = "", tag = "";
+      if(idx % 4 === 0) { old = `<span class="p-old">$180,000</span>`; tag = `<span class="p-tag badge-down">Bajó</span>`; }
+      else if(idx % 5 === 0) { old = `<span class="p-old">$120,000</span>`; tag = `<span class="p-tag badge-up">Subió</span>`; }
+      return { nombre, precio, foto, old, tag };
     }).filter(Boolean);
   }
 
-  function renderMedellin(lista) {
-    const cont = document.getElementById('medellinContainer');
-    if(lista.length === 0) { cont.innerHTML = '<p style="font-size:12px; margin-left:20px;">No hay inventario local ahora mismo.</p>'; return; }
+  function renderCards(lista, containerId) {
+    const cont = document.getElementById(containerId);
+    if(lista.length === 0) return;
     cont.innerHTML = lista.map(p => {
       const isSel = cart.includes(p.nombre);
-      const bg = isSel ? 'var(--apple-blue)' : '#F2F2F7';
-      const col = isSel ? 'white' : 'var(--apple-blue)';
-      const txt = isSel ? 'LISTO' : 'OBTENER';
+      const btnCls = isSel ? 'btn-add selected' : 'btn-add';
+      const btnTxt = isSel ? 'Seleccionado' : 'Agregar';
       return `
-      <div class="card-ios">
-        <div class="card-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
-        <h4 class="card-title">${esc(p.nombre)}</h4>
-        <p class="card-price">${esc(p.precio)}</p>
-        <button class="btn-get" style="background:${bg}; color:${col};" onclick="toggleCart('${esc(p.nombre)}', this)">${txt}</button>
+      <div class="product-card">
+        <div class="p-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
+        <h3 class="p-title serif">${esc(p.nombre)}</h3>
+        <div class="p-prices">
+          <span class="p-current">${esc(p.precio)}</span>
+          <div class="p-meta">${p.old} ${p.tag}</div>
+        </div>
+        <button class="${btnCls}" onclick="toggleCart('${esc(p.nombre)}', this)">${btnTxt}</button>
       </div>
     `}).join('');
   }
 
-  function renderCatalog(lista) {
-    const grid = document.getElementById('catalogGrid');
-    if(lista.length === 0) return;
-    grid.innerHTML = lista.map(p => {
-      const isSel = cart.includes(p.nombre);
-      const bg = isSel ? 'var(--apple-blue)' : '#F2F2F7';
-      const col = isSel ? 'white' : 'var(--apple-blue)';
-      const txt = isSel ? 'Listo' : 'Agregar';
-      return `
-      <div class="card-ios" style="width:100%; max-width:100%;">
-        <div class="card-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
-        <h4 class="card-title">${esc(p.nombre)}</h4>
-        <p class="card-price">${esc(p.precio)}</p>
-        <button class="btn-get" style="background:${bg}; color:${col}; width:100%;" onclick="toggleCart('${esc(p.nombre)}', this)">${txt}</button>
-      </div>
-    `}).join('');
-  }
-
-  // BUSCADOR INTELIGENTE
+  // BUSCADOR
+  let currentSearchTerm = "";
   document.getElementById('searchInput').addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase().trim();
-    const resContainer = document.getElementById('searchResults');
+    currentSearchTerm = e.target.value.toLowerCase().trim();
+    const mainContent = document.getElementById('mainContent');
+    const emptyState = document.getElementById('emptyState');
     
-    if(!term) { 
-      resContainer.innerHTML = `
-        <h2 class="section-title">Entrega Inmediata <span style="font-size: 13px; font-weight: 500; color: var(--text-muted); background: #E5E5EA; padding: 4px 10px; border-radius: 12px;">Medellín</span></h2>
-        <p class="notice-text">Aplica únicamente precio al detal para entrega inmediata.</p>
-        <div class="medellin-carousel" id="medellinContainer"></div>
-        <h2 class="section-title">Catálogo Nacional</h2>
-        <p class="notice-text">Es mejor preguntar por el precio final de cada perfume, ya que todos varían. Así como pueden aumentar, pueden disminuir.</p>
-        <div class="product-grid" id="catalogGrid"></div>
-      `;
-      renderMedellin(catMedellin);
-      renderCatalog(catNacional);
+    if(!currentSearchTerm) { 
+      mainContent.style.display = 'block';
+      emptyState.style.display = 'none';
+      renderCards(catMedellin, 'medellinContainer');
+      renderCards(catNacional, 'catalogGrid');
       return; 
     }
     
-    const filtradoMedellin = catMedellin.filter(p => p.nombre.toLowerCase().includes(term));
-    const filtradoNacional = catNacional.filter(p => p.nombre.toLowerCase().includes(term));
+    const fMed = catMedellin.filter(p => p.nombre.toLowerCase().includes(currentSearchTerm));
+    const fNac = catNacional.filter(p => p.nombre.toLowerCase().includes(currentSearchTerm));
     
-    if(filtradoMedellin.length === 0 && filtradoNacional.length === 0) {
-      resContainer.innerHTML = `
-        <div class="empty-state">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <h3>No encontrado</h3>
-          <button class="btn-ask" onclick="openWhatsApp('Hola! Quiero preguntar por la disponibilidad y precio final de este perfume: ${esc(term)}')">PREGUNTA POR DISPONIBILIDAD Y PRECIO FINAL</button>
-        </div>
-      `;
+    if(fMed.length === 0 && fNac.length === 0) {
+      mainContent.style.display = 'none';
+      emptyState.style.display = 'block';
     } else {
-      resContainer.innerHTML = `<div class="product-grid" id="catalogGrid"></div>`;
-      // Unir ambos arreglos y quitar duplicados para resultados de búsqueda global
-      const combined = [...filtradoMedellin, ...filtradoNacional];
-      const unique = combined.filter((v, i, a) => a.findIndex(t => (t.nombre === v.nombre)) === i);
-      renderCatalog(unique);
+      mainContent.style.display = 'block';
+      emptyState.style.display = 'none';
+      renderCards(fMed, 'medellinContainer');
+      renderCards(fNac, 'catalogGrid');
     }
   });
 
+  function askAvailability() {
+    openWhatsApp(`Hola! Quiero este perfume: ${currentSearchTerm}`);
+  }
+
   // ==========================================
-  // CARGA DE SORTEOS Y GANADORES
+  // SORTEOS
   // ==========================================
   function fetchSorteos() {
-    allWinners = [];
-    document.getElementById('sorteosList').innerHTML = '';
     fetchSorteoData(URL_S1);
     fetchSorteoData(URL_S2);
   }
@@ -653,7 +610,7 @@
       .then(csv => {
         var rows = parseCSV(csv).slice(1);
         if (rows.length > 0 && rows[0].length >= 7) {
-          const title = rows[0][3] ? rows[0][3].trim() : 'Sorteo Especial';
+          const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
           const desc = rows[0][4] ? rows[0][4].trim() : '';
           const price = rows[0][6] ? rows[0][6].trim() : '--';
           
@@ -669,23 +626,22 @@
             return { id: cols[0].trim(), numeros: arr, estado: estado };
           }).filter(Boolean);
 
-          const list = document.getElementById('sorteosList');
-          list.innerHTML += `
-            <div class="sorteo-card" onclick='openSorteoSheet(\`${JSON.stringify(pData)}\`)'>
-              <div class="sc-header"><h3 class="sc-title">${title}</h3><span class="sc-tag">En Vivo</span></div>
-              <p class="sc-desc">Premio: ${desc}</p>
-              <div style="font-size:16px; font-weight:700;">${price} <span style="font-size:11px; font-weight:500; color:var(--text-muted);">/ PUESTO</span></div>
-              <div class="sc-btn" style="margin-top:15px;"><i class="fa-solid fa-list-ol"></i> Ver Tablero</div>
+          document.getElementById('sorteosList').innerHTML += `
+            <div class="sorteo-item">
+              <span class="s-badge">En Vivo</span>
+              <h3 class="s-title serif">${title}</h3>
+              <p class="s-desc">Premio: ${desc}</p>
+              <div class="s-price">${price} <span style="font-size:10px; font-weight:400; color:var(--text-muted);">/ PUESTO</span></div>
+              <button class="btn-board" onclick='openBoard(\`${JSON.stringify(pData)}\`)'>Seleccionar Puesto</button>
             </div>
           `;
         }
-        
         rows.forEach(cols => {
           if (cols.length >= 8 && cols[7] && cols[7].trim() !== '') {
             allWinners.push({
               num: cols[7].trim(),
               name: (cols.length > 8 && cols[8]) ? cols[8].trim() : 'Ganador',
-              prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Perfume'
+              prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Premio'
             });
           }
         });
@@ -694,19 +650,16 @@
   }
 
   function renderWinners() {
-    const wContainer = document.getElementById('winnersContainer');
+    const wc = document.getElementById('winnersContainer');
     if(allWinners.length === 0) return;
-    wContainer.innerHTML = allWinners.map(w => `
+    wc.innerHTML = allWinners.map(w => `
       <div class="winner-card">
-        <div class="w-icon"><i class="fa-solid fa-trophy" style="color: #FF9500;"></i></div>
-        <div class="w-info">
-          <h4>${w.name} - Puesto ${w.num}</h4>
-          <p>Premio: ${w.prize}</p>
-        </div>
+        <i class="fa-solid fa-crown"></i>
+        <h4 class="w-name">${w.name}</h4>
+        <p class="w-prize">Puesto ${w.num} - ${w.prize}</p>
       </div>
     `).join('');
   }
-
 </script>
 </body>
 </html>
