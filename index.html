@@ -8,7 +8,7 @@
 <!-- META TAGS PARA VISTA PREVIA EN WHATSAPP / FACEBOOK -->
 <meta property="og:title" content="Perfumería Original - Catálogo">
 <meta property="og:description" content="Descubre nuestro catálogo de perfumes, descuentos por cantidad y dinámicas exclusivas.">
-<meta property="og:image" content="AQUI_URL_DE_TU_LOGO.png">
+<meta property="og:image" content="https://drive.google.com/uc?export=view&id=1JAuP5o53yBZ0sZBnDoKY7E1pIA0Xw7mZ">
 <meta property="og:url" content="https://www.soyjohnstiven.com">
 <meta property="og:type" content="website">
 
@@ -17,7 +17,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="AQUI_URL_DE_TU_LOGO.png">
+<link rel="apple-touch-icon" href="https://drive.google.com/uc?export=view&id=1JAuP5o53yBZ0sZBnDoKY7E1pIA0Xw7mZ">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -75,7 +75,6 @@
     box-shadow: var(--glass-shadow);
   }
 
-  /* PANTALLA DE CARGA (SPINNER) */
   .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; grid-column: 1 / -1; color: var(--apple-blue); }
   .loader-spinner { font-size: 35px; margin-bottom: 15px; animation: spin 1s linear infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -121,7 +120,10 @@
 
   .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 1px solid transparent; transition: 0.3s; }
   .top-bar.scrolled { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border); }
-  .top-logo { height: 35px; border-radius: 8px; object-fit: contain; }
+  
+  /* AQUÍ AJUSTAMOS EL LOGO PARA QUE SE ADAPTE PERFECTO */
+  .top-logo { height: 40px; max-width: 180px; border-radius: 8px; object-fit: contain; }
+  
   .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s;}
   .top-bar.scrolled h1 { opacity: 1; }
   .theme-toggle { font-size: 22px; color: var(--apple-blue); cursor: pointer; background: none; border: none; transition: 0.2s;}
@@ -270,7 +272,7 @@
 <div class="app-container">
   
   <header class="top-bar" id="mainHeader">
-    <img src="AQUI_URL_DE_TU_LOGO.png" alt="Logo" class="top-logo" onerror="this.style.display='none'">
+    <img src="https://drive.google.com/uc?export=view&id=1JAuP5o53yBZ0sZBnDoKY7E1pIA0Xw7mZ" alt="Logo" class="top-logo" onerror="this.style.display='none'">
     <h1 id="topTitle">Catálogo</h1>
     <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
   </header>
@@ -337,7 +339,6 @@
     <div id="mainContent">
       <div class="section-title reveal"><span>TOP VENTAS DE LA SEMANA</span></div>
       
-      <!-- CONTENEDOR CON PANTALLA DE CARGA INICIAL -->
       <div class="product-grid" id="catalogGrid">
         <div class="loader-container">
             <i class="fa-solid fa-spinner loader-spinner"></i>
@@ -356,7 +357,6 @@
   <section id="viewSorteos" class="view">
     <h1 class="large-title reveal">Dinámicas</h1>
     
-    <!-- CONTENEDOR CON PANTALLA DE CARGA INICIAL -->
     <div id="sorteosList">
         <div class="loader-container">
             <i class="fa-solid fa-spinner loader-spinner"></i>
@@ -376,7 +376,7 @@
     <h1 class="large-title reveal">Información</h1>
     <div class="info-cards-container">
         
-      <!-- NUEVO BOTÓN DE TIKTOK -->
+      <!-- BOTÓN DE TIKTOK -->
       <div class="info-card-large glass-effect reveal" style="cursor:pointer; background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(30,30,30,0.9)); color: white; border-color: #333;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
         <div class="ic-header">
           <div class="ic-icon-box" style="background: #FFFFFF; color: #000000;"><i class="fa-brands fa-tiktok"></i></div>
@@ -385,6 +385,16 @@
         <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Pillate mis videos, envíos y más contenido bacano en mi cuenta oficial <b>@soyjohnstiven</b>.</p>
       </div>
 
+      <!-- BOTÓN WHATSAPP (ESTADOS) -->
+      <div class="info-card-large glass-effect reveal" style="cursor:pointer; background: linear-gradient(135deg, rgba(52, 199, 89, 0.1), rgba(40, 167, 69, 0.05)); border-color: rgba(52, 199, 89, 0.3);" onclick="openWhatsApp('Hola! Quiero agregarlos a mis contactos para ver los estados y acceder a mejores precios.')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: #34C759; color: white; font-size: 26px;"><i class="fa-brands fa-whatsapp"></i></div>
+          <h3 class="ic-title" style="color: #28A745;">Estados WhatsApp</h3>
+        </div>
+        <p style="font-size: 14px; color: var(--text-main); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados y poder acceder a los mejores precios y ofertas todos los días.</p>
+      </div>
+
+      <!-- ATENCIÓN AL CLIENTE -->
       <div class="info-card-large glass-effect reveal">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-clock"></i></div>
@@ -395,6 +405,8 @@
           <li>Mejoramos la experiencia en WhatsApp para brindarte una atención más rápida.</li>
         </ul>
       </div>
+
+      <!-- ENVÍOS -->
       <div class="info-card-large glass-effect reveal">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
