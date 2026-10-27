@@ -4,15 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Perfumería Original</title>
+
+<!-- META TAGS PARA VISTA PREVIA EN WHATSAPP / FACEBOOK -->
+<meta property="og:title" content="Perfumería Original - Catálogo">
+<meta property="og:description" content="Descubre nuestro catálogo de perfumes, descuentos por cantidad y dinámicas exclusivas.">
+<meta property="og:image" content="AQUI_URL_DE_TU_LOGO.png">
+<meta property="og:url" content="https://www.soyjohnstiven.com">
+<meta property="og:type" content="website">
+
+<!-- CONFIGURACIÓN PWA (APP INSTALABLE) -->
+<meta name="theme-color" content="#F2F2F7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="AQUI_URL_DE_TU_LOGO.png">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Librería para el confeti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
   :root {
-    /* MODO CLARO - TIPO CRISTAL */
     --bg-base: #F2F2F7;
     --bg-card: rgba(255, 255, 255, 0.65);
     --text-main: #1C1C1E;
@@ -29,7 +40,6 @@
     --safe-bottom: env(safe-area-inset-bottom, 20px);
   }
 
-  /* MODO OSCURO HALLOWEEN - TIPO CRISTAL */
   body.dark-mode {
     --bg-base: #000000;
     --bg-card: rgba(28, 28, 30, 0.6);
@@ -54,13 +64,9 @@
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 
-  /* =========================================
-     ANIMACIONES GLOBALES
-     ========================================= */
   .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
-  /* EFECTO CRISTAL GLOBAL */
   .glass-effect {
     background: var(--bg-card);
     backdrop-filter: blur(25px);
@@ -69,9 +75,11 @@
     box-shadow: var(--glass-shadow);
   }
 
-  /* =========================================
-     BANNER SUPERIOR
-     ========================================= */
+  /* PANTALLA DE CARGA (SPINNER) */
+  .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; grid-column: 1 / -1; color: var(--apple-blue); }
+  .loader-spinner { font-size: 35px; margin-bottom: 15px; animation: spin 1s linear infinite; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
   .top-notification {
     position: fixed; top: 15px; left: 50%; transform: translate(-50%, -150%);
     width: 90%; max-width: 400px;
@@ -85,21 +93,13 @@
   }
   .top-notification.show { transform: translate(-50%, 0); }
 
-  /* =========================================
-     SPLASH SCREEN (FANTASMA GRANDE)
-     ========================================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
     transition: opacity 0.5s ease;
   }
   
-  .splash-icon {
-    font-size: 85px; 
-    color: #FF7A00; margin-bottom: 15px;
-    animation: floatingGhost 2.5s ease-in-out infinite;
-  }
-
+  .splash-icon { font-size: 85px; color: #FF7A00; margin-bottom: 15px; animation: floatingGhost 2.5s ease-in-out infinite; }
   @keyframes floatingGhost {
     0% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
     50% { transform: translateY(-15px) scale(1.05); opacity: 1; text-shadow: 0 10px 30px rgba(255, 122, 0, 0.5); }
@@ -114,26 +114,14 @@
     opacity: 0; transform: scale(0.9); animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   
-  .splash-user { 
-    font-size: 16px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px;
-    opacity: 0; transform: translateY(30px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-  }
+  .splash-user { font-size: 16px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; opacity: 0; transform: translateY(30px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
 
   @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
   @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
-  /* =========================================
-     CABECERA & LOGO
-     ========================================= */
-  .top-bar {
-    position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height);
-    z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; 
-    border-bottom: 1px solid transparent; transition: 0.3s;
-  }
+  .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 1px solid transparent; transition: 0.3s; }
   .top-bar.scrolled { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border); }
-  
   .top-logo { height: 35px; border-radius: 8px; object-fit: contain; }
-  
   .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s;}
   .top-bar.scrolled h1 { opacity: 1; }
   .theme-toggle { font-size: 22px; color: var(--apple-blue); cursor: pointer; background: none; border: none; transition: 0.2s;}
@@ -142,15 +130,7 @@
   .large-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 15px) 20px 25px 20px; }
   .section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
 
-  /* =========================================
-     NAVEGACIÓN INFERIOR CRISTAL
-     ========================================= */
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom));
-    z-index: 2000; display: flex; justify-content: space-around; padding-bottom: var(--safe-bottom);
-    background: var(--glass-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-    border-top: 1px solid var(--glass-border); box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
-  }
+  .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom)); z-index: 2000; display: flex; justify-content: space-around; padding-bottom: var(--safe-bottom); background: var(--glass-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border-top: 1px solid var(--glass-border); box-shadow: 0 -10px 30px rgba(0,0,0,0.05); }
   .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--text-muted); font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; }
   .nav-item i { font-size: 22px; margin-bottom: 2px;}
   .nav-item.active { color: var(--apple-blue); }
@@ -160,61 +140,20 @@
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* =========================================
-     BOTONES HALLOWEEN ELEGANTE
-     ========================================= */
-  .btn-ask, .btn-board { 
-    background: linear-gradient(135deg, #FF7A00, #E65C00);
-    color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; 
-    font-size: 14px; font-weight: 800; width: 100%; max-width: 400px; cursor: pointer; 
-    text-transform: uppercase; box-shadow: 0 8px 25px rgba(255, 122, 0, 0.4);
-    transition: 0.2s;
-  }
+  .btn-ask, .btn-board { background: linear-gradient(135deg, #FF7A00, #E65C00); color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; font-size: 14px; font-weight: 800; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255, 122, 0, 0.4); transition: 0.2s; }
   .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(255, 122, 0, 0.2); }
 
-  /* TIENDA (CUADRÍCULA) */
   .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
-  
-  .action-box {
-    border-radius: 24px; padding: 20px 15px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; text-decoration: none; color: var(--text-main);
-    transition: transform 0.2s, box-shadow 0.3s; cursor: pointer; min-height: 135px;
-    position: relative; overflow: hidden;
-  }
-  .action-box:hover, .action-box:active { 
-    transform: scale(0.97); 
-    box-shadow: 0 12px 30px rgba(255, 122, 0, 0.2); 
-    border-color: rgba(255, 122, 0, 0.4);
-  }
-  
+  .action-box { border-radius: 24px; padding: 20px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; color: var(--text-main); transition: transform 0.2s, box-shadow 0.3s; cursor: pointer; min-height: 135px; position: relative; overflow: hidden; }
+  .action-box:hover, .action-box:active { transform: scale(0.97); box-shadow: 0 12px 30px rgba(255, 122, 0, 0.2); border-color: rgba(255, 122, 0, 0.4); }
   .ab-icon { font-size: 34px; margin-bottom: 12px; color: var(--apple-blue); transition: 0.3s; position: relative; z-index: 1;}
   .action-box:hover .ab-icon { transform: scale(1.1); color: #FF7A00; }
-  
   .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; position: relative; z-index: 1;}
   .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3; position: relative; z-index: 1;}
   
-  /* ADORNO LINEA HALLOWEEN */
-  .corner-ornament {
-    position: absolute;
-    bottom: -15px;
-    right: -15px;
-    font-size: 80px;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.25);
-    opacity: 0.8;
-    transform: rotate(-10deg);
-    pointer-events: none;
-    z-index: 0;
-    transition: 0.3s ease;
-  }
-  .action-box:hover .corner-ornament {
-    transform: rotate(0deg) scale(1.1);
-    -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.4);
-  }
-  body.dark-mode .corner-ornament {
-    -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.2);
-  }
+  .corner-ornament { position: absolute; bottom: -15px; right: -15px; font-size: 80px; color: transparent; -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.25); opacity: 0.8; transform: rotate(-10deg); pointer-events: none; z-index: 0; transition: 0.3s ease; }
+  .action-box:hover .corner-ornament { transform: rotate(0deg) scale(1.1); -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.4); }
+  body.dark-mode .corner-ornament { -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.2); }
 
   .status-box { background: var(--apple-blue-light); border-color: rgba(51, 153, 255, 0.3);}
   body.dark-mode .status-box { background: rgba(51, 153, 255, 0.1); border-color: rgba(51, 153, 255, 0.2); }
@@ -280,16 +219,7 @@
   .w-number { font-size: 32px; font-weight: 800; color: var(--apple-blue); line-height: 1; letter-spacing: -1px;}
   .w-info h4 { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text-main); letter-spacing: -0.3px;}
   .w-info p { font-size: 14px; color: var(--text-muted); font-weight: 500; line-height: 1.4;}
-
-  .carousel-btn { 
-    position: absolute; top: 50%; transform: translateY(-50%); 
-    width: 40px; height: 40px; border-radius: 50%; 
-    background: var(--glass-bg); border: 1px solid var(--glass-border); 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: var(--text-main); 
-    font-size: 16px; cursor: pointer; z-index: 10; 
-    display: flex; align-items: center; justify-content: center; transition: 0.2s; 
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  }
+  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: var(--text-main); font-size: 16px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
   .carousel-btn:active { transform: translateY(-50%) scale(0.9); }
   .carousel-btn.left { left: 5px; }
   .carousel-btn.right { right: 5px; }
@@ -302,25 +232,14 @@
   .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
   .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
-  .ic-btn { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 14px 25px; border-radius: 14px; font-size: 14px; font-weight: 700; text-decoration: none; margin-top: 10px;}
 
-  .puestos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
-      gap: 12px;
-      margin-top: 20px;
-  }
-  .puesto-card {
-      border-radius: 16px; padding: 12px 8px; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; text-align: center;
-      cursor: pointer; transition: 0.2s; 
-  }
+  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: 12px; margin-top: 20px; }
+  .puesto-card { border-radius: 16px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; }
   .puesto-card.ocupado { background: rgba(142, 142, 147, 0.15); opacity: 0.6; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
   .puesto-card.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); }
   .puesto-card.libre { border-color: var(--apple-blue); box-shadow: 0 4px 15px rgba(51, 153, 255, 0.15); }
   .puesto-card.libre:active { transform: scale(0.95); }
-  
   .puesto-title { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
   .puesto-nums { font-size: 10px; color: var(--text-muted); line-height: 1.3; font-weight: 600;}
 
@@ -417,7 +336,15 @@
 
     <div id="mainContent">
       <div class="section-title reveal"><span>TOP VENTAS DE LA SEMANA</span></div>
-      <div class="product-grid" id="catalogGrid"></div>
+      
+      <!-- CONTENEDOR CON PANTALLA DE CARGA INICIAL -->
+      <div class="product-grid" id="catalogGrid">
+        <div class="loader-container">
+            <i class="fa-solid fa-spinner loader-spinner"></i>
+            <p style="font-weight: 700; font-size: 14px;">Cargando catálogo...</p>
+        </div>
+      </div>
+      
     </div>
 
     <div class="empty-state" id="emptyState" style="display: none;">
@@ -428,7 +355,15 @@
 
   <section id="viewSorteos" class="view">
     <h1 class="large-title reveal">Dinámicas</h1>
-    <div id="sorteosList"></div>
+    
+    <!-- CONTENEDOR CON PANTALLA DE CARGA INICIAL -->
+    <div id="sorteosList">
+        <div class="loader-container">
+            <i class="fa-solid fa-spinner loader-spinner"></i>
+            <p style="font-weight: 700; font-size: 14px;">Actualizando dinámicas...</p>
+        </div>
+    </div>
+
     <div class="section-title reveal"><span>Ganadores Anteriores</span></div>
     <div class="carousel-wrapper reveal">
       <button class="carousel-btn left" onclick="scrollCarousel(-1)"><i class="fa-solid fa-chevron-left"></i></button>
@@ -440,6 +375,16 @@
   <section id="viewInfo" class="view">
     <h1 class="large-title reveal">Información</h1>
     <div class="info-cards-container">
+        
+      <!-- NUEVO BOTÓN DE TIKTOK -->
+      <div class="info-card-large glass-effect reveal" style="cursor:pointer; background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(30,30,30,0.9)); color: white; border-color: #333;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: #FFFFFF; color: #000000;"><i class="fa-brands fa-tiktok"></i></div>
+          <h3 class="ic-title" style="color: white;">Sígueme en TikTok</h3>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Pillate mis videos, envíos y más contenido bacano en mi cuenta oficial <b>@soyjohnstiven</b>.</p>
+      </div>
+
       <div class="info-card-large glass-effect reveal">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-clock"></i></div>
