@@ -12,35 +12,35 @@
 
 <style>
   :root {
-    /* MODO CLARO - BLANCO PURO Y AZUL LUMINOSO */
-    --bg-base: #F9F9FB;
-    --bg-card: #FFFFFF;
+    /* MODO CLARO - TIPO CRISTAL */
+    --bg-base: #F2F2F7;
+    --bg-card: rgba(255, 255, 255, 0.65);
     --text-main: #1C1C1E;
     --text-muted: #8E8E93;
     --apple-blue: #3399FF; 
-    --apple-blue-light: #EBF4FF;
+    --apple-blue-light: rgba(51, 153, 255, 0.15);
     
-    --border: rgba(0, 0, 0, 0.08);
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
     
     --nav-height: 85px;
     --top-height: 60px;
     --safe-bottom: env(safe-area-inset-bottom, 20px);
   }
 
-  /* MODO OSCURO HALLOWEEN */
+  /* MODO OSCURO HALLOWEEN - TIPO CRISTAL */
   body.dark-mode {
-    --bg-base: #0D0D0D;
-    --bg-card: #1C1C1E;
+    --bg-base: #000000;
+    --bg-card: rgba(28, 28, 30, 0.6);
     --text-main: #FFFFFF;
-    --text-muted: #EBEBF599;
+    --text-muted: rgba(235, 235, 245, 0.6);
     --apple-blue: #3399FF;
-    --apple-blue-light: rgba(51, 153, 255, 0.15);
+    --apple-blue-light: rgba(51, 153, 255, 0.2);
     
-    --border: rgba(255, 255, 255, 0.1);
-    --glass-bg: rgba(28, 28, 30, 0.85);
-    --glass-shadow: 0 8px 30px rgba(255, 122, 0, 0.08); /* Sombra naranja elegante */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(28, 28, 30, 0.75);
+    --glass-shadow: 0 12px 40px rgba(255, 122, 0, 0.15); /* Sombra naranja cristalina */
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -60,23 +60,33 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
+  /* EFECTO CRISTAL GLOBAL */
+  .glass-effect {
+    background: var(--bg-card);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
   /* =========================================
      BANNER SUPERIOR
      ========================================= */
   .top-notification {
     position: fixed; top: 15px; left: 50%; transform: translate(-50%, -150%);
     width: 90%; max-width: 400px;
-    background: #FFFFFF; color: #000000;
+    background: var(--glass-bg); color: var(--text-main);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     padding: 12px 20px; border-radius: 50px;
     font-size: 11px; font-weight: 600; text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: var(--glass-shadow); border: 1px solid var(--glass-border);
     z-index: 10001; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex; justify-content: center; align-items: center; gap: 10px;
   }
   .top-notification.show { transform: translate(-50%, 0); }
 
   /* =========================================
-     SPLASH SCREEN ESTILO HALLOWEEN
+     SPLASH SCREEN (FANTASMA GRANDE)
      ========================================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
@@ -85,19 +95,19 @@
   }
   
   .splash-icon {
-    font-size: 50px; color: #FF7A00; margin-bottom: 15px;
+    font-size: 85px; /* Fantasma más grande */
+    color: #FF7A00; margin-bottom: 15px;
     animation: floatingGhost 2.5s ease-in-out infinite;
   }
 
   @keyframes floatingGhost {
     0% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
-    50% { transform: translateY(-15px) scale(1.05); opacity: 1; text-shadow: 0 10px 20px rgba(255, 122, 0, 0.4); }
+    50% { transform: translateY(-15px) scale(1.05); opacity: 1; text-shadow: 0 10px 30px rgba(255, 122, 0, 0.5); }
     100% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
   }
 
   .splash-greeting { 
     font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; 
-    /* Gradiente naranja premium */
     background: linear-gradient(135deg, #FF7A00, #E65C00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -120,7 +130,7 @@
     z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; 
     border-bottom: 1px solid transparent; transition: 0.3s;
   }
-  .top-bar.scrolled { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .top-bar.scrolled { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border); }
   
   .top-logo { height: 35px; border-radius: 8px; object-fit: contain; }
   
@@ -133,13 +143,13 @@
   .section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
 
   /* =========================================
-     NAVEGACIÓN INFERIOR
+     NAVEGACIÓN INFERIOR CRISTAL
      ========================================= */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom));
     z-index: 2000; display: flex; justify-content: space-around; padding-bottom: var(--safe-bottom);
-    background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-    border-top: 1px solid var(--border);
+    background: var(--glass-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    border-top: 1px solid var(--glass-border); box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
   }
   .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--text-muted); font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; }
   .nav-item i { font-size: 22px; margin-bottom: 2px;}
@@ -151,13 +161,13 @@
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   /* =========================================
-     BOTONES HALLOWEEN (CALABAZA ELEGANTE)
+     BOTONES HALLOWEEN ELEGANTE
      ========================================= */
   .btn-ask, .btn-board { 
     background: linear-gradient(135deg, #FF7A00, #E65C00);
     color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; 
     font-size: 14px; font-weight: 800; width: 100%; max-width: 400px; cursor: pointer; 
-    text-transform: uppercase; box-shadow: 0 6px 20px rgba(255, 122, 0, 0.3);
+    text-transform: uppercase; box-shadow: 0 8px 25px rgba(255, 122, 0, 0.4);
     transition: 0.2s;
   }
   .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(255, 122, 0, 0.2); }
@@ -166,35 +176,34 @@
   /* TIENDA (CUADRÍCULA) */
   .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
   
-  /* Cajas de acción con estilo elegante y festivo */
   .action-box {
-    background: var(--bg-card); border-radius: 20px; padding: 20px 15px;
+    border-radius: 24px; padding: 20px 15px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center; text-decoration: none; color: var(--text-main);
-    box-shadow: var(--glass-shadow); border: 1px solid var(--border);
     transition: transform 0.2s, box-shadow 0.3s; cursor: pointer; min-height: 135px;
     position: relative; overflow: hidden;
   }
   .action-box:hover, .action-box:active { 
     transform: scale(0.97); 
-    box-shadow: 0 8px 25px rgba(255, 122, 0, 0.15); 
-    border-color: rgba(255, 122, 0, 0.3);
+    box-shadow: 0 12px 30px rgba(255, 122, 0, 0.2); 
+    border-color: rgba(255, 122, 0, 0.4);
   }
   
-  .ab-icon { font-size: 32px; margin-bottom: 12px; color: var(--apple-blue); transition: 0.3s; }
+  .ab-icon { font-size: 34px; margin-bottom: 12px; color: var(--apple-blue); transition: 0.3s; }
   .action-box:hover .ab-icon { transform: scale(1.1); color: #FF7A00; }
   
   .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px;}
   .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3;}
   
   /* Status Box */
-  .status-box { background: var(--apple-blue-light); border-color: transparent;}
-  body.dark-mode .status-box { background: rgba(51, 153, 255, 0.05); border-color: rgba(51, 153, 255, 0.1); }
-  .status-box:hover { box-shadow: 0 8px 25px rgba(51, 153, 255, 0.2); border-color: rgba(51, 153, 255, 0.4); }
+  .status-box { background: var(--apple-blue-light); border-color: rgba(51, 153, 255, 0.3);}
+  body.dark-mode .status-box { background: rgba(51, 153, 255, 0.1); border-color: rgba(51, 153, 255, 0.2); }
 
-  /* BUSCADOR */
+  /* BUSCADOR CRISTAL */
   .search-container { margin: 0 20px 20px 20px; }
-  .search-box { display: flex; align-items: center; border-radius: 14px; padding: 14px 18px; gap: 12px; background: rgba(142, 142, 147, 0.08); border: 1px solid var(--border);}
+  .search-box { 
+    display: flex; align-items: center; border-radius: 18px; padding: 14px 18px; gap: 12px; 
+  }
   .search-box i { color: var(--text-muted); font-size: 16px; }
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main);}
   .search-box input::placeholder { color: var(--text-muted); }
@@ -205,8 +214,8 @@
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
   @media(min-width: 600px){ .product-grid { grid-template-columns: repeat(3, 1fr); } }
   
-  .prod-card { background: var(--bg-card); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; box-shadow: var(--glass-shadow); border: 1px solid var(--border);}
-  .prod-img { width: 100%; aspect-ratio: 1; background: #FFFFFF; border-radius: 14px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);}
+  .prod-card { border-radius: 24px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; }
+  .prod-img { width: 100%; aspect-ratio: 1; background: #FFFFFF; border-radius: 16px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border);}
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   
   .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 34px;}
@@ -214,63 +223,63 @@
   .price-main { font-size: 15px; font-weight: 800; color: var(--text-main); }
   .price-fake { font-size: 11px; font-weight: 500; color: var(--text-muted); text-decoration: line-through;}
   
-  .btn-get { background: var(--apple-blue-light); color: var(--apple-blue); border: none; padding: 10px 12px; border-radius: 12px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
-  .btn-get.selected { background: var(--apple-blue); color: #FFF; }
+  .btn-get { background: var(--apple-blue-light); color: var(--apple-blue); border: none; padding: 10px 12px; border-radius: 14px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
+  .btn-get.selected { background: var(--apple-blue); color: #FFF; box-shadow: 0 6px 15px rgba(51, 153, 255, 0.3); }
 
   /* CARRITO FLOTANTE */
-  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150px); width: 92%; max-width: 450px; background: var(--apple-blue); color: #FFF; padding: 12px 15px 12px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1500; box-shadow: 0 10px 40px rgba(51, 153, 255, 0.4); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;}
+  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150px); width: 92%; max-width: 450px; background: var(--apple-blue); color: #FFF; padding: 12px 15px 12px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1500; box-shadow: 0 12px 40px rgba(51, 153, 255, 0.4); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;}
   .ios-cart.show { transform: translateX(-50%) translateY(0); }
   .cart-text { font-size: 14px; font-weight: 700;}
   .btn-cart { background: #FFF; color: var(--apple-blue); border: none; padding: 10px 20px; border-radius: 20px; font-weight: 800; font-size: 12px; cursor: pointer; pointer-events: none;}
 
   /* MODALES Y OVERLAYS */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
-  .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card); border-radius: 24px 24px 0 0; padding: 25px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; overflow-y: auto; display: none;}
-  @media(min-width: 768px) { .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 24px; bottom: 20px; max-height: 80vh; } }
+  .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 30px 30px 0 0; padding: 25px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; overflow-y: auto; display: none;}
+  @media(min-width: 768px) { .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 30px; bottom: 20px; max-height: 80vh; } }
   .bottom-sheet.active { transform: translateY(0); }
-  .sheet-handle { width: 40px; height: 5px; background: var(--border); border-radius: 5px; margin: 0 auto 20px auto; }
+  .sheet-handle { width: 40px; height: 5px; background: var(--text-muted); opacity: 0.5; border-radius: 5px; margin: 0 auto 20px auto; }
   
-  .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border);}
+  .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--glass-border);}
   .cart-item-info { flex: 1; margin-right: 15px; }
   .cart-item-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;}
   .cart-item-price { font-size: 12px; color: var(--text-muted); font-weight: 500;}
-  .cart-controls { display: flex; align-items: center; gap: 15px; background: rgba(142, 142, 147, 0.08); border-radius: 30px; padding: 6px 16px;}
+  .cart-controls { display: flex; align-items: center; gap: 15px; background: rgba(142, 142, 147, 0.1); border-radius: 30px; padding: 6px 16px;}
   .c-btn { background: none; border: none; font-size: 18px; color: var(--apple-blue); cursor: pointer; font-weight: bold;}
   .c-qty { font-size: 15px; font-weight: 700; min-width: 20px; text-align: center;}
 
-  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); background: var(--bg-card); width: 90%; max-width: 400px; border-radius: 24px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; box-shadow: var(--glass-shadow); border: 1px solid var(--border);}
+  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 90%; max-width: 400px; border-radius: 30px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; }
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%);}
-  .close-cm { position: absolute; top: 15px; right: 15px; background: rgba(142, 142, 147, 0.08); border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 14px; color: var(--text-muted); cursor: pointer;}
+  .close-cm { position: absolute; top: 15px; right: 15px; background: rgba(142, 142, 147, 0.15); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-main); cursor: pointer;}
 
   /* =========================================
      DINÁMICAS (SORTEOS) Y GANADORES
      ========================================= */
-  .raffle-card { background: var(--bg-card); border-radius: 24px; margin: 0 20px 25px 20px; padding: 30px 25px; text-align: center; box-shadow: var(--glass-shadow); border: 1px solid var(--border); transition: 0.3s;}
+  .raffle-card { border-radius: 28px; margin: 0 20px 25px 20px; padding: 30px 25px; text-align: center; transition: 0.3s;}
   .r-tag { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 8px 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
   .r-title { font-size: 24px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px;}
   
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 20px;}
-  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: rgba(142, 142, 147, 0.08); }
-  .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); border: 1px solid var(--apple-blue);}
+  .b-cell { aspect-ratio: 1; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: rgba(142, 142, 147, 0.08); transition: 0.2s;}
+  .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); border: 1px solid var(--apple-blue); box-shadow: 0 4px 10px rgba(51, 153, 255, 0.15);}
   .b-cell.ocupado { background: rgba(142, 142, 147, 0.15); color: var(--text-muted); pointer-events: none;}
   .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
 
   .carousel-wrapper { position: relative; width: 100%; padding: 0 20px; margin-bottom: 20px; }
   .winners-scroll { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px;}
-  .w-card { min-width: 320px; scroll-snap-align: start; background: var(--bg-card); padding: 30px; border-radius: 24px; display: flex; gap: 25px; align-items: center; box-shadow: var(--glass-shadow); border: 1px solid var(--border);}
+  .w-card { min-width: 320px; scroll-snap-align: start; padding: 30px; border-radius: 28px; display: flex; gap: 25px; align-items: center;}
   .w-icon-container { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .w-icon-large { font-size: 45px; color: #FFCC00; margin-bottom: 8px;}
+  .w-icon-large { font-size: 45px; color: #FFCC00; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(255,204,0,0.3));}
   .w-number { font-size: 32px; font-weight: 800; color: var(--apple-blue); line-height: 1; letter-spacing: -1px;}
   .w-info h4 { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text-main); letter-spacing: -0.3px;}
   .w-info p { font-size: 14px; color: var(--text-muted); font-weight: 500; line-height: 1.4;}
 
   /* INFO CARDS */
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
-  .info-card-large { background: var(--bg-card); border-radius: 24px; padding: 30px 25px; border: 1px solid var(--border); box-shadow: var(--glass-shadow); }
+  .info-card-large { border-radius: 28px; padding: 30px 25px; }
   .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px;}
-  .ic-icon-box { width: 50px; height: 50px; background: var(--apple-blue-light); color: var(--apple-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px;}
+  .ic-icon-box { width: 50px; height: 50px; background: var(--apple-blue-light); color: var(--apple-blue); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 22px;}
   .ic-title { font-size: 20px; font-weight: 700; letter-spacing: -0.5px;}
   .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
   .ic-list li { margin-bottom: 12px; }
@@ -286,29 +295,27 @@
   <span>Abre esta página en el navegador oficial de tu dispositivo.</span>
 </div>
 
-<!-- SPLASH SCREEN DE BIENVENIDA (ESTILO HALLOWEEN) -->
+<!-- SPLASH SCREEN DE BIENVENIDA -->
 <div id="splash">
   <i class="fa-solid fa-ghost splash-icon"></i>
   <h1 class="splash-greeting" id="greetingText">¡Buenos días!</h1>
   <p class="splash-user">@soyjohnstiven</p>
 </div>
 
-<!-- POP-UP WHATSAPP -->
+<!-- POP-UP WHATSAPP CRISTAL -->
 <div class="modal-overlay" id="promoOverlay"></div>
-<div class="center-modal" id="promoModal">
+<div class="center-modal glass-effect" id="promoModal">
   <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
-  <i class="fa-brands fa-whatsapp" style="font-size: 55px; color: #34C759; margin-bottom: 20px;"></i>
-  <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 12px; line-height: 1.2;">COMUNIDAD VIP</h3>
+  <i class="fa-brands fa-whatsapp" style="font-size: 55px; color: #34C759; margin-bottom: 20px; filter: drop-shadow(0 8px 20px rgba(52,199,89,0.3));"></i>
+  <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 12px; line-height: 1.2;">ESTADOS WHATSAPP</h3>
   <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
-  <button class="btn-ask" style="background: #34C759; color: white; box-shadow: none;" onclick="goPromoWA()">AGREGAR A WHATSAPP</button>
+  <button class="btn-ask" style="background: linear-gradient(135deg, #34C759, #28A745); color: white; box-shadow: 0 8px 25px rgba(52,199,89,0.4);" onclick="goPromoWA()">AGREGAR A WHATSAPP</button>
 </div>
 
 <div class="app-container">
   
   <header class="top-bar" id="mainHeader">
-    <!-- Reemplaza "AQUI_URL_DE_TU_LOGO.png" por el link o nombre de tu logo -->
     <img src="AQUI_URL_DE_TU_LOGO.png" alt="Logo" class="top-logo" onerror="this.style.display='none'">
-    
     <h1 id="topTitle">Catálogo</h1>
     <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
   </header>
@@ -327,8 +334,8 @@
 
   <div class="modal-overlay" id="sheetOverlay" onclick="closeSheets(event)"></div>
 
-  <!-- SHEET CARRITO INTERACTIVO -->
-  <div class="bottom-sheet" id="sheetCart">
+  <!-- SHEET CARRITO INTERACTIVO (CRISTAL) -->
+  <div class="bottom-sheet glass-effect" id="sheetCart">
     <div class="sheet-handle"></div>
     <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px;">Tu Pedido</h3>
     <div id="cartItemsContainer" style="margin-bottom: 25px; max-height: 50vh; overflow-y: auto;"></div>
@@ -345,7 +352,7 @@
 
     <div class="action-grid reveal">
       
-      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="action-box">
+      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="action-box glass-effect">
         <i class="fa-solid fa-file-pdf ab-icon" style="color: #FF3B30;"></i>
         <div>
           <div class="ab-title">Catálogo PDF 🦇</div>
@@ -353,7 +360,7 @@
         </div>
       </a>
 
-      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="action-box">
+      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="action-box glass-effect">
         <i class="fa-brands fa-google-drive ab-icon"></i>
         <div>
           <div class="ab-title">Entrega Rápida 🎃</div>
@@ -361,7 +368,7 @@
         </div>
       </a>
       
-      <div class="action-box" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
+      <div class="action-box glass-effect" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
         <i class="fa-solid fa-truck-fast ab-icon" style="color: var(--text-main);"></i>
         <div>
           <div class="ab-title">Políticas y Envíos 🕸️</div>
@@ -369,16 +376,13 @@
         </div>
       </div>
 
-      <!-- Cuadro 4: Estadísticas de Ventas en Vivo (SIN "Estado Disponible") -->
-      <div class="action-box status-box" id="statsBox">
-        <!-- Inyectado por JS -->
-      </div>
-
+      <!-- Cuadro 4: Estadísticas -->
+      <div class="action-box status-box glass-effect" id="statsBox"></div>
     </div>
 
     <!-- Buscador -->
     <div class="search-container reveal">
-      <div class="search-box">
+      <div class="search-box glass-effect">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="searchInput" placeholder="Buscar perfumes...">
       </div>
@@ -419,7 +423,7 @@
     <h1 class="large-title reveal">Información</h1>
 
     <div class="info-cards-container">
-      <div class="info-card-large reveal">
+      <div class="info-card-large glass-effect reveal">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-clock"></i></div>
           <h3 class="ic-title">Atención al Cliente</h3>
@@ -429,7 +433,7 @@
           <li>Mejoramos la experiencia en WhatsApp para brindarte una atención más rápida.</li>
         </ul>
       </div>
-      <div class="info-card-large reveal">
+      <div class="info-card-large glass-effect reveal">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
           <h3 class="ic-title">Envíos y Entregas</h3>
@@ -448,17 +452,23 @@
        ========================================= -->
   <section id="viewSorteoDetalle" class="view">
     <h1 class="large-title reveal" id="sorteoDetalleTitle">Tablero</h1>
-    <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 20px; font-size: 15px;" id="sorteoDetalleDesc"></p>
+    <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 25px; font-size: 15px;" id="sorteoDetalleDesc"></p>
 
-    <!-- Buscador exclusivo de números de puesto -->
+    <!-- Resumen de Puestos -->
+    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 13px; text-align:center;">
+       <!-- Inyectado por JS -->
+    </div>
+
+    <!-- Buscador de números -->
     <div class="search-container reveal">
-      <div class="search-box" style="border: 2px solid #FF7A00;">
+      <div class="search-box glass-effect" style="border: 1px solid rgba(255, 122, 0, 0.5); box-shadow: 0 8px 25px rgba(255, 122, 0, 0.1);">
         <i class="fa-solid fa-magnifying-glass" style="color: #FF7A00;"></i>
         <input type="number" id="searchPuestoInput" placeholder="Buscar número de puesto específico...">
       </div>
     </div>
 
-    <div style="display:flex; justify-content:center; gap:15px; font-size:12px; font-weight:600; margin-bottom:20px; color:var(--text-muted);">
+    <!-- Leyenda -->
+    <div class="reveal" style="display:flex; justify-content:center; gap:15px; font-size:12px; font-weight:600; margin-bottom:20px; color:var(--text-muted);">
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; border:1px solid var(--apple-blue); background:var(--bg-card);"></div> Libre</div>
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(142, 142, 147, 0.15);"></div> Ocupado</div>
     </div>
@@ -475,15 +485,15 @@
 
 <script>
   // ==========================================
-  // LÓGICA SPLASH (HALLOWEEN) Y ESTADÍSTICAS
+  // LÓGICA SPLASH Y ESTADÍSTICAS
   // ==========================================
   document.addEventListener('DOMContentLoaded', () => {
     
-    // Saludo dinámico festivo
+    // Saludos SIN emojis
     const hour = new Date().getHours();
-    let greeting = "¡Feliz Noche! 🦇";
-    if (hour >= 6 && hour < 12) greeting = "¡Buenos días! 🎃";
-    else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes! 🕸️";
+    let greeting = "¡Feliz Noche!";
+    if (hour >= 6 && hour < 12) greeting = "¡Buenos días!";
+    else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes!";
     document.getElementById('greetingText').innerText = greeting;
 
     const statsBox = document.getElementById('statsBox');
@@ -493,7 +503,6 @@
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const ventasDia = 1206 + (diffDays * 13);
 
-    // USUARIOS CONECTADOS 24/7 (Y sin el "Estado Disponible")
     let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29;
     
     function renderStats() {
@@ -510,10 +519,8 @@
       let rnd = Math.random();
       if(rnd > 0.4) usuarios += 6; 
       else usuarios -= 10; 
-      
       if(usuarios < 15) usuarios = 18 + Math.floor(Math.random()*5);
       if(usuarios > 180) usuarios = 160 - Math.floor(Math.random()*15);
-      
       const uCount = document.getElementById('uCount');
       if(uCount) uCount.innerText = usuarios;
     }, 3500);
@@ -528,7 +535,7 @@
         setTimeout(() => notif.classList.remove('show'), 10000);
       }, 500);
       observeElements();
-    }, 2500); // 2.5s para que aprecien bien el fantasmita y el saludo
+    }, 2500);
 
     setTimeout(() => {
       document.getElementById('promoOverlay').classList.add('active');
@@ -591,7 +598,6 @@
     document.getElementById('topTitle').innerText = title;
     window.scrollTo({top: 0, behavior: 'smooth'});
     
-    // CONFETI CUANDO ENTRA A SORTEOS (Colores de Halloween)
     if (viewId === 'sorteos') {
         setTimeout(() => {
             confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#FF7A00', '#000000', '#9C27B0', '#FFFFFF'] });
@@ -740,7 +746,7 @@
       const btnCls = isSel ? 'btn-get selected' : 'btn-get';
       const btnTxt = isSel ? 'LISTO' : 'AGREGAR';
       return `
-      <div class="prod-card reveal">
+      <div class="prod-card glass-effect reveal">
         <div class="prod-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
         <h4 class="prod-title">${esc(p.nombre)}</h4>
         <div class="prod-prices">
@@ -767,54 +773,71 @@
   function askAvailability() { openWhatsApp(`Hola! Quiero preguntar por la disponibilidad y precio de:\n- ${currentSearchTerm}`); }
 
   // ==========================================
-  // DINÁMICAS (SORTEOS) Y TABLERO
+  // DINÁMICAS Y TABLERO
   // ==========================================
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
   let allWinners = [];
   let currentBoardData = [];
 
-  function fetchSorteos() { fetchSorteoData(URL_S1); fetchSorteoData(URL_S2); }
+  function fetchSorteos() {
+    // Leemos ambos Excels al mismo tiempo y los ordenamos para poner ACTIVAS arriba
+    Promise.all([
+      fetch(URL_S1 + '&t=' + new Date().getTime()).then(r => r.text()),
+      fetch(URL_S2 + '&t=' + new Date().getTime()).then(r => r.text())
+    ]).then(results => {
+      let dynamicsArray = [];
+      
+      results.forEach(csv => {
+        var rows = parseCSV(csv).slice(1);
+        if (rows.length > 0 && rows[0].length >= 7) {
+          const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
+          const desc = rows[0][4] ? rows[0][4].trim() : '';
+          
+          let pData = rows.map(cols => {
+            if(!cols || cols.length < 3 || !cols[0].trim()) return null;
+            let arr = cols[1].toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
+              let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
+            }).filter(n => n !== '');
+            let st = (cols[2] || '').toUpperCase();
+            let estado = 'libre';
+            if(st.includes('PEN')) estado = 'pendiente';
+            else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
+            return { id: cols[0].trim(), numeros: arr, estado: estado };
+          }).filter(Boolean);
 
-  function fetchSorteoData(url) {
-    fetch(url + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
-      var rows = parseCSV(csv).slice(1);
-      if (rows.length > 0 && rows[0].length >= 7) {
-        const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
-        const desc = rows[0][4] ? rows[0][4].trim() : '';
+          const isActive = pData.some(p => p.estado !== 'ocupado');
+          let isInactiveEmpty = (!desc || desc.trim() === '');
+          
+          dynamicsArray.push({ title, desc, pData, isActive, isInactiveEmpty });
+        }
         
-        let pData = rows.map(cols => {
-          if(!cols || cols.length < 3 || !cols[0].trim()) return null;
-          let arr = cols[1].toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
-            let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
-          }).filter(n => n !== '');
-          let st = (cols[2] || '').toUpperCase();
-          let estado = 'libre';
-          if(st.includes('PEN')) estado = 'pendiente';
-          else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
-          return { id: cols[0].trim(), numeros: arr, estado: estado };
-        }).filter(Boolean);
+        rows.forEach(cols => {
+          if (cols.length >= 8 && cols[7] && cols[7].trim() !== '') {
+            allWinners.push({ num: cols[7].trim(), name: (cols.length > 8 && cols[8]) ? cols[8].trim() : 'Ganador', prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Premio Exclusivo' });
+          }
+        });
+      });
 
-        const isActive = pData.some(p => p.estado !== 'ocupado');
-        let isInactiveEmpty = (!desc || desc.trim() === '');
-        
-        let cardStyle = isInactiveEmpty ? 'background: rgba(255, 59, 48, 0.04); border: 1px solid rgba(255, 59, 48, 0.5);' : '';
-        let tagStyle = isInactiveEmpty ? 'background: rgba(255, 59, 48, 0.1); color: #FF3B30;' : '';
-        let tagText = isInactiveEmpty ? 'DINÁMICA INACTIVA' : (isActive ? 'DINÁMICA ACTIVA' : 'DINÁMICA FINALIZADA');
+      // Ordenar: Inactivas abajo (isInactiveEmpty = true se va al fondo)
+      dynamicsArray.sort((a, b) => a.isInactiveEmpty - b.isInactiveEmpty);
 
-        document.getElementById('sorteosList').innerHTML += `
-          <div class="raffle-card glass-panel reveal" style="${cardStyle}">
+      // Renderizar en orden
+      const listContainer = document.getElementById('sorteosList');
+      listContainer.innerHTML = "";
+      dynamicsArray.forEach(d => {
+        let cardStyle = d.isInactiveEmpty ? 'background: rgba(255, 59, 48, 0.04); border: 1px solid rgba(255, 59, 48, 0.5); box-shadow: none;' : '';
+        let tagStyle = d.isInactiveEmpty ? 'background: rgba(255, 59, 48, 0.1); color: #FF3B30;' : '';
+        let tagText = d.isInactiveEmpty ? 'DINÁMICA INACTIVA' : (d.isActive ? 'DINÁMICA ACTIVA' : 'DINÁMICA FINALIZADA');
+
+        listContainer.innerHTML += `
+          <div class="raffle-card glass-effect reveal" style="${cardStyle}">
             <span class="r-tag" style="${tagStyle}">${tagText}</span>
-            <h3 class="r-title">${title}</h3>
-            <p style="font-size:15px; margin-bottom:25px; color:var(--text-muted);">Premio: ${desc || 'Próximamente'}</p>
-            <button class="btn-board" onclick='openSorteoView(\`${JSON.stringify(pData)}\`, \`${title}\`, \`${desc}\`)' ${isInactiveEmpty ? 'disabled style="background:#8E8E93; opacity:0.5; box-shadow:none; cursor:not-allowed;"' : ''}>${isInactiveEmpty ? 'Tablero No Disponible' : 'Ver Tablero de Puestos'}</button>
+            <h3 class="r-title">${d.title}</h3>
+            <p style="font-size:15px; margin-bottom:25px; color:var(--text-muted);">Premio: ${d.desc || 'Próximamente'}</p>
+            <button class="btn-board" onclick='openSorteoView(\`${JSON.stringify(d.pData)}\`, \`${d.title}\`, \`${d.desc}\`)' ${d.isInactiveEmpty ? 'disabled style="background:#8E8E93; opacity:0.5; box-shadow:none; cursor:not-allowed;"' : ''}>${d.isInactiveEmpty ? 'Tablero No Disponible' : 'Ver Tablero de Puestos'}</button>
           </div>
         `;
-      }
-      rows.forEach(cols => {
-        if (cols.length >= 8 && cols[7] && cols[7].trim() !== '') {
-          allWinners.push({ num: cols[7].trim(), name: (cols.length > 8 && cols[8]) ? cols[8].trim() : 'Ganador', prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Premio Exclusivo' });
-        }
       });
       renderWinners();
     });
@@ -824,18 +847,20 @@
     const wc = document.getElementById('winnersContainer');
     if(allWinners.length === 0) return;
     wc.innerHTML = allWinners.map(w => `
-      <div class="w-card glass-panel">
+      <div class="w-card glass-effect">
         <div class="w-icon-container"><i class="fa-solid fa-trophy w-icon-large"></i><div class="w-number">${w.num}</div></div>
         <div class="w-info"><h4>${w.name}</h4><p>${w.prize}</p></div>
       </div>
     `).join('');
   }
 
+  // ABRIR VISTA DETALLADA DEL TABLERO CON RESUMEN DE PUESTOS
   function openSorteoView(pDataStr, title, desc) {
     currentBoardData = JSON.parse(pDataStr);
     document.getElementById('sorteoDetalleTitle').innerText = title;
     document.getElementById('sorteoDetalleDesc').innerText = desc ? `Premio en juego: ${desc}` : '';
     document.getElementById('searchPuestoInput').value = '';
+    
     renderBoardDetalle('');
     switchView('sorteoDetalle', 'Tablero Dinámica', null);
   }
@@ -846,21 +871,45 @@
 
   function renderBoardDetalle(searchTerm) {
     const board = document.getElementById('boardGridDetalle');
+    const resumen = document.getElementById('resumenPuestos');
+    
     let html = '';
+    let libres = 0; let ocupados = 0; let pendientes = 0;
+
     for(let i = 0; i <= 99; i++) {
       const num = i < 10 ? '0' + i : '' + i;
+      const p = currentBoardData.find(x => x.numeros.includes(num));
+      
+      // Contadores globales
+      if(p) {
+         if(p.estado === 'ocupado') ocupados++;
+         else if(p.estado === 'pendiente') pendientes++;
+         else libres++;
+      } else {
+         libres++;
+      }
+
+      // Si el buscador está activo, filtramos la visualización
       if (searchTerm && !num.includes(searchTerm)) continue;
 
-      const p = currentBoardData.find(x => x.numeros.includes(num));
+      // Generar cuadrito
       if(p) {
-        if(p.estado === 'ocupado') html += `<div class="b-cell ocupado">X<span>${num}</span></div>`;
-        else if(p.estado === 'pendiente') html += `<div class="b-cell pendiente">${num}</div>`;
-        else html += `<div class="b-cell libre" onclick="pedirPuesto('${num}')">${num}</div>`;
+        if(p.estado === 'ocupado') html += `<div class="b-cell ocupado glass-effect">X<span>${num}</span></div>`;
+        else if(p.estado === 'pendiente') html += `<div class="b-cell pendiente glass-effect">${num}</div>`;
+        else html += `<div class="b-cell libre glass-effect" onclick="pedirPuesto('${num}')">${num}</div>`;
       } else {
-        html += `<div class="b-cell libre" onclick="pedirPuesto('${num}')">${num}</div>`;
+        html += `<div class="b-cell libre glass-effect" onclick="pedirPuesto('${num}')">${num}</div>`;
       }
     }
+    
     board.innerHTML = html;
+    
+    // Actualizar texto del resumen
+    resumen.innerHTML = `
+      <div style="color:var(--apple-blue);">LIBRES<br><span style="font-size:18px;">${libres}</span></div>
+      <div style="color:var(--text-muted);">OCUPADOS<br><span style="font-size:18px;">${ocupados}</span></div>
+      <div style="color:#FFCC00;">PENDIENTES<br><span style="font-size:18px;">${pendientes}</span></div>
+    `;
   }
 
   function pedirPuesto(num) {
