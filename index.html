@@ -232,14 +232,16 @@
   .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-  /* TABLERO CLÁSICO 00 AL 99 */
-  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 20px;}
-  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: rgba(142, 142, 147, 0.08); transition: 0.2s;}
-  .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); border: 1px solid var(--apple-blue); box-shadow: 0 4px 10px rgba(51, 153, 255, 0.15);}
-  .b-cell.libre:active { transform: scale(0.95); }
-  .b-cell.ocupado { background: rgba(142, 142, 147, 0.15); color: var(--text-muted); pointer-events: none; border-color: transparent;}
-  .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
-  .b-cell.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); color: #FFCC00; }
+  /* TABLERO POR PUESTOS EXACTOS */
+  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: 12px; margin-top: 20px; }
+  .puesto-card { border-radius: 16px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; }
+  .puesto-card.ocupado { background: rgba(142, 142, 147, 0.15); opacity: 0.6; pointer-events: none; border-color: transparent;}
+  .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
+  .puesto-card.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); }
+  .puesto-card.libre { border-color: var(--apple-blue); box-shadow: 0 4px 15px rgba(51, 153, 255, 0.15); }
+  .puesto-card.libre:active { transform: scale(0.95); }
+  .puesto-title { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+  .puesto-nums { font-size: 10px; color: var(--text-muted); line-height: 1.3; font-weight: 600;}
 
 </style>
 </head>
@@ -422,7 +424,7 @@
     <div class="search-container reveal">
       <div class="search-box glass-effect" style="border: 1px solid rgba(255, 122, 0, 0.5); box-shadow: 0 8px 25px rgba(255, 122, 0, 0.1);">
         <i class="fa-solid fa-magnifying-glass" style="color: #FF7A00;"></i>
-        <input type="number" id="searchPuestoInput" placeholder="Buscar un número específico...">
+        <input type="text" id="searchPuestoInput" placeholder="Buscar un puesto o número específico...">
       </div>
     </div>
 
@@ -432,7 +434,7 @@
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(255, 204, 0, 0.1);"></div> Pendiente</div>
     </div>
 
-    <!-- Tablero de 100 números (00 al 99) cruzado con Puestos -->
+    <!-- Tablero Real de Puestos -->
     <div class="reveal" id="boardGridDetalle" style="padding: 0 20px; margin-bottom: 30px;"></div>
 
     <div style="padding: 0 20px;">
@@ -807,15 +809,15 @@
         if (rows.length > 0 && rows[0].length >= 7) {
           const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
           const desc = rows[0][4] ? rows[0][4].trim() : '';
-          const price = rows[0][6] ? rows[0][6].trim() : ''; // Lectura del Precio Columna G
+          const price = rows[0][6] ? rows[0][6].trim() : '';
           
           let pData = rows.map(cols => {
-            if(!cols || cols.length < 3 || !cols[0].trim()) return null;
+            if(!cols || !cols[0] || !cols[0].trim()) return null;
             let idPuesto = cols[0].trim();
-            // Evitar error si la columna B está vacía
-            let arr = cols[1] ? cols[1].toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
+            
+            let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
               let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
-            }).filter(n => n !== '') : [];
+            }).filter(n => n !== '');
             
             let st = (cols[2] || '').toUpperCase();
             let estado = 'libre';
@@ -898,7 +900,6 @@
     currentBoardData = JSON.parse(pDataStr);
     document.getElementById('sorteoDetalleTitle').innerText = title;
     
-    // Aquí se muestra el precio junto con la descripción en la vista detallada
     let descHtml = desc ? `Premio en juego: ${desc}` : '';
     if(price) descHtml += `<br><span style="color:var(--apple-blue); font-weight:800; font-size:16px;">Valor Puesto: ${price}</span>`;
     document.getElementById('sorteoDetalleDesc').innerHTML = descHtml;
@@ -920,38 +921,31 @@
     let html = '';
     let libres = 0; let ocupados = 0; let pendientes = 0;
 
-    // CONTEO REAL BASADO ÚNICAMENTE EN LA CANTIDAD DE PUESTOS EN EL EXCEL
     currentBoardData.forEach(p => {
        if(p.estado === 'ocupado') ocupados++;
        else if(p.estado === 'pendiente') pendientes++;
        else libres++;
+
+       let searchMatch = true;
+       if (searchTerm) {
+          searchMatch = p.id.includes(searchTerm) || p.numeros.some(num => num.includes(searchTerm));
+       }
+
+       if (searchMatch) {
+         let displayNums = p.numeros.length > 0 ? p.numeros.join(', ') : 'Libre';
+         let cellClass = p.estado === 'ocupado' ? 'ocupado' : (p.estado === 'pendiente' ? 'pendiente' : 'libre');
+         let onClick = p.estado !== 'ocupado' ? `onclick="pedirPuesto('${p.id}')"` : '';
+         
+         html += `
+           <div class="puesto-card ${cellClass} glass-effect" ${onClick}>
+             <div class="puesto-title">Puesto ${p.id}</div>
+             <div class="puesto-nums">${displayNums}</div>
+           </div>
+         `;
+       }
     });
     
-    // RENDERIZADO DEL TABLERO DE NÚMEROS 00 AL 99 CRUZANDO DATOS DEL EXCEL
-    for(let i = 0; i <= 99; i++) {
-        const num = i < 10 ? '0' + i : '' + i;
-        
-        // Si hay búsqueda activa, filtrar
-        if (searchTerm && !num.includes(searchTerm)) continue;
-
-        // Buscar a qué puesto del Excel pertenece este número
-        const p = currentBoardData.find(x => x.numeros.includes(num));
-        
-        if(p) {
-            if(p.estado === 'ocupado') {
-                html += `<div class="b-cell ocupado glass-effect">X<span>${num}</span></div>`;
-            } else if(p.estado === 'pendiente') {
-                html += `<div class="b-cell pendiente glass-effect">${num}</div>`;
-            } else {
-                html += `<div class="b-cell libre glass-effect" onclick="pedirNumero('${num}', '${p.id}')">${num}</div>`;
-            }
-        } else {
-            // Si el número no está configurado en ningún puesto, igual se muestra libre
-            html += `<div class="b-cell libre glass-effect" onclick="pedirNumero('${num}', '')">${num}</div>`;
-        }
-    }
-    
-    board.innerHTML = `<div class="board-grid">${html}</div>`;
+    board.innerHTML = `<div class="puestos-grid">${html}</div>`;
     
     resumen.innerHTML = `
       <div style="color:var(--apple-blue);">PUESTOS LIBRES<br><span style="font-size:18px;">${libres}</span></div>
@@ -960,12 +954,8 @@
     `;
   }
 
-  function pedirNumero(num, id) {
-    let msg = `Hola! Quiero el número ${num} en la dinámica.\n- ¿En cuánto queda hoy?`;
-    if(id) {
-        msg = `Hola! Quiero el puesto ${id} (que incluye el número ${num}) en la dinámica.\n- ¿En cuánto queda hoy?`;
-    }
-    openWhatsApp(msg);
+  function pedirPuesto(id) {
+    openWhatsApp(`Hola! Quiero este puesto en la dinámica:\n- Puesto número ${id}\n- En cuánto queda hoy?`);
   }
 
 </script>
