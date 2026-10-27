@@ -40,15 +40,13 @@
     
     --border: rgba(255, 255, 255, 0.1);
     --glass-bg: rgba(28, 28, 30, 0.85);
-    --glass-shadow: 0 8px 30px rgba(255, 122, 0, 0.05); /* Toque naranja sutil en sombras */
+    --glass-shadow: 0 8px 30px rgba(255, 122, 0, 0.08); /* Sombra naranja elegante */
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   
   body {
     background-color: var(--bg-base);
-    /* Fondo elegante sutil (estilo noche/estrellas) que va bien con Halloween */
-    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
     color: var(--text-main);
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased; overflow-x: hidden;
@@ -78,17 +76,34 @@
   .top-notification.show { transform: translate(-50%, 0); }
 
   /* =========================================
-     SPLASH SCREEN
+     SPLASH SCREEN ESTILO HALLOWEEN
      ========================================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
     transition: opacity 0.5s ease;
   }
+  
+  .splash-icon {
+    font-size: 50px; color: #FF7A00; margin-bottom: 15px;
+    animation: floatingGhost 2.5s ease-in-out infinite;
+  }
+
+  @keyframes floatingGhost {
+    0% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
+    50% { transform: translateY(-15px) scale(1.05); opacity: 1; text-shadow: 0 10px 20px rgba(255, 122, 0, 0.4); }
+    100% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
+  }
+
   .splash-greeting { 
-    font-size: 38px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; color: var(--apple-blue);
+    font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; 
+    /* Gradiente naranja premium */
+    background: linear-gradient(135deg, #FF7A00, #E65C00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     opacity: 0; transform: scale(0.9); animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+  
   .splash-user { 
     font-size: 16px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px;
     opacity: 0; transform: translateY(30px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
@@ -107,7 +122,6 @@
   }
   .top-bar.scrolled { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
   
-  /* AQUÍ ESTÁ LA CLASE PARA TU LOGO */
   .top-logo { height: 35px; border-radius: 8px; object-fit: contain; }
   
   .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s;}
@@ -140,31 +154,43 @@
      BOTONES HALLOWEEN (CALABAZA ELEGANTE)
      ========================================= */
   .btn-ask, .btn-board { 
-    background: linear-gradient(135deg, #FF7A00, #E65C00); /* Naranja Calabaza Premium */
+    background: linear-gradient(135deg, #FF7A00, #E65C00);
     color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; 
     font-size: 14px; font-weight: 800; width: 100%; max-width: 400px; cursor: pointer; 
     text-transform: uppercase; box-shadow: 0 6px 20px rgba(255, 122, 0, 0.3);
     transition: 0.2s;
   }
   .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(255, 122, 0, 0.2); }
-  .btn-ask::before, .btn-board::before { content: '🎃 '; } /* Icono temático */
+  .btn-ask::before, .btn-board::before { content: '🎃 '; }
 
   /* TIENDA (CUADRÍCULA) */
   .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
+  
+  /* Cajas de acción con estilo elegante y festivo */
   .action-box {
     background: var(--bg-card); border-radius: 20px; padding: 20px 15px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center; text-decoration: none; color: var(--text-main);
     box-shadow: var(--glass-shadow); border: 1px solid var(--border);
-    transition: transform 0.2s; cursor: pointer; min-height: 135px;
+    transition: transform 0.2s, box-shadow 0.3s; cursor: pointer; min-height: 135px;
+    position: relative; overflow: hidden;
   }
-  .action-box:active { transform: scale(0.97); }
-  .ab-icon { font-size: 32px; margin-bottom: 12px; color: var(--apple-blue); }
+  .action-box:hover, .action-box:active { 
+    transform: scale(0.97); 
+    box-shadow: 0 8px 25px rgba(255, 122, 0, 0.15); 
+    border-color: rgba(255, 122, 0, 0.3);
+  }
+  
+  .ab-icon { font-size: 32px; margin-bottom: 12px; color: var(--apple-blue); transition: 0.3s; }
+  .action-box:hover .ab-icon { transform: scale(1.1); color: #FF7A00; }
+  
   .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px;}
   .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3;}
   
+  /* Status Box */
   .status-box { background: var(--apple-blue-light); border-color: transparent;}
   body.dark-mode .status-box { background: rgba(51, 153, 255, 0.05); border-color: rgba(51, 153, 255, 0.1); }
+  .status-box:hover { box-shadow: 0 8px 25px rgba(51, 153, 255, 0.2); border-color: rgba(51, 153, 255, 0.4); }
 
   /* BUSCADOR */
   .search-container { margin: 0 20px 20px 20px; }
@@ -260,8 +286,9 @@
   <span>Abre esta página en el navegador oficial de tu dispositivo.</span>
 </div>
 
-<!-- SPLASH SCREEN DE BIENVENIDA -->
+<!-- SPLASH SCREEN DE BIENVENIDA (ESTILO HALLOWEEN) -->
 <div id="splash">
+  <i class="fa-solid fa-ghost splash-icon"></i>
   <h1 class="splash-greeting" id="greetingText">¡Buenos días!</h1>
   <p class="splash-user">@soyjohnstiven</p>
 </div>
@@ -273,13 +300,12 @@
   <i class="fa-brands fa-whatsapp" style="font-size: 55px; color: #34C759; margin-bottom: 20px;"></i>
   <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 12px; line-height: 1.2;">COMUNIDAD VIP</h3>
   <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
-  <button class="btn-ask" style="background: #34C759; color: white;" onclick="goPromoWA()">AGREGAR A WHATSAPP</button>
+  <button class="btn-ask" style="background: #34C759; color: white; box-shadow: none;" onclick="goPromoWA()">AGREGAR A WHATSAPP</button>
 </div>
 
 <div class="app-container">
   
   <header class="top-bar" id="mainHeader">
-    <!-- ESPACIO PARA TU LOGO -->
     <!-- Reemplaza "AQUI_URL_DE_TU_LOGO.png" por el link o nombre de tu logo -->
     <img src="AQUI_URL_DE_TU_LOGO.png" alt="Logo" class="top-logo" onerror="this.style.display='none'">
     
@@ -322,7 +348,7 @@
       <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="action-box">
         <i class="fa-solid fa-file-pdf ab-icon" style="color: #FF3B30;"></i>
         <div>
-          <div class="ab-title">Catálogo PDF</div>
+          <div class="ab-title">Catálogo PDF 🦇</div>
           <div class="ab-desc">Colección completa</div>
         </div>
       </a>
@@ -330,7 +356,7 @@
       <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="action-box">
         <i class="fa-brands fa-google-drive ab-icon"></i>
         <div>
-          <div class="ab-title">Entrega Inmediata</div>
+          <div class="ab-title">Entrega Rápida 🎃</div>
           <div class="ab-desc">Stock local Medellín</div>
         </div>
       </a>
@@ -338,12 +364,12 @@
       <div class="action-box" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
         <i class="fa-solid fa-truck-fast ab-icon" style="color: var(--text-main);"></i>
         <div>
-          <div class="ab-title">Políticas y Envíos</div>
+          <div class="ab-title">Políticas y Envíos 🕸️</div>
           <div class="ab-desc">Tiempos y métodos de pago</div>
         </div>
       </div>
 
-      <!-- Cuadro 4: Estadísticas de Ventas en Vivo 24/7 -->
+      <!-- Cuadro 4: Estadísticas de Ventas en Vivo (SIN "Estado Disponible") -->
       <div class="action-box status-box" id="statsBox">
         <!-- Inyectado por JS -->
       </div>
@@ -449,14 +475,15 @@
 
 <script>
   // ==========================================
-  // LÓGICA SPLASH Y ESTADÍSTICAS EN VIVO 24/7
+  // LÓGICA SPLASH (HALLOWEEN) Y ESTADÍSTICAS
   // ==========================================
   document.addEventListener('DOMContentLoaded', () => {
     
+    // Saludo dinámico festivo
     const hour = new Date().getHours();
-    let greeting = "¡Buenas noches!";
-    if (hour >= 6 && hour < 12) greeting = "¡Buenos días!";
-    else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes!";
+    let greeting = "¡Feliz Noche! 🦇";
+    if (hour >= 6 && hour < 12) greeting = "¡Buenos días! 🎃";
+    else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes! 🕸️";
     document.getElementById('greetingText').innerText = greeting;
 
     const statsBox = document.getElementById('statsBox');
@@ -466,15 +493,14 @@
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const ventasDia = 1206 + (diffDays * 13);
 
-    // USUARIOS CONECTADOS 24/7 ACTIVADO SIEMPRE
+    // USUARIOS CONECTADOS 24/7 (Y sin el "Estado Disponible")
     let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29;
     
     function renderStats() {
        statsBox.innerHTML = `
-         <div style="display:flex; flex-direction:column; gap: 8px; width: 100%; align-items:center;">
-           <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span id="vCount">${ventasDia.toLocaleString('es-CO')}</span></div>
-           <div style="font-size: 13px; font-weight: 700; color: #FF7A00;">EN LÍNEA: <span id="uCount">${usuarios}</span></div>
-           <div style="color: #34C759; font-weight:700; font-size:11px; margin-top: 5px;">ESTADO: Disponible 24/7</div>
+         <div style="display:flex; flex-direction:column; gap: 8px; width: 100%; align-items:center; justify-content:center; height:100%;">
+           <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span id="vCount">${ventasDia.toLocaleString('es-CO')}</span> 💀</div>
+           <div style="font-size: 13px; font-weight: 700; color: #FF7A00;">EN LÍNEA: <span id="uCount">${usuarios}</span> 👻</div>
          </div>
        `;
     }
@@ -502,7 +528,7 @@
         setTimeout(() => notif.classList.remove('show'), 10000);
       }, 500);
       observeElements();
-    }, 2000);
+    }, 2500); // 2.5s para que aprecien bien el fantasmita y el saludo
 
     setTimeout(() => {
       document.getElementById('promoOverlay').classList.add('active');
@@ -565,10 +591,10 @@
     document.getElementById('topTitle').innerText = title;
     window.scrollTo({top: 0, behavior: 'smooth'});
     
-    // CONFETI CUANDO ENTRA A SORTEOS
+    // CONFETI CUANDO ENTRA A SORTEOS (Colores de Halloween)
     if (viewId === 'sorteos') {
         setTimeout(() => {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#FF7A00', '#000000', '#3399FF'] });
+            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#FF7A00', '#000000', '#9C27B0', '#FFFFFF'] });
         }, 300);
     }
     
@@ -741,7 +767,7 @@
   function askAvailability() { openWhatsApp(`Hola! Quiero preguntar por la disponibilidad y precio de:\n- ${currentSearchTerm}`); }
 
   // ==========================================
-  // DINÁMICAS (SORTEOS) MODIFICADAS CON NUEVA PESTAÑA
+  // DINÁMICAS (SORTEOS) Y TABLERO
   // ==========================================
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
@@ -770,8 +796,6 @@
         }).filter(Boolean);
 
         const isActive = pData.some(p => p.estado !== 'ocupado');
-        
-        // LOGICA DE ROJO PARA DINAMICA INACTIVA O VACIA
         let isInactiveEmpty = (!desc || desc.trim() === '');
         
         let cardStyle = isInactiveEmpty ? 'background: rgba(255, 59, 48, 0.04); border: 1px solid rgba(255, 59, 48, 0.5);' : '';
@@ -807,23 +831,15 @@
     `).join('');
   }
 
-  // ==========================================
-  // APERTURA DE NUEVA PESTAÑA (VISTA DETALLADA)
-  // ==========================================
   function openSorteoView(pDataStr, title, desc) {
     currentBoardData = JSON.parse(pDataStr);
     document.getElementById('sorteoDetalleTitle').innerText = title;
     document.getElementById('sorteoDetalleDesc').innerText = desc ? `Premio en juego: ${desc}` : '';
-    
-    // Limpiar buscador y renderizar todos
     document.getElementById('searchPuestoInput').value = '';
     renderBoardDetalle('');
-
-    // Cambiar de vista como si fuera una nueva pestaña
     switchView('sorteoDetalle', 'Tablero Dinámica', null);
   }
 
-  // Buscador Exclusivo
   document.getElementById('searchPuestoInput').addEventListener('input', (e) => {
     renderBoardDetalle(e.target.value.trim());
   });
@@ -833,8 +849,6 @@
     let html = '';
     for(let i = 0; i <= 99; i++) {
       const num = i < 10 ? '0' + i : '' + i;
-      
-      // Filtrado por buscador
       if (searchTerm && !num.includes(searchTerm)) continue;
 
       const p = currentBoardData.find(x => x.numeros.includes(num));
