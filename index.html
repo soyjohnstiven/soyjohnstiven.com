@@ -7,10 +7,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Librería para el confeti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
   :root {
+    /* MODO CLARO - TIPO CRISTAL */
     --bg-base: #F2F2F7;
     --bg-card: rgba(255, 255, 255, 0.65);
     --text-main: #1C1C1E;
@@ -27,6 +29,7 @@
     --safe-bottom: env(safe-area-inset-bottom, 20px);
   }
 
+  /* MODO OSCURO HALLOWEEN - TIPO CRISTAL */
   body.dark-mode {
     --bg-base: #000000;
     --bg-card: rgba(28, 28, 30, 0.6);
@@ -51,9 +54,13 @@
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 
+  /* =========================================
+     ANIMACIONES GLOBALES
+     ========================================= */
   .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
+  /* EFECTO CRISTAL GLOBAL */
   .glass-effect {
     background: var(--bg-card);
     backdrop-filter: blur(25px);
@@ -62,6 +69,9 @@
     box-shadow: var(--glass-shadow);
   }
 
+  /* =========================================
+     BANNER SUPERIOR
+     ========================================= */
   .top-notification {
     position: fixed; top: 15px; left: 50%; transform: translate(-50%, -150%);
     width: 90%; max-width: 400px;
@@ -75,6 +85,9 @@
   }
   .top-notification.show { transform: translate(-50%, 0); }
 
+  /* =========================================
+     SPLASH SCREEN (FANTASMA GRANDE)
+     ========================================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -109,6 +122,9 @@
   @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
   @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
+  /* =========================================
+     CABECERA & LOGO
+     ========================================= */
   .top-bar {
     position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height);
     z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; 
@@ -126,6 +142,9 @@
   .large-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 15px) 20px 25px 20px; }
   .section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
 
+  /* =========================================
+     NAVEGACIÓN INFERIOR CRISTAL
+     ========================================= */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom));
     z-index: 2000; display: flex; justify-content: space-around; padding-bottom: var(--safe-bottom);
@@ -141,6 +160,9 @@
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+  /* =========================================
+     BOTONES HALLOWEEN ELEGANTE
+     ========================================= */
   .btn-ask, .btn-board { 
     background: linear-gradient(135deg, #FF7A00, #E65C00);
     color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; 
@@ -149,8 +171,8 @@
     transition: 0.2s;
   }
   .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(255, 122, 0, 0.2); }
-  .btn-ask::before, .btn-board::before { content: '🎃 '; }
 
+  /* TIENDA (CUADRÍCULA) */
   .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
   
   .action-box {
@@ -166,12 +188,34 @@
     border-color: rgba(255, 122, 0, 0.4);
   }
   
-  .ab-icon { font-size: 34px; margin-bottom: 12px; color: var(--apple-blue); transition: 0.3s; }
+  .ab-icon { font-size: 34px; margin-bottom: 12px; color: var(--apple-blue); transition: 0.3s; position: relative; z-index: 1;}
   .action-box:hover .ab-icon { transform: scale(1.1); color: #FF7A00; }
   
-  .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px;}
-  .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3;}
+  .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; position: relative; z-index: 1;}
+  .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3; position: relative; z-index: 1;}
   
+  /* ADORNO LINEA HALLOWEEN */
+  .corner-ornament {
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    font-size: 80px;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.25);
+    opacity: 0.8;
+    transform: rotate(-10deg);
+    pointer-events: none;
+    z-index: 0;
+    transition: 0.3s ease;
+  }
+  .action-box:hover .corner-ornament {
+    transform: rotate(0deg) scale(1.1);
+    -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.4);
+  }
+  body.dark-mode .corner-ornament {
+    -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.2);
+  }
+
   .status-box { background: var(--apple-blue-light); border-color: rgba(51, 153, 255, 0.3);}
   body.dark-mode .status-box { background: rgba(51, 153, 255, 0.1); border-color: rgba(51, 153, 255, 0.2); }
 
@@ -211,7 +255,6 @@
   .bottom-sheet.active { transform: translateY(0); }
   .sheet-handle { width: 40px; height: 5px; background: var(--text-muted); opacity: 0.5; border-radius: 5px; margin: 0 auto 20px auto; flex-shrink: 0; }
   
-  /* CARRITO MEJORADO */
   #cartItemsContainer { overflow-y: auto; padding-right: 5px; flex-grow: 1; margin-bottom: 10px; max-height: 35vh;}
   .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--glass-border);}
   .cart-item-info { flex: 1; margin-right: 15px; }
@@ -326,15 +369,11 @@
 
   <div class="modal-overlay" id="sheetOverlay" onclick="closeSheets(event)"></div>
 
-  <!-- SHEET CARRITO INTERACTIVO (CRISTAL) -->
   <div class="bottom-sheet glass-effect" id="sheetCart">
     <div class="sheet-handle"></div>
     <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; flex-shrink: 0;">Tu Pedido</h3>
     
-    <!-- Contenedor de Items (Scrolleable) -->
     <div id="cartItemsContainer"></div>
-    
-    <!-- Resumen Dinámico y Descuentos (Fijo abajo) -->
     <div id="cartSummaryContainer" style="flex-shrink: 0; margin-bottom: 20px;"></div>
     
     <button class="btn-ask" style="flex-shrink: 0;" onclick="sendCartWA()">ENVIAR PEDIDO POR WHATSAPP</button>
@@ -345,23 +384,23 @@
 
     <div class="action-grid reveal">
       <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="action-box glass-effect">
-        <i class="fa-solid fa-file-pdf ab-icon" style="color: #FF3B30;"></i>
+        <i class="fa-solid fa-spider corner-ornament"></i>
         <div>
-          <div class="ab-title">Catálogo PDF 🦇</div>
+          <div class="ab-title">Catálogo PDF</div>
           <div class="ab-desc">Colección completa</div>
         </div>
       </a>
       <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="action-box glass-effect">
-        <i class="fa-brands fa-google-drive ab-icon"></i>
+        <i class="fa-solid fa-ghost corner-ornament"></i>
         <div>
-          <div class="ab-title">Entrega Rápida 🎃</div>
+          <div class="ab-title">Entrega Rápida</div>
           <div class="ab-desc">Stock local Medellín</div>
         </div>
       </a>
       <div class="action-box glass-effect" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
-        <i class="fa-solid fa-truck-fast ab-icon" style="color: var(--text-main);"></i>
+        <i class="fa-solid fa-skull corner-ornament"></i>
         <div>
-          <div class="ab-title">Políticas y Envíos 🕸️</div>
+          <div class="ab-title">Políticas y Envíos</div>
           <div class="ab-desc">Tiempos y métodos de pago</div>
         </div>
       </div>
@@ -453,9 +492,6 @@
 </div>
 
 <script>
-  // ==========================================
-  // LÓGICA SPLASH Y ESTADÍSTICAS
-  // ==========================================
   document.addEventListener('DOMContentLoaded', () => {
     
     const hour = new Date().getHours();
@@ -475,9 +511,10 @@
     
     function renderStats() {
        statsBox.innerHTML = `
-         <div style="display:flex; flex-direction:column; gap: 8px; width: 100%; align-items:center; justify-content:center; height:100%;">
-           <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span id="vCount">${ventasDia.toLocaleString('es-CO')}</span> 💀</div>
-           <div style="font-size: 13px; font-weight: 700; color: #FF7A00;">EN LÍNEA: <span id="uCount">${usuarios}</span> 👻</div>
+         <i class="fa-solid fa-moon corner-ornament"></i>
+         <div style="display:flex; flex-direction:column; gap: 8px; width: 100%; align-items:center; justify-content:center; height:100%; position:relative; z-index:1;">
+           <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span id="vCount">${ventasDia.toLocaleString('es-CO')}</span></div>
+           <div style="font-size: 13px; font-weight: 700; color: #FF7A00;">EN LÍNEA: <span id="uCount">${usuarios}</span></div>
          </div>
        `;
     }
@@ -520,9 +557,6 @@
     openWhatsApp("Hola! Quiero agregarlos a mis contactos para ver los estados, precios y promociones.");
   }
 
-  // ==========================================
-  // DARK MODE, NAVEGACIÓN Y CONFETI
-  // ==========================================
   function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     const icon = document.getElementById('themeIcon');
@@ -580,19 +614,15 @@
     window.scrollY > 40 ? header.classList.add('scrolled') : header.classList.remove('scrolled');
   });
 
-  // ==========================================
-  // LÓGICA DE CARRITO Y DESCUENTOS ESCALADOS
-  // ==========================================
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
 
   let cartObj = {}; 
 
-  // FUNCIÓN PARA CALCULAR EL DESCUENTO DINÁMICO
   function calculateDiscount(qty) {
     let packsOf6 = Math.floor(qty / 6);
     let remainder = qty % 6;
-    let discount = packsOf6 * 50000; // 50k descuento por cada 6 unidades (Ganancia de 100k)
+    let discount = packsOf6 * 50000; 
     
     if (remainder === 5) discount += 30000;
     else if (remainder === 4) discount += 20000;
@@ -660,18 +690,15 @@
     } else { 
       cont.innerHTML = html; 
       
-      // Aplicación del descuento
       let discount = calculateDiscount(totalItems);
       let total = subtotal - discount;
 
-      // Mensajes de motivación de compra
       let msg = "";
-      if (totalItems === 1) msg = "¡Agrega 1 perfume más y obtén $10.000 de descuento inmediato! 🎁";
-      else if (totalItems === 2) msg = "¡Genial! Ahorraste $10.000. Si llevas 3 te descontamos $15.000 🤩";
-      else if (totalItems > 2 && totalItems < 6) msg = `¡Estás accediendo a un excelente precio! Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $50.000 🤯`;
-      else msg = `¡Felicidades! Tienes nuestro mejor precio especial. Ahorraste $${discount.toLocaleString('es-CO')} en total 🏆`;
+      if (totalItems === 1) msg = "¡Agrega 1 perfume más y obtén $10.000 de descuento inmediato!";
+      else if (totalItems === 2) msg = "¡Genial! Ahorraste $10.000. Si llevas 3 te descontamos $15.000";
+      else if (totalItems > 2 && totalItems < 6) msg = `¡Estás accediendo a un excelente precio! Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $50.000`;
+      else msg = `¡Felicidades! Tienes nuestro mejor precio especial. Ahorraste $${discount.toLocaleString('es-CO')} en total`;
 
-      // Render del bloque resumen
       summ.innerHTML = `
         <div style="border-top: 1px solid var(--glass-border); padding-top: 15px;">
             <div style="display:flex; justify-content:space-between; margin-bottom: 8px; font-size: 14px; color: var(--text-muted);">
@@ -730,9 +757,6 @@
     document.getElementById('sheetOverlay').classList.remove('active');
   }
 
-  // ==========================================
-  // PARSER DE CATÁLOGO & TOP 60 (PRECIO FALSO +15.000)
-  // ==========================================
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
   const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
   let catNacional = []; let catTop = [];
@@ -773,7 +797,6 @@
         
         let numPrice = parseInt(precio.replace(/[^0-9]/g, ''));
         let fakeOld = ""; 
-        // ¡PRECIO TACHADO AHORA ES EXACTAMENTE 15.000 MÁS CARO!
         if(!isNaN(numPrice) && numPrice > 0) { fakeOld = "$" + (numPrice + 15000).toLocaleString('es-CO'); }
         
         return { nombre, precio, foto, fakeOld };
@@ -816,9 +839,6 @@
 
   function askAvailability() { openWhatsApp(`Hola! Quiero preguntar por la disponibilidad y precio de:\n- ${currentSearchTerm}`); }
 
-  // ==========================================
-  // DINÁMICAS (TABLERO Y CARRUSEL)
-  // ==========================================
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
   let allWinners = [];
