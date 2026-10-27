@@ -7,12 +7,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Librería para el confeti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
   :root {
-    /* MODO CLARO - TIPO CRISTAL */
     --bg-base: #F2F2F7;
     --bg-card: rgba(255, 255, 255, 0.65);
     --text-main: #1C1C1E;
@@ -29,7 +27,6 @@
     --safe-bottom: env(safe-area-inset-bottom, 20px);
   }
 
-  /* MODO OSCURO HALLOWEEN - TIPO CRISTAL */
   body.dark-mode {
     --bg-base: #000000;
     --bg-card: rgba(28, 28, 30, 0.6);
@@ -54,13 +51,9 @@
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 
-  /* =========================================
-     ANIMACIONES GLOBALES
-     ========================================= */
   .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
-  /* EFECTO CRISTAL GLOBAL */
   .glass-effect {
     background: var(--bg-card);
     backdrop-filter: blur(25px);
@@ -69,9 +62,6 @@
     box-shadow: var(--glass-shadow);
   }
 
-  /* =========================================
-     BANNER SUPERIOR
-     ========================================= */
   .top-notification {
     position: fixed; top: 15px; left: 50%; transform: translate(-50%, -150%);
     width: 90%; max-width: 400px;
@@ -85,9 +75,6 @@
   }
   .top-notification.show { transform: translate(-50%, 0); }
 
-  /* =========================================
-     SPLASH SCREEN (FANTASMA GRANDE)
-     ========================================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -122,9 +109,6 @@
   @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
   @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
-  /* =========================================
-     CABECERA & LOGO
-     ========================================= */
   .top-bar {
     position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height);
     z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; 
@@ -142,9 +126,6 @@
   .large-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 15px) 20px 25px 20px; }
   .section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
 
-  /* =========================================
-     NAVEGACIÓN INFERIOR CRISTAL
-     ========================================= */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom));
     z-index: 2000; display: flex; justify-content: space-around; padding-bottom: var(--safe-bottom);
@@ -160,9 +141,6 @@
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* =========================================
-     BOTONES HALLOWEEN ELEGANTE
-     ========================================= */
   .btn-ask, .btn-board { 
     background: linear-gradient(135deg, #FF7A00, #E65C00);
     color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; 
@@ -173,7 +151,6 @@
   .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(255, 122, 0, 0.2); }
   .btn-ask::before, .btn-board::before { content: '🎃 '; }
 
-  /* TIENDA (CUADRÍCULA) */
   .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
   
   .action-box {
@@ -195,22 +172,17 @@
   .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px;}
   .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3;}
   
-  /* Status Box */
   .status-box { background: var(--apple-blue-light); border-color: rgba(51, 153, 255, 0.3);}
   body.dark-mode .status-box { background: rgba(51, 153, 255, 0.1); border-color: rgba(51, 153, 255, 0.2); }
 
-  /* BUSCADOR CRISTAL */
   .search-container { margin: 0 20px 20px 20px; }
-  .search-box { 
-    display: flex; align-items: center; border-radius: 18px; padding: 14px 18px; gap: 12px; 
-  }
+  .search-box { display: flex; align-items: center; border-radius: 18px; padding: 14px 18px; gap: 12px; }
   .search-box i { color: var(--text-muted); font-size: 16px; }
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main);}
   .search-box input::placeholder { color: var(--text-muted); }
   .search-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 500; line-height: 1.4; padding: 0 10px;}
   .empty-state { text-align: center; padding: 40px 20px; }
 
-  /* GRID DE PRODUCTOS */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
   @media(min-width: 600px){ .product-grid { grid-template-columns: repeat(3, 1fr); } }
   
@@ -226,21 +198,21 @@
   .btn-get { background: var(--apple-blue-light); color: var(--apple-blue); border: none; padding: 10px 12px; border-radius: 14px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
   .btn-get.selected { background: var(--apple-blue); color: #FFF; box-shadow: 0 6px 15px rgba(51, 153, 255, 0.3); }
 
-  /* CARRITO FLOTANTE */
   .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%) translateY(150px); width: 92%; max-width: 450px; background: var(--apple-blue); color: #FFF; padding: 12px 15px 12px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1500; box-shadow: 0 12px 40px rgba(51, 153, 255, 0.4); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;}
   .ios-cart.show { transform: translateX(-50%) translateY(0); }
   .cart-text { font-size: 14px; font-weight: 700;}
   .btn-cart { background: #FFF; color: var(--apple-blue); border: none; padding: 10px 20px; border-radius: 20px; font-weight: 800; font-size: 12px; cursor: pointer; pointer-events: none;}
 
-  /* MODALES Y OVERLAYS */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
-  .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 30px 30px 0 0; padding: 25px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; overflow-y: auto; display: none;}
+  .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 30px 30px 0 0; padding: 25px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column;}
   @media(min-width: 768px) { .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 30px; bottom: 20px; max-height: 80vh; } }
   .bottom-sheet.active { transform: translateY(0); }
-  .sheet-handle { width: 40px; height: 5px; background: var(--text-muted); opacity: 0.5; border-radius: 5px; margin: 0 auto 20px auto; }
+  .sheet-handle { width: 40px; height: 5px; background: var(--text-muted); opacity: 0.5; border-radius: 5px; margin: 0 auto 20px auto; flex-shrink: 0; }
   
+  /* CARRITO MEJORADO */
+  #cartItemsContainer { overflow-y: auto; padding-right: 5px; flex-grow: 1; margin-bottom: 10px; max-height: 35vh;}
   .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--glass-border);}
   .cart-item-info { flex: 1; margin-right: 15px; }
   .cart-item-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;}
@@ -253,14 +225,10 @@
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%);}
   .close-cm { position: absolute; top: 15px; right: 15px; background: rgba(142, 142, 147, 0.15); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-main); cursor: pointer;}
 
-  /* =========================================
-     DINÁMICAS (SORTEOS) Y GANADORES
-     ========================================= */
   .raffle-card { border-radius: 28px; margin: 0 20px 25px 20px; padding: 30px 25px; text-align: center; transition: 0.3s;}
   .r-tag { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 8px 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
   .r-title { font-size: 24px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px;}
   
-  /* CARRUSEL GANADORES (CON FLECHAS) */
   .carousel-wrapper { position: relative; width: 100%; padding: 0 20px; margin-bottom: 20px; }
   .winners-scroll { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px;}
   .w-card { min-width: 320px; scroll-snap-align: start; padding: 30px; border-radius: 28px; display: flex; gap: 25px; align-items: center;}
@@ -283,7 +251,6 @@
   .carousel-btn.left { left: 5px; }
   .carousel-btn.right { right: 5px; }
 
-  /* INFO CARDS */
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
   .info-card-large { border-radius: 28px; padding: 30px 25px; }
   .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px;}
@@ -294,9 +261,6 @@
   .ic-list li b { color: var(--text-main); font-weight: 600;}
   .ic-btn { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 14px 25px; border-radius: 14px; font-size: 14px; font-weight: 700; text-decoration: none; margin-top: 10px;}
 
-  /* =========================================
-     TABLERO DE PUESTOS (NUEVO DISEÑO EXCEL)
-     ========================================= */
   .puestos-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
@@ -326,14 +290,12 @@
   <span>Abre esta página en el navegador oficial de tu dispositivo.</span>
 </div>
 
-<!-- SPLASH SCREEN DE BIENVENIDA -->
 <div id="splash">
   <i class="fa-solid fa-ghost splash-icon"></i>
   <h1 class="splash-greeting" id="greetingText">¡Buenos días!</h1>
   <p class="splash-user">@soyjohnstiven</p>
 </div>
 
-<!-- POP-UP WHATSAPP CRISTAL -->
 <div class="modal-overlay" id="promoOverlay"></div>
 <div class="center-modal glass-effect" id="promoModal">
   <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
@@ -357,7 +319,6 @@
     <div class="nav-item" onclick="switchView('info', 'Información', this)"><i class="fa-solid fa-circle-info"></i><span>Info</span></div>
   </nav>
 
-  <!-- CARRITO FLOTANTE -->
   <div class="ios-cart" id="appleCart" onclick="openCartSheet()">
     <div class="cart-text"><i class="fa-solid fa-bag-shopping" style="margin-right:8px;"></i> <span id="cartCount">0</span> SELECCIONADOS</div>
     <button class="btn-cart" style="color: #FF7A00;">VER PEDIDO</button>
@@ -368,21 +329,21 @@
   <!-- SHEET CARRITO INTERACTIVO (CRISTAL) -->
   <div class="bottom-sheet glass-effect" id="sheetCart">
     <div class="sheet-handle"></div>
-    <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px;">Tu Pedido</h3>
-    <div id="cartItemsContainer" style="margin-bottom: 25px; max-height: 50vh; overflow-y: auto;"></div>
-    <button class="btn-ask" onclick="sendCartWA()">ENVIAR PEDIDO POR WHATSAPP</button>
+    <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; flex-shrink: 0;">Tu Pedido</h3>
+    
+    <!-- Contenedor de Items (Scrolleable) -->
+    <div id="cartItemsContainer"></div>
+    
+    <!-- Resumen Dinámico y Descuentos (Fijo abajo) -->
+    <div id="cartSummaryContainer" style="flex-shrink: 0; margin-bottom: 20px;"></div>
+    
+    <button class="btn-ask" style="flex-shrink: 0;" onclick="sendCartWA()">ENVIAR PEDIDO POR WHATSAPP</button>
   </div>
 
-
-  <!-- =========================================
-       VISTA 1: TIENDA
-       ========================================= -->
   <section id="viewTienda" class="view active">
-    
     <h1 class="large-title reveal">Catálogo</h1>
 
     <div class="action-grid reveal">
-      
       <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="action-box glass-effect">
         <i class="fa-solid fa-file-pdf ab-icon" style="color: #FF3B30;"></i>
         <div>
@@ -390,7 +351,6 @@
           <div class="ab-desc">Colección completa</div>
         </div>
       </a>
-
       <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="action-box glass-effect">
         <i class="fa-brands fa-google-drive ab-icon"></i>
         <div>
@@ -398,7 +358,6 @@
           <div class="ab-desc">Stock local Medellín</div>
         </div>
       </a>
-      
       <div class="action-box glass-effect" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
         <i class="fa-solid fa-truck-fast ab-icon" style="color: var(--text-main);"></i>
         <div>
@@ -406,12 +365,9 @@
           <div class="ab-desc">Tiempos y métodos de pago</div>
         </div>
       </div>
-
-      <!-- Cuadro 4: Estadísticas -->
       <div class="action-box status-box glass-effect" id="statsBox"></div>
     </div>
 
-    <!-- Buscador -->
     <div class="search-container reveal">
       <div class="search-box glass-effect">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -431,16 +387,10 @@
     </div>
   </section>
 
-
-  <!-- =========================================
-       VISTA 2: DINÁMICAS
-       ========================================= -->
   <section id="viewSorteos" class="view">
     <h1 class="large-title reveal">Dinámicas</h1>
     <div id="sorteosList"></div>
-
     <div class="section-title reveal"><span>Ganadores Anteriores</span></div>
-    
     <div class="carousel-wrapper reveal">
       <button class="carousel-btn left" onclick="scrollCarousel(-1)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="winners-scroll" id="winnersContainer"></div>
@@ -448,13 +398,8 @@
     </div>
   </section>
 
-
-  <!-- =========================================
-       VISTA 3: INFORMACIÓN
-       ========================================= -->
   <section id="viewInfo" class="view">
     <h1 class="large-title reveal">Información</h1>
-
     <div class="info-cards-container">
       <div class="info-card-large glass-effect reveal">
         <div class="ic-header">
@@ -479,20 +424,12 @@
     </div>
   </section>
 
-
-  <!-- =========================================
-       VISTA 4: PESTAÑA DETALLE DEL TABLERO (POR PUESTOS)
-       ========================================= -->
   <section id="viewSorteoDetalle" class="view">
     <h1 class="large-title reveal" id="sorteoDetalleTitle">Tablero</h1>
     <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 25px; font-size: 15px;" id="sorteoDetalleDesc"></p>
 
-    <!-- Resumen de Puestos -->
-    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 13px; text-align:center;">
-       <!-- Inyectado por JS -->
-    </div>
+    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 13px; text-align:center;"></div>
 
-    <!-- Buscador de números o puestos -->
     <div class="search-container reveal">
       <div class="search-box glass-effect" style="border: 1px solid rgba(255, 122, 0, 0.5); box-shadow: 0 8px 25px rgba(255, 122, 0, 0.1);">
         <i class="fa-solid fa-magnifying-glass" style="color: #FF7A00;"></i>
@@ -500,14 +437,12 @@
       </div>
     </div>
 
-    <!-- Leyenda -->
     <div class="reveal" style="display:flex; justify-content:center; gap:15px; font-size:12px; font-weight:600; margin-bottom:20px; color:var(--text-muted);">
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; border:1px solid var(--apple-blue); background:var(--bg-card);"></div> Libre</div>
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(142, 142, 147, 0.15);"></div> Ocupado</div>
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(255, 204, 0, 0.1);"></div> Pendiente</div>
     </div>
 
-    <!-- Tablero Inyectado Aquí -->
     <div class="reveal" id="boardGridDetalle" style="padding: 0 20px; margin-bottom: 30px;"></div>
 
     <div style="padding: 0 20px;">
@@ -523,7 +458,6 @@
   // ==========================================
   document.addEventListener('DOMContentLoaded', () => {
     
-    // Saludos SIN emojis
     const hour = new Date().getHours();
     let greeting = "¡Feliz Noche!";
     if (hour >= 6 && hour < 12) greeting = "¡Buenos días!";
@@ -647,12 +581,26 @@
   });
 
   // ==========================================
-  // LÓGICA DE CARRITO
+  // LÓGICA DE CARRITO Y DESCUENTOS ESCALADOS
   // ==========================================
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
 
   let cartObj = {}; 
+
+  // FUNCIÓN PARA CALCULAR EL DESCUENTO DINÁMICO
+  function calculateDiscount(qty) {
+    let packsOf6 = Math.floor(qty / 6);
+    let remainder = qty % 6;
+    let discount = packsOf6 * 50000; // 50k descuento por cada 6 unidades (Ganancia de 100k)
+    
+    if (remainder === 5) discount += 30000;
+    else if (remainder === 4) discount += 20000;
+    else if (remainder === 3) discount += 15000;
+    else if (remainder === 2) discount += 10000;
+    
+    return discount;
+  }
 
   function addDirectToCart(name, priceStr, btn) {
     if(cartObj[name]) { cartObj[name].qty += 1; } 
@@ -674,16 +622,23 @@
 
   function openCartSheet() {
     renderCartSheet();
-    document.getElementById('sheetCart').style.display = 'block';
+    document.getElementById('sheetCart').style.display = 'flex';
     document.getElementById('sheetOverlay').classList.add('active');
     setTimeout(() => document.getElementById('sheetCart').classList.add('active'), 10);
   }
 
   function renderCartSheet() {
     const cont = document.getElementById('cartItemsContainer');
-    let html = ''; let totalItems = 0;
+    const summ = document.getElementById('cartSummaryContainer');
+    
+    let html = ''; let totalItems = 0; let subtotal = 0;
+    
     for (let name in cartObj) {
-      const item = cartObj[name]; totalItems += item.qty;
+      const item = cartObj[name]; 
+      totalItems += item.qty;
+      let numPrice = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+      subtotal += numPrice * item.qty;
+      
       html += `
         <div class="cart-item">
           <div class="cart-item-info">
@@ -698,10 +653,45 @@
         </div>
       `;
     }
+    
     if(totalItems === 0) {
       closeSheets();
       document.querySelectorAll('.btn-get').forEach(btn => { btn.classList.remove('selected'); btn.innerText = "AGREGAR"; });
-    } else { cont.innerHTML = html; }
+    } else { 
+      cont.innerHTML = html; 
+      
+      // Aplicación del descuento
+      let discount = calculateDiscount(totalItems);
+      let total = subtotal - discount;
+
+      // Mensajes de motivación de compra
+      let msg = "";
+      if (totalItems === 1) msg = "¡Agrega 1 perfume más y obtén $10.000 de descuento inmediato! 🎁";
+      else if (totalItems === 2) msg = "¡Genial! Ahorraste $10.000. Si llevas 3 te descontamos $15.000 🤩";
+      else if (totalItems > 2 && totalItems < 6) msg = `¡Estás accediendo a un excelente precio! Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $50.000 🤯`;
+      else msg = `¡Felicidades! Tienes nuestro mejor precio especial. Ahorraste $${discount.toLocaleString('es-CO')} en total 🏆`;
+
+      // Render del bloque resumen
+      summ.innerHTML = `
+        <div style="border-top: 1px solid var(--glass-border); padding-top: 15px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 8px; font-size: 14px; color: var(--text-muted);">
+                <span>Subtotal (${totalItems} artículos)</span>
+                <span>$${subtotal.toLocaleString('es-CO')}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: #34C759; font-weight: 700;">
+                <span>Descuento especial aplicado</span>
+                <span>-$${discount.toLocaleString('es-CO')}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 15px;">
+                <span>Total a Pagar</span>
+                <span>$${total.toLocaleString('es-CO')}</span>
+            </div>
+            <div style="background: rgba(52, 199, 89, 0.1); border: 1px solid rgba(52, 199, 89, 0.3); border-radius: 12px; padding: 12px; text-align: center; font-size: 12px; color: #28A745; font-weight: 600;">
+                ${msg}
+            </div>
+        </div>
+      `;
+    }
   }
 
   function changeQty(name, delta) {
@@ -713,9 +703,25 @@
 
   function sendCartWA() {
     let listStr = "";
-    for (let name in cartObj) { listStr += `- ${name} ${cartObj[name].qty > 1 ? `(${cartObj[name].qty} unidades)` : ''}\n`; }
+    let totalItems = 0; let subtotal = 0;
+    
+    for (let name in cartObj) { 
+        totalItems += cartObj[name].qty;
+        let numPrice = parseInt(cartObj[name].price.replace(/[^0-9]/g, '')) || 0;
+        subtotal += numPrice * cartObj[name].qty;
+        listStr += `- ${name} ${cartObj[name].qty > 1 ? `(${cartObj[name].qty} unidades)` : ''}\n`; 
+    }
+    
+    let discount = calculateDiscount(totalItems);
+    let total = subtotal - discount;
+
+    let msg = `Hola! Quiero este pedido:\n\n${listStr}\n`;
+    msg += `*Subtotal:* $${subtotal.toLocaleString('es-CO')}\n`;
+    if (discount > 0) msg += `*Descuento Especial:* -$${discount.toLocaleString('es-CO')}\n`;
+    msg += `*Total a Pagar:* $${total.toLocaleString('es-CO')}\n\nQuedo atento(a) para confirmar.`;
+
     closeSheets();
-    openWhatsApp(`Hola! Quiero esto:\n${listStr}- En cuanto queda hoy`);
+    openWhatsApp(msg);
   }
 
   function closeSheets(e) {
@@ -725,7 +731,7 @@
   }
 
   // ==========================================
-  // PARSER DE CATÁLOGO & TOP 60
+  // PARSER DE CATÁLOGO & TOP 60 (PRECIO FALSO +15.000)
   // ==========================================
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
   const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
@@ -764,8 +770,12 @@
           const match = foto.match(/\/d\/([a-zA-Z0-9_-]+)/) || foto.match(/id=([a-zA-Z0-9_-]+)/);
           if (match && match[1]) foto = `https://drive.google.com/uc?export=view&id=${match[1]}`;
         }
+        
         let numPrice = parseInt(precio.replace(/[^0-9]/g, ''));
-        let fakeOld = ""; if(!isNaN(numPrice) && numPrice > 0) { fakeOld = "$" + (numPrice + 37000).toLocaleString('es-CO'); }
+        let fakeOld = ""; 
+        // ¡PRECIO TACHADO AHORA ES EXACTAMENTE 15.000 MÁS CARO!
+        if(!isNaN(numPrice) && numPrice > 0) { fakeOld = "$" + (numPrice + 15000).toLocaleString('es-CO'); }
+        
         return { nombre, precio, foto, fakeOld };
       }).filter(Boolean);
       catTop = shuffleArray([...catNacional]).slice(0, 60); renderCatalog(catTop);
@@ -854,7 +864,6 @@
         });
       });
 
-      // Ordenar: Inactivas abajo
       dynamicsArray.sort((a, b) => a.isInactiveEmpty - b.isInactiveEmpty);
 
       const listContainer = document.getElementById('sorteosList');
@@ -877,7 +886,6 @@
     });
   }
 
-  // LOGICA CARRUSEL CON FLECHAS
   let scrollInterval;
   function startAutoScroll() {
     const container = document.getElementById('winnersContainer');
@@ -911,9 +919,6 @@
     startAutoScroll();
   }
 
-  // ==========================================
-  // TABLERO DETALLADO: LECTURA DE PUESTOS
-  // ==========================================
   function openSorteoView(pDataStr, title, desc) {
     currentBoardData = JSON.parse(pDataStr);
     document.getElementById('sorteoDetalleTitle').innerText = title;
@@ -936,12 +941,10 @@
     let libres = 0; let ocupados = 0; let pendientes = 0;
 
     currentBoardData.forEach(p => {
-       // Contadores globales de puestos
        if(p.estado === 'ocupado') ocupados++;
        else if(p.estado === 'pendiente') pendientes++;
        else libres++;
 
-       // Si hay buscador activo, filtrar (busca en ID de puesto o en los números de adentro)
        let searchMatch = true;
        if (searchTerm) {
           searchMatch = p.id.includes(searchTerm) || p.numeros.some(num => num.includes(searchTerm));
@@ -963,7 +966,6 @@
     
     board.innerHTML = `<div class="puestos-grid">${html}</div>`;
     
-    // Actualizar texto del resumen
     resumen.innerHTML = `
       <div style="color:var(--apple-blue);">LIBRES<br><span style="font-size:18px;">${libres}</span></div>
       <div style="color:var(--text-muted);">OCUPADOS<br><span style="font-size:18px;">${ocupados}</span></div>
