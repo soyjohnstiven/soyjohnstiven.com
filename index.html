@@ -368,10 +368,10 @@
     <div class="reveal glass-effect" style="margin: 0 20px 20px 20px; padding: 18px; border-radius: 24px; border: 1px solid rgba(255, 122, 0, 0.5); background: linear-gradient(135deg, rgba(255, 122, 0, 0.15), rgba(255, 122, 0, 0.05)); text-align: center; position: relative; overflow: hidden;">
       <i class="fa-solid fa-gift" style="position: absolute; top: -10px; right: -10px; font-size: 70px; color: #FF7A00; opacity: 0.1; transform: rotate(15deg);"></i>
       <h4 style="color: #FF7A00; font-size: 15px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px;">
-        <i class="fa-solid fa-fire fa-bounce" style="margin-right: 5px;"></i> ¡HAY NUEVA DINÁMICA!
+        <i class="fa-solid fa-fire fa-bounce" style="margin-right: 5px;"></i> ¡NUEVA DINÁMICA ACTIVA!
       </h4>
       <p style="font-size: 13px; color: var(--text-main); line-height: 1.4; position: relative; z-index: 1;">
-       ¡Activamos la dinámica! Separa tus cupos de una 🍀✨
+        Ingresa y participa. Separa tus cupos de una 🍀✨
       </p>
     </div>
     <!-- FIN NOTIFICACIÓN -->
@@ -519,7 +519,7 @@
     setTimeout(() => {
       document.getElementById('promoOverlay').classList.add('active');
       document.getElementById('promoModal').classList.add('active');
-    }, 5000);
+    }, 17000);
   });
 
   function closePromo() {
@@ -830,6 +830,7 @@
         if (rows.length > 0 && rows[0].length >= 7) {
           const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
           const desc = rows[0][4] ? rows[0][4].trim() : '';
+          const lottery = rows[0][5] ? rows[0][5].trim() : ''; 
           const price = rows[0][6] ? rows[0][6].trim() : '';
           
           let pData = rows.map(cols => {
@@ -851,7 +852,7 @@
           const isActive = pData.some(p => p.estado !== 'ocupado');
           let isInactiveEmpty = (!desc || desc.trim() === '');
           
-          dynamicsArray.push({ title, desc, price, pData, isActive, isInactiveEmpty });
+          dynamicsArray.push({ title, desc, lottery, price, pData, isActive, isInactiveEmpty });
         }
         
         rows.forEach(cols => {
@@ -876,7 +877,7 @@
             <h3 class="r-title">${d.title}</h3>
             <p style="font-size:15px; margin-bottom:5px; color:var(--text-muted);">Premio: ${d.desc || 'Próximamente'}</p>
             ${d.price && !d.isInactiveEmpty ? `<p style="font-size:16px; font-weight:800; color:var(--apple-blue); margin-bottom:20px;">Valor Puesto: ${d.price}</p>` : '<div style="margin-bottom:25px;"></div>'}
-            <button class="btn-board" onclick='openSorteoView(\`${JSON.stringify(d.pData)}\`, \`${d.title}\`, \`${d.desc}\`, \`${d.price}\`)' ${d.isInactiveEmpty ? 'disabled style="background:#8E8E93; opacity:0.5; box-shadow:none; cursor:not-allowed;"' : ''}>${d.isInactiveEmpty ? 'Tablero No Disponible' : 'Ver Tablero de Puestos'}</button>
+            <button class="btn-board" onclick='openSorteoView(\`${JSON.stringify(d.pData)}\`, \`${d.title}\`, \`${d.desc}\`, \`${d.lottery}\`, \`${d.price}\`)' ${d.isInactiveEmpty ? 'disabled style="background:#8E8E93; opacity:0.5; box-shadow:none; cursor:not-allowed;"' : ''}>${d.isInactiveEmpty ? 'Tablero No Disponible' : 'Ver Tablero de Puestos'}</button>
           </div>
         `;
       });
@@ -917,12 +918,15 @@
     startAutoScroll();
   }
 
-  function openSorteoView(pDataStr, title, desc, price) {
+  function openSorteoView(pDataStr, title, desc, lottery, price) {
     currentBoardData = JSON.parse(pDataStr);
     document.getElementById('sorteoDetalleTitle').innerText = title;
     
     let descHtml = desc ? `Premio en juego: ${desc}` : '';
+    if(lottery) descHtml += `<br><span style="font-size:14px; color:var(--text-main); font-weight:600;">Sortea con las 2 últimas cifras de: ${lottery}</span>`;
     if(price) descHtml += `<br><span style="color:var(--apple-blue); font-weight:800; font-size:16px;">Valor Puesto: ${price}</span>`;
+    descHtml += `<br><span style="font-size:12px; color:var(--text-muted); display:inline-block; margin-top:5px;">Por cada puesto tienes 3 posibilidades de ganar. Esos son los números con los que participas.</span>`;
+    
     document.getElementById('sorteoDetalleDesc').innerHTML = descHtml;
     
     document.getElementById('searchPuestoInput').value = '';
@@ -939,9 +943,10 @@
     const board = document.getElementById('boardGridDetalle');
     const resumen = document.getElementById('resumenPuestos');
     
-    let html = '';
+    let htmlPuestos = '';
     let libres = 0; let ocupados = 0; let pendientes = 0;
 
+    // 1. GENERAR TARJETAS DE LOS PUESTOS (Basado en el Excel)
     currentBoardData.forEach(p => {
        if(p.estado === 'ocupado') ocupados++;
        else if(p.estado === 'pendiente') pendientes++;
@@ -957,7 +962,7 @@
          let cellClass = p.estado === 'ocupado' ? 'ocupado' : (p.estado === 'pendiente' ? 'pendiente' : 'libre');
          let onClick = p.estado !== 'ocupado' ? `onclick="pedirPuesto('${p.id}')"` : '';
          
-         html += `
+         htmlPuestos += `
            <div class="puesto-card ${cellClass} glass-effect" ${onClick}>
              <div class="puesto-title">Puesto ${p.id}</div>
              <div class="puesto-nums">${displayNums}</div>
@@ -965,8 +970,34 @@
          `;
        }
     });
+
+    // 2. GENERAR TABLERO VISUAL 00 AL 99 (Referencia de números ocupados)
+    let tableroHtml = `<h3 style="margin: 45px 0 15px 0; font-size: 18px; font-weight: 800; text-align: center; letter-spacing: -0.5px;">Tablero General (00-99)</h3>`;
+    tableroHtml += `<div class="board-grid">`;
+    for(let i = 0; i <= 99; i++) {
+        const num = i < 10 ? '0' + i : '' + i;
+        const p = currentBoardData.find(x => x.numeros.includes(num));
+        
+        let matchOpacity = (searchTerm && !num.includes(searchTerm)) ? '0.2' : '1';
+
+        if(p) {
+            // Si el número pertenece a un puesto ocupado, se tacha con X
+            if(p.estado === 'ocupado') {
+                tableroHtml += `<div class="b-cell ocupado glass-effect" style="opacity:${matchOpacity};">X<span>${num}</span></div>`;
+            } else if(p.estado === 'pendiente') {
+                tableroHtml += `<div class="b-cell pendiente glass-effect" style="opacity:${matchOpacity};" onclick="pedirPuesto('${p.id}')">${num}</div>`;
+            } else {
+                tableroHtml += `<div class="b-cell libre glass-effect" style="opacity:${matchOpacity};" onclick="pedirPuesto('${p.id}')">${num}</div>`;
+            }
+        } else {
+            // Si el número no pertenece a nadie
+            tableroHtml += `<div class="b-cell libre glass-effect" style="opacity:${matchOpacity};" onclick="pedirNumero('${num}')">${num}</div>`;
+        }
+    }
+    tableroHtml += `</div>`;
     
-    board.innerHTML = `<div class="puestos-grid">${html}</div>`;
+    // Unir ambos tableros en pantalla
+    board.innerHTML = `<div class="puestos-grid">${htmlPuestos}</div>` + tableroHtml;
     
     resumen.innerHTML = `
       <div style="color:var(--apple-blue);">PUESTOS LIBRES<br><span style="font-size:18px;">${libres}</span></div>
@@ -976,7 +1007,11 @@
   }
 
   function pedirPuesto(id) {
-    openWhatsApp(`Hola! Quiero este puesto en la dinámica:\n- Puesto número ${id}\n- En cuánto queda hoy?`);
+    openWhatsApp(`Hola! Quiero el puesto número ${id} de la dinámica. Mándame la cuenta para pagarte de una vez.`);
+  }
+  
+  function pedirNumero(num) {
+    openWhatsApp(`Hola! Me interesa el número ${num} de la dinámica.\n- ¿Cómo hago para participar?`);
   }
 
 </script>
