@@ -120,10 +120,7 @@
 
   .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 1px solid transparent; transition: 0.3s; }
   .top-bar.scrolled { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border); }
-  
-  /* AQUÍ AJUSTAMOS EL LOGO PARA QUE SE ADAPTE PERFECTO */
   .top-logo { height: 40px; max-width: 180px; border-radius: 8px; object-fit: contain; }
-  
   .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s;}
   .top-bar.scrolled h1 { opacity: 1; }
   .theme-toggle { font-size: 22px; color: var(--apple-blue); cursor: pointer; background: none; border: none; transition: 0.2s;}
@@ -235,15 +232,14 @@
   .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: 12px; margin-top: 20px; }
-  .puesto-card { border-radius: 16px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; }
-  .puesto-card.ocupado { background: rgba(142, 142, 147, 0.15); opacity: 0.6; pointer-events: none; border-color: transparent;}
-  .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
-  .puesto-card.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); }
-  .puesto-card.libre { border-color: var(--apple-blue); box-shadow: 0 4px 15px rgba(51, 153, 255, 0.15); }
-  .puesto-card.libre:active { transform: scale(0.95); }
-  .puesto-title { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
-  .puesto-nums { font-size: 10px; color: var(--text-muted); line-height: 1.3; font-weight: 600;}
+  /* TABLERO CLÁSICO 00 AL 99 */
+  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 20px;}
+  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: rgba(142, 142, 147, 0.08); transition: 0.2s;}
+  .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); border: 1px solid var(--apple-blue); box-shadow: 0 4px 10px rgba(51, 153, 255, 0.15);}
+  .b-cell.libre:active { transform: scale(0.95); }
+  .b-cell.ocupado { background: rgba(142, 142, 147, 0.15); color: var(--text-muted); pointer-events: none; border-color: transparent;}
+  .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
+  .b-cell.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); color: #FFCC00; }
 
 </style>
 </head>
@@ -322,7 +318,7 @@
         <i class="fa-solid fa-skull corner-ornament"></i>
         <div>
           <div class="ab-title">Políticas y Envíos</div>
-          <div class="ab-desc">Tiempos y métodos de pago</div>
+          <div class="ab-desc">Condiciones mayoristas</div>
         </div>
       </div>
       <div class="action-box status-box glass-effect" id="statsBox"></div>
@@ -376,7 +372,6 @@
     <h1 class="large-title reveal">Información</h1>
     <div class="info-cards-container">
         
-      <!-- BOTÓN DE TIKTOK -->
       <div class="info-card-large glass-effect reveal" style="cursor:pointer; background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(30,30,30,0.9)); color: white; border-color: #333;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
         <div class="ic-header">
           <div class="ic-icon-box" style="background: #FFFFFF; color: #000000;"><i class="fa-brands fa-tiktok"></i></div>
@@ -385,7 +380,6 @@
         <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Pillate mis videos, envíos y más contenido bacano en mi cuenta oficial <b>@soyjohnstiven</b>.</p>
       </div>
 
-      <!-- BOTÓN WHATSAPP (ESTADOS) -->
       <div class="info-card-large glass-effect reveal" style="cursor:pointer; background: linear-gradient(135deg, rgba(52, 199, 89, 0.1), rgba(40, 167, 69, 0.05)); border-color: rgba(52, 199, 89, 0.3);" onclick="openWhatsApp('Hola! Quiero agregarlos a mis contactos para ver los estados y acceder a mejores precios.')">
         <div class="ic-header">
           <div class="ic-icon-box" style="background: #34C759; color: white; font-size: 26px;"><i class="fa-brands fa-whatsapp"></i></div>
@@ -394,7 +388,6 @@
         <p style="font-size: 14px; color: var(--text-main); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados y poder acceder a los mejores precios y ofertas todos los días.</p>
       </div>
 
-      <!-- ATENCIÓN AL CLIENTE -->
       <div class="info-card-large glass-effect reveal">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-clock"></i></div>
@@ -406,15 +399,14 @@
         </ul>
       </div>
 
-      <!-- ENVÍOS -->
       <div class="info-card-large glass-effect reveal">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
           <h3 class="ic-title">Envíos y Entregas</h3>
         </div>
         <ul class="ic-list">
-          <li><b>Envíos Nacionales:</b> Se envían por <b>Interrapidísimo</b> a partir de <b>$18,500</b>.</li>
-          <li><b>Domicilios GRATIS Medellín:</b> Se realizan estrictamente de 10:00 a.m. a 10:00 p.m.</li>
+          <li><b>Envíos Nacionales:</b> Se envían por <b>Interrapidísimo</b> a partir de <b>$18,500</b>. <br><span style="color: var(--apple-blue); font-weight: 600;">(Nota: Los precios mayoristas aplican EXCLUSIVAMENTE por medio de envíos, sin importar tu ciudad).</span></li>
+          <li><b>Domicilios GRATIS Medellín:</b> Se realizan estrictamente de 10:00 a.m. a 10:00 p.m. <br><span style="color: #FF3B30; font-weight: 600;">(Aplica SOLO para compras a precio detal. Las compras mayoristas en Medellín se manejan únicamente por envío).</span></li>
         </ul>
       </div>
     </div>
@@ -424,12 +416,13 @@
     <h1 class="large-title reveal" id="sorteoDetalleTitle">Tablero</h1>
     <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 25px; font-size: 15px;" id="sorteoDetalleDesc"></p>
 
-    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 13px; text-align:center;"></div>
+    <!-- Conteo Real de Puestos -->
+    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 12px; text-align:center; line-height: 1.4;"></div>
 
     <div class="search-container reveal">
       <div class="search-box glass-effect" style="border: 1px solid rgba(255, 122, 0, 0.5); box-shadow: 0 8px 25px rgba(255, 122, 0, 0.1);">
         <i class="fa-solid fa-magnifying-glass" style="color: #FF7A00;"></i>
-        <input type="number" id="searchPuestoInput" placeholder="Buscar un número o puesto...">
+        <input type="number" id="searchPuestoInput" placeholder="Buscar un número específico...">
       </div>
     </div>
 
@@ -439,6 +432,7 @@
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(255, 204, 0, 0.1);"></div> Pendiente</div>
     </div>
 
+    <!-- Tablero de 100 números (00 al 99) cruzado con Puestos -->
     <div class="reveal" id="boardGridDetalle" style="padding: 0 20px; margin-bottom: 30px;"></div>
 
     <div style="padding: 0 20px;">
@@ -813,13 +807,16 @@
         if (rows.length > 0 && rows[0].length >= 7) {
           const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
           const desc = rows[0][4] ? rows[0][4].trim() : '';
+          const price = rows[0][6] ? rows[0][6].trim() : ''; // Lectura del Precio Columna G
           
           let pData = rows.map(cols => {
             if(!cols || cols.length < 3 || !cols[0].trim()) return null;
             let idPuesto = cols[0].trim();
-            let arr = cols[1].toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
+            // Evitar error si la columna B está vacía
+            let arr = cols[1] ? cols[1].toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
               let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
-            }).filter(n => n !== '');
+            }).filter(n => n !== '') : [];
+            
             let st = (cols[2] || '').toUpperCase();
             let estado = 'libre';
             if(st.includes('PEN')) estado = 'pendiente';
@@ -831,7 +828,7 @@
           const isActive = pData.some(p => p.estado !== 'ocupado');
           let isInactiveEmpty = (!desc || desc.trim() === '');
           
-          dynamicsArray.push({ title, desc, pData, isActive, isInactiveEmpty });
+          dynamicsArray.push({ title, desc, price, pData, isActive, isInactiveEmpty });
         }
         
         rows.forEach(cols => {
@@ -854,8 +851,9 @@
           <div class="raffle-card glass-effect reveal" style="${cardStyle}">
             <span class="r-tag" style="${tagStyle}">${tagText}</span>
             <h3 class="r-title">${d.title}</h3>
-            <p style="font-size:15px; margin-bottom:25px; color:var(--text-muted);">Premio: ${d.desc || 'Próximamente'}</p>
-            <button class="btn-board" onclick='openSorteoView(\`${JSON.stringify(d.pData)}\`, \`${d.title}\`, \`${d.desc}\`)' ${d.isInactiveEmpty ? 'disabled style="background:#8E8E93; opacity:0.5; box-shadow:none; cursor:not-allowed;"' : ''}>${d.isInactiveEmpty ? 'Tablero No Disponible' : 'Ver Tablero de Puestos'}</button>
+            <p style="font-size:15px; margin-bottom:5px; color:var(--text-muted);">Premio: ${d.desc || 'Próximamente'}</p>
+            ${d.price && !d.isInactiveEmpty ? `<p style="font-size:16px; font-weight:800; color:var(--apple-blue); margin-bottom:20px;">Valor Puesto: ${d.price}</p>` : '<div style="margin-bottom:25px;"></div>'}
+            <button class="btn-board" onclick='openSorteoView(\`${JSON.stringify(d.pData)}\`, \`${d.title}\`, \`${d.desc}\`, \`${d.price}\`)' ${d.isInactiveEmpty ? 'disabled style="background:#8E8E93; opacity:0.5; box-shadow:none; cursor:not-allowed;"' : ''}>${d.isInactiveEmpty ? 'Tablero No Disponible' : 'Ver Tablero de Puestos'}</button>
           </div>
         `;
       });
@@ -896,10 +894,15 @@
     startAutoScroll();
   }
 
-  function openSorteoView(pDataStr, title, desc) {
+  function openSorteoView(pDataStr, title, desc, price) {
     currentBoardData = JSON.parse(pDataStr);
     document.getElementById('sorteoDetalleTitle').innerText = title;
-    document.getElementById('sorteoDetalleDesc').innerText = desc ? `Premio en juego: ${desc}` : '';
+    
+    // Aquí se muestra el precio junto con la descripción en la vista detallada
+    let descHtml = desc ? `Premio en juego: ${desc}` : '';
+    if(price) descHtml += `<br><span style="color:var(--apple-blue); font-weight:800; font-size:16px;">Valor Puesto: ${price}</span>`;
+    document.getElementById('sorteoDetalleDesc').innerHTML = descHtml;
+    
     document.getElementById('searchPuestoInput').value = '';
     
     renderBoardDetalle('');
@@ -917,41 +920,52 @@
     let html = '';
     let libres = 0; let ocupados = 0; let pendientes = 0;
 
+    // CONTEO REAL BASADO ÚNICAMENTE EN LA CANTIDAD DE PUESTOS EN EL EXCEL
     currentBoardData.forEach(p => {
        if(p.estado === 'ocupado') ocupados++;
        else if(p.estado === 'pendiente') pendientes++;
        else libres++;
-
-       let searchMatch = true;
-       if (searchTerm) {
-          searchMatch = p.id.includes(searchTerm) || p.numeros.some(num => num.includes(searchTerm));
-       }
-
-       if (searchMatch) {
-         let displayNums = p.numeros.length > 0 ? p.numeros.join(', ') : 'Libre';
-         let cellClass = p.estado === 'ocupado' ? 'ocupado' : (p.estado === 'pendiente' ? 'pendiente' : 'libre');
-         let onClick = p.estado !== 'ocupado' ? `onclick="pedirPuesto('${p.id}')"` : '';
-         
-         html += `
-           <div class="puesto-card ${cellClass} glass-effect" ${onClick}>
-             <div class="puesto-title">Puesto ${p.id}</div>
-             <div class="puesto-nums">${displayNums}</div>
-           </div>
-         `;
-       }
     });
     
-    board.innerHTML = `<div class="puestos-grid">${html}</div>`;
+    // RENDERIZADO DEL TABLERO DE NÚMEROS 00 AL 99 CRUZANDO DATOS DEL EXCEL
+    for(let i = 0; i <= 99; i++) {
+        const num = i < 10 ? '0' + i : '' + i;
+        
+        // Si hay búsqueda activa, filtrar
+        if (searchTerm && !num.includes(searchTerm)) continue;
+
+        // Buscar a qué puesto del Excel pertenece este número
+        const p = currentBoardData.find(x => x.numeros.includes(num));
+        
+        if(p) {
+            if(p.estado === 'ocupado') {
+                html += `<div class="b-cell ocupado glass-effect">X<span>${num}</span></div>`;
+            } else if(p.estado === 'pendiente') {
+                html += `<div class="b-cell pendiente glass-effect">${num}</div>`;
+            } else {
+                html += `<div class="b-cell libre glass-effect" onclick="pedirNumero('${num}', '${p.id}')">${num}</div>`;
+            }
+        } else {
+            // Si el número no está configurado en ningún puesto, igual se muestra libre
+            html += `<div class="b-cell libre glass-effect" onclick="pedirNumero('${num}', '')">${num}</div>`;
+        }
+    }
+    
+    board.innerHTML = `<div class="board-grid">${html}</div>`;
     
     resumen.innerHTML = `
-      <div style="color:var(--apple-blue);">LIBRES<br><span style="font-size:18px;">${libres}</span></div>
-      <div style="color:var(--text-muted);">OCUPADOS<br><span style="font-size:18px;">${ocupados}</span></div>
-      <div style="color:#FFCC00;">PENDIENTES<br><span style="font-size:18px;">${pendientes}</span></div>
+      <div style="color:var(--apple-blue);">PUESTOS LIBRES<br><span style="font-size:18px;">${libres}</span></div>
+      <div style="color:var(--text-muted);">PUESTOS OCUPADOS<br><span style="font-size:18px;">${ocupados}</span></div>
+      <div style="color:#FFCC00;">PUESTOS PENDIENTES<br><span style="font-size:18px;">${pendientes}</span></div>
     `;
   }
 
-  function pedirPuesto(id) {
-    openWhatsApp(`Hola! Quiero este puesto en la dinámica:\n- Puesto número ${id}\n- En cuanto queda hoy`);
+  function pedirNumero(num, id) {
+    let msg = `Hola! Quiero el número ${num} en la dinámica.\n- ¿En cuánto queda hoy?`;
+    if(id) {
+        msg = `Hola! Quiero el puesto ${id} (que incluye el número ${num}) en la dinámica.\n- ¿En cuánto queda hoy?`;
+    }
+    openWhatsApp(msg);
   }
 
 </script>
