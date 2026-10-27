@@ -364,6 +364,18 @@
   <section id="viewSorteos" class="view">
     <h1 class="large-title reveal">Dinámicas</h1>
     
+    <!-- NOTIFICACIÓN DE NUEVA DINÁMICA -->
+    <div class="reveal glass-effect" style="margin: 0 20px 20px 20px; padding: 18px; border-radius: 24px; border: 1px solid rgba(255, 122, 0, 0.5); background: linear-gradient(135deg, rgba(255, 122, 0, 0.15), rgba(255, 122, 0, 0.05)); text-align: center; position: relative; overflow: hidden;">
+      <i class="fa-solid fa-gift" style="position: absolute; top: -10px; right: -10px; font-size: 70px; color: #FF7A00; opacity: 0.1; transform: rotate(15deg);"></i>
+      <h4 style="color: #FF7A00; font-size: 15px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px;">
+        <i class="fa-solid fa-fire fa-bounce" style="margin-right: 5px;"></i> ¡HAY NUEVA DINÁMICA!
+      </h4>
+      <p style="font-size: 13px; color: var(--text-main); line-height: 1.4; position: relative; z-index: 1;">
+        Acabamos de soltar un nuevo tablero. ¡Pilla el premio y separa tus números de la suerte de una antes de que se llenen los cupos! 🍀✨
+      </p>
+    </div>
+    <!-- FIN NOTIFICACIÓN -->
+
     <div id="sorteosList">
         <div class="loader-container">
             <i class="fa-solid fa-spinner loader-spinner"></i>
@@ -425,15 +437,7 @@
 
   <section id="viewSorteoDetalle" class="view">
     <h1 class="large-title reveal" id="sorteoDetalleTitle">Tablero</h1>
-    <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 15px; font-size: 15px;" id="sorteoDetalleDesc"></p>
-
-    <!-- EXPLICACIÓN DE CHANCES DE GANAR -->
-    <div class="reveal glass-effect" style="margin: 0 20px 20px 20px; padding: 16px; border-radius: 20px; border: 1px solid rgba(51, 153, 255, 0.4); background: linear-gradient(135deg, rgba(51, 153, 255, 0.1), rgba(51, 153, 255, 0.02)); text-align: center;">
-      <h4 style="color: var(--apple-blue); font-size: 15px; font-weight: 800; margin-bottom: 6px;">🎯 ¡Multiplica tus opciones de ganar!</h4>
-      <p style="font-size: 13px; color: var(--text-main); line-height: 1.4;">
-        Los números que ves dentro de cada puesto son tus opciones reales para participar en el sorteo. ¡Al elegir un solo puesto, te llevas varias posibilidades de llevarte el premio!
-      </p>
-    </div>
+    <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 25px; font-size: 15px;" id="sorteoDetalleDesc"></p>
 
     <!-- Conteo Real de Puestos -->
     <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 12px; text-align:center; line-height: 1.4;"></div>
@@ -451,7 +455,7 @@
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(255, 204, 0, 0.1);"></div> Pendiente</div>
     </div>
 
-    <!-- Contenedor donde se inyectarán ambos tableros (Puestos + 00-99) -->
+    <!-- Tablero Real de Puestos -->
     <div class="reveal" id="boardGridDetalle" style="padding: 0 20px; margin-bottom: 30px;"></div>
 
     <div style="padding: 0 20px;">
@@ -515,7 +519,7 @@
     setTimeout(() => {
       document.getElementById('promoOverlay').classList.add('active');
       document.getElementById('promoModal').classList.add('active');
-    }, 7000);
+    }, 17000);
   });
 
   function closePromo() {
@@ -935,10 +939,9 @@
     const board = document.getElementById('boardGridDetalle');
     const resumen = document.getElementById('resumenPuestos');
     
-    let htmlPuestos = '';
+    let html = '';
     let libres = 0; let ocupados = 0; let pendientes = 0;
 
-    // 1. GENERAR TARJETAS DE LOS PUESTOS (Basado en el Excel)
     currentBoardData.forEach(p => {
        if(p.estado === 'ocupado') ocupados++;
        else if(p.estado === 'pendiente') pendientes++;
@@ -954,7 +957,7 @@
          let cellClass = p.estado === 'ocupado' ? 'ocupado' : (p.estado === 'pendiente' ? 'pendiente' : 'libre');
          let onClick = p.estado !== 'ocupado' ? `onclick="pedirPuesto('${p.id}')"` : '';
          
-         htmlPuestos += `
+         html += `
            <div class="puesto-card ${cellClass} glass-effect" ${onClick}>
              <div class="puesto-title">Puesto ${p.id}</div>
              <div class="puesto-nums">${displayNums}</div>
@@ -962,34 +965,8 @@
          `;
        }
     });
-
-    // 2. GENERAR TABLERO VISUAL 00 AL 99 (Referencia de números ocupados)
-    let tableroHtml = `<h3 style="margin: 45px 0 15px 0; font-size: 18px; font-weight: 800; text-align: center; letter-spacing: -0.5px;">Tablero General (00-99)</h3>`;
-    tableroHtml += `<div class="board-grid">`;
-    for(let i = 0; i <= 99; i++) {
-        const num = i < 10 ? '0' + i : '' + i;
-        const p = currentBoardData.find(x => x.numeros.includes(num));
-        
-        let matchOpacity = (searchTerm && !num.includes(searchTerm)) ? '0.2' : '1';
-
-        if(p) {
-            // Si el número pertenece a un puesto ocupado, se tacha con X
-            if(p.estado === 'ocupado') {
-                tableroHtml += `<div class="b-cell ocupado glass-effect" style="opacity:${matchOpacity};">X<span>${num}</span></div>`;
-            } else if(p.estado === 'pendiente') {
-                tableroHtml += `<div class="b-cell pendiente glass-effect" style="opacity:${matchOpacity};" onclick="pedirPuesto('${p.id}')">${num}</div>`;
-            } else {
-                tableroHtml += `<div class="b-cell libre glass-effect" style="opacity:${matchOpacity};" onclick="pedirPuesto('${p.id}')">${num}</div>`;
-            }
-        } else {
-            // Si el número no pertenece a nadie
-            tableroHtml += `<div class="b-cell libre glass-effect" style="opacity:${matchOpacity};" onclick="pedirNumero('${num}')">${num}</div>`;
-        }
-    }
-    tableroHtml += `</div>`;
     
-    // Unir ambos tableros en pantalla
-    board.innerHTML = `<div class="puestos-grid">${htmlPuestos}</div>` + tableroHtml;
+    board.innerHTML = `<div class="puestos-grid">${html}</div>`;
     
     resumen.innerHTML = `
       <div style="color:var(--apple-blue);">PUESTOS LIBRES<br><span style="font-size:18px;">${libres}</span></div>
@@ -1000,10 +977,6 @@
 
   function pedirPuesto(id) {
     openWhatsApp(`Hola! Quiero este puesto en la dinámica:\n- Puesto número ${id}\n- En cuánto queda hoy?`);
-  }
-  
-  function pedirNumero(num) {
-    openWhatsApp(`Hola! Me interesa el número ${num} de la dinámica.\n- ¿Cómo hago para participar?`);
   }
 
 </script>
