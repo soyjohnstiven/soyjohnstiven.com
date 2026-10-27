@@ -439,6 +439,14 @@
     <h1 class="large-title reveal" id="sorteoDetalleTitle">Tablero</h1>
     <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 25px; font-size: 15px;" id="sorteoDetalleDesc"></p>
 
+    <!-- EXPLICACIÓN MEJORADA DE CHANCES DE GANAR -->
+    <div class="reveal glass-effect" style="margin: 0 20px 20px 20px; padding: 16px; border-radius: 20px; border: 1px solid rgba(51, 153, 255, 0.4); background: linear-gradient(135deg, rgba(51, 153, 255, 0.1), rgba(51, 153, 255, 0.02)); text-align: center;">
+      <h4 style="color: var(--apple-blue); font-size: 15px; font-weight: 800; margin-bottom: 6px;">🎯 ¡Multiplica tus opciones de ganar!</h4>
+      <p style="font-size: 13px; color: var(--text-main); line-height: 1.4;">
+        Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades reales de llevarte el premio! 🍀✨
+      </p>
+    </div>
+
     <!-- Conteo Real de Puestos -->
     <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 12px; text-align:center; line-height: 1.4;"></div>
 
@@ -923,9 +931,12 @@
     document.getElementById('sorteoDetalleTitle').innerText = title;
     
     let descHtml = desc ? `Premio en juego: ${desc}` : '';
-    if(lottery) descHtml += `<br><span style="font-size:14px; color:var(--text-main); font-weight:600;">Sortea con las 2 últimas cifras de: ${lottery}</span>`;
-    if(price) descHtml += `<br><span style="color:var(--apple-blue); font-weight:800; font-size:16px;">Valor Puesto: ${price}</span>`;
-    descHtml += `<br><span style="font-size:12px; color:var(--text-muted); display:inline-block; margin-top:5px;">Por cada puesto tienes 3 posibilidades de ganar. Esos son los números con los que participas.</span>`;
+    
+    // Aquí agregamos la Lotería de manera visible arriba del precio
+    if(lottery) descHtml += `<br><span style="font-size:14px; color:var(--text-main); font-weight:600; display:inline-block; margin-top:8px;">🎰 Sortea con las 2 últimas cifras de la: <b>${lottery}</b></span>`;
+    
+    // Precio abajo de la lotería
+    if(price) descHtml += `<br><span style="color:var(--apple-blue); font-weight:800; font-size:16px; display:inline-block; margin-top:4px;">Valor Puesto: ${price}</span>`;
     
     document.getElementById('sorteoDetalleDesc').innerHTML = descHtml;
     
@@ -1006,8 +1017,9 @@
     `;
   }
 
+  // MENSAJE WHATSAPP MEJORADO
   function pedirPuesto(id) {
-    openWhatsApp(`Hola! Quiero el puesto número ${id} de la dinámica. Mándame la cuenta para pagarte de una vez.`);
+    openWhatsApp(`¡Hola! 🤩 Quiero participar en la dinámica.\n\n📍 Me interesa el *Puesto ${id}*.\n💳 ¡Mándame la cuenta para pagarte de una vez y asegurar mi cupo! 🍀`);
   }
   
   function pedirNumero(num) {
