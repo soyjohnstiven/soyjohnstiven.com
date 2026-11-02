@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Perfumería Oficial</title>
+<title>Perfumería Original</title>
 
 <!-- META TAGS -->
-<meta property="og:title" content="Perfumería - Catálogo Navideño">
-<meta property="og:description" content="Descubre nuestra colección, descuentos especiales y dinámicas para esta temporada.">
+<meta property="og:title" content="Perfumería Original - Inicio">
+<meta property="og:description" content="Descubre nuestro catálogo de perfumes, descuentos por cantidad y dinámicas exclusivas.">
 <meta property="og:image" content="https://drive.google.com/uc?export=view&id=1JAuP5o53yBZ0sZBnDoKY7E1pIA0Xw7mZ">
 <meta property="og:url" content="https://www.soyjohnstiven.com">
 <meta property="og:type" content="website">
@@ -23,24 +23,17 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-  /* =========================================
-     ESTILO NAVIDEÑO - CRISTAL Y ORO (Sin Emojis)
-  ========================================= */
   :root {
     --bg-base: #F2F2F7;
-    --bg-card: rgba(255, 255, 255, 0.7);
+    --bg-card: rgba(255, 255, 255, 0.65);
     --text-main: #1C1C1E;
     --text-muted: #8E8E93;
-    
-    /* Colores Navideños */
-    --accent: #D32F2F; /* Rojo Navidad */
-    --accent-light: rgba(211, 47, 47, 0.1);
-    --gold: #D4AF37;   /* Dorado */
-    --gold-light: rgba(212, 175, 55, 0.15);
+    --apple-blue: #3399FF; 
+    --apple-blue-light: rgba(51, 153, 255, 0.15);
     
     --glass-border: rgba(255, 255, 255, 0.8);
     --glass-bg: rgba(255, 255, 255, 0.75);
-    --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+    --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
     
     --nav-height: 85px;
     --top-height: 60px;
@@ -52,14 +45,12 @@
     --bg-card: rgba(28, 28, 30, 0.6);
     --text-main: #FFFFFF;
     --text-muted: rgba(235, 235, 245, 0.6);
+    --apple-blue: #3399FF;
+    --apple-blue-light: rgba(51, 153, 255, 0.2);
     
-    --accent: #D32F2F;
-    --accent-light: rgba(211, 47, 47, 0.2);
-    --gold: #D4AF37;
-    
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.1);
     --glass-bg: rgba(28, 28, 30, 0.75);
-    --glass-shadow: 0 12px 40px rgba(211, 47, 47, 0.12); /* Sombra rojiza suave */
+    --glass-shadow: 0 12px 40px rgba(255, 122, 0, 0.15);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -84,59 +75,59 @@
     box-shadow: var(--glass-shadow);
   }
 
-  .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; grid-column: 1 / -1; color: var(--accent); }
+  .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; grid-column: 1 / -1; color: var(--apple-blue); }
   .loader-spinner { font-size: 35px; margin-bottom: 15px; animation: spin 1s linear infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  /* ================= SPLASH ANIMADO ================= */
+  /* SPLASH ANIMADO Y FLUIDO */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  #splash.fade-out { opacity: 0; transform: scale(1.05); pointer-events: none; }
+  #splash.fade-out { opacity: 0; transform: scale(1.1); pointer-events: none; }
   
-  .splash-icon { font-size: 70px; color: var(--accent); margin-bottom: 20px; animation: floatingIcon 2.5s ease-in-out infinite; }
-  @keyframes floatingIcon {
+  .splash-icon { font-size: 85px; color: #FF7A00; margin-bottom: 15px; animation: floatingGhost 2.5s ease-in-out infinite; }
+  @keyframes floatingGhost {
     0% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
-    50% { transform: translateY(-15px) scale(1.05); opacity: 1; text-shadow: 0 10px 30px rgba(211, 47, 47, 0.4); }
+    50% { transform: translateY(-15px) scale(1.05); opacity: 1; text-shadow: 0 10px 30px rgba(255, 122, 0, 0.5); }
     100% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
   }
 
   .splash-greeting { 
-    font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; 
-    background: linear-gradient(135deg, var(--accent), var(--gold));
+    font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; 
+    background: linear-gradient(135deg, #FF7A00, #E65C00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0; transform: scale(0.9); animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   
-  @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+  .splash-user { font-size: 16px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; opacity: 0; transform: translateY(30px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
 
-  /* ================= TOP BAR & ESTADÍSTICAS ================= */
+  @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+
+  /* CABECERA ORIGINAL (SIN SUPERPOSICIONES) */
   .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 1px solid transparent; transition: 0.3s; }
   .top-bar.scrolled { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border); }
-  .top-logo { height: 40px; max-width: 150px; border-radius: 8px; object-fit: contain; }
-  .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; transition: 0.3s; margin-right: auto; margin-left: 15px;}
-  
-  .header-stats { display: flex; flex-direction: column; align-items: flex-end; font-size: 10px; font-weight: 700; line-height: 1.3; margin-right: 15px;}
-  .header-stats span.online { color: var(--accent); }
-  .header-stats span.sales { color: var(--gold); }
-
-  .theme-toggle { font-size: 22px; color: var(--accent); cursor: pointer; background: none; border: none; transition: 0.2s;}
+  .top-logo { height: 40px; max-width: 180px; border-radius: 8px; object-fit: contain; }
+  .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s;}
+  .top-bar.scrolled h1 { opacity: 1; }
+  .theme-toggle { font-size: 22px; color: var(--apple-blue); cursor: pointer; background: none; border: none; transition: 0.2s;}
   .theme-toggle:active { transform: scale(0.9); }
 
   .large-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 15px) 20px 10px 20px; }
   .section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
 
-  /* ================= NAVEGACIÓN INFERIOR Y GLOBO ================= */
+  /* NAVEGACIÓN INFERIOR */
   .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: calc(var(--nav-height) + var(--safe-bottom)); z-index: 2000; display: flex; justify-content: space-around; padding-bottom: var(--safe-bottom); background: var(--glass-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border-top: 1px solid var(--glass-border); box-shadow: 0 -10px 30px rgba(0,0,0,0.05); }
   .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--text-muted); font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; position: relative;}
   .nav-item i { font-size: 22px; margin-bottom: 2px;}
-  .nav-item.active { color: var(--accent); }
+  .nav-item.active { color: var(--apple-blue); }
 
-  .nav-tooltip { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #FFF; font-size: 9px; font-weight: 800; padding: 6px 12px; border-radius: 8px; white-space: nowrap; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.4); animation: bounceTip 2s infinite; pointer-events: none;}
-  .nav-tooltip::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); border-width: 5px 5px 0; border-style: solid; border-color: var(--accent) transparent transparent transparent; }
+  /* NOTIFICACIÓN GLOBO EN DINÁMICAS */
+  .nav-tooltip { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); background: #FF7A00; color: #FFF; font-size: 9px; font-weight: 800; padding: 6px 10px; border-radius: 8px; white-space: nowrap; box-shadow: 0 4px 10px rgba(255, 122, 0, 0.4); animation: bounceTip 2s infinite; pointer-events: none;}
+  .nav-tooltip::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); border-width: 5px 5px 0; border-style: solid; border-color: #FF7A00 transparent transparent transparent; }
   @keyframes bounceTip { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -4px); } }
 
   .app-container { max-width: 1400px; margin: 0 auto; padding: 0 2%; }
@@ -145,66 +136,62 @@
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   /* BOTONES ELEGANTES */
-  .btn-ask, .btn-board { background: linear-gradient(135deg, var(--accent), #9A031E); color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; font-size: 14px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(211, 47, 47, 0.3); transition: 0.2s; }
-  .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(211, 47, 47, 0.2); }
+  .btn-ask, .btn-board { background: linear-gradient(135deg, #FF7A00, #E65C00); color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; font-size: 14px; font-weight: 800; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255, 122, 0, 0.4); transition: 0.2s; }
+  .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(255, 122, 0, 0.2); }
 
-  /* ================= ACCIONES: CATÁLOGOS ================= */
-  .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 25px; }
-  .action-box { border-radius: 24px; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; color: var(--text-main); transition: transform 0.2s, box-shadow 0.3s; cursor: pointer; position: relative; overflow: hidden; }
-  .action-box:hover, .action-box:active { transform: scale(0.97); box-shadow: 0 12px 30px rgba(211, 47, 47, 0.2); border-color: rgba(211, 47, 47, 0.4); }
-  .ab-icon { font-size: 34px; margin-bottom: 12px; color: var(--accent); transition: 0.3s; position: relative; z-index: 1;}
-  .action-box:hover .ab-icon { transform: scale(1.1); color: var(--gold); }
-  .ab-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px; position: relative; z-index: 1;}
+  /* ACCIONES PRINCIPALES (4 CAJAS) */
+  .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
+  .action-box { border-radius: 24px; padding: 20px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; color: var(--text-main); transition: transform 0.2s, box-shadow 0.3s; cursor: pointer; min-height: 135px; position: relative; overflow: hidden; }
+  .action-box:hover, .action-box:active { transform: scale(0.97); box-shadow: 0 12px 30px rgba(255, 122, 0, 0.2); border-color: rgba(255, 122, 0, 0.4); }
+  .ab-icon { font-size: 34px; margin-bottom: 12px; color: var(--apple-blue); transition: 0.3s; position: relative; z-index: 1;}
+  .action-box:hover .ab-icon { transform: scale(1.1); color: #FF7A00; }
+  .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; position: relative; z-index: 1;}
   .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3; position: relative; z-index: 1;}
   
-  /* Iconos de fondo decorativos sutiles */
-  .corner-ornament { position: absolute; bottom: -15px; right: -15px; font-size: 80px; color: transparent; -webkit-text-stroke: 1.5px rgba(211, 47, 47, 0.15); opacity: 0.8; transform: rotate(-10deg); pointer-events: none; z-index: 0; transition: 0.3s ease; }
-  .action-box:hover .corner-ornament { transform: rotate(0deg) scale(1.1); -webkit-text-stroke: 1.5px rgba(211, 47, 47, 0.3); }
+  .corner-ornament { position: absolute; bottom: -15px; right: -15px; font-size: 80px; color: transparent; -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.25); opacity: 0.8; transform: rotate(-10deg); pointer-events: none; z-index: 0; transition: 0.3s ease; }
+  .action-box:hover .corner-ornament { transform: rotate(0deg) scale(1.1); -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.4); }
+  body.dark-mode .corner-ornament { -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.2); }
 
-  /* ================= BUSCADOR ================= */
+  .status-box { background: var(--apple-blue-light); border-color: transparent;}
+  body.dark-mode .status-box { background: rgba(51, 153, 255, 0.05); border-color: rgba(51, 153, 255, 0.1); }
+
+  /* BUSCADOR */
   .search-container { margin: 0 20px 20px 20px; }
   .search-box { display: flex; align-items: center; border-radius: 18px; padding: 14px 18px; gap: 12px; }
   .search-box i { color: var(--text-muted); font-size: 16px; }
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main);}
   .search-box input::placeholder { color: var(--text-muted); }
+  .search-note { font-size: 11px; font-style: italic; color: var(--text-muted); text-align: center; margin-top: 12px; line-height: 1.4; padding: 0 10px;}
   .empty-state { text-align: center; padding: 40px 20px; }
 
-  /* ================= PRODUCTOS (CARRUSEL CON FLECHAS) ================= */
-  .carousel-wrapper { position: relative; width: 100%; padding: 0 20px; margin-bottom: 20px; }
-  .product-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
+  /* PRODUCTOS (CARRUSEL) */
+  .carousel-wrapper { position: relative; width: 100%; margin-bottom: 20px; }
+  .product-grid { display: flex; gap: 15px; overflow-x: auto; padding: 0 20px 15px 20px; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth;}
   .product-grid::-webkit-scrollbar { display: none; }
   
-  .prod-card { border-radius: 24px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; min-width: 200px; scroll-snap-align: start;}
+  .prod-card { border-radius: 24px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; min-width: 220px; scroll-snap-align: start; border: 1px solid var(--glass-border);}
   .prod-img { width: 100%; aspect-ratio: 1; background: #FFFFFF; border-radius: 16px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border);}
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   
-  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 34px; text-transform: uppercase;}
+  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 34px;}
   .prod-prices { display: flex; align-items: center; gap: 8px; margin-bottom: 15px;}
   .price-main { font-size: 15px; font-weight: 800; color: var(--text-main); }
   .price-fake { font-size: 11px; font-weight: 500; color: var(--text-muted); text-decoration: line-through;}
   
-  .btn-get { background: var(--accent-light); color: var(--accent); border: none; padding: 12px; border-radius: 14px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
-  .btn-get.selected { background: var(--accent); color: #FFF; box-shadow: 0 6px 15px rgba(211, 47, 47, 0.3); }
+  .btn-get { background: var(--apple-blue-light); color: var(--apple-blue); border: none; padding: 12px; border-radius: 14px; font-size: 11px; font-weight: 800; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: auto;}
+  .btn-get.selected { background: var(--apple-blue); color: #FFF; box-shadow: 0 6px 15px rgba(51, 153, 255, 0.3); }
 
   .carousel-btn { position: absolute; top: 40%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: var(--text-main); font-size: 16px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-  .carousel-btn:active { transform: translateY(-50%) scale(0.9); background: var(--accent); color: white;}
+  .carousel-btn:active { transform: translateY(-50%) scale(0.9); background: #FF7A00; color: #FFF; }
   .carousel-btn.left { left: 5px; }
   .carousel-btn.right { right: 5px; }
 
-  /* ================= CARRITO FLOTANTE (ESQUINA INFERIOR) ================= */
-  .ios-cart { 
-      position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; 
-      width: 60px; height: 60px; border-radius: 50%; 
-      background: var(--accent); color: #FFF; 
-      display: flex; justify-content: center; align-items: center; font-size: 24px;
-      box-shadow: 0 10px 30px rgba(211, 47, 47, 0.4); 
-      z-index: 1500; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      transform: scale(0); opacity: 0; 
-  }
+  /* CARRITO ESQUINA INFERIOR */
+  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; width: 60px; height: 60px; background: var(--apple-blue); color: #FFF; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 12px 40px rgba(51, 153, 255, 0.4); z-index: 1500; cursor: pointer; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(0); opacity: 0;}
   .ios-cart.show { transform: scale(1); opacity: 1; }
-  .cart-badge { position: absolute; top: -2px; right: -2px; background: var(--gold); color: #000; font-size: 12px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
+  .cart-badge { position: absolute; top: 0px; right: 0px; background: #FF3B30; color: #FFF; font-size: 11px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
 
-  /* ================= BOTTOM SHEETS & MODALES ================= */
+  /* BOTTOM SHEETS Y MODALES */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
@@ -216,10 +203,10 @@
   #cartItemsContainer { overflow-y: auto; padding-right: 5px; flex-grow: 1; margin-bottom: 10px; max-height: 35vh;}
   .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--glass-border);}
   .cart-item-info { flex: 1; margin-right: 15px; }
-  .cart-item-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2; text-transform: uppercase;}
+  .cart-item-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;}
   .cart-item-price { font-size: 12px; color: var(--text-muted); font-weight: 500;}
   .cart-controls { display: flex; align-items: center; gap: 10px; background: rgba(142, 142, 147, 0.1); border-radius: 30px; padding: 6px 12px;}
-  .c-btn { background: none; border: none; font-size: 18px; color: var(--text-main); cursor: pointer; font-weight: bold;}
+  .c-btn { background: none; border: none; font-size: 18px; color: var(--apple-blue); cursor: pointer; font-weight: bold;}
   .c-qty { font-size: 15px; font-weight: 700; min-width: 20px; text-align: center;}
   .c-btn-trash { color: #FF3B30; font-size: 14px; border: none; background: none; cursor: pointer; padding: 5px; }
 
@@ -227,38 +214,38 @@
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%);}
   .close-cm { position: absolute; top: 15px; right: 15px; background: rgba(142, 142, 147, 0.15); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-main); cursor: pointer;}
   
-  .styled-select { width: 100%; padding: 14px; margin-bottom: 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-main); font-size: 14px; outline: none; font-weight: 600; font-family: inherit;}
+  .styled-select { width: 100%; padding: 14px; margin-bottom: 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--bg-base); color: var(--text-main); font-size: 14px; outline: none; font-weight: 600; font-family: inherit;}
 
-  /* ================= DINÁMICAS ================= */
+  /* DINÁMICAS */
   .raffle-card { border-radius: 28px; margin: 0 20px 25px 20px; padding: 30px 25px; text-align: center; transition: 0.3s;}
-  .r-tag { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 8px 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
+  .r-tag { display: inline-block; background: var(--apple-blue-light); color: var(--apple-blue); padding: 8px 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
   .r-title { font-size: 24px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px;}
   
   .winners-scroll { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
   .w-card { min-width: 320px; scroll-snap-align: start; padding: 30px; border-radius: 28px; display: flex; gap: 25px; align-items: center;}
   .w-icon-container { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .w-icon-large { font-size: 45px; color: var(--gold); margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(212,175,55,0.3));}
-  .w-number { font-size: 32px; font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -1px;}
+  .w-icon-large { font-size: 45px; color: #FFCC00; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(255,204,0,0.3));}
+  .w-number { font-size: 32px; font-weight: 800; color: var(--apple-blue); line-height: 1; letter-spacing: -1px;}
   .w-info h4 { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text-main); letter-spacing: -0.3px;}
   .w-info p { font-size: 14px; color: var(--text-muted); font-weight: 500; line-height: 1.4;}
 
-  /* ================= INFO CARDS ================= */
+  /* INFO CARDS */
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
   .info-card-large { border-radius: 28px; padding: 30px 25px; }
   .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px;}
-  .ic-icon-box { width: 50px; height: 50px; background: var(--accent-light); color: var(--accent); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 22px;}
+  .ic-icon-box { width: 50px; height: 50px; background: var(--apple-blue-light); color: var(--apple-blue); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 22px;}
   .ic-title { font-size: 20px; font-weight: 700; letter-spacing: -0.5px;}
   .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
   .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-  /* TABLERO DE PUESTOS */
+  /* TABLERO DE PUESTOS / NÚMEROS */
   .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: 12px; margin-top: 15px; }
   .puesto-card { border-radius: 16px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; }
   .puesto-card.ocupado { background: rgba(142, 142, 147, 0.15); opacity: 0.6; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
-  .puesto-card.pendiente { background: rgba(212, 175, 55, 0.1); border-color: rgba(212, 175, 55, 0.3); }
-  .puesto-card.libre { border-color: var(--accent); box-shadow: 0 4px 15px rgba(211, 47, 47, 0.15); }
+  .puesto-card.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); }
+  .puesto-card.libre { border-color: var(--apple-blue); box-shadow: 0 4px 15px rgba(51, 153, 255, 0.15); }
   .puesto-card.libre:active { transform: scale(0.95); }
   .puesto-title { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
   .puesto-nums { font-size: 10px; color: var(--text-muted); line-height: 1.3; font-weight: 600;}
@@ -266,27 +253,28 @@
   /* TABLERO GENERAL (00-99) */
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 10px;}
   .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: rgba(142, 142, 147, 0.08); transition: 0.2s;}
-  .b-cell.libre { background: var(--bg-card); color: var(--accent); border: 1px solid var(--accent); box-shadow: 0 4px 10px rgba(211, 47, 47, 0.15);}
+  .b-cell.libre { background: var(--bg-card); color: var(--apple-blue); border: 1px solid var(--apple-blue); box-shadow: 0 4px 10px rgba(51, 153, 255, 0.15);}
   .b-cell.libre:active { transform: scale(0.95); }
   .b-cell.ocupado { background: rgba(142, 142, 147, 0.15); color: var(--text-muted); pointer-events: none; border-color: transparent;}
   .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
-  .b-cell.pendiente { background: rgba(212, 175, 55, 0.1); border-color: rgba(212, 175, 55, 0.3); color: var(--gold); }
+  .b-cell.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); color: #FFCC00; }
 
 </style>
 </head>
 <body>
 
-<!-- SPLASH SCREEN NAVIDEÑO ANIMADO -->
+<!-- SPLASH SCREEN ANIMADO Y FLUIDO -->
 <div id="splash">
-  <i class="fa-solid fa-tree splash-icon"></i>
-  <h1 class="splash-greeting">Perfumería</h1>
+  <i class="fa-solid fa-ghost splash-icon"></i>
+  <h1 class="splash-greeting" id="greetingText">¡Buenos días!</h1>
+  <p class="splash-user">@soyjohnstiven</p>
 </div>
 
-<!-- MODAL DE POLÍTICAS Y ENVÍOS (5 SEGUNDOS) -->
+<!-- MODAL DE POLÍTICAS Y ENVÍOS (Aparece a los 5s) -->
 <div class="modal-overlay" id="promoOverlay"></div>
 <div class="center-modal glass-effect" id="promoModal">
   <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
-  <i class="fa-solid fa-shield-halved" style="font-size: 45px; color: var(--text-main); margin-bottom: 20px;"></i>
+  <i class="fa-solid fa-shield-halved" style="font-size: 50px; color: var(--text-main); margin-bottom: 20px;"></i>
   <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 12px; line-height: 1.2;">POLÍTICAS Y ENVÍOS</h3>
   <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">LEE LAS POLÍTICAS Y ENVÍOS para que entiendas cómo es nuestro proceso de trabajo.</p>
   <button class="btn-ask" style="background: var(--text-main); color: var(--bg-base); box-shadow: none;" onclick="closePromo()">ENTENDIDO</button>
@@ -297,13 +285,13 @@
 <div class="center-modal glass-effect" id="negociarModal">
   <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
   <i class="fa-brands fa-whatsapp" style="font-size: 50px; color: #34C759; margin-bottom: 20px;"></i>
-  <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
+  <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 10px;">Atención Personalizada</h3>
   <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 15px;">Selecciona el motivo de tu consulta:</p>
   
   <select id="motivoConsulta" class="styled-select">
-      <option value="Mejores Precios">Mejores Precios</option>
-      <option value="Asesoria para comprar un perfume">Asesoría para comprar un perfume</option>
-      <option value="Me gustaria aprender a emprender">Me gustaría aprender a emprender</option>
+      <option value="1. Mejores Precios">1. Mejores Precios</option>
+      <option value="2. Asesoría para comprar un perfume">2. Asesoría para comprar un perfume</option>
+      <option value="3. Me gustaría aprender a emprender">3. Me gustaría aprender a emprender</option>
   </select>
   
   <button class="btn-ask" onclick="sendNegociarWA()">INICIAR CHAT</button>
@@ -326,20 +314,15 @@
   </header>
 
   <nav class="bottom-nav">
-    <div class="nav-item active" onclick="switchView('tienda', 'Inicio', this)">
-        <i class="fa-solid fa-layer-group"></i><span>Inicio</span>
-    </div>
+    <div class="nav-item active" onclick="switchView('tienda', 'Inicio', this)"><i class="fa-solid fa-layer-group"></i><span>Inicio</span></div>
     <div class="nav-item" onclick="switchView('sorteos', 'Dinámicas', this)">
-      <!-- Tooltip de Dinámicas -->
       <div class="nav-tooltip">¡Participa por un perfume GRATIS!</div>
       <i class="fa-solid fa-gift"></i><span>Dinámicas</span>
     </div>
-    <div class="nav-item" onclick="switchView('info', 'Información', this)">
-        <i class="fa-solid fa-circle-info"></i><span>Información</span>
-    </div>
+    <div class="nav-item" onclick="switchView('info', 'Información', this)"><i class="fa-solid fa-circle-info"></i><span>Información</span></div>
   </nav>
 
-  <!-- CARRITO FLOTANTE (ESQUINA INFERIOR) -->
+  <!-- CARRITO FLOTANTE EN ESQUINA INFERIOR -->
   <div class="ios-cart" id="appleCart" onclick="openCartSheet()">
     <i class="fa-solid fa-bag-shopping"></i>
     <div class="cart-badge" id="cartCount">0</div>
@@ -359,29 +342,39 @@
 
   <section id="viewTienda" class="view active">
     
-    <h1 class="large-title reveal">Inicio</h1>
+    <h1 class="large-title reveal" style="margin-top: calc(var(--top-height) + 15px);">Inicio</h1>
     <div style="margin: 0 20px 20px 20px; font-size: 13px; color: var(--text-muted); line-height: 1.4;" class="reveal">
        <strong>Nota:</strong> Nuestro catálogo muestra precios al detal. Si buscas precios más favorables, escríbeme para negociar.
     </div>
 
-    <!-- ACCIÓN: 2 CATÁLOGOS COMO ANTES (PDF y DRIVE) -->
+    <!-- ACCIÓN: 4 CAJAS ORIGINALES (Ajustado textos como pediste) -->
     <div class="action-grid reveal">
       <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="action-box glass-effect">
         <i class="fa-solid fa-file-pdf corner-ornament"></i>
         <div>
-          <div style="font-size: 10px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 8px;">Entrega inmediata en Medellín</div>
-          <div class="ab-title">Catálogo PDF</div>
-          <div class="ab-desc">Colección completa</div>
+          <div class="ab-title">CATÁLOGO PDF</div>
         </div>
       </a>
       
       <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="action-box glass-effect">
         <i class="fa-brands fa-google-drive corner-ornament"></i>
         <div>
-          <div class="ab-title">Catálogo Drive</div>
-          <div class="ab-desc">Fotos y videos al detalle</div>
+          <div style="font-size: 10px; font-weight: 800; color: var(--apple-blue); text-transform: uppercase; margin-bottom: 8px;">PERFUMES PARA ENTREGA INMEDIATA</div>
+          <div class="ab-title">Entregas en Medellín</div>
         </div>
       </a>
+      
+      <div class="action-box glass-effect" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
+        <i class="fa-solid fa-shield-halved corner-ornament"></i>
+        <div>
+          <div class="ab-title">Políticas y Envíos</div>
+          <div class="ab-desc">Condiciones de compra</div>
+        </div>
+      </div>
+      
+      <div class="action-box status-box glass-effect" id="statsBox">
+         <!-- Se inyecta info 24/7 -->
+      </div>
     </div>
 
     <div class="search-container reveal">
@@ -395,28 +388,27 @@
     <div id="mainContent">
       <div class="section-title reveal"><span>TOP VENTAS DE LA SEMANA</span></div>
       
-      <!-- CARRUSEL HORIZONTAL CON FLECHAS -->
+      <!-- CARRUSEL DE PRODUCTOS CON FLECHAS -->
       <div class="carousel-wrapper reveal">
-        <button class="carousel-btn left" onclick="document.getElementById('catalogGrid').scrollBy({left: -220, behavior: 'smooth'})"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="carousel-btn left" onclick="document.getElementById('catalogGrid').scrollBy({left: -240, behavior: 'smooth'})"><i class="fa-solid fa-chevron-left"></i></button>
         <div class="product-grid" id="catalogGrid">
           <div class="loader-container" style="min-width: 100%;">
               <i class="fa-solid fa-spinner loader-spinner"></i>
               <p style="font-weight: 700; font-size: 14px;">Cargando catálogo...</p>
           </div>
         </div>
-        <button class="carousel-btn right" onclick="document.getElementById('catalogGrid').scrollBy({left: 220, behavior: 'smooth'})"><i class="fa-solid fa-chevron-right"></i></button>
+        <button class="carousel-btn right" onclick="document.getElementById('catalogGrid').scrollBy({left: 240, behavior: 'smooth'})"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
     </div>
 
-    <!-- TARJETA NEGOCIACIÓN DEBAJO DEL CARRUSEL (Reemplaza Botón Flotante WA) -->
-    <div class="reveal glass-effect" style="margin: 10px 20px 30px 20px; padding: 30px 25px; border-radius: 28px; text-align: center;">
+    <!-- TARJETA DE NEGOCIACIÓN DEBAJO DEL CARRUSEL -->
+    <div class="reveal glass-effect" style="margin: 10px 20px 30px 20px; padding: 30px 25px; border-radius: 28px; text-align: center; border: 1px solid var(--glass-border);">
         <i class="fa-brands fa-whatsapp" style="font-size: 35px; color: var(--text-main); margin-bottom: 15px;"></i>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">¿Buscas atención personalizada?</h3>
-        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">Escríbeme para atención personalizada, asesoría o para negociar compras al por mayor.</p>
+        <p style="font-size: 14px; font-weight: 600; color: var(--text-main); line-height: 1.5; margin-bottom: 20px;">Escríbeme para atención personalizada, asesoría o para negociar compras al por mayor.</p>
         <button class="btn-ask" style="background: var(--text-main); color: var(--bg-base); box-shadow: none;" onclick="openNegociar()">CONTACTAR POR WHATSAPP</button>
     </div>
 
-    <!-- TARJETAS DE POLÍTICAS EN INICIO (DEBAJO DE CONTACTO) -->
+    <!-- TARJETAS DE POLÍTICAS EN INICIO (DEBAJO DE NEGOCIACIÓN) -->
     <div class="info-cards-container reveal">
       <div class="info-card-large glass-effect">
         <div class="ic-header">
@@ -425,7 +417,7 @@
         </div>
         <ul class="ic-list">
           <li><b>Envíos Nacionales:</b> Se envían por <b>Interrapidísimo</b> a partir de <b>$18,500</b>.</li>
-          <li><b>Domicilios GRATIS Medellín:</b> Se realizan estrictamente de 10:00 a.m. a 10:00 p.m. <br><span style="color: var(--accent); font-weight: 600;">(Aplica SOLO para compras a precio detal).</span></li>
+          <li><b>Domicilios GRATIS Medellín:</b> Se realizan estrictamente de 10:00 a.m. a 10:00 p.m. <br><span style="color: var(--apple-blue); font-weight: 600;">(Aplica SOLO para compras a precio detal).</span></li>
         </ul>
       </div>
 
@@ -448,7 +440,7 @@
   </section>
 
   <section id="viewSorteos" class="view">
-    <h1 class="large-title reveal" style="margin-top: 20px;">Dinámicas</h1>
+    <h1 class="large-title reveal" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
     
     <div id="sorteosList">
         <div class="loader-container">
@@ -459,14 +451,14 @@
 
     <div class="section-title reveal"><span>Ganadores Anteriores</span></div>
     <div class="carousel-wrapper reveal">
-      <button class="carousel-btn left" onclick="document.getElementById('winnersContainer').scrollBy({left: -320, behavior: 'smooth'})"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="carousel-btn left" onclick="document.getElementById('winnersContainer').scrollBy({left: -340, behavior: 'smooth'})"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="winners-scroll" id="winnersContainer"></div>
-      <button class="carousel-btn right" onclick="document.getElementById('winnersContainer').scrollBy({left: 320, behavior: 'smooth'})"><i class="fa-solid fa-chevron-right"></i></button>
+      <button class="carousel-btn right" onclick="document.getElementById('winnersContainer').scrollBy({left: 340, behavior: 'smooth'})"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
   </section>
 
   <section id="viewInfo" class="view">
-    <h1 class="large-title reveal" style="margin-top: 20px;">Información</h1>
+    <h1 class="large-title reveal" style="margin-top: calc(var(--top-height) + 15px);">Información</h1>
     <div class="info-cards-container">
         
       <div class="info-card-large glass-effect reveal" style="cursor:pointer; background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(30,30,30,0.9)); color: white; border-color: #333;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
@@ -492,31 +484,35 @@
   </section>
 
   <section id="viewSorteoDetalle" class="view">
-    <h1 class="large-title reveal" id="sorteoDetalleTitle" style="margin-top: 20px;">Tablero</h1>
+    <h1 class="large-title reveal" id="sorteoDetalleTitle" style="margin-top: calc(var(--top-height) + 15px);">Tablero</h1>
     <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 25px; font-size: 15px;" id="sorteoDetalleDesc"></p>
 
-    <!-- EXPLICACIÓN DE CHANCES DE GANAR -->
-    <div class="reveal glass-effect" style="margin: 0 20px 20px 20px; padding: 16px; border-radius: 20px; border: 1px solid rgba(211, 47, 47, 0.4); background: linear-gradient(135deg, rgba(211, 47, 47, 0.1), rgba(211, 47, 47, 0.02)); text-align: center;">
-      <h4 style="color: var(--accent); font-size: 15px; font-weight: 800; margin-bottom: 6px;">¡Multiplica tus opciones de ganar!</h4>
+    <!-- EXPLICACIÓN DE CHANCES DE GANAR (Oculto si es gratis) -->
+    <div id="explicacionChances" class="reveal glass-effect" style="margin: 0 20px 20px 20px; padding: 16px; border-radius: 20px; border: 1px solid rgba(51, 153, 255, 0.4); background: linear-gradient(135deg, rgba(51, 153, 255, 0.1), rgba(51, 153, 255, 0.02)); text-align: center;">
+      <h4 style="color: var(--apple-blue); font-size: 15px; font-weight: 800; margin-bottom: 6px;">¡Multiplica tus opciones de ganar!</h4>
       <p style="font-size: 13px; color: var(--text-main); line-height: 1.4;">
         Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades reales de llevarte el premio!
       </p>
     </div>
 
     <!-- Conteo Real de Puestos -->
-    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 12px; text-align:center; line-height: 1.4;"></div>
+    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 12px; text-align:center; line-height: 1.4;">
+       <div style="color:var(--apple-blue);"><span id="labelLibres">PUESTOS LIBRES</span><br><span id="countLibres" style="font-size:18px;">0</span></div>
+       <div style="color:var(--text-muted);"><span id="labelOcupados">PUESTOS OCUPADOS</span><br><span id="countOcupados" style="font-size:18px;">0</span></div>
+       <div style="color:#FFCC00;"><span id="labelPendientes">PUESTOS PENDIENTES</span><br><span id="countPendientes" style="font-size:18px;">0</span></div>
+    </div>
 
     <div class="search-container reveal">
-      <div class="search-box glass-effect" style="border: 1px solid rgba(211, 47, 47, 0.5); box-shadow: 0 8px 25px rgba(211, 47, 47, 0.1);">
-        <i class="fa-solid fa-magnifying-glass" style="color: var(--accent);"></i>
+      <div class="search-box glass-effect" style="border: 1px solid rgba(255, 122, 0, 0.5); box-shadow: 0 8px 25px rgba(255, 122, 0, 0.1);">
+        <i class="fa-solid fa-magnifying-glass" style="color: #FF7A00;"></i>
         <input type="text" id="searchPuestoInput" placeholder="Buscar un puesto o número específico...">
       </div>
     </div>
 
     <div class="reveal" style="display:flex; justify-content:center; gap:15px; font-size:12px; font-weight:600; margin-bottom:20px; color:var(--text-muted);">
-      <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; border:1px solid var(--accent); background:var(--bg-card);"></div> Libre</div>
+      <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; border:1px solid var(--apple-blue); background:var(--bg-card);"></div> Libre</div>
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(142, 142, 147, 0.15);"></div> Ocupado</div>
-      <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(212, 175, 55, 0.15);"></div> Pendiente</div>
+      <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(255, 204, 0, 0.1);"></div> Pendiente</div>
     </div>
 
     <div class="reveal" id="boardGridDetalle" style="padding: 0 20px; margin-bottom: 30px;"></div>
@@ -531,7 +527,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     
-    // Splash screen animado
+    // Splash screen animado y fluido
     setTimeout(() => {
       const s = document.getElementById('splash');
       s.classList.add('fade-out');
@@ -557,14 +553,31 @@
     let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29;
     document.getElementById('uCount').innerText = usuarios;
     
+    // 24/7 en el action box stats
+    const statsBox = document.getElementById('statsBox');
+    function renderStatsBox() {
+       statsBox.innerHTML = `
+         <i class="fa-solid fa-ghost corner-ornament"></i>
+         <div style="display:flex; flex-direction:column; gap: 8px; width: 100%; align-items:center; justify-content:center; height:100%; position:relative; z-index:1;">
+           <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span>${ventasDia.toLocaleString('es-CO')}</span></div>
+           <div style="font-size: 13px; font-weight: 700; color: #FF7A00;">EN LÍNEA: <span id="uCountBox">${usuarios}</span></div>
+           <div style="color: #34C759; font-weight:700; font-size:11px; margin-top: 5px;">Disponible 24/7</div>
+         </div>
+       `;
+    }
+    renderStatsBox();
+    
     setInterval(() => {
       let rnd = Math.random();
       if(rnd > 0.4) usuarios += 6; 
       else usuarios -= 10; 
       if(usuarios < 15) usuarios = 18 + Math.floor(Math.random()*5);
       if(usuarios > 180) usuarios = 160 - Math.floor(Math.random()*15);
+      
       const uCount = document.getElementById('uCount');
       if(uCount) uCount.innerText = usuarios;
+      const uCountBox = document.getElementById('uCountBox');
+      if(uCountBox) uCountBox.innerText = usuarios;
     }, 3500);
 
   });
@@ -574,7 +587,6 @@
     document.getElementById('promoModal').classList.remove('active');
   }
   
-  // Lógica Modal Negociar
   function openNegociar() {
       document.getElementById('negociarOverlay').classList.add('active');
       document.getElementById('negociarModal').classList.add('active');
@@ -627,26 +639,27 @@
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         
-        // Ocultar notificación de regalo al visitar dinámicas
+        // Quitar tooltip si toca Dinámicas
         if(viewId === 'sorteos') {
             const tooltip = element.querySelector('.nav-tooltip');
-            if (tooltip) tooltip.style.display = 'none';
+            if(tooltip) tooltip.style.display = 'none';
         }
     }
     
     const nextView = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
     nextView.classList.add('active');
     
-    // Título de la vista
-    if(viewId === 'tienda') document.getElementById('topTitle').innerText = 'Inicio';
-    else document.getElementById('topTitle').innerText = title;
+    if(viewId === 'tienda') {
+        document.getElementById('topTitle').innerText = 'Inicio';
+    } else {
+        document.getElementById('topTitle').innerText = title;
+    }
     
     window.scrollTo({top: 0, behavior: 'smooth'});
     
     if (viewId === 'sorteos') {
         setTimeout(() => {
-            // Confeti festivo elegante sin emojis
-            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#D32F2F', '#4CAF50', '#D4AF37', '#FFFFFF'] });
+            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#FF7A00', '#000000', '#9C27B0', '#FFFFFF'] });
         }, 300);
     }
     
@@ -899,7 +912,7 @@
     else { mainContent.style.display = 'block'; emptyState.style.display = 'none'; renderCatalog(filtrados); }
   });
 
-  function askAvailability() { openWhatsApp(`Hola, quiero consultar la disponibilidad de: - ${currentSearchTerm}. Quedo atento(a).`); }
+  function askAvailability() { openWhatsApp(`Hola, no encontré esta fragancia en la página:\n- ${currentSearchTerm}\n\n¿Me ayudas a conseguirla por favor?`); }
 
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
@@ -964,7 +977,7 @@
             <span class="r-tag" style="${tagStyle}">${tagText}</span>
             <h3 class="r-title">${d.title}</h3>
             <p style="font-size:15px; margin-bottom:5px; color:var(--text-muted);">Premio: ${d.desc || 'Próximamente'}</p>
-            ${d.price && !d.isInactiveEmpty ? `<p style="font-size:16px; font-weight:800; color:var(--accent); margin-bottom:25px;">Valor Puesto: ${d.price}</p>` : '<div style="margin-bottom:25px;"></div>'}
+            ${d.price && !d.isInactiveEmpty ? `<p style="font-size:16px; font-weight:800; color:var(--apple-blue); margin-bottom:20px;">Valor Puesto: ${d.price}</p>` : '<div style="margin-bottom:25px;"></div>'}
             <button class="btn-board" onclick='openSorteoView(\`${JSON.stringify(d.pData)}\`, \`${d.title}\`, \`${d.desc}\`, \`${d.lottery}\`, \`${d.price}\`)' ${d.isInactiveEmpty ? 'disabled style="background:#8E8E93; opacity:0.5; box-shadow:none; cursor:not-allowed;"' : ''}>${d.isInactiveEmpty ? 'Tablero No Disponible' : 'Ver Tablero de Puestos'}</button>
           </div>
         `;
@@ -987,7 +1000,7 @@
     }, 3000);
   }
 
-  function scrollWinners(dir) {
+  function scrollCarousel(dir) {
     clearInterval(scrollInterval);
     const container = document.getElementById('winnersContainer');
     container.scrollBy({ left: dir * 340, behavior: 'smooth' });
@@ -1011,10 +1024,24 @@
     document.getElementById('sorteoDetalleTitle').innerText = title;
     
     let descHtml = desc ? `Premio en juego: ${desc}` : '';
-    if(lottery) descHtml += `<br><span style="font-size:14px; color:var(--text-main); font-weight:600; display:inline-block; margin-top:8px;">Sortea con las 2 últimas cifras de: <b>${lottery}</b></span>`;
-    if(price) descHtml += `<br><span style="color:var(--accent); font-weight:800; font-size:16px; display:inline-block; margin-top:4px;">Valor Puesto: ${price}</span>`;
     
-    descHtml += `<br><span style="font-size:12px; color:var(--text-muted); display:inline-block; margin-top:5px;">Por cada puesto tienes 3 posibilidades de ganar. Esos son los números con los que participas.</span>`;
+    if(lottery) descHtml += `<br><span style="font-size:14px; color:var(--text-main); font-weight:600; display:inline-block; margin-top:8px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b>${lottery}</b></span>`;
+    
+    if(price && price !== "$0" && price.toLowerCase() !== "gratis") {
+        descHtml += `<br><span style="color:var(--apple-blue); font-weight:800; font-size:16px; display:inline-block; margin-top:4px;">Valor Puesto: ${price}</span>`;
+        document.getElementById('explicacionChances').style.display = 'block'; 
+        document.getElementById('labelLibres').innerText = "PUESTOS LIBRES";
+        document.getElementById('labelOcupados').innerText = "PUESTOS OCUPADOS";
+        document.getElementById('labelPendientes').innerText = "PUESTOS PENDIENTES";
+        document.getElementById('searchPuestoInput').placeholder = "Buscar un puesto o número...";
+    } else {
+        descHtml += `<br><span style="color:var(--apple-blue); font-weight:800; font-size:16px; display:inline-block; margin-top:4px;">GRATIS</span>`;
+        document.getElementById('explicacionChances').style.display = 'none'; 
+        document.getElementById('labelLibres').innerText = "NÚMEROS LIBRES";
+        document.getElementById('labelOcupados').innerText = "NÚMEROS OCUPADOS";
+        document.getElementById('labelPendientes').innerText = "NÚMEROS PENDIENTES";
+        document.getElementById('searchPuestoInput').placeholder = "Buscar un número...";
+    }
     
     document.getElementById('sorteoDetalleDesc').innerHTML = descHtml;
     
@@ -1083,11 +1110,9 @@
     
     board.innerHTML = `<div class="puestos-grid">${htmlPuestos}</div>` + tableroHtml;
     
-    resumen.innerHTML = `
-      <div style="color:var(--accent);">PUESTOS LIBRES<br><span style="font-size:18px;">${libres}</span></div>
-      <div style="color:var(--text-muted);">PUESTOS OCUPADOS<br><span style="font-size:18px;">${ocupados}</span></div>
-      <div style="color:var(--gold);">PUESTOS PENDIENTES<br><span style="font-size:18px;">${pendientes}</span></div>
-    `;
+    document.getElementById('countLibres').innerText = libres;
+    document.getElementById('countOcupados').innerText = ocupados;
+    document.getElementById('countPendientes').innerText = pendientes;
   }
 
   function pedirPuesto(id) {
