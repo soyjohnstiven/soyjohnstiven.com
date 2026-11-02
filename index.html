@@ -150,7 +150,6 @@
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
   .search-box input::placeholder { color: var(--text-muted); font-weight: 400; }
   
-  /* Nota del buscador modificada (más pequeña y cursiva) */
   .search-note { font-size: 11px; font-style: italic; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 500; line-height: 1.4; padding: 0 10px;}
   
   .empty-state { text-align: center; padding: 40px 20px; }
@@ -191,7 +190,7 @@
       .carousel-btn { display: none; }
   }
 
-  /* ================= CARRITO FLOTANTE (Redondo en esquina) ================= */
+  /* ================= CARRITO FLOTANTE ================= */
   .ios-cart { 
       position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; 
       width: 60px; height: 60px; border-radius: 50%; 
@@ -205,7 +204,7 @@
   .cart-badge { position: absolute; top: 0px; right: 0px; background: #FFD700; color: #000; font-size: 11px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
 
   /* ================= BOTTOM SHEETS (DRAWERS) ================= */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.3s; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
   .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 30px 30px 0 0; padding: 25px 20px 40px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column; background: var(--bg-card); border-top: 1px solid var(--border-color); box-shadow: 0 -10px 40px rgba(0,0,0,0.2);}
@@ -231,47 +230,47 @@
   .styled-select { width: 100%; padding: 14px; margin-bottom: 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-size: 14px; outline: none; font-weight: 500; font-family: inherit;}
 
   /* ================= DINÁMICAS ================= */
-  .raffle-card { background: var(--bg-card); border-radius: 20px; margin: 0 20px 25px 20px; padding: 30px 25px; text-align: left; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); transition: 0.3s;}
+  .raffle-card { background: var(--bg-card); border-radius: 20px; margin: 0 20px 20px 20px; padding: 25px 20px; text-align: left; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); transition: 0.3s;}
   .r-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-  .r-tag { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+  .r-tag { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
   .r-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;}
   
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
   .w-card { min-width: 280px; scroll-snap-align: start; background: var(--bg-card); padding: 20px; border-radius: 16px; display: flex; gap: 20px; align-items: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
-  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0; filter: drop-shadow(0 4px 10px rgba(212,175,55,0.3));}
-  .w-number { font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1;}
-  .w-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0;}
+  .w-number { font-size: 24px; font-weight: 700; color: var(--text-main); line-height: 1;}
+  .w-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--text-main); }
   .w-info p { font-size: 13px; color: var(--text-muted); font-weight: 400;}
-
+  
   /* ================= INFO LIST ================= */
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
-  .info-card-large { background: var(--bg-card); border-radius: 20px; padding: 25px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
+  .info-card-large { background: var(--bg-card); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); }
   .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px;}
-  .ic-icon-box { width: 45px; height: 45px; background: var(--bg-base); color: var(--text-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;}
-  .ic-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px;}
-  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
+  .ic-icon-box { width: 40px; height: 40px; background: var(--bg-base); color: var(--text-main); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;}
+  .ic-title { font-size: 16px; font-weight: 600; letter-spacing: -0.2px;}
+  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.5;}
   .ic-list li { margin-bottom: 10px; }
-  .ic-list li b { color: var(--text-main); font-weight: 600;}
+  .ic-list li b { color: var(--text-main); font-weight: 500;}
 
   /* TABLERO DE PUESTOS / NÚMEROS */
   .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; }
   .puesto-card { background: var(--bg-card); border-radius: 12px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--border-color); }
   .puesto-card.ocupado { background: rgba(142, 142, 147, 0.12); opacity: 0.5; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
-  .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); border-style: dashed; }
+  .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); }
   .puesto-card.libre { border-color: var(--text-main); box-shadow: var(--shadow-sm); }
   .puesto-card.libre:active { transform: scale(0.95); background: var(--bg-base); }
-  .puesto-title { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
-  .puesto-nums { font-size: 11px; color: var(--text-muted); line-height: 1.2; font-weight: 500;}
+  .puesto-title { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
+  .puesto-nums { font-size: 11px; color: var(--text-muted); line-height: 1.2; font-weight: 400;}
 
   /* TABLERO GENERAL (00-99) */
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 10px;}
-  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: var(--bg-base); transition: 0.2s; border: 1px solid var(--border-color);}
-  .b-cell.libre { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 500; cursor: pointer; background: var(--bg-base); transition: 0.2s;}
+  .b-cell.libre { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); }
   .b-cell.libre:active { transform: scale(0.92); opacity: 0.7; }
-  .b-cell.ocupado { background: transparent; color: var(--text-muted); pointer-events: none; border-color: transparent; opacity: 0.3;}
+  .b-cell.ocupado { background: transparent; color: var(--text-muted); pointer-events: none; border-color: transparent; opacity: 0.4;}
   .b-cell.ocupado span { font-size: 10px; text-decoration: line-through;}
-  .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); }
+  .b-cell.pendiente { background: transparent; border: 1px solid var(--text-muted); color: var(--text-main); }
 
 </style>
 </head>
@@ -287,8 +286,8 @@
 <div class="center-modal" id="negociarModal">
   <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
   <i class="fa-brands fa-whatsapp" style="font-size: 40px; color: #25D366; margin-bottom: 20px;"></i>
-  <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
-  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
+  <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
+  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Selecciona el motivo de tu consulta:</p>
   
   <select id="motivoConsulta" class="styled-select">
       <option value="Quiero obtener mejores precios">Quiero obtener mejores precios</option>
@@ -321,8 +320,8 @@
     <div class="nav-item" onclick="switchView('sorteos', 'Dinámicas', this)">
         <i class="fa-solid fa-ticket"></i><span>Dinámicas</span>
     </div>
-    <div class="nav-item" onclick="switchView('info', 'Información', this)">
-        <i class="fa-solid fa-circle-info"></i><span>Información</span>
+    <div class="nav-item" onclick="switchView('info', 'Redes', this)">
+        <i class="fa-solid fa-circle-info"></i><span>Redes</span>
     </div>
   </nav>
 
@@ -345,10 +344,9 @@
     </button>
   </div>
 
-  <!-- ================= VISTA PRINCIPAL (INICIO) ================= -->
   <section id="viewTienda" class="view active">
     
-    <h1 class="large-title">Inicio</h1>
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Inicio</h1>
     <div style="margin: 0 20px 25px 20px; font-size: 13px; color: var(--text-muted); line-height: 1.4;">
        <strong>Nota:</strong> Nuestro catálogo muestra precios al detal. Si buscas precios más favorables, escríbeme para negociar.
     </div>
@@ -402,24 +400,6 @@
     <!-- TODAS LAS TARJETAS DE INFORMACIÓN MOVÍDAS AQUÍ AL FINAL DEL INICIO -->
     <div class="info-cards-container">
       
-      <!-- Comunidad VIP -->
-      <div class="info-card-large" style="cursor:pointer;" onclick="openWhatsApp('Hola, quiero agregarlos a mis contactos para ver los estados y promociones exclusivas.')">
-        <div class="ic-header">
-          <div class="ic-icon-box" style="background: rgba(37, 211, 102, 0.1); color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
-          <h3 class="ic-title">Comunidad VIP</h3>
-        </div>
-        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
-      </div>
-
-      <!-- TikTok -->
-      <div class="info-card-large" style="cursor:pointer; background: #000; color: #FFF; border: none;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
-        <div class="ic-header">
-          <div class="ic-icon-box" style="background: #FFF; color: #000;"><i class="fa-brands fa-tiktok"></i></div>
-          <h3 class="ic-title" style="color: #FFF;">Perfil de TikTok</h3>
-        </div>
-        <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
-      </div>
-
       <!-- Envíos -->
       <div class="info-card-large">
         <div class="ic-header">
@@ -478,22 +458,34 @@
 
     <h2 class="section-title">Ganadores Anteriores</h2>
     <div class="carousel-wrapper">
-      <button class="carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="winners-scroll" id="winnersContainer"></div>
-      <button class="carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
+      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
   </section>
 
-  <!-- ================= VISTA INFORMACIÓN ================= -->
+  <!-- ================= VISTA REDES ================= -->
   <section id="viewInfo" class="view">
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Información</h1>
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Redes</h1>
     
-    <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5; text-align: center;">
-      Toda nuestra información detallada, redes sociales y políticas de trabajo las puedes encontrar en la parte inferior de la pestaña <b>Inicio</b>.
-    </div>
+    <div class="info-cards-container">
+      <!-- Comunidad VIP -->
+      <div class="info-card-large" style="cursor:pointer;" onclick="openWhatsApp('Hola, quiero agregarlos a mis contactos para ver los estados y promociones exclusivas.')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: rgba(37, 211, 102, 0.1); color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
+          <h3 class="ic-title">Comunidad VIP</h3>
+        </div>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
+      </div>
 
-    <div style="padding: 0 20px;">
-        <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base);" onclick="switchView('tienda', 'Inicio', document.querySelectorAll('.nav-item')[0])">Ir a Inicio</button>
+      <!-- TikTok -->
+      <div class="info-card-large" style="cursor:pointer; background: #000; color: #FFF; border: none;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: #FFF; color: #000;"><i class="fa-brands fa-tiktok"></i></div>
+          <h3 class="ic-title" style="color: #FFF;">Perfil de TikTok</h3>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
+      </div>
     </div>
   </section>
 
@@ -577,6 +569,7 @@
       const uCount = document.getElementById('uCount');
       if(uCount) uCount.innerText = usuarios;
     }, 3500);
+
   });
 
   // Lógica Modal Negociar
@@ -724,19 +717,28 @@
       let discount = calculateDiscount(totalItems);
       let total = subtotal - discount;
 
+      let msg = "";
+      if (totalItems === 1) msg = "Agrega 1 perfume más y obtén $10.000 de descuento inmediato.";
+      else if (totalItems === 2) msg = "Ahorraste $10.000. Si llevas 3 te descontamos $15.000.";
+      else if (totalItems > 2 && totalItems < 6) msg = `Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $50.000.`;
+      else msg = `Precio especial aplicado. Ahorraste $${discount.toLocaleString('es-CO')} en total.`;
+
       summ.innerHTML = `
         <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
             <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: var(--text-muted);">
-                <span>Subtotal</span>
+                <span>Subtotal (${totalItems} artículos)</span>
                 <span>$${subtotal.toLocaleString('es-CO')}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--accent); font-weight: 600;">
-                <span>Descuentos</span>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--text-main); font-weight: 600;">
+                <span>Descuento aplicado</span>
                 <span>-$${discount.toLocaleString('es-CO')}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
-                <span>Total</span>
+            <div style="display:flex; justify-content:space-between; font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
+                <span>Total a Pagar</span>
                 <span>$${total.toLocaleString('es-CO')}</span>
+            </div>
+            <div style="background: var(--accent-light); border-radius: 12px; padding: 12px; text-align: center; font-size: 12px; color: var(--text-main); font-weight: 500; border: 1px solid var(--border-color);">
+                ${msg}
             </div>
         </div>
       `;
@@ -921,7 +923,7 @@
         
         rows.forEach(cols => {
           if (cols.length >= 8 && cols[7] && cols[7].trim() !== '') {
-            allWinners.push({ num: cols[7].trim(), name: (cols.length > 8 && cols[8]) ? cols[8].trim() : 'Ganador', prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Premio' });
+            allWinners.push({ num: cols[7].trim(), name: (cols.length > 8 && cols[8]) ? cols[8].trim() : 'Ganador', prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Premio Exclusivo' });
           }
         });
       });
