@@ -150,6 +150,7 @@
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
   .search-box input::placeholder { color: var(--text-muted); font-weight: 400; }
   
+  /* Nota del buscador modificada (más pequeña y cursiva) */
   .search-note { font-size: 11px; font-style: italic; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 500; line-height: 1.4; padding: 0 10px;}
   
   .empty-state { text-align: center; padding: 40px 20px; }
@@ -190,7 +191,7 @@
       .carousel-btn { display: none; }
   }
 
-  /* ================= CARRITO FLOTANTE ================= */
+  /* ================= CARRITO FLOTANTE (Redondo en esquina) ================= */
   .ios-cart { 
       position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; 
       width: 60px; height: 60px; border-radius: 50%; 
@@ -248,7 +249,7 @@
   .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px;}
   .ic-icon-box { width: 40px; height: 40px; background: var(--bg-base); color: var(--text-main); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;}
   .ic-title { font-size: 16px; font-weight: 600; letter-spacing: -0.2px;}
-  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.5;}
+  .ic-list { list-style: none; padding: 0; font-size: 15px; color: var(--text-muted); line-height: 1.5;}
   .ic-list li { margin-bottom: 10px; }
   .ic-list li b { color: var(--text-main); font-weight: 500;}
 
@@ -258,7 +259,7 @@
   .puesto-card.ocupado { background: rgba(142, 142, 147, 0.12); opacity: 0.5; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
   .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); }
-  .puesto-card.libre { border-color: var(--text-main); box-shadow: var(--shadow-sm); }
+  .puesto-card.libre { border-color: var(--text-main); }
   .puesto-card.libre:active { transform: scale(0.95); background: var(--bg-base); }
   .puesto-title { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
   .puesto-nums { font-size: 11px; color: var(--text-muted); line-height: 1.2; font-weight: 400;}
@@ -277,7 +278,7 @@
 <body>
 
 <div id="splash">
-  <i class="fa-solid fa-gift splash-icon"></i>
+  <i class="fa-solid fa-tree splash-icon"></i>
   <h1 class="splash-greeting">Perfumería</h1>
 </div>
 
@@ -287,7 +288,7 @@
   <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
   <i class="fa-brands fa-whatsapp" style="font-size: 40px; color: #25D366; margin-bottom: 20px;"></i>
   <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
-  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Selecciona el motivo de tu consulta:</p>
+  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
   
   <select id="motivoConsulta" class="styled-select">
       <option value="Quiero obtener mejores precios">Quiero obtener mejores precios</option>
@@ -344,6 +345,7 @@
     </button>
   </div>
 
+  <!-- ================= VISTA PRINCIPAL (INICIO) ================= -->
   <section id="viewTienda" class="view active">
     
     <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Inicio</h1>
@@ -400,6 +402,24 @@
     <!-- TODAS LAS TARJETAS DE INFORMACIÓN MOVÍDAS AQUÍ AL FINAL DEL INICIO -->
     <div class="info-cards-container">
       
+      <!-- Comunidad VIP -->
+      <div class="info-card-large" style="cursor:pointer;" onclick="openWhatsApp('Hola, quiero agregarlos a mis contactos para ver los estados y promociones exclusivas.')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: rgba(37, 211, 102, 0.1); color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
+          <h3 class="ic-title">Comunidad VIP</h3>
+        </div>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
+      </div>
+
+      <!-- TikTok -->
+      <div class="info-card-large" style="cursor:pointer; background: #000; color: #FFF; border: none;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: #FFF; color: #000;"><i class="fa-brands fa-tiktok"></i></div>
+          <h3 class="ic-title" style="color: #FFF;">Perfil de TikTok</h3>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
+      </div>
+
       <!-- Envíos -->
       <div class="info-card-large">
         <div class="ic-header">
@@ -468,24 +488,12 @@
   <section id="viewInfo" class="view">
     <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Redes</h1>
     
-    <div class="info-cards-container">
-      <!-- Comunidad VIP -->
-      <div class="info-card-large" style="cursor:pointer;" onclick="openWhatsApp('Hola, quiero agregarlos a mis contactos para ver los estados y promociones exclusivas.')">
-        <div class="ic-header">
-          <div class="ic-icon-box" style="background: rgba(37, 211, 102, 0.1); color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
-          <h3 class="ic-title">Comunidad VIP</h3>
-        </div>
-        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
-      </div>
+    <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5; text-align: center;">
+      Toda nuestra información detallada, redes sociales y políticas de trabajo las puedes encontrar en la parte inferior de la pestaña <b>Inicio</b>.
+    </div>
 
-      <!-- TikTok -->
-      <div class="info-card-large" style="cursor:pointer; background: #000; color: #FFF; border: none;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
-        <div class="ic-header">
-          <div class="ic-icon-box" style="background: #FFF; color: #000;"><i class="fa-brands fa-tiktok"></i></div>
-          <h3 class="ic-title" style="color: #FFF;">Perfil de TikTok</h3>
-        </div>
-        <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
-      </div>
+    <div style="padding: 0 20px;">
+        <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base);" onclick="switchView('tienda', 'Inicio', document.querySelectorAll('.nav-item')[0])">Ir a Inicio</button>
     </div>
   </section>
 
@@ -569,7 +577,6 @@
       const uCount = document.getElementById('uCount');
       if(uCount) uCount.innerText = usuarios;
     }, 3500);
-
   });
 
   // Lógica Modal Negociar
@@ -648,7 +655,7 @@
   function calculateDiscount(qty) {
     let packsOf6 = Math.floor(qty / 6);
     let remainder = qty % 6;
-    let discount = packsOf6 * 50000; 
+    let discount = packsOf6 * 40000; 
     
     if (remainder === 5) discount += 30000;
     else if (remainder === 4) discount += 20000;
@@ -720,21 +727,22 @@
       let msg = "";
       if (totalItems === 1) msg = "Agrega 1 perfume más y obtén $10.000 de descuento inmediato.";
       else if (totalItems === 2) msg = "Ahorraste $10.000. Si llevas 3 te descontamos $15.000.";
-      else if (totalItems > 2 && totalItems < 6) msg = `Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $50.000.`;
+      else if (totalItems === 3) msg = "Ahorraste $15.000. Si llevas 4 te descontamos $20.000.";
+      else if (totalItems > 3 && totalItems < 6) msg = `Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $40.000.`;
       else msg = `Precio especial aplicado. Ahorraste $${discount.toLocaleString('es-CO')} en total.`;
 
       summ.innerHTML = `
         <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
             <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: var(--text-muted);">
-                <span>Subtotal (${totalItems} artículos)</span>
+                <span>Subtotal</span>
                 <span>$${subtotal.toLocaleString('es-CO')}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--text-main); font-weight: 600;">
-                <span>Descuento aplicado</span>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--accent); font-weight: 600;">
+                <span>Descuentos</span>
                 <span>-$${discount.toLocaleString('es-CO')}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
-                <span>Total a Pagar</span>
+            <div style="display:flex; justify-content:space-between; font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
+                <span>Total</span>
                 <span>$${total.toLocaleString('es-CO')}</span>
             </div>
             <div style="background: var(--accent-light); border-radius: 12px; padding: 12px; text-align: center; font-size: 12px; color: var(--text-main); font-weight: 500; border: 1px solid var(--border-color);">
@@ -915,7 +923,12 @@
             return { id: idPuesto, numeros: arr, estado: estado };
           }).filter(Boolean);
 
-          const isActive = pData.some(p => p.estado !== 'ocupado');
+          let isSoldOut = false;
+          if (pData.length > 0) {
+              isSoldOut = pData.every(p => p.estado === 'ocupado');
+          }
+          const isActive = !isSoldOut;
+          
           let isInactiveEmpty = (!desc || desc.trim() === '');
           
           dynamicsArray.push({ title, desc, lottery, price, pData, isActive, isInactiveEmpty });
@@ -1006,7 +1019,7 @@
     document.getElementById('searchPuestoInput').value = '';
     
     renderBoardDetalle('', isGratis);
-    switchView('sorteoDetalle', 'Comunidad', null);
+    switchView('sorteoDetalle', 'Tablero Dinámica', null);
   }
 
   document.getElementById('searchPuestoInput').addEventListener('input', (e) => {
@@ -1081,11 +1094,11 @@
   }
 
   function pedirPuesto(id) {
-    openWhatsApp(`Hola, quiero el puesto ${id}. Mándame la cuenta para pagarte de una vez.`);
+    openWhatsApp(`Hola, quiero este puesto: ${id}. ¿Está disponible?`);
   }
   
   function pedirNumero(num) {
-    openWhatsApp(`Hola, quiero el número ${num} de la dinámica.\n- ¿Cómo hago para participar?`);
+    openWhatsApp(`Hola, quiero este número: ${num}. ¿Está disponible?`);
   }
 
 </script>
