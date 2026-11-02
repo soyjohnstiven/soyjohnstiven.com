@@ -150,7 +150,6 @@
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
   .search-box input::placeholder { color: var(--text-muted); font-weight: 400; }
   
-  /* Nota del buscador modificada (más pequeña y cursiva) */
   .search-note { font-size: 11px; font-style: italic; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 500; line-height: 1.4; padding: 0 10px;}
   
   .empty-state { text-align: center; padding: 40px 20px; }
@@ -186,12 +185,12 @@
   .carousel-btn.left { left: -15px; }
   .carousel-btn.right { right: -15px; }
 
-  /* Ocultar flechas en dispositivos móviles (el scroll táctil es suficiente) */
+  /* Ocultar flechas en dispositivos móviles */
   @media (max-width: 768px) {
       .carousel-btn { display: none; }
   }
 
-  /* ================= CARRITO FLOTANTE (Redondo en esquina) ================= */
+  /* ================= CARRITO FLOTANTE ================= */
   .ios-cart { 
       position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; 
       width: 60px; height: 60px; border-radius: 50%; 
@@ -205,7 +204,7 @@
   .cart-badge { position: absolute; top: 0px; right: 0px; background: #FFD700; color: #000; font-size: 11px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
 
   /* ================= BOTTOM SHEETS (DRAWERS) ================= */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.3s; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.3s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
   .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 30px 30px 0 0; padding: 25px 20px 40px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column; background: var(--bg-card); border-top: 1px solid var(--border-color); box-shadow: 0 -10px 40px rgba(0,0,0,0.2);}
@@ -238,7 +237,7 @@
   
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
   .w-card { min-width: 280px; scroll-snap-align: start; background: var(--bg-card); padding: 20px; border-radius: 16px; display: flex; gap: 20px; align-items: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
-  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0; filter: drop-shadow(0 4px 10px rgba(212,175,55,0.3));}
+  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0;}
   .w-number { font-size: 24px; font-weight: 700; color: var(--text-main); line-height: 1;}
   .w-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--text-main); }
   .w-info p { font-size: 13px; color: var(--text-muted); font-weight: 400;}
@@ -278,7 +277,7 @@
 <body>
 
 <div id="splash">
-  <i class="fa-solid fa-tree splash-icon"></i>
+  <i class="fa-solid fa-gift splash-icon"></i>
   <h1 class="splash-greeting">Perfumería</h1>
 </div>
 
@@ -288,7 +287,7 @@
   <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
   <i class="fa-brands fa-whatsapp" style="font-size: 40px; color: #25D366; margin-bottom: 20px;"></i>
   <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
-  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Selecciona el motivo de tu consulta:</p>
+  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
   
   <select id="motivoConsulta" class="styled-select">
       <option value="Quiero obtener mejores precios">Quiero obtener mejores precios</option>
@@ -399,57 +398,9 @@
         <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base); width: auto; padding: 16px 35px; margin: 0 auto; display: inline-flex;" onclick="openNegociar()">Contactar</button>
     </div>
 
-    <div class="empty-state" id="emptyState" style="display: none;">
-      <h3 style="margin-bottom:15px; font-weight:600; font-size: 16px;">Sin resultados</h3>
-      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Comunícate por WhatsApp para verificar disponibilidad.</p>
-      <button class="btn-primary" onclick="askAvailability()">Preguntar disponibilidad</button>
-    </div>
-  </section>
-
-  <!-- ================= VISTA DINÁMICAS ================= -->
-  <section id="viewSorteos" class="view">
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
-    
-    <div id="sorteosList">
-        <div class="loader-container">
-            <i class="fa-solid fa-spinner loader-spinner"></i>
-            <p style="font-weight: 500; font-size: 14px;">Actualizando eventos...</p>
-        </div>
-    </div>
-
-    <h2 class="section-title">Ganadores Anteriores</h2>
-    <div class="carousel-wrapper">
-      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
-      <div class="winners-scroll" id="winnersContainer"></div>
-      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <!-- ================= VISTA REDES ================= -->
-  <section id="viewInfo" class="view">
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Redes</h1>
-
-    <!-- TODAS LAS TARJETAS DE INFORMACIÓN MOVÍDAS AQUÍ -->
-    <div class="info-cards-container">
+    <!-- TODAS LAS TARJETAS DE INFORMACIÓN MOVÍDAS AQUÍ AL FINAL DEL INICIO -->
+    <div class="info-cards-container reveal">
       
-      <!-- Comunidad VIP -->
-      <div class="info-card-large" style="cursor:pointer;" onclick="openWhatsApp('Hola, quiero agregarlos a mis contactos para ver los estados y promociones exclusivas.')">
-        <div class="ic-header">
-          <div class="ic-icon-box" style="background: rgba(37, 211, 102, 0.1); color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
-          <h3 class="ic-title">Comunidad VIP</h3>
-        </div>
-        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
-      </div>
-
-      <!-- TikTok -->
-      <div class="info-card-large" style="cursor:pointer; background: #000; color: #FFF; border: none;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
-        <div class="ic-header">
-          <div class="ic-icon-box" style="background: #FFF; color: #000;"><i class="fa-brands fa-tiktok"></i></div>
-          <h3 class="ic-title" style="color: #FFF;">Perfil de TikTok</h3>
-        </div>
-        <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
-      </div>
-
       <!-- Envíos -->
       <div class="info-card-large">
         <div class="ic-header">
@@ -486,6 +437,56 @@
         </ul>
       </div>
 
+    </div>
+
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <h3 style="margin-bottom:15px; font-weight:600; font-size: 16px;">Sin resultados</h3>
+      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Comunícate por WhatsApp para verificar disponibilidad.</p>
+      <button class="btn-primary" onclick="askAvailability()">Preguntar disponibilidad</button>
+    </div>
+  </section>
+
+  <!-- ================= VISTA DINÁMICAS ================= -->
+  <section id="viewSorteos" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
+    
+    <div id="sorteosList">
+        <div class="loader-container">
+            <i class="fa-solid fa-spinner loader-spinner"></i>
+            <p style="font-weight: 500; font-size: 14px;">Actualizando eventos...</p>
+        </div>
+    </div>
+
+    <h2 class="section-title">Ganadores Anteriores</h2>
+    <div class="carousel-wrapper">
+      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="winners-scroll" id="winnersContainer"></div>
+      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- ================= VISTA REDES ================= -->
+  <section id="viewInfo" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Redes</h1>
+    
+    <div class="info-cards-container reveal">
+      <!-- Comunidad VIP -->
+      <div class="info-card-large" style="cursor:pointer;" onclick="openWhatsApp('Hola, quiero agregarlos a mis contactos para ver los estados y promociones exclusivas.')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: rgba(37, 211, 102, 0.1); color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
+          <h3 class="ic-title">Comunidad VIP</h3>
+        </div>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
+      </div>
+
+      <!-- TikTok -->
+      <div class="info-card-large" style="cursor:pointer; background: #000; color: #FFF; border: none;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: #FFF; color: #000;"><i class="fa-brands fa-tiktok"></i></div>
+          <h3 class="ic-title" style="color: #FFF;">Perfil de TikTok</h3>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
+      </div>
     </div>
   </section>
 
@@ -533,6 +534,7 @@
         s.style.opacity = '0';
         setTimeout(() => s.style.display = 'none', 400);
       }
+      observeElements();
     }, 1200);
 
     // Estadísticas
@@ -584,9 +586,27 @@
     }
   }
 
+  const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); }
+    });
+  }, observerOptions);
+
+  function observeElements() {
+    const activeView = document.querySelector('.view.active');
+    if(!activeView) return;
+    activeView.querySelectorAll('.reveal').forEach(el => {
+      if(!el.classList.contains('active')) { observer.observe(el); }
+    });
+  }
+
   function switchView(viewId, title, element) {
     document.querySelectorAll('.view').forEach(v => {
       v.classList.remove('active');
+      v.querySelectorAll('.reveal').forEach(r => {
+        r.classList.remove('active'); observer.unobserve(r); 
+      });
     });
     
     if (element) {
@@ -613,6 +633,8 @@
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#D32F2F', '#D4AF37', '#FFFFFF'] });
         }, 300);
     }
+    
+    setTimeout(() => observeElements(), 50);
   }
 
   window.addEventListener('scroll', () => {
@@ -636,7 +658,7 @@
   function calculateDiscount(qty) {
     let packsOf6 = Math.floor(qty / 6);
     let remainder = qty % 6;
-    // Según instrucciones: 6 unidades = 48.000 de descuento (Ganancia final: 90.000, 15k c/u)
+    // Nueva regla de descuentos: 6 unidades = 48.000 de descuento
     let discount = packsOf6 * 48000; 
     
     if (remainder === 5) discount += 35000;
@@ -854,6 +876,7 @@
         <button class="${btnCls}" onclick="addDirectToCart('${esc(p.nombre)}', '${esc(p.precio)}', this)">${btnTxt}</button>
       </div>
     `}).join('');
+    setTimeout(() => observeElements(), 50);
   }
 
   let currentSearchTerm = "";
@@ -936,7 +959,7 @@
         let tagText = d.isInactiveEmpty ? 'FINALIZADA' : (d.isActive ? 'ACTIVA' : 'FINALIZADA');
 
         listContainer.innerHTML += `
-          <div class="raffle-card" style="${cardStyle} box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">
+          <div class="raffle-card reveal" style="${cardStyle} box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">
             <div class="r-header">
                <h3 class="r-title">${d.title}</h3>
                <span class="r-tag" style="${tagStyle}">${tagText}</span>
@@ -955,7 +978,7 @@
     const wc = document.getElementById('winnersContainer');
     if(allWinners.length === 0) return;
     wc.innerHTML = allWinners.map(w => `
-      <div class="w-card" style="background: var(--bg-card); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">
+      <div class="w-card reveal" style="background: var(--bg-card); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">
         <div class="w-icon-large"><i class="fa-solid fa-trophy"></i></div>
         <div>
            <div class="w-number">${w.num}</div>
@@ -963,16 +986,18 @@
         </div>
       </div>
     `).join('');
+    setTimeout(() => observeElements(), 50);
   }
 
   function openSorteoView(index) {
     const data = dynamicsDataArray[index];
     currentBoardData = data.pData;
     
-    document.getElementById('sorteoDetalleHeader').innerHTML = `
-        <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: var(--text-main); text-transform: uppercase;">${data.title}</h2>
-        ${data.desc ? `<p style="font-size:15px; color:var(--text-muted); font-weight:600; margin-top:8px;">Premio: ${data.desc}</p>` : ''}
-    `;
+    document.getElementById('sorteoDetalleTitle').innerText = data.title;
+    
+    let descHtml = data.desc ? `<b>Premio:</b> ${data.desc}` : '';
+    
+    if(data.lottery) descHtml += `<br><span style="font-size:12px; color:var(--text-main); font-weight:700; display:inline-block; margin-top:10px; text-transform:uppercase; letter-spacing: 0.5px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b style="font-size:13px;">${data.lottery}</b></span>`;
     
     let isGratis = false;
     if (data.price) {
@@ -981,12 +1006,8 @@
     }
     
     let infoHtml = `
-      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; margin: 20px; box-shadow: var(--shadow-sm);">
+      <div class="reveal" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; margin: 20px; box-shadow: var(--shadow-sm);">
     `;
-    
-    if(data.lottery) {
-        infoHtml += `<p style="font-size:12px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b style="color:var(--text-main); font-size:14px;">${data.lottery}</b></p>`;
-    }
     
     if(isGratis) {
         infoHtml += `<div style="display:inline-block; font-size:18px; font-weight:800; color:var(--text-main);">GRATIS</div>`;
@@ -996,7 +1017,6 @@
         document.getElementById('searchPuestoInput').placeholder = "Buscar un número...";
     } else {
         infoHtml += `<div style="display:inline-block; font-size:18px; font-weight:800; color:var(--accent);">Valor Puesto: ${data.price}</div>`;
-        infoHtml += `<p style="font-size:13px; color:var(--text-muted); margin-top: 15px; line-height: 1.4;">Por cada puesto tienes 3 posibilidades de ganar. Esos son los números con los que participas.</p>`;
         document.getElementById('labelLibres').innerText = "PUESTOS LIBRES";
         document.getElementById('labelOcupados').innerText = "PUESTOS OCUPADOS";
         document.getElementById('labelPendientes').innerText = "PUESTOS PENDIENTES";
@@ -1007,14 +1027,14 @@
     
     if (!isGratis) {
         infoHtml += `
-        <div style="margin: 0 20px 20px 20px; padding: 15px; background: rgba(211, 47, 47, 0.05); border-radius: 16px; border: 1px solid rgba(211, 47, 47, 0.2); text-align: center;">
+        <div class="reveal" style="margin: 0 20px 20px 20px; padding: 15px; background: rgba(211, 47, 47, 0.05); border-radius: 16px; border: 1px solid rgba(211, 47, 47, 0.2); text-align: center;">
           <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--accent);">¡Multiplica tus opciones de ganar!</h4>
           <p style="font-size: 12px; color: var(--text-main); line-height: 1.4;">Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades reales de llevarte el premio!</p>
         </div>`;
     }
     
     // Asignar al Header
-    document.getElementById('sorteoDetalleHeader').innerHTML += infoHtml;
+    document.getElementById('sorteoDetalleHeader').innerHTML = `<p style="font-size:14px; color:var(--text-muted); margin-bottom:10px;">${descHtml}</p>` + infoHtml;
     
     document.getElementById('searchPuestoInput').value = '';
     
@@ -1056,7 +1076,7 @@
          }
          
          htmlPuestos += `
-           <div class="puesto-card ${cellClass}" ${onClickAction}>
+           <div class="puesto-card ${cellClass} reveal" ${onClickAction}>
              <div class="puesto-title">${isGratis ? 'Número' : 'Puesto'} ${p.id}</div>
              <div class="puesto-nums">${displayNums}</div>
            </div>
@@ -1064,8 +1084,8 @@
        }
     });
 
-    let tableroHtml = `<h3 style="margin: 40px 0 15px 0; font-size: 15px; font-weight: 700; text-align: center; text-transform: uppercase; letter-spacing: 1px;">Tablero General</h3>`;
-    tableroHtml += `<div class="board-grid">`;
+    let tableroHtml = `<h3 class="reveal" style="margin: 40px 0 15px 0; font-size: 15px; font-weight: 700; text-align: center; text-transform: uppercase; letter-spacing: 1px;">Tablero General</h3>`;
+    tableroHtml += `<div class="board-grid reveal">`;
     for(let i = 0; i <= 99; i++) {
         const num = i < 10 ? '0' + i : '' + i;
         const p = currentBoardData.find(x => x.numeros.includes(num));
@@ -1091,6 +1111,8 @@
     document.getElementById('countLibres').innerText = libres;
     document.getElementById('countOcupados').innerText = ocupados;
     document.getElementById('countPendientes').innerText = pendientes;
+    
+    setTimeout(() => observeElements(), 50);
   }
 
   function pedirPuesto(id) {
