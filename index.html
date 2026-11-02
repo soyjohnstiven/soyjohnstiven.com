@@ -6,8 +6,8 @@
 <title>Perfumería Original</title>
 
 <!-- META TAGS PARA VISTA PREVIA EN WHATSAPP / FACEBOOK -->
-<meta property="og:title" content="Perfumería Original - Catálogo">
-<meta property="og:description" content="Descubre nuestro catálogo de perfumes, descuentos por cantidad y dinámicas exclusivas.">
+<meta property="og:title" content="Perfumería Original - Catálogo Navideño">
+<meta property="og:description" content="Descubre nuestro catálogo de perfumes, descuentos por cantidad y dinámicas exclusivas para esta Navidad.">
 <meta property="og:image" content="https://drive.google.com/uc?export=view&id=1JAuP5o53yBZ0sZBnDoKY7E1pIA0Xw7mZ">
 <meta property="og:url" content="https://www.soyjohnstiven.com">
 <meta property="og:type" content="website">
@@ -50,7 +50,8 @@
     
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-bg: rgba(28, 28, 30, 0.75);
-    --glass-shadow: 0 12px 40px rgba(255, 122, 0, 0.15);
+    /* Sombra Roja Navideña en modo oscuro */
+    --glass-shadow: 0 12px 40px rgba(211, 47, 47, 0.15);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -92,22 +93,26 @@
   }
   .top-notification.show { transform: translate(-50%, 0); }
 
+  /* ================= SPLASH NAVIDEÑO ================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
     transition: opacity 0.5s ease;
   }
   
-  .splash-icon { font-size: 85px; color: #FF7A00; margin-bottom: 15px; animation: floatingGhost 2.5s ease-in-out infinite; }
-  @keyframes floatingGhost {
+  .splash-icon { 
+    font-size: 85px; color: #D32F2F; margin-bottom: 15px; 
+    animation: floatingIcon 2.5s ease-in-out infinite; 
+  }
+  @keyframes floatingIcon {
     0% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
-    50% { transform: translateY(-15px) scale(1.05); opacity: 1; text-shadow: 0 10px 30px rgba(255, 122, 0, 0.5); }
+    50% { transform: translateY(-15px) scale(1.05); opacity: 1; text-shadow: 0 10px 30px rgba(211, 47, 47, 0.5); }
     100% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
   }
 
   .splash-greeting { 
     font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; 
-    background: linear-gradient(135deg, #FF7A00, #E65C00);
+    background: linear-gradient(135deg, #D32F2F, #D4AF37); /* Rojo y Dorado */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0; transform: scale(0.9); animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -139,20 +144,22 @@
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  .btn-ask, .btn-board { background: linear-gradient(135deg, #FF7A00, #E65C00); color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; font-size: 14px; font-weight: 800; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255, 122, 0, 0.4); transition: 0.2s; }
-  .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(255, 122, 0, 0.2); }
+  /* ================= BOTONES ROJOS PREMIUM ================= */
+  .btn-ask, .btn-board { background: linear-gradient(135deg, #D32F2F, #9A031E); color: #FFF; border: none; padding: 16px 20px; border-radius: 16px; font-size: 14px; font-weight: 800; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(211, 47, 47, 0.4); transition: 0.2s; }
+  .btn-ask:active, .btn-board:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(211, 47, 47, 0.2); }
 
   .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
   .action-box { border-radius: 24px; padding: 20px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; color: var(--text-main); transition: transform 0.2s, box-shadow 0.3s; cursor: pointer; min-height: 135px; position: relative; overflow: hidden; }
-  .action-box:hover, .action-box:active { transform: scale(0.97); box-shadow: 0 12px 30px rgba(255, 122, 0, 0.2); border-color: rgba(255, 122, 0, 0.4); }
+  .action-box:hover, .action-box:active { transform: scale(0.97); box-shadow: 0 12px 30px rgba(211, 47, 47, 0.2); border-color: rgba(211, 47, 47, 0.4); }
   .ab-icon { font-size: 34px; margin-bottom: 12px; color: var(--apple-blue); transition: 0.3s; position: relative; z-index: 1;}
-  .action-box:hover .ab-icon { transform: scale(1.1); color: #FF7A00; }
+  .action-box:hover .ab-icon { transform: scale(1.1); color: #D32F2F; }
   .ab-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; position: relative; z-index: 1;}
   .ab-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3; position: relative; z-index: 1;}
   
-  .corner-ornament { position: absolute; bottom: -15px; right: -15px; font-size: 80px; color: transparent; -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.25); opacity: 0.8; transform: rotate(-10deg); pointer-events: none; z-index: 0; transition: 0.3s ease; }
-  .action-box:hover .corner-ornament { transform: rotate(0deg) scale(1.1); -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.4); }
-  body.dark-mode .corner-ornament { -webkit-text-stroke: 1.5px rgba(255, 122, 0, 0.2); }
+  /* ================= ICONOS FANTASMAS A NAVIDAD ================= */
+  .corner-ornament { position: absolute; bottom: -15px; right: -15px; font-size: 80px; color: transparent; -webkit-text-stroke: 1.5px rgba(211, 47, 47, 0.25); opacity: 0.8; transform: rotate(-10deg); pointer-events: none; z-index: 0; transition: 0.3s ease; }
+  .action-box:hover .corner-ornament { transform: rotate(0deg) scale(1.1); -webkit-text-stroke: 1.5px rgba(211, 47, 47, 0.4); }
+  body.dark-mode .corner-ornament { -webkit-text-stroke: 1.5px rgba(211, 47, 47, 0.2); }
 
   .status-box { background: var(--apple-blue-light); border-color: rgba(51, 153, 255, 0.3);}
   body.dark-mode .status-box { background: rgba(51, 153, 255, 0.1); border-color: rgba(51, 153, 255, 0.2); }
@@ -214,7 +221,7 @@
   .winners-scroll { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px;}
   .w-card { min-width: 320px; scroll-snap-align: start; padding: 30px; border-radius: 28px; display: flex; gap: 25px; align-items: center;}
   .w-icon-container { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .w-icon-large { font-size: 45px; color: #FFCC00; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(255,204,0,0.3));}
+  .w-icon-large { font-size: 45px; color: #FFD700; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(255,215,0,0.3));}
   .w-number { font-size: 32px; font-weight: 800; color: var(--apple-blue); line-height: 1; letter-spacing: -1px;}
   .w-info h4 { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text-main); letter-spacing: -0.3px;}
   .w-info p { font-size: 14px; color: var(--text-muted); font-weight: 500; line-height: 1.4;}
@@ -250,7 +257,7 @@
   .b-cell.libre:active { transform: scale(0.95); }
   .b-cell.ocupado { background: rgba(142, 142, 147, 0.15); color: var(--text-muted); pointer-events: none; border-color: transparent;}
   .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
-  .b-cell.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); color: #FFCC00; }
+  .b-cell.pendiente { background: rgba(255, 204, 0, 0.1); border-color: rgba(255, 204, 0, 0.3); color: #FFD700; }
 
 </style>
 </head>
@@ -262,7 +269,7 @@
 </div>
 
 <div id="splash">
-  <i class="fa-solid fa-ghost splash-icon"></i>
+  <i class="fa-solid fa-tree splash-icon"></i>
   <h1 class="splash-greeting" id="greetingText">¡Buenos días!</h1>
   <p class="splash-user">@soyjohnstiven</p>
 </div>
@@ -292,7 +299,7 @@
 
   <div class="ios-cart" id="appleCart" onclick="openCartSheet()">
     <div class="cart-text"><i class="fa-solid fa-bag-shopping" style="margin-right:8px;"></i> <span id="cartCount">0</span> SELECCIONADOS</div>
-    <button class="btn-cart" style="color: #FF7A00;">VER PEDIDO</button>
+    <button class="btn-cart" style="color: #D32F2F;">VER PEDIDO</button>
   </div>
 
   <div class="modal-overlay" id="sheetOverlay" onclick="closeSheets(event)"></div>
@@ -312,21 +319,21 @@
 
     <div class="action-grid reveal">
       <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="action-box glass-effect">
-        <i class="fa-solid fa-spider corner-ornament"></i>
+        <i class="fa-solid fa-gift corner-ornament"></i>
         <div>
           <div class="ab-title">Catálogo PDF</div>
           <div class="ab-desc">Colección completa</div>
         </div>
       </a>
       <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="action-box glass-effect">
-        <i class="fa-solid fa-ghost corner-ornament"></i>
+        <i class="fa-solid fa-sleigh corner-ornament"></i>
         <div>
           <div class="ab-title">Entrega Rápida</div>
           <div class="ab-desc">Stock local Medellín</div>
         </div>
       </a>
       <div class="action-box glass-effect" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
-        <i class="fa-solid fa-skull corner-ornament"></i>
+        <i class="fa-solid fa-snowflake corner-ornament"></i>
         <div>
           <div class="ab-title">Políticas y Envíos</div>
           <div class="ab-desc">Condiciones mayoristas</div>
@@ -363,7 +370,7 @@
 
   <section id="viewSorteos" class="view">
     <h1 class="large-title reveal">Dinámicas</h1>
-    
+
     <div id="sorteosList">
         <div class="loader-container">
             <i class="fa-solid fa-spinner loader-spinner"></i>
@@ -417,7 +424,7 @@
         </div>
         <ul class="ic-list">
           <li><b>Envíos Nacionales:</b> Se envían por <b>Interrapidísimo</b> a partir de <b>$18,500</b>. <br><span style="color: var(--apple-blue); font-weight: 600;">(Nota: Los precios mayoristas aplican EXCLUSIVAMENTE por medio de envíos, sin importar tu ciudad).</span></li>
-          <li><b>Domicilios GRATIS Medellín:</b> Se realizan estrictamente de 10:00 a.m. a 10:00 p.m. <br><span style="color: #FF3B30; font-weight: 600;">(Aplica SOLO para compras a precio detal. Las compras mayoristas en Medellín se manejan únicamente por envío).</span></li>
+          <li><b>Domicilios GRATIS Medellín:</b> Se realizan estrictamente de 10:00 a.m. a 10:00 p.m. <br><span style="color: #D32F2F; font-weight: 600;">(Aplica SOLO para compras a precio detal. Las compras mayoristas en Medellín se manejan únicamente por envío).</span></li>
         </ul>
       </div>
     </div>
@@ -427,20 +434,18 @@
     <h1 class="large-title reveal" id="sorteoDetalleTitle">Tablero</h1>
     <p style="padding: 0 20px; color: var(--text-muted); margin-top: -15px; margin-bottom: 25px; font-size: 15px;" id="sorteoDetalleDesc"></p>
 
-    <!-- EXPLICACIÓN DE CHANCES DE GANAR -->
     <div class="reveal glass-effect" style="margin: 0 20px 20px 20px; padding: 16px; border-radius: 20px; border: 1px solid rgba(51, 153, 255, 0.4); background: linear-gradient(135deg, rgba(51, 153, 255, 0.1), rgba(51, 153, 255, 0.02)); text-align: center;">
       <h4 style="color: var(--apple-blue); font-size: 15px; font-weight: 800; margin-bottom: 6px;">🎯 ¡Multiplica tus opciones de ganar!</h4>
       <p style="font-size: 13px; color: var(--text-main); line-height: 1.4;">
-        Los números que ves dentro de cada puesto son tus opciones reales para participar en el sorteo. ¡Al elegir un solo puesto, te llevas varias posibilidades de llevarte el premio!
+        Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades de llevarte el premio! 🎄✨
       </p>
     </div>
 
-    <!-- Conteo Real de Puestos -->
     <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 20px 20px; font-weight: 700; font-size: 12px; text-align:center; line-height: 1.4;"></div>
 
     <div class="search-container reveal">
-      <div class="search-box glass-effect" style="border: 1px solid rgba(255, 122, 0, 0.5); box-shadow: 0 8px 25px rgba(255, 122, 0, 0.1);">
-        <i class="fa-solid fa-magnifying-glass" style="color: #FF7A00;"></i>
+      <div class="search-box glass-effect" style="border: 1px solid rgba(211, 47, 47, 0.5); box-shadow: 0 8px 25px rgba(211, 47, 47, 0.1);">
+        <i class="fa-solid fa-magnifying-glass" style="color: #D32F2F;"></i>
         <input type="text" id="searchPuestoInput" placeholder="Buscar un puesto o número específico...">
       </div>
     </div>
@@ -451,7 +456,6 @@
       <div style="display:flex; align-items:center; gap:5px;"><div style="width:14px; height:14px; border-radius:4px; background:rgba(255, 204, 0, 0.1);"></div> Pendiente</div>
     </div>
 
-    <!-- Contenedor donde se inyectarán ambos tableros (Puestos + 00-99) -->
     <div class="reveal" id="boardGridDetalle" style="padding: 0 20px; margin-bottom: 30px;"></div>
 
     <div style="padding: 0 20px;">
@@ -465,9 +469,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     
     const hour = new Date().getHours();
-    let greeting = "¡Feliz Noche!";
-    if (hour >= 6 && hour < 12) greeting = "¡Buenos días!";
-    else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes!";
+    let greeting = "¡Feliz Noche! ✨";
+    if (hour >= 6 && hour < 12) greeting = "¡Buenos días! 🎄";
+    else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes! ⛄";
     document.getElementById('greetingText').innerText = greeting;
 
     const statsBox = document.getElementById('statsBox');
@@ -481,10 +485,10 @@
     
     function renderStats() {
        statsBox.innerHTML = `
-         <i class="fa-solid fa-moon corner-ornament"></i>
+         <i class="fa-solid fa-tree corner-ornament"></i>
          <div style="display:flex; flex-direction:column; gap: 8px; width: 100%; align-items:center; justify-content:center; height:100%; position:relative; z-index:1;">
-           <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span id="vCount">${ventasDia.toLocaleString('es-CO')}</span></div>
-           <div style="font-size: 13px; font-weight: 700; color: #FF7A00;">EN LÍNEA: <span id="uCount">${usuarios}</span></div>
+           <div style="font-size: 16px; font-weight: 800; color: var(--text-main);">VENTAS: <span id="vCount">${ventasDia.toLocaleString('es-CO')}</span> 🎁</div>
+           <div style="font-size: 13px; font-weight: 700; color: #D32F2F;">EN LÍNEA: <span id="uCount">${usuarios}</span> ✨</div>
          </div>
        `;
     }
@@ -515,7 +519,7 @@
     setTimeout(() => {
       document.getElementById('promoOverlay').classList.add('active');
       document.getElementById('promoModal').classList.add('active');
-    }, 17000);
+    }, 5000);
   });
 
   function closePromo() {
@@ -524,7 +528,7 @@
   }
   function goPromoWA() {
     closePromo();
-    openWhatsApp("Hola! Quiero agregarlos a mis contactos para ver los estados, precios y promociones.");
+    openWhatsApp("Hola! Quiero agregarlos a mis contactos para ver los estados, precios y promociones navideñas.");
   }
 
   function toggleTheme() {
@@ -572,7 +576,8 @@
     
     if (viewId === 'sorteos') {
         setTimeout(() => {
-            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#FF7A00', '#000000', '#9C27B0', '#FFFFFF'] });
+            // Confeti colores navideños: Rojo, Verde, Dorado, Blanco
+            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#D32F2F', '#4CAF50', '#FFD700', '#FFFFFF'] });
         }, 300);
     }
     
@@ -715,7 +720,7 @@
     let msg = `Hola! Quiero este pedido:\n\n${listStr}\n`;
     msg += `*Subtotal:* $${subtotal.toLocaleString('es-CO')}\n`;
     if (discount > 0) msg += `*Descuento Especial:* -$${discount.toLocaleString('es-CO')}\n`;
-    msg += `*Total a Pagar:* $${total.toLocaleString('es-CO')}\n\nQuedo atento(a) para confirmar.`;
+    msg += `*Total a Pagar:* $${total.toLocaleString('es-CO')}\n\nQuedo atento(a) para confirmar mi regalo de navidad! 🎄`;
 
     closeSheets();
     openWhatsApp(msg);
@@ -941,7 +946,6 @@
     let htmlPuestos = '';
     let libres = 0; let ocupados = 0; let pendientes = 0;
 
-    // 1. GENERAR TARJETAS DE LOS PUESTOS (Basado en el Excel)
     currentBoardData.forEach(p => {
        if(p.estado === 'ocupado') ocupados++;
        else if(p.estado === 'pendiente') pendientes++;
@@ -966,7 +970,6 @@
        }
     });
 
-    // 2. GENERAR TABLERO VISUAL 00 AL 99 (Referencia de números ocupados)
     let tableroHtml = `<h3 style="margin: 45px 0 15px 0; font-size: 18px; font-weight: 800; text-align: center; letter-spacing: -0.5px;">Tablero General (00-99)</h3>`;
     tableroHtml += `<div class="board-grid">`;
     for(let i = 0; i <= 99; i++) {
@@ -976,7 +979,6 @@
         let matchOpacity = (searchTerm && !num.includes(searchTerm)) ? '0.2' : '1';
 
         if(p) {
-            // Si el número pertenece a un puesto ocupado, se tacha con X
             if(p.estado === 'ocupado') {
                 tableroHtml += `<div class="b-cell ocupado glass-effect" style="opacity:${matchOpacity};">X<span>${num}</span></div>`;
             } else if(p.estado === 'pendiente') {
@@ -985,28 +987,26 @@
                 tableroHtml += `<div class="b-cell libre glass-effect" style="opacity:${matchOpacity};" onclick="pedirPuesto('${p.id}')">${num}</div>`;
             }
         } else {
-            // Si el número no pertenece a nadie
             tableroHtml += `<div class="b-cell libre glass-effect" style="opacity:${matchOpacity};" onclick="pedirNumero('${num}')">${num}</div>`;
         }
     }
     tableroHtml += `</div>`;
     
-    // Unir ambos tableros en pantalla
     board.innerHTML = `<div class="puestos-grid">${htmlPuestos}</div>` + tableroHtml;
     
     resumen.innerHTML = `
       <div style="color:var(--apple-blue);">PUESTOS LIBRES<br><span style="font-size:18px;">${libres}</span></div>
       <div style="color:var(--text-muted);">PUESTOS OCUPADOS<br><span style="font-size:18px;">${ocupados}</span></div>
-      <div style="color:#FFCC00;">PUESTOS PENDIENTES<br><span style="font-size:18px;">${pendientes}</span></div>
+      <div style="color:#FFD700;">PUESTOS PENDIENTES<br><span style="font-size:18px;">${pendientes}</span></div>
     `;
   }
 
   function pedirPuesto(id) {
-    openWhatsApp(`Hola! Quiero este puesto en la dinámica:\n- Puesto número ${id}\n- En cuánto queda hoy?`);
+    openWhatsApp(`¡Hola! 🎄 Quiero participar en la dinámica navideña.\n\n📍 Me interesa el *Puesto ${id}*.\n💳 ¡Mándame la cuenta para pagarte de una vez y asegurar mi regalo! ✨`);
   }
   
   function pedirNumero(num) {
-    openWhatsApp(`Hola! Me interesa el número ${num} de la dinámica.\n- ¿Cómo hago para participar?`);
+    openWhatsApp(`Hola! Me interesa el número ${num} de la dinámica navideña.\n- ¿Cómo hago para participar?`);
   }
 
 </script>
