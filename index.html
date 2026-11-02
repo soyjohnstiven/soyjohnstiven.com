@@ -7,7 +7,7 @@
 
 <!-- META TAGS -->
 <meta property="og:title" content="Perfumería Original - Catálogo Navideño">
-<meta property="og:description" content="Descubre nuestra colección de fragancias, descuentos por cantidad y dinámicas exclusivas para esta Navidad.">
+<meta property="og:description" content="Descubre nuestra colección de fragancias, descuentos especiales y dinámicas exclusivas para esta temporada.">
 <meta property="og:url" content="https://www.soyjohnstiven.com">
 <meta property="og:type" content="website">
 
@@ -22,7 +22,7 @@
 
 <style>
   /* =========================================
-     ESTÉTICA NAVIDEÑA (Rojo, Dorado y Blanco)
+     ESTÉTICA NAVIDEÑA (Rojo, Dorado y Blanco) - Sin Emojis
   ========================================= */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
@@ -96,9 +96,6 @@
   .splash-greeting { 
     font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: var(--accent);
   }
-  .splash-user { 
-    font-size: 14px; font-weight: 600; color: var(--text-muted); margin-top: 5px;
-  }
 
   /* ================= TOP BAR ================= */
   .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; transition: 0.3s; background: var(--bg-card); border-bottom: 1px solid var(--border-color); }
@@ -125,21 +122,20 @@
   .nav-item i { font-size: 20px; transition: 0.3s; }
   .nav-item.active { color: var(--accent-text); background: var(--accent); margin: 6px; height: calc(100% - 12px); box-shadow: var(--shadow-sm); }
 
-  .app-container { max-width: 800px; margin: 0 auto; padding: 0; }
+  .app-container { max-width: 1000px; margin: 0 auto; padding: 0; }
   
-  /* Animación de entrada de vista mucho más segura */
   .view { display: none; animation: fadeView 0.3s ease; padding-bottom: 80px;}
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   /* ================= BOTONES Y ACCIONES ================= */
-  .btn-primary { background: var(--accent); color: var(--accent-text); border: none; padding: 16px 24px; border-radius: 100px; font-size: 14px; font-weight: 700; width: 100%; max-width: 400px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px;}
+  .btn-primary { background: var(--accent); color: var(--accent-text); border: none; padding: 14px 30px; border-radius: 100px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3); display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
   .btn-primary:active { transform: scale(0.96); opacity: 0.9;}
 
   .btn-secondary { background: var(--bg-base); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s; width: 100%; display: flex; justify-content: center;}
   .btn-secondary:active { transform: scale(0.96); background: var(--border-color); }
 
-  /* ================= CATÁLOGOS GRID (MEJORADO) ================= */
+  /* ================= CATÁLOGOS GRID ================= */
   .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-bottom: 25px; }
   .catalog-card { background: var(--bg-card); border-radius: 20px; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; color: var(--text-main); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: transform 0.2s; cursor: pointer; min-height: 140px;}
   .catalog-card:active { transform: scale(0.96); }
@@ -153,9 +149,13 @@
   .search-box i { color: var(--accent); font-size: 16px; }
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
   .search-box input::placeholder { color: var(--text-muted); font-weight: 400; }
+  
+  /* Nota del buscador modificada (más pequeña y cursiva) */
+  .search-note { font-size: 11px; font-style: italic; color: var(--text-muted); text-align: center; margin-top: 12px; font-weight: 500; line-height: 1.4; padding: 0 10px;}
+  
   .empty-state { text-align: center; padding: 40px 20px; }
 
-  /* ================= PRODUCTOS (CARRUSEL) ================= */
+  /* ================= PRODUCTOS (CARRUSEL RESPONSIVE) ================= */
   .carousel-wrapper { position: relative; width: 100%; margin-bottom: 30px; }
   .product-grid { display: flex; gap: 15px; overflow-x: auto; padding: 0 20px 15px 20px; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
   .product-grid::-webkit-scrollbar { display: none; }
@@ -165,124 +165,135 @@
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   
   .prod-title { font-size: 13px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 36px;}
-  .prod-prices { display: flex; align-items: center; gap: 8px; margin-bottom: 12px;}
+  .prod-prices { display: flex; align-items: center; gap: 8px; margin-bottom: 15px;}
   .price-main { font-size: 16px; font-weight: 800; color: var(--accent); }
   .price-fake { font-size: 11px; font-weight: 500; color: var(--text-muted); text-decoration: line-through;}
   
-  .btn-add { background: var(--accent-light); color: var(--accent); border: none; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; margin-top: auto; text-transform: uppercase; letter-spacing: 0.5px;}
+  .btn-add { background: var(--accent-light); color: var(--accent); border: none; padding: 10px 12px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; margin-top: auto; text-transform: uppercase; letter-spacing: 0.5px;}
   .btn-add.selected { background: var(--accent); color: var(--accent-text); }
   
-  .carousel-btn { position: absolute; top: 40%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md); color: var(--text-main); font-size: 14px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s; opacity: 0.9; }
-  .carousel-btn:active { transform: translateY(-50%) scale(0.9); background: var(--accent); color: var(--accent-text);}
-  .carousel-btn.left { left: 5px; }
-  .carousel-btn.right { right: 5px; }
+  /* FLECHAS DEL CARRUSEL (Adaptables) */
+  .carousel-btn { 
+    position: absolute; top: 40%; transform: translateY(-50%); 
+    width: 45px; height: 45px; border-radius: 50%; 
+    background: var(--bg-card); border: 1px solid var(--border-color); 
+    box-shadow: var(--shadow-md); color: var(--accent); font-size: 18px; 
+    cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; 
+    transition: 0.3s; 
+  }
+  .carousel-btn:hover { background: var(--accent); color: #FFF; }
+  .carousel-btn:active { transform: translateY(-50%) scale(0.9); }
+  .carousel-btn.left { left: -15px; }
+  .carousel-btn.right { right: -15px; }
 
-  /* ================= CARRITO FLOTANTE ================= */
-  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px); right: 20px; width: 60px; height: 60px; background: var(--accent); color: var(--accent-text); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 10px 30px rgba(211, 47, 47, 0.4); z-index: 1500; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(0); opacity: 0;}
+  /* Ocultar flechas en dispositivos móviles (el scroll táctil es suficiente) */
+  @media (max-width: 768px) {
+      .carousel-btn { display: none; }
+  }
+
+  /* ================= CARRITO FLOTANTE (Redondo en esquina) ================= */
+  .ios-cart { 
+      position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; 
+      width: 60px; height: 60px; border-radius: 50%; 
+      background: #D32F2F; color: #FFF; 
+      display: flex; justify-content: center; align-items: center; font-size: 24px;
+      box-shadow: 0 10px 30px rgba(211, 47, 47, 0.4); 
+      z-index: 1500; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: scale(0); opacity: 0; 
+  }
   .ios-cart.show { transform: scale(1); opacity: 1; }
-  .cart-badge { position: absolute; top: 0px; right: 0px; background: var(--gold); color: #000; font-size: 11px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
+  .cart-badge { position: absolute; top: 0px; right: 0px; background: #FFD700; color: #000; font-size: 11px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
 
-  /* ================= MODALES Y SHEETS ================= */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
+  /* ================= BOTTOM SHEETS (DRAWERS) ================= */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.3s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
-  .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 32px 32px 0 0; padding: 25px 20px 40px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column; background: var(--bg-card); box-shadow: 0 -10px 40px rgba(0,0,0,0.1);}
-  @media(min-width: 768px) { .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 32px; bottom: 20px; max-height: 80vh; } }
+  .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 30px 30px 0 0; padding: 25px 20px 40px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column; background: var(--bg-card); border-top: 1px solid var(--border-color); box-shadow: 0 -10px 40px rgba(0,0,0,0.2);}
+  @media(min-width: 768px) { .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 30px; bottom: 20px; max-height: 80vh; } }
   .bottom-sheet.active { transform: translateY(0); }
   .sheet-handle { width: 40px; height: 5px; background: var(--border-color); border-radius: 5px; margin: 0 auto 20px auto; flex-shrink: 0; }
   
   #cartItemsContainer { overflow-y: auto; padding-right: 5px; flex-grow: 1; margin-bottom: 10px; max-height: 35vh;}
   .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border-color);}
   .cart-item-info { flex: 1; margin-right: 15px; }
-  .cart-item-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; line-height: 1.3;}
+  .cart-item-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;}
   .cart-item-price { font-size: 12px; color: var(--text-muted); font-weight: 500;}
-  .cart-controls { display: flex; align-items: center; gap: 10px;}
-  .c-btn-group { display: flex; align-items: center; gap: 12px; background: var(--accent-light); border-radius: 100px; padding: 6px 14px;}
-  .c-btn { background: none; border: none; font-size: 16px; color: var(--text-main); cursor: pointer; font-weight: bold;}
-  .c-qty { font-size: 14px; font-weight: 700; min-width: 20px; text-align: center;}
-  .c-btn-trash { color: #FF3B30; background: none; border: none; font-size: 18px; cursor: pointer; padding: 5px;}
+  .cart-controls { display: flex; align-items: center; gap: 10px; background: rgba(142, 142, 147, 0.1); border-radius: 30px; padding: 6px 12px;}
+  .c-btn { background: none; border: none; font-size: 18px; color: var(--accent); cursor: pointer; font-weight: bold;}
+  .c-qty { font-size: 15px; font-weight: 700; min-width: 20px; text-align: center;}
+  .c-btn-delete { background: rgba(255, 59, 48, 0.1); color: #FF3B30; border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+  .c-btn-delete:active { transform: scale(0.9); }
 
-  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 90%; max-width: 360px; border-radius: 28px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; background: var(--bg-card); box-shadow: var(--shadow-md); border: 1px solid var(--border-color);}
+  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 90%; max-width: 400px; border-radius: 20px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.3s; background: var(--bg-card); box-shadow: var(--shadow-md); border: 1px solid var(--border-color);}
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%);}
-  .close-cm { position: absolute; top: 15px; right: 15px; background: var(--bg-base); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-muted); cursor: pointer;}
+  .close-cm { position: absolute; top: 15px; right: 15px; background: rgba(142, 142, 147, 0.15); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-main); cursor: pointer;}
   
   .styled-select { width: 100%; padding: 14px; margin-bottom: 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-size: 14px; outline: none; font-weight: 500; font-family: inherit;}
 
   /* ================= DINÁMICAS ================= */
-  .raffle-card { background: var(--bg-card); border-radius: 24px; margin: 0 20px 20px 20px; padding: 30px 25px; text-align: left; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); transition: 0.3s;}
+  .raffle-card { background: var(--bg-card); border-radius: 20px; margin: 0 20px 25px 20px; padding: 30px 25px; text-align: left; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); transition: 0.3s;}
   .r-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
   .r-tag { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
   .r-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;}
   
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
-  .w-card { min-width: 280px; scroll-snap-align: start; background: var(--bg-card); padding: 25px; border-radius: 20px; display: flex; gap: 20px; align-items: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
-  .w-icon-large { font-size: 30px; color: var(--gold); margin-bottom: 0; opacity: 0.9;}
-  .w-number { font-size: 26px; font-weight: 800; color: var(--accent); line-height: 1;}
-  .w-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+  .w-card { min-width: 280px; scroll-snap-align: start; background: var(--bg-card); padding: 20px; border-radius: 16px; display: flex; gap: 20px; align-items: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
+  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0; filter: drop-shadow(0 4px 10px rgba(212,175,55,0.3));}
+  .w-number { font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1;}
+  .w-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
   .w-info p { font-size: 13px; color: var(--text-muted); font-weight: 400;}
 
   /* ================= INFO LIST ================= */
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
-  .info-card-large { background: var(--bg-card); border-radius: 24px; padding: 25px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
+  .info-card-large { background: var(--bg-card); border-radius: 20px; padding: 25px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
   .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px;}
-  .ic-icon-box { width: 45px; height: 45px; background: var(--bg-base); color: var(--text-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px;}
+  .ic-icon-box { width: 45px; height: 45px; background: var(--bg-base); color: var(--text-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;}
   .ic-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px;}
-  .ic-list { list-style: none; padding: 0; font-size: 13px; color: var(--text-muted); line-height: 1.6;}
-  .ic-list li { margin-bottom: 12px; }
+  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
+  .ic-list li { margin-bottom: 10px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
   /* TABLERO DE PUESTOS / NÚMEROS */
   .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; }
   .puesto-card { background: var(--bg-card); border-radius: 12px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--border-color); }
-  .puesto-card.ocupado { background: var(--accent-light); opacity: 0.4; pointer-events: none; border-color: transparent;}
+  .puesto-card.ocupado { background: rgba(142, 142, 147, 0.12); opacity: 0.5; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
   .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); border-style: dashed; }
   .puesto-card.libre { border-color: var(--text-main); box-shadow: var(--shadow-sm); }
   .puesto-card.libre:active { transform: scale(0.95); background: var(--bg-base); }
-  .puesto-title { font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; text-transform: uppercase;}
-  .puesto-nums { font-size: 10px; color: var(--text-muted); line-height: 1.2; font-weight: 500;}
+  .puesto-title { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+  .puesto-nums { font-size: 11px; color: var(--text-muted); line-height: 1.2; font-weight: 500;}
 
   /* TABLERO GENERAL (00-99) */
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 10px;}
-  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--bg-base); transition: 0.2s;}
+  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; background: var(--bg-base); transition: 0.2s; border: 1px solid var(--border-color);}
   .b-cell.libre { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
   .b-cell.libre:active { transform: scale(0.92); opacity: 0.7; }
   .b-cell.ocupado { background: transparent; color: var(--text-muted); pointer-events: none; border-color: transparent; opacity: 0.3;}
-  .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
+  .b-cell.ocupado span { font-size: 10px; text-decoration: line-through;}
   .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); }
 
 </style>
 </head>
 <body>
 
-<!-- SPLASH SCREEN NAVIDEÑO (Sin fotos, elegante) -->
 <div id="splash">
-  <i class="fa-solid fa-tree splash-icon"></i>
+  <i class="fa-solid fa-gift splash-icon"></i>
   <h1 class="splash-greeting">Perfumería</h1>
-</div>
-
-<!-- Modal de Políticas (Aparece a los 5s) -->
-<div class="modal-overlay" id="promoOverlay"></div>
-<div class="center-modal" id="promoModal">
-  <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
-  <i class="fa-solid fa-shield-halved" style="font-size: 45px; color: var(--text-main); margin-bottom: 20px;"></i>
-  <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; line-height: 1.2;">POLÍTICAS Y ENVÍOS</h3>
-  <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">LEE LAS POLÍTICAS Y ENVÍOS para que entiendas cómo es nuestro proceso de trabajo.</p>
-  <button class="btn-primary" style="background: var(--text-main); color: var(--bg-card); box-shadow: none;" onclick="closePromo()">ENTENDIDO</button>
 </div>
 
 <!-- Modal Negociación (Asesoría) -->
 <div class="modal-overlay" id="negociarOverlay"></div>
 <div class="center-modal" id="negociarModal">
   <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
-  <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: #25D366; margin-bottom: 20px;"></i>
-  <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">Atención Personalizada</h3>
-  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
+  <i class="fa-brands fa-whatsapp" style="font-size: 40px; color: #25D366; margin-bottom: 20px;"></i>
+  <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
+  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
   
   <select id="motivoConsulta" class="styled-select">
-      <option value="1. Mejores Precios">1. Mejores Precios</option>
-      <option value="2. Asesoría para comprar un perfume">2. Asesoría para comprar un perfume</option>
-      <option value="3. Me gustaría aprender a emprender">3. Me gustaría aprender a emprender</option>
+      <option value="Quiero obtener mejores precios">Quiero obtener mejores precios</option>
+      <option value="Ayuda para elegir un perfume">Ayuda para elegir un perfume</option>
+      <option value="Quiero emprender, ¿me enseñas?">Quiero emprender, ¿me enseñas?</option>
   </select>
   
   <button class="btn-primary" onclick="sendNegociarWA()">INICIAR CHAT</button>
@@ -292,7 +303,7 @@
   
   <header class="top-bar" id="mainHeader">
     <div class="top-brand">
-       <i class="fa-solid fa-certificate" style="font-size: 12px; color: var(--accent);"></i> John Stiven
+       <i class="fa-solid fa-certificate" style="font-size: 14px; color: var(--accent);"></i> John Stiven
     </div>
     <div class="top-stats-container">
         <div class="header-stats">
@@ -305,7 +316,7 @@
 
   <nav class="bottom-nav">
     <div class="nav-item active" onclick="switchView('tienda', 'Inicio', this)">
-        <i class="fa-solid fa-layer-group"></i><span>Inicio</span>
+        <i class="fa-solid fa-house"></i><span>Inicio</span>
     </div>
     <div class="nav-item" onclick="switchView('sorteos', 'Dinámicas', this)">
         <i class="fa-solid fa-ticket"></i><span>Dinámicas</span>
@@ -324,19 +335,20 @@
 
   <div class="bottom-sheet" id="sheetCart">
     <div class="sheet-handle"></div>
-    <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; flex-shrink: 0;">Tu Selección</h3>
+    <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; flex-shrink: 0;">Tu Selección</h3>
     
     <div id="cartItemsContainer"></div>
     <div id="cartSummaryContainer" style="flex-shrink: 0; margin-bottom: 20px;"></div>
     
-    <button class="btn-primary" style="flex-shrink: 0; width: 100%;" onclick="sendCartWA()">
+    <button class="btn-primary" style="flex-shrink: 0; width: 100%; max-width: 100%; border-radius: 16px;" onclick="sendCartWA()">
       <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> ENVIAR PEDIDO
     </button>
   </div>
 
+  <!-- ================= VISTA PRINCIPAL (INICIO) ================= -->
   <section id="viewTienda" class="view active">
     
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 20px);">Inicio</h1>
+    <h1 class="large-title">Inicio</h1>
     <div style="margin: 0 20px 25px 20px; font-size: 13px; color: var(--text-muted); line-height: 1.4;">
        <strong>Nota:</strong> Nuestro catálogo muestra precios al detal. Si buscas precios más favorables, escríbeme para negociar.
     </div>
@@ -346,13 +358,12 @@
       <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="catalog-card">
         <div class="cc-icon"><i class="fa-regular fa-file-pdf"></i></div>
         <h3 class="cc-title">CATÁLOGO PDF</h3>
-        <p class="cc-desc">Colección Completa</p>
       </a>
       
       <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="catalog-card">
         <div class="cc-icon" style="color: var(--accent);"><i class="fa-solid fa-motorcycle"></i></div>
-        <h3 class="cc-title">MEDELLÍN</h3>
-        <p class="cc-desc">Entrega Inmediata</p>
+        <div class="cc-desc">PERFUMES PARA ENTREGA INMEDIATA</div>
+        <h3 class="cc-title" style="margin-top: 6px;">Entregas en Medellín</h3>
       </a>
     </div>
 
@@ -369,55 +380,38 @@
       
       <!-- CARRUSEL DE PRODUCTOS -->
       <div class="carousel-wrapper">
-          <button class="carousel-btn left" onclick="scrollProducts(-220)"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="carousel-btn left" onclick="scrollProducts(-240)"><i class="fa-solid fa-chevron-left"></i></button>
           <div class="product-grid" id="catalogGrid">
             <div class="loader-container" style="min-width: 100%;">
                 <i class="fa-solid fa-spinner loader-spinner"></i>
                 <p style="font-weight: 500; font-size: 14px;">Cargando productos...</p>
             </div>
           </div>
-          <button class="carousel-btn right" onclick="scrollProducts(220)"><i class="fa-solid fa-chevron-right"></i></button>
+          <button class="carousel-btn right" onclick="scrollProducts(240)"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
     </div>
 
-    <!-- TARJETA CONTACTO DEBAJO DEL CARRUSEL -->
-    <div style="margin: 10px 20px 30px 20px; padding: 25px; background: var(--bg-card); border-radius: 20px; text-align: center; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-        <i class="fa-brands fa-whatsapp" style="font-size: 32px; color: var(--text-main); margin-bottom: 12px;"></i>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 8px;">¿Buscas atención personalizada?</h3>
-        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">Escríbeme para atención personalizada, asesoría o para negociar compras al por mayor.</p>
-        <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base);" onclick="openNegociar()">Contactar</button>
+    <!-- TARJETA CONTACTO DEBAJO DEL CARRUSEL (Centrada) -->
+    <div style="margin: 10px 20px 30px 20px; padding: 30px 25px; background: var(--bg-card); border-radius: 20px; text-align: center; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+        <i class="fa-solid fa-headset" style="font-size: 36px; color: var(--text-main); margin-bottom: 15px;"></i>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">¿Buscas atención personalizada?</h3>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Escríbeme para atención personalizada, asesoría o para negociar compras al por mayor.</p>
+        <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base); width: auto; padding: 16px 35px; margin: 0 auto; display: inline-flex;" onclick="openNegociar()">Contactar</button>
     </div>
 
-    <div class="empty-state" id="emptyState" style="display: none;">
-      <h3 style="margin-bottom:15px; font-weight:600; font-size: 16px;">Sin resultados</h3>
-      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Comunícate por WhatsApp para verificar disponibilidad.</p>
-      <button class="btn-primary" onclick="askAvailability()">Preguntar disponibilidad</button>
-    </div>
-  </section>
-
-  <section id="viewSorteos" class="view">
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
-    
-    <div id="sorteosList">
-        <div class="loader-container">
-            <i class="fa-solid fa-spinner loader-spinner"></i>
-            <p style="font-weight: 500; font-size: 14px;">Actualizando eventos...</p>
-        </div>
-    </div>
-
-    <h2 class="section-title">Ganadores Anteriores</h2>
-    <div class="carousel-wrapper">
-      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
-      <div class="winners-scroll" id="winnersContainer"></div>
-      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <section id="viewInfo" class="view">
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Información</h1>
-
+    <!-- TODAS LAS TARJETAS DE INFORMACIÓN MOVÍDAS AQUÍ AL FINAL DEL INICIO -->
     <div class="info-cards-container">
-        
+      
+      <!-- Comunidad VIP -->
+      <div class="info-card-large" style="cursor:pointer;" onclick="openWhatsApp('Hola, quiero agregarlos a mis contactos para ver los estados y promociones exclusivas.')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: rgba(37, 211, 102, 0.1); color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
+          <h3 class="ic-title">Comunidad VIP</h3>
+        </div>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
+      </div>
+
+      <!-- TikTok -->
       <div class="info-card-large" style="cursor:pointer; background: #000; color: #FFF; border: none;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
         <div class="ic-header">
           <div class="ic-icon-box" style="background: #FFF; color: #000;"><i class="fa-brands fa-tiktok"></i></div>
@@ -426,6 +420,7 @@
         <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
       </div>
 
+      <!-- Envíos -->
       <div class="info-card-large">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
@@ -437,6 +432,7 @@
         </ul>
       </div>
 
+      <!-- Garantías -->
       <div class="info-card-large">
         <div class="ic-header">
           <div class="ic-icon-box" style="background: var(--bg-base); color: var(--text-main);"><i class="fa-solid fa-shield-halved"></i></div>
@@ -448,6 +444,7 @@
         </ul>
       </div>
 
+      <!-- Horarios -->
       <div class="info-card-large">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-regular fa-clock"></i></div>
@@ -460,8 +457,47 @@
       </div>
 
     </div>
+
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <h3 style="margin-bottom:15px; font-weight:600; font-size: 16px;">Sin resultados</h3>
+      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Comunícate por WhatsApp para verificar disponibilidad.</p>
+      <button class="btn-primary" onclick="askAvailability()">Preguntar disponibilidad</button>
+    </div>
   </section>
 
+  <!-- ================= VISTA DINÁMICAS ================= -->
+  <section id="viewSorteos" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
+    
+    <div id="sorteosList">
+        <div class="loader-container">
+            <i class="fa-solid fa-spinner loader-spinner"></i>
+            <p style="font-weight: 500; font-size: 14px;">Actualizando eventos...</p>
+        </div>
+    </div>
+
+    <h2 class="section-title">Ganadores Anteriores</h2>
+    <div class="carousel-wrapper">
+      <button class="carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="winners-scroll" id="winnersContainer"></div>
+      <button class="carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- ================= VISTA INFORMACIÓN ================= -->
+  <section id="viewInfo" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Información</h1>
+    
+    <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5; text-align: center;">
+      Toda nuestra información detallada, redes sociales y políticas de trabajo las puedes encontrar en la parte inferior de la pestaña <b>Inicio</b>.
+    </div>
+
+    <div style="padding: 0 20px;">
+        <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base);" onclick="switchView('tienda', 'Inicio', document.querySelectorAll('.nav-item')[0])">Ir a Inicio</button>
+    </div>
+  </section>
+
+  <!-- ================= VISTA DETALLE SORTEOS ================= -->
   <section id="viewSorteoDetalle" class="view">
     <div style="padding-top: calc(var(--top-height) + 15px); text-align: center; padding-bottom: 10px;">
         <h2 style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px;" id="sorteoDetalleTitle">Tablero</h2>
@@ -541,17 +577,7 @@
       const uCount = document.getElementById('uCount');
       if(uCount) uCount.innerText = usuarios;
     }, 3500);
-
-    setTimeout(() => {
-      document.getElementById('promoOverlay').classList.add('active');
-      document.getElementById('promoModal').classList.add('active');
-    }, 5000);
   });
-
-  function closePromo() {
-    document.getElementById('promoOverlay').classList.remove('active');
-    document.getElementById('promoModal').classList.remove('active');
-  }
 
   // Lógica Modal Negociar
   function openNegociar() {
