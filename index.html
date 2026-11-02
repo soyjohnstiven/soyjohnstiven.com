@@ -6,8 +6,8 @@
 <title>John Stiven | Perfumería</title>
 
 <!-- META TAGS -->
-<meta property="og:title" content="John Stiven - Perfumería Original">
-<meta property="og:description" content="Descubre nuestra colección de fragancias, atención personalizada y dinámicas exclusivas.">
+<meta property="og:title" content="John Stiven - Curador de Perfumería">
+<meta property="og:description" content="Descubre mi colección de fragancias recomendadas, asesoría personalizada y dinámicas exclusivas.">
 <meta property="og:image" content="https://drive.google.com/uc?export=view&id=1mxRBRkvDrJ24XTAI5czbC5V_GSAJyO_d">
 <meta property="og:url" content="https://www.soyjohnstiven.com">
 <meta property="og:type" content="website">
@@ -23,7 +23,7 @@
 
 <style>
   /* =========================================
-     ESTÉTICA BOUTIQUE / REALISTA (Sin Emojis)
+     MINIMALISMO EDITORIAL (MARCA PERSONAL)
   ========================================= */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
@@ -32,16 +32,13 @@
     --bg-card: #FFFFFF;
     --text-main: #111111;
     --text-muted: #6B6B6B;
-    
     --accent: #000000; 
-    --accent-light: #F2F2F7;
+    --accent-light: #F0F0F0;
     --accent-text: #FFFFFF;
     
-    --gold: #C5A059;
-    
-    --border-color: rgba(0, 0, 0, 0.06);
+    --border-color: #E5E5EA;
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
-    --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.06);
     
     --nav-height: 80px;
     --top-height: 60px;
@@ -49,18 +46,17 @@
   }
 
   body.dark-mode {
-    --bg-base: #050505;
-    --bg-card: #111111;
+    --bg-base: #000000;
+    --bg-card: #141414;
     --text-main: #FFFFFF;
     --text-muted: #A0A0A0;
-    
     --accent: #FFFFFF;
-    --accent-light: #1A1A1A;
+    --accent-light: #1F1F1F;
     --accent-text: #000000;
     
-    --border-color: rgba(255, 255, 255, 0.08);
-    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.5);
+    --border-color: #2A2A2A;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.4);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -78,9 +74,10 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
-  .glass-effect {
+  .bento-box {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
+    border-radius: 24px;
     box-shadow: var(--shadow-sm);
   }
 
@@ -88,99 +85,93 @@
   .loader-spinner { font-size: 28px; margin-bottom: 12px; animation: spin 1s linear infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  /* ================= SPLASH PERSONALIZADO ================= */
+  /* ================= SPLASH PERSONAL ================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
     transition: opacity 0.5s ease;
   }
   .splash-avatar {
-    width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin-bottom: 25px;
-    border: 1px solid var(--border-color); box-shadow: var(--shadow-md);
-    animation: scaleIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;
+    border: 2px solid var(--border-color);
+    animation: scaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .splash-greeting { 
     font-size: 24px; font-weight: 700; letter-spacing: -0.5px; color: var(--text-main);
     opacity: 0; transform: translateY(10px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
   }
   .splash-user { 
-    font-size: 14px; font-weight: 500; color: var(--text-muted); margin-top: 5px; letter-spacing: 1px;
+    font-size: 14px; font-weight: 500; color: var(--text-muted); margin-top: 5px;
     opacity: 0; transform: translateY(10px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; 
   }
 
-  @keyframes scaleIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes scaleIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
   @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
 
-  /* ================= TOP BAR MINIMALISTA ================= */
+  /* ================= TOP BAR MINIMAL ================= */
   .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; transition: 0.3s; background: transparent; }
   .top-bar.scrolled { background: var(--bg-card); border-bottom: 1px solid var(--border-color); }
-  .top-brand { font-size: 15px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
+  .top-brand { font-size: 16px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
   .top-bar.scrolled .top-brand { opacity: 1; }
-  .theme-toggle { font-size: 18px; color: var(--text-main); cursor: pointer; background: var(--accent-light); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; transition: 0.2s;}
+  .theme-toggle { font-size: 20px; color: var(--text-main); cursor: pointer; background: var(--accent-light); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; transition: 0.2s;}
   .theme-toggle:active { transform: scale(0.9); }
 
-  /* ================= PERFIL HERO ================= */
-  .profile-section { display: flex; flex-direction: column; align-items: center; text-align: center; padding: calc(var(--top-height) + 15px) 20px 25px 20px; }
-  .profile-img { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-base); outline: 1px solid var(--border-color); margin-bottom: 15px; box-shadow: var(--shadow-sm); }
-  .profile-name { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; justify-content: center; }
-  .verified-badge { color: #3399FF; font-size: 14px; }
-  .profile-bio { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin: 0 auto 20px auto; font-weight: 400; }
-  
-  .profile-stats { display: flex; gap: 35px; }
+  /* ================= HERO PROFILE ================= */
+  .profile-section { display: flex; flex-direction: column; align-items: center; text-align: center; padding: calc(var(--top-height) + 20px) 20px 30px 20px; }
+  .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--bg-base); outline: 1px solid var(--border-color); margin-bottom: 15px; box-shadow: var(--shadow-sm); }
+  .profile-name { font-size: 26px; font-weight: 800; letter-spacing: -1px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; justify-content: center; }
+  .verified-badge { color: #3399FF; font-size: 16px; }
+  .profile-bio { font-size: 14px; color: var(--text-muted); line-height: 1.5; max-width: 320px; margin: 0 auto 20px auto; font-weight: 400; }
+  .profile-stats { display: flex; gap: 30px; margin-bottom: 10px; }
   .stat-item { display: flex; flex-direction: column; align-items: center; }
-  .stat-val { font-size: 15px; font-weight: 700; color: var(--text-main); }
-  .stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+  .stat-val { font-size: 16px; font-weight: 700; color: var(--text-main); }
+  .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
 
-  .section-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: var(--text-main); margin: 30px 20px 15px 20px; text-transform: uppercase; }
-  .large-title { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 20px) 20px 20px 20px; text-transform: uppercase; }
+  .section-title { font-size: 16px; font-weight: 700; letter-spacing: -0.5px; color: var(--text-main); margin: 30px 20px 15px 20px; }
 
-  /* ================= NAVEGACIÓN ================= */
+  /* ================= NAV TIPO PILL ================= */
   .bottom-nav { 
     position: fixed; bottom: var(--safe-bottom); left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; height: 65px; 
     z-index: 2000; display: flex; justify-content: space-between; align-items: center; padding: 0 10px;
     background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 100px; box-shadow: var(--shadow-md); 
   }
-  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text-muted); font-size: 10px; font-weight: 500; cursor: pointer; transition: 0.3s; height: 100%; border-radius: 100px; position: relative;}
+  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text-muted); font-size: 10px; font-weight: 500; cursor: pointer; transition: 0.3s; height: 100%; border-radius: 100px; }
   .nav-item i { font-size: 20px; transition: 0.3s; }
   .nav-item.active { color: var(--accent-text); background: var(--accent); margin: 6px; height: calc(100% - 12px); box-shadow: var(--shadow-sm); }
-  
-  .nav-tooltip { position: absolute; top: -38px; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-base); font-size: 9px; font-weight: 700; padding: 6px 12px; border-radius: 8px; white-space: nowrap; box-shadow: var(--shadow-md); animation: bounceTip 2s infinite; pointer-events: none;}
-  .nav-tooltip::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); border-width: 5px 5px 0; border-style: solid; border-color: var(--text-main) transparent transparent transparent; }
-  @keyframes bounceTip { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -4px); } }
 
   .app-container { max-width: 800px; margin: 0 auto; padding: 0; }
   .view { display: none; animation: fadeView 0.4s ease; padding-bottom: 80px;}
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ================= BOTONES Y ACCIONES ================= */
-  .btn-primary { background: var(--accent); color: var(--accent-text); border: none; padding: 16px 24px; border-radius: 100px; font-size: 13px; font-weight: 600; width: 100%; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; gap: 8px;}
-  .btn-primary:active { transform: scale(0.96); opacity: 0.9;}
+  /* ================= BOTONES ================= */
+  .btn-primary { background: var(--accent); color: var(--accent-text); border: none; padding: 16px 24px; border-radius: 100px; font-size: 14px; font-weight: 600; width: 100%; max-width: 400px; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 auto;}
+  .btn-primary:active { transform: scale(0.96); }
 
-  .btn-secondary { background: var(--accent-light); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 100%; display: flex; justify-content: center;}
+  .btn-secondary { background: var(--accent-light); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;}
   .btn-secondary:active { transform: scale(0.96); }
 
-  .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; margin-bottom: 25px; }
-  .action-box { border-radius: 20px; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; color: var(--text-main); transition: transform 0.2s; cursor: pointer; min-height: 130px; }
-  .action-box:active { transform: scale(0.97); background: var(--accent-light);}
-  .ab-icon { font-size: 26px; margin-bottom: 12px; color: var(--text-main); }
-  .ab-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.2px; text-transform: uppercase;}
-  .ab-desc { font-size: 10px; color: var(--text-muted); line-height: 1.3; font-weight: 500; text-transform: uppercase; color: var(--gold);}
+  /* ================= BENTO GRID ================= */
+  .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; margin-bottom: 25px; }
+  .bento-item { border-radius: 20px; padding: 20px 15px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; text-decoration: none; color: var(--text-main); transition: transform 0.2s; cursor: pointer; min-height: 120px; position: relative; overflow: hidden; }
+  .bento-item:active { transform: scale(0.97); }
+  .bi-icon { font-size: 24px; margin-bottom: 15px; background: var(--accent-light); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: var(--text-main); }
+  .bi-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;}
+  .bi-desc { font-size: 12px; color: var(--text-muted); line-height: 1.3; }
 
   /* ================= BUSCADOR ================= */
-  .search-container { margin: 0 20px 20px 20px; }
+  .search-container { margin: 0 20px 25px 20px; }
   .search-box { display: flex; align-items: center; border-radius: 16px; padding: 14px 18px; gap: 12px; background: var(--accent-light); transition: 0.3s; border: 1px solid transparent;}
   .search-box:focus-within { border-color: var(--border-color); background: var(--bg-card); box-shadow: var(--shadow-sm);}
   .search-box i { color: var(--text-muted); font-size: 16px; }
-  .search-box input { border: none; background: transparent; width: 100%; font-size: 14px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
+  .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
   .search-box input::placeholder { color: var(--text-muted); font-weight: 400; }
+  .empty-state { text-align: center; padding: 40px 20px; }
+
+  /* ================= PRODUCTOS ================= */
+  .product-grid { display: flex; gap: 15px; overflow-x: auto; padding: 0 20px; scroll-snap-type: x mandatory; scrollbar-width: none; margin-bottom: 30px; }
   
-  /* ================= PRODUCTOS (CARRUSEL) ================= */
-  .carousel-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
-  .product-grid { display: flex; gap: 15px; overflow-x: auto; padding: 0 20px 15px 20px; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
-  .product-grid::-webkit-scrollbar { display: none; }
-  
-  .prod-card { border-radius: 20px; padding: 12px; display: flex; flex-direction: column; transition: 0.3s; min-width: 220px; scroll-snap-align: start; }
+  .prod-card { border-radius: 20px; padding: 12px; display: flex; flex-direction: column; transition: 0.3s; min-width: 200px; scroll-snap-align: start; }
   .prod-img { width: 100%; aspect-ratio: 1; background: #FFFFFF; border-radius: 14px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);}
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   
@@ -189,20 +180,15 @@
   .price-main { font-size: 15px; font-weight: 800; color: var(--text-main); }
   .price-fake { font-size: 11px; font-weight: 500; color: var(--text-muted); text-decoration: line-through;}
   
-  .btn-add { background: var(--accent-light); color: var(--text-main); border: none; padding: 10px; border-radius: 10px; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s; margin-top: auto; text-transform: uppercase; letter-spacing: 0.5px;}
+  .btn-add { background: var(--accent-light); color: var(--text-main); border: none; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-top: auto;}
   .btn-add.selected { background: var(--accent); color: var(--accent-text); }
-  
-  .carousel-btn { position: absolute; top: 40%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md); color: var(--text-main); font-size: 14px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s; opacity: 0.9; }
-  .carousel-btn:active { transform: translateY(-50%) scale(0.9); background: var(--accent); color: var(--accent-text);}
-  .carousel-btn.left { left: 5px; }
-  .carousel-btn.right { right: 5px; }
 
-  /* ================= CARRITO FLOTANTE ================= */
-  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px); right: 20px; width: 60px; height: 60px; background: var(--accent); color: var(--accent-text); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; box-shadow: var(--shadow-md); z-index: 1500; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(0); opacity: 0;}
-  .ios-cart.show { transform: scale(1); opacity: 1; }
-  .cart-badge { position: absolute; top: 0px; right: 0px; background: #FF3B30; color: #FFF; font-size: 10px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
+  /* ================= CARRITO ================= */
+  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px); left: 50%; transform: translateX(-50%) translateY(150px); width: 90%; max-width: 400px; background: var(--accent); color: var(--accent-text); padding: 12px 16px 12px 20px; border-radius: 100px; display: flex; justify-content: space-between; align-items: center; z-index: 1500; box-shadow: var(--shadow-md); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;}
+  .ios-cart.show { transform: translateX(-50%) translateY(0); }
+  .cart-text { font-size: 14px; font-weight: 600;}
+  .btn-cart { background: var(--bg-card); color: var(--text-main); border: none; padding: 8px 16px; border-radius: 100px; font-weight: 700; font-size: 11px; cursor: pointer; pointer-events: none;}
 
-  /* ================= MODALES Y SHEETS ================= */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
@@ -216,58 +202,55 @@
   .cart-item-info { flex: 1; margin-right: 15px; }
   .cart-item-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; line-height: 1.3;}
   .cart-item-price { font-size: 12px; color: var(--text-muted); font-weight: 500;}
-  .cart-controls { display: flex; align-items: center; gap: 10px;}
-  .c-btn-group { display: flex; align-items: center; gap: 12px; background: var(--accent-light); border-radius: 100px; padding: 6px 12px;}
+  .cart-controls { display: flex; align-items: center; gap: 15px; background: var(--accent-light); border-radius: 100px; padding: 6px 14px;}
   .c-btn { background: none; border: none; font-size: 16px; color: var(--text-main); cursor: pointer; font-weight: 500;}
-  .c-qty { font-size: 14px; font-weight: 600; min-width: 15px; text-align: center;}
-  .c-btn-trash { color: #FF3B30; background: none; border: none; font-size: 16px; cursor: pointer; padding: 5px; }
+  .c-qty { font-size: 14px; font-weight: 600; min-width: 20px; text-align: center;}
 
-  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 85%; max-width: 360px; border-radius: 28px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; background: var(--bg-card); box-shadow: var(--shadow-md); border: 1px solid var(--border-color);}
+  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 90%; max-width: 360px; border-radius: 28px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md);}
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%);}
   .close-cm { position: absolute; top: 15px; right: 15px; background: var(--accent-light); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-main); cursor: pointer;}
-  
-  .styled-select { width: 100%; padding: 14px; margin-bottom: 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-size: 13px; outline: none; font-weight: 500; font-family: inherit;}
 
   /* ================= DINÁMICAS ================= */
   .raffle-card { padding: 30px 25px; text-align: left; transition: 0.3s; margin: 0 20px 20px 20px; }
   .r-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-  .r-tag { display: inline-block; background: var(--accent-light); color: var(--text-main); padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-  .r-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;}
+  .r-tag { display: inline-block; background: var(--accent-light); color: var(--text-main); padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+  .r-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; line-height: 1.2;}
   
-  .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
+  .carousel-wrapper { position: relative; width: 100%; padding: 0 20px; margin-bottom: 20px; }
+  .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px;}
   .w-card { min-width: 280px; scroll-snap-align: start; padding: 25px; display: flex; gap: 20px; align-items: center;}
-  .w-icon-large { font-size: 30px; color: var(--text-main); margin-bottom: 0; opacity: 0.2;}
-  .w-number { font-size: 26px; font-weight: 800; color: var(--text-main); line-height: 1; letter-spacing: -1px;}
-  .w-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
-  .w-info p { font-size: 12px; color: var(--text-muted); font-weight: 500; line-height: 1.4;}
+  .w-icon-large { font-size: 35px; color: var(--text-main); margin-bottom: 8px; opacity: 0.2;}
+  .w-number { font-size: 28px; font-weight: 800; color: var(--text-main); line-height: 1; letter-spacing: -1px;}
+  .w-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+  .w-info p { font-size: 13px; color: var(--text-muted); font-weight: 500; line-height: 1.4;}
 
-  /* ================= INFO LIST ================= */
+  /* ================= INFO ================= */
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
   .info-card-large { padding: 25px; display: flex; flex-direction: column; gap: 15px; }
   .ic-header { display: flex; align-items: center; gap: 15px; }
-  .ic-icon-box { width: 45px; height: 45px; background: var(--accent-light); color: var(--text-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px;}
+  .ic-icon-box { width: 45px; height: 45px; background: var(--accent-light); color: var(--text-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;}
   .ic-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px;}
-  .ic-list { list-style: none; padding: 0; font-size: 13px; color: var(--text-muted); line-height: 1.6;}
-  .ic-list li { margin-bottom: 10px; }
+  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
+  .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-  /* TABLERO DE PUESTOS / NÚMEROS */
-  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; }
-  .puesto-card { padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; }
-  .puesto-card.ocupado { background: var(--accent-light); opacity: 0.4; pointer-events: none; border-color: transparent;}
+  /* TABLERO DE PUESTOS */
+  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: 10px; margin-top: 15px; }
+  .puesto-card { border-radius: 14px; padding: 15px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; background: var(--bg-card); border: 1px solid var(--border-color); }
+  .puesto-card.ocupado { background: var(--accent-light); opacity: 0.5; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
   .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); border-style: dashed; }
   .puesto-card.libre { border-color: var(--text-main); }
   .puesto-card.libre:active { transform: scale(0.95); background: var(--accent-light); }
-  .puesto-title { font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; text-transform: uppercase;}
-  .puesto-nums { font-size: 10px; color: var(--text-muted); line-height: 1.2; font-weight: 500;}
+  .puesto-title { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+  .puesto-nums { font-size: 11px; color: var(--text-muted); line-height: 1.3; font-weight: 500;}
 
   /* TABLERO GENERAL (00-99) */
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 10px;}
   .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--accent-light); transition: 0.2s;}
   .b-cell.libre { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); }
-  .b-cell.libre:active { transform: scale(0.92); opacity: 0.7; }
-  .b-cell.ocupado { background: transparent; color: var(--text-muted); pointer-events: none; border-color: transparent; opacity: 0.3;}
+  .b-cell.libre:active { transform: scale(0.95); background: var(--accent-light); }
+  .b-cell.ocupado { background: transparent; color: var(--text-muted); pointer-events: none; border-color: transparent; opacity: 0.4;}
   .b-cell.ocupado span { font-size: 9px; text-decoration: line-through;}
   .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); }
 
@@ -276,26 +259,20 @@
 <body>
 
 <div id="splash">
+  <!-- REEMPLAZA LA URL DE ABAJO POR TU FOTO DE PERFIL -->
   <img src="https://drive.google.com/uc?export=view&id=1mxRBRkvDrJ24XTAI5czbC5V_GSAJyO_d" alt="John Stiven" class="splash-avatar" onerror="this.style.display='none'">
-  <h1 class="splash-greeting" id="greetingText">Bienvenidos</h1>
+  <h1 class="splash-greeting" id="greetingText">Hola.</h1>
   <p class="splash-user">@soyjohnstiven</p>
 </div>
 
-<!-- Modal Negociación (Asesoría) -->
-<div class="modal-overlay" id="negociarOverlay"></div>
-<div class="center-modal" id="negociarModal">
-  <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
-  <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: var(--text-main); margin-bottom: 15px;"></i>
-  <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">Atención Personalizada</h3>
-  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
-  
-  <select id="motivoConsulta" class="styled-select">
-      <option value="Mejores Precios">1. Mejores Precios</option>
-      <option value="Asesoría para comprar un perfume">2. Asesoría para comprar un perfume</option>
-      <option value="Me gustaría aprender a emprender">3. Me gustaría aprender a emprender</option>
-  </select>
-  
-  <button class="btn-primary" onclick="sendNegociarWA()">INICIAR CHAT</button>
+<!-- Modal Redes Sociales / Promos -->
+<div class="modal-overlay" id="promoOverlay"></div>
+<div class="center-modal" id="promoModal">
+  <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
+  <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: var(--text-main); margin-bottom: 20px;"></i>
+  <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px; line-height: 1.2;">HABLEMOS POR WHATSAPP</h3>
+  <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Agrégame para ver mis estados, conocer los nuevos ingresos y acceder a promociones exclusivas.</p>
+  <button class="btn-primary" onclick="goPromoWA()">AGREGAR A WHATSAPP</button>
 </div>
 
 <div class="app-container">
@@ -308,21 +285,14 @@
   </header>
 
   <nav class="bottom-nav">
-    <div class="nav-item active" onclick="switchView('tienda', 'Inicio', this)">
-        <i class="fa-solid fa-layer-group"></i><span>Inicio</span>
-    </div>
-    <div class="nav-item" onclick="switchView('sorteos', 'Dinámicas', this)">
-        <div class="nav-tooltip">¡Participa por un perfume GRATIS!</div>
-        <i class="fa-solid fa-ticket"></i><span>Dinámicas</span>
-    </div>
-    <div class="nav-item" onclick="switchView('info', 'Información', this)">
-        <i class="fa-solid fa-circle-info"></i><span>Información</span>
-    </div>
+    <div class="nav-item active" onclick="switchView('tienda', 'Mi Colección', this)"><i class="fa-solid fa-layer-group"></i><span>Colección</span></div>
+    <div class="nav-item" onclick="switchView('sorteos', 'Dinámicas', this)"><i class="fa-solid fa-ticket"></i><span>Dinámicas</span></div>
+    <div class="nav-item" onclick="switchView('info', 'Sobre Mí', this)"><i class="fa-regular fa-user"></i><span>Sobre mí</span></div>
   </nav>
 
   <div class="ios-cart" id="appleCart" onclick="openCartSheet()">
-    <i class="fa-solid fa-bag-shopping"></i>
-    <div class="cart-badge" id="cartCount">0</div>
+    <div class="cart-text"><i class="fa-solid fa-bag-shopping" style="margin-right:8px;"></i> <span id="cartCount">0</span> SELECCIONADOS</div>
+    <button class="btn-cart">VER PEDIDO</button>
   </div>
 
   <div class="modal-overlay" id="sheetOverlay" onclick="closeSheets(event)"></div>
@@ -335,13 +305,14 @@
     <div id="cartSummaryContainer" style="flex-shrink: 0; margin-bottom: 20px;"></div>
     
     <button class="btn-primary" style="flex-shrink: 0; width: 100%;" onclick="sendCartWA()">
-      <i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i> ENVIAR PEDIDO
+      <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> ENVIAR PEDIDO
     </button>
   </div>
 
   <section id="viewTienda" class="view active">
     
     <div class="profile-section reveal">
+       <!-- REEMPLAZA LA URL DE ABAJO POR TU FOTO DE PERFIL -->
        <img src="https://drive.google.com/uc?export=view&id=1mxRBRkvDrJ24XTAI5czbC5V_GSAJyO_d" alt="John Stiven" class="profile-img">
        <h1 class="profile-name">John Stiven <i class="fa-solid fa-circle-check verified-badge"></i></h1>
        <p class="profile-bio">Venta de Perfumería 100% Original</p>
@@ -376,21 +347,19 @@
        <strong>Nota:</strong> Nuestro catálogo muestra precios al detal. Si buscas precios más favorables, escríbeme para negociar.
     </div>
 
-    <!-- ACCIÓN: 2 CATÁLOGOS PDF Y DRIVE -->
     <div class="action-grid reveal">
-      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="bento-box action-box">
-        <i class="fa-regular fa-file-pdf ab-icon"></i>
+      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="bento-box bento-item">
+        <i class="fa-regular fa-file-pdf bi-icon"></i>
         <div>
-          <div class="ab-title">CATÁLOGO PDF</div>
-          <div style="font-size: 10px; color: var(--text-muted);">Colección completa</div>
+          <div class="bi-title">Catálogo PDF</div>
+          <div class="bi-desc">Mi colección completa</div>
         </div>
       </a>
-      
-      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="bento-box action-box">
-        <i class="fa-brands fa-google-drive ab-icon"></i>
+      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="bento-box bento-item">
+        <i class="fa-solid fa-box-open bi-icon"></i>
         <div>
-          <div class="ab-desc">PERFUMES PARA ENTREGA INMEDIATA</div>
-          <div class="ab-title">Entregas en Medellín</div>
+          <div class="bi-title">Entrega Inmediata</div>
+          <div class="bi-desc">Stock local Medellín</div>
         </div>
       </a>
     </div>
@@ -400,42 +369,28 @@
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="searchInput" placeholder="Buscar fragancias...">
       </div>
-      <p style="font-size: 11px; font-style: italic; color: var(--text-muted); text-align: center; margin-top: 10px;">Nuestro inventario se renueva diariamente con nuevas referencias.</p>
     </div>
 
     <div id="mainContent">
-      <h2 class="section-title reveal">Top Ventas</h2>
+      <h2 class="section-title reveal">Mis Recomendados</h2>
       
-      <!-- CARRUSEL DE PRODUCTOS -->
-      <div class="carousel-wrapper reveal">
-          <button class="carousel-btn left" onclick="scrollProducts(-220)"><i class="fa-solid fa-chevron-left"></i></button>
-          <div class="product-grid" id="catalogGrid">
-            <div class="loader-container" style="min-width: 100%;">
-                <i class="fa-solid fa-spinner loader-spinner"></i>
-                <p style="font-weight: 500; font-size: 14px;">Cargando productos...</p>
-            </div>
-          </div>
-          <button class="carousel-btn right" onclick="scrollProducts(220)"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="product-grid" id="catalogGrid">
+        <div class="loader-container">
+            <i class="fa-solid fa-spinner loader-spinner"></i>
+            <p style="font-weight: 500; font-size: 14px;">Cargando colección...</p>
+        </div>
       </div>
     </div>
 
-    <!-- TARJETA CONTACTO Y NEGOCIACIÓN (AL FINAL DEL CARRUSEL) -->
-    <div class="bento-box reveal" style="margin: 10px 20px 30px 20px; padding: 25px; text-align: center; border-color: var(--text-main);">
-      <i class="fa-brands fa-whatsapp" style="font-size: 32px; color: var(--text-main); margin-bottom: 12px;"></i>
-      <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">¿Buscas atención personalizada?</h3>
-      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-bottom: 20px;">Escríbeme para atención personalizada, asesoría o para negociar compras al por mayor.</p>
-      <button class="btn-primary" onclick="openNegociar()">CONTACTAR POR WHATSAPP</button>
-    </div>
-
     <div class="empty-state" id="emptyState" style="display: none;">
-      <h3 style="margin-bottom:15px; font-weight:600; font-size: 16px;">Sin resultados</h3>
-      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Comunícate por WhatsApp para verificar disponibilidad.</p>
-      <button class="btn-primary" onclick="askAvailability()">Preguntar disponibilidad</button>
+      <h3 style="margin-bottom:15px; font-weight:600; font-size: 16px;">¿No encuentras la fragancia?</h3>
+      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Escríbeme al WhatsApp y te la consigo.</p>
+      <button class="btn-primary" onclick="askAvailability()">Hablemos por WhatsApp</button>
     </div>
   </section>
 
   <section id="viewSorteos" class="view">
-    <h1 class="large-title reveal" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
+    <h2 class="section-title reveal" style="font-size: 22px; margin-top: calc(var(--top-height) + 20px);">Comunidad & Dinámicas</h2>
     
     <div id="sorteosList">
         <div class="loader-container">
@@ -444,93 +399,57 @@
         </div>
     </div>
 
-    <h2 class="section-title reveal">Ganadores Anteriores</h2>
+    <h2 class="section-title reveal" style="margin-top: 40px;">Ganadores Anteriores</h2>
     <div class="carousel-wrapper reveal">
-      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="winners-scroll" id="winnersContainer"></div>
-      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
   </section>
 
   <section id="viewInfo" class="view">
-    <h1 class="large-title reveal" style="margin-top: calc(var(--top-height) + 15px);">Información</h1>
+    <div style="padding-top: calc(var(--top-height) + 20px); text-align: center; padding-bottom: 20px;" class="reveal">
+        <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px;">Sobre mí & Envíos</h2>
+        <p style="color: var(--text-muted); font-size: 14px; margin-top: 8px;">Conoce cómo trabajo y mis políticas.</p>
+    </div>
 
     <div class="info-cards-container">
-      
+        
       <div class="bento-box info-card-large reveal" style="cursor:pointer; background: #000000; color: white;" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
         <div class="ic-header">
           <div class="ic-icon-box" style="background: #FFFFFF; color: #000000;"><i class="fa-brands fa-tiktok"></i></div>
           <h3 class="ic-title" style="color: white;">Sígueme en TikTok</h3>
         </div>
-        <p style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;">Conoce mis reseñas, tips de perfumería y más contenido exclusivo en mi cuenta oficial <b>@soyjohnstiven</b>.</p>
-      </div>
-
-      <div class="bento-box info-card-large reveal">
-        <div class="ic-header">
-          <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
-          <h3 class="ic-title">Envíos Seguros</h3>
-        </div>
-        <ul class="ic-list">
-          <li><b>Envíos Nacionales:</b> Trabajo con <b>Interrapidísimo</b> a partir de <b>$18,500</b>. Los despachos se hacen de forma segura para que te llegue rápido.</li>
-          <li><b>Domicilios GRATIS Medellín:</b> Hago entregas de 10:00 a.m. a 10:00 p.m. <br><span style="color: var(--text-muted); font-weight: 500;">(Aplica para compras al detal).</span></li>
-        </ul>
-      </div>
-
-      <div class="bento-box info-card-large reveal">
-        <div class="ic-header">
-          <div class="ic-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-          <h3 class="ic-title">Garantía y Pagos</h3>
-        </div>
-        <ul class="ic-list">
-          <li><b>Garantía Total:</b> Si tu paquete sufre algún daño por la transportadora, me avisas y te soluciono de una. Mi prioridad es tu confianza.</li>
-          <li><b>Medios de Pago:</b> Recibo Nequi, Bancolombia y diversas opciones fáciles para ti.</li>
-        </ul>
-      </div>
-
-      <div class="bento-box info-card-large reveal">
-        <div class="ic-header">
-          <div class="ic-icon-box"><i class="fa-regular fa-clock"></i></div>
-          <h3 class="ic-title">Atención al Cliente</h3>
-        </div>
-        <ul class="ic-list">
-          <li><b>Horario de atención:</b> Lunes a domingo de 10:00 a.m. a 10:00 p.m.</li>
-          <li>Mejoramos la experiencia en WhatsApp para brindarte una atención más rápida.</li>
-        </ul>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Conoce mis reseñas, tips de perfumería y más contenido bacano en mi cuenta <b>@soyjohnstiven</b>.</p>
       </div>
 
     </div>
   </section>
 
   <section id="viewSorteoDetalle" class="view">
-    <div style="padding-top: calc(var(--top-height) + 15px); text-align: center; padding-bottom: 10px;" class="reveal">
+    <div style="padding-top: calc(var(--top-height) + 20px); text-align: center; padding-bottom: 10px;" class="reveal">
         <h2 style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px;" id="sorteoDetalleTitle">Tablero</h2>
-        <p style="padding: 0 20px; color: var(--text-muted); margin-top: 8px; font-size: 14px;" id="sorteoDetalleDesc"></p>
+        <p style="padding: 0 20px; color: var(--text-muted); margin-top: 10px; font-size: 14px;" id="sorteoDetalleDesc"></p>
     </div>
 
-    <!-- EXPLICACIÓN DE CHANCES (Se oculta dinámicamente si es Gratis) -->
-    <div id="explicacionChances" class="reveal bento-box" style="margin: 0 20px 20px 20px; padding: 16px; text-align: center;">
-      <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text-main);">¡Multiplica tus opciones de ganar!</h4>
+    <!-- EXPLICACIÓN DE CHANCES -->
+    <div class="reveal bento-box" style="margin: 0 20px 20px 20px; padding: 16px; text-align: center;">
+      <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 6px;">Multiplica tus opciones</h4>
       <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;">
-        Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades reales de llevarte el premio!
+        Al elegir un solo puesto, te llevas 3 números diferentes. ¡Tienes 3 oportunidades reales de ganar!
       </p>
     </div>
 
     <!-- Conteo Real de Puestos -->
-    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 25px 20px; font-weight: 600; font-size: 11px; text-align:center; line-height: 1.4;">
-       <div><span id="labelLibres" style="color:var(--text-muted); display:block; margin-bottom:4px;">PUESTOS LIBRES</span><span id="countLibres" style="font-size:18px; color:var(--text-main);">0</span></div>
-       <div><span id="labelOcupados" style="color:var(--text-muted); display:block; margin-bottom:4px;">PUESTOS OCUPADOS</span><span id="countOcupados" style="font-size:18px; color:var(--text-main);">0</span></div>
-       <div><span id="labelPendientes" style="color:var(--text-muted); display:block; margin-bottom:4px;">PUESTOS PENDIENTES</span><span id="countPendientes" style="font-size:18px; color:var(--text-main);">0</span></div>
-    </div>
+    <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 25px 20px; font-weight: 600; font-size: 12px; text-align:center; line-height: 1.4;"></div>
 
     <div class="search-container reveal">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchPuestoInput" placeholder="Buscar un puesto o número...">
+        <input type="text" id="searchPuestoInput" placeholder="Buscar tu puesto o número...">
       </div>
     </div>
 
     <div class="reveal" style="display:flex; justify-content:center; gap:15px; font-size:12px; font-weight:500; margin-bottom:20px; color:var(--text-muted);">
-      <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:12px; border-radius:3px; border:1px solid var(--border-color); background:var(--bg-card);"></div> Libre</div>
+      <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:12px; border-radius:3px; border:1px solid var(--text-main); background:var(--bg-card);"></div> Libre</div>
       <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:12px; border-radius:3px; background:var(--accent-light);"></div> Ocupado</div>
       <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:12px; border-radius:3px; border:1px dashed var(--text-muted);"></div> Pendiente</div>
     </div>
@@ -548,24 +467,21 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     
-    // Splash screen fluido
-    setTimeout(() => {
-      const s = document.getElementById('splash');
-      s.classList.add('fade-out');
-      setTimeout(() => s.style.display = 'none', 600);
-      observeElements();
-    }, 1500);
+    const hour = new Date().getHours();
+    let greeting = "Buenas Noches";
+    if (hour >= 6 && hour < 12) greeting = "Buenos Días";
+    else if (hour >= 12 && hour < 19) greeting = "Buenas Tardes";
+    document.getElementById('greetingText').innerText = greeting;
 
-    // Estadísticas
     const baseDate = new Date("2026-10-26T00:00:00-05:00").getTime();
     const now = new Date().getTime();
     const diffTime = Math.max(0, now - baseDate);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const ventasDia = 1206 + (diffDays * 13);
+
+    let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29;
     
     document.getElementById('vCount').innerText = ventasDia.toLocaleString('es-CO');
-    
-    let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29;
     document.getElementById('uCount').innerText = usuarios;
     
     setInterval(() => {
@@ -578,22 +494,30 @@
       if(uCount) uCount.innerText = usuarios;
     }, 3500);
 
+    setTimeout(() => {
+      const s = document.getElementById('splash');
+      s.style.opacity = '0';
+      setTimeout(() => s.style.display = 'none', 500);
+      observeElements();
+    }, 2500);
+
+    setTimeout(() => {
+      document.getElementById('promoOverlay').classList.add('active');
+      document.getElementById('promoModal').classList.add('active');
+    }, 15000);
   });
-  
-  // Lógica Modal Negociar
-  function openNegociar() {
-      document.getElementById('negociarOverlay').classList.add('active');
-      document.getElementById('negociarModal').classList.add('active');
+
+  function closePromo() {
+    document.getElementById('promoOverlay').classList.remove('active');
+    document.getElementById('promoModal').classList.remove('active');
   }
-  function closeNegociar() {
-      document.getElementById('negociarOverlay').classList.remove('active');
-      document.getElementById('negociarModal').classList.remove('active');
+  function goPromoWA() {
+    closePromo();
+    openWhatsApp("Hola. Guárdame en tus contactos por favor para poder ver tus estados y las promociones.");
   }
-  function sendNegociarWA() {
-      const motivo = document.getElementById('motivoConsulta').value;
-      const msg = `Hola, estoy buscando:\n- ${motivo}`;
-      closeNegociar();
-      openWhatsApp(msg);
+  function openNegociarWA() {
+    let msg = `Hola, quiero saber en cuánto me quedan estos perfumes para el día de hoy:\n-\n-\n-\nBusco precios más asequibles a los de la página. Gracias.`;
+    openWhatsApp(msg);
   }
 
   function toggleTheme() {
@@ -632,27 +556,23 @@
     if (element) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
-        
-        // Ocultar notificación de regalo al visitar dinámicas
-        if(viewId === 'sorteos') {
-            const tooltip = element.querySelector('.nav-tooltip');
-            if (tooltip) tooltip.style.display = 'none';
-        }
     }
     
     const nextView = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
     nextView.classList.add('active');
     
-    // Título de la vista estricto para que no se superponga
-    if(viewId === 'tienda') document.getElementById('topTitle').innerText = 'Inicio';
-    else document.getElementById('topTitle').innerText = title;
-    
+    // Hide or show top brand name based on view
+    if(viewId === 'tienda') {
+        document.querySelector('.top-brand').innerHTML = `<i class="fa-solid fa-certificate" style="font-size: 12px; color: var(--text-main);"></i> John Stiven`;
+    } else {
+        document.querySelector('.top-brand').innerHTML = title;
+    }
+
     window.scrollTo({top: 0, behavior: 'smooth'});
     
     if (viewId === 'sorteos') {
         setTimeout(() => {
-            // Confeti festivo elegante sin emojis
-            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#111111', '#888888', '#E5E5E5', '#FFFFFF'] });
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#111111', '#888888', '#E5E5E5'] });
         }, 300);
     }
     
@@ -666,14 +586,6 @@
 
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
-
-  // Scroll Carruseles
-  function scrollProducts(px) {
-      document.getElementById('catalogGrid').scrollBy({ left: px, behavior: 'smooth' });
-  }
-  function scrollWinners(px) {
-      document.getElementById('winnersContainer').scrollBy({ left: px, behavior: 'smooth' });
-  }
 
   let cartObj = {}; 
 
@@ -692,8 +604,11 @@
 
   function addDirectToCart(name, priceStr, btn) {
     if(cartObj[name]) { cartObj[name].qty += 1; } 
-    else { cartObj[name] = { qty: 1, price: priceStr }; btn.classList.add('selected'); btn.innerText = "AGREGADO"; }
+    else { cartObj[name] = { qty: 1, price: priceStr }; btn.classList.add('selected'); btn.innerText = "SELECCIONADO"; }
     updateCartIcon();
+    const fab = document.getElementById('appleCart');
+    fab.style.transform = "translateX(-50%) translateY(0) scale(1.05)";
+    setTimeout(() => fab.style.transform = "translateX(-50%) translateY(0) scale(1)", 200);
   }
 
   function updateCartIcon() {
@@ -734,7 +649,6 @@
             <button class="c-btn" onclick="changeQty('${name}', -1)">-</button>
             <span class="c-qty">${item.qty}</span>
             <button class="c-btn" onclick="changeQty('${name}', 1)">+</button>
-            <button class="c-btn-trash" onclick="removeItem('${name}')"><i class="fa-solid fa-xmark"></i></button>
           </div>
         </div>
       `;
@@ -742,7 +656,7 @@
     
     if(totalItems === 0) {
       closeSheets();
-      document.querySelectorAll('.btn-add').forEach(btn => { btn.classList.remove('selected'); btn.innerText = "AGREGAR"; });
+      document.querySelectorAll('.btn-get').forEach(btn => { btn.classList.remove('selected'); btn.innerText = "AGREGAR"; });
     } else { 
       cont.innerHTML = html; 
       
@@ -757,11 +671,11 @@
 
       summ.innerHTML = `
         <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: var(--text-muted);">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 13px; color: var(--text-muted);">
                 <span>Subtotal (${totalItems} artículos)</span>
                 <span>$${subtotal.toLocaleString('es-CO')}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--text-main); font-weight: 600;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 13px; color: var(--text-main); font-weight: 600;">
                 <span>Descuento aplicado</span>
                 <span>-$${discount.toLocaleString('es-CO')}</span>
             </div>
@@ -784,22 +698,6 @@
     updateCartIcon();
   }
 
-  function removeItem(name) {
-      delete cartObj[name];
-      updateCartIcon();
-      
-      // Reiniciar botón en UI
-      document.querySelectorAll('.prod-title').forEach(t => {
-          if(t.innerText === name) {
-              const btn = t.nextElementSibling.nextElementSibling;
-              if(btn) {
-                  btn.classList.remove('selected');
-                  btn.innerText = 'AGREGAR';
-              }
-          }
-      });
-  }
-
   function sendCartWA() {
     let listStr = "";
     let totalItems = 0; let subtotal = 0;
@@ -808,7 +706,7 @@
         totalItems += cartObj[name].qty;
         let numPrice = parseInt(cartObj[name].price.replace(/[^0-9]/g, '')) || 0;
         subtotal += numPrice * cartObj[name].qty;
-        listStr += `- Quiero este perfume: ${name} a ${cartObj[name].price} (${cartObj[name].qty} unds)\n`; 
+        listStr += `- ${name} ${cartObj[name].qty > 1 ? `(${cartObj[name].qty} unds)` : ''}\n`; 
     }
     
     let discount = calculateDiscount(totalItems);
@@ -884,7 +782,7 @@
     grid.innerHTML = lista.map(p => {
       const isSel = !!cartObj[p.nombre];
       const btnCls = isSel ? 'btn-add selected' : 'btn-add';
-      const btnTxt = isSel ? 'AGREGADO' : 'AGREGAR';
+      const btnTxt = isSel ? 'SELECCIONADO' : 'AGREGAR';
       return `
       <div class="prod-card bento-box reveal">
         <div class="prod-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
@@ -966,8 +864,8 @@
       const listContainer = document.getElementById('sorteosList');
       listContainer.innerHTML = "";
       dynamicsArray.forEach(d => {
-        let cardStyle = d.isInactiveEmpty ? 'background: var(--bg-base); box-shadow: none;' : '';
-        let tagStyle = d.isInactiveEmpty ? 'background: var(--border-color); color: var(--text-muted);' : 'background: var(--text-main); color: var(--bg-base);';
+        let cardStyle = d.isInactiveEmpty ? 'background: rgba(255, 59, 48, 0.04); border: 1px solid rgba(255, 59, 48, 0.5); box-shadow: none;' : '';
+        let tagStyle = d.isInactiveEmpty ? 'background: rgba(255, 59, 48, 0.1); color: #FF3B30;' : 'background: var(--text-main); color: var(--bg-base);';
         let tagText = d.isInactiveEmpty ? 'DINÁMICA INACTIVA' : (d.isActive ? 'DINÁMICA ACTIVA' : 'DINÁMICA FINALIZADA');
 
         listContainer.innerHTML += `
@@ -1005,7 +903,6 @@
     document.getElementById('sorteoDetalleTitle').innerText = title;
     
     let descHtml = desc ? `<b>Premio:</b> ${desc}` : '';
-    
     if(lottery) descHtml += `<br><span style="font-size:13px; display:inline-block; margin-top:10px; text-transform:uppercase; letter-spacing: 0.5px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b>${lottery}</b></span>`;
     
     const isGratis = (!price || price === "$0" || price.toLowerCase().includes('gratis'));
