@@ -8,7 +8,6 @@
 <!-- META TAGS -->
 <meta property="og:title" content="John Stiven - Perfumería Original">
 <meta property="og:description" content="Descubre nuestra colección de fragancias, atención personalizada y dinámicas exclusivas.">
-<meta property="og:image" content="https://drive.google.com/uc?export=view&id=1mxRBRkvDrJ24XTAI5czbC5V_GSAJyO_d">
 <meta property="og:url" content="https://www.soyjohnstiven.com">
 <meta property="og:type" content="website">
 
@@ -16,7 +15,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="https://drive.google.com/uc?export=view&id=1mxRBRkvDrJ24XTAI5czbC5V_GSAJyO_d">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -94,11 +92,6 @@
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
     transition: opacity 0.5s ease;
   }
-  .splash-avatar {
-    width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin-bottom: 25px;
-    border: 1px solid var(--border-color); box-shadow: var(--shadow-md);
-    animation: scaleIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
   .splash-greeting { 
     font-size: 24px; font-weight: 700; letter-spacing: -0.5px; color: var(--text-main);
     opacity: 0; transform: translateY(10px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
@@ -108,78 +101,69 @@
     opacity: 0; transform: translateY(10px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; 
   }
 
-  @keyframes scaleIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
   @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
 
   /* ================= TOP BAR MINIMALISTA ================= */
-  .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; transition: 0.3s; background: var(--bg-base); border-bottom: 1px solid transparent; }
+  .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; transition: 0.3s; background: transparent; }
   .top-bar.scrolled { background: var(--bg-card); border-bottom: 1px solid var(--border-color); }
-  .top-brand { font-size: 15px; font-weight: 700; letter-spacing: -0.5px; opacity: 1; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
-  
-  .theme-toggle { font-size: 20px; color: var(--text-main); cursor: pointer; background: var(--accent-light); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; transition: 0.2s;}
+  .top-brand { font-size: 16px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
+  .top-bar.scrolled .top-brand { opacity: 1; }
+  .theme-toggle { font-size: 20px; color: var(--text-main); cursor: pointer; background: var(--accent-light); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; transition: 0.2s;}
   .theme-toggle:active { transform: scale(0.9); }
 
-  /* ================= PERFIL HERO ================= */
-  .profile-section { display: flex; flex-direction: column; align-items: center; text-align: center; padding: calc(var(--top-height) + 15px) 20px 25px 20px; }
-  .profile-img { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-base); outline: 1px solid var(--border-color); margin-bottom: 15px; box-shadow: var(--shadow-sm); }
-  .profile-name { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; justify-content: center; }
-  .verified-badge { color: #3399FF; font-size: 14px; }
-  .profile-bio { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin: 0 auto 20px auto; font-weight: 400; }
-  
-  .profile-stats { display: flex; gap: 35px; }
+  /* ================= HERO PROFILE ================= */
+  .profile-section { display: flex; flex-direction: column; align-items: center; text-align: center; padding: calc(var(--top-height) + 20px) 20px 30px 20px; }
+  .profile-name { font-size: 26px; font-weight: 800; letter-spacing: -1px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; justify-content: center; }
+  .verified-badge { color: #3399FF; font-size: 16px; }
+  .profile-bio { font-size: 14px; color: var(--text-muted); line-height: 1.5; max-width: 320px; margin: 0 auto 20px auto; font-weight: 400; }
+  .profile-stats { display: flex; gap: 30px; margin-bottom: 10px; }
   .stat-item { display: flex; flex-direction: column; align-items: center; }
-  .stat-val { font-size: 15px; font-weight: 700; color: var(--text-main); }
-  .stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+  .stat-val { font-size: 16px; font-weight: 700; color: var(--text-main); }
+  .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
 
-  .section-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: var(--text-main); margin: 30px 20px 15px 20px; text-transform: uppercase; }
-  .large-title { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 20px) 20px 20px 20px; text-transform: uppercase; }
+  .section-title { font-size: 16px; font-weight: 700; letter-spacing: -0.5px; color: var(--text-main); margin: 30px 20px 15px 20px; }
 
-  /* ================= NAVEGACIÓN ================= */
+  /* ================= NAV TIPO PILL ================= */
   .bottom-nav { 
     position: fixed; bottom: var(--safe-bottom); left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; height: 65px; 
     z-index: 2000; display: flex; justify-content: space-between; align-items: center; padding: 0 10px;
     background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 100px; box-shadow: var(--shadow-md); 
   }
-  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text-muted); font-size: 10px; font-weight: 500; cursor: pointer; transition: 0.3s; height: 100%; border-radius: 100px; position: relative;}
+  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text-muted); font-size: 10px; font-weight: 500; cursor: pointer; transition: 0.3s; height: 100%; border-radius: 100px; }
   .nav-item i { font-size: 20px; transition: 0.3s; }
   .nav-item.active { color: var(--accent-text); background: var(--accent); margin: 6px; height: calc(100% - 12px); box-shadow: var(--shadow-sm); }
-  
-  .nav-tooltip { position: absolute; top: -38px; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-base); font-size: 9px; font-weight: 700; padding: 6px 12px; border-radius: 8px; white-space: nowrap; box-shadow: var(--shadow-md); animation: bounceTip 2s infinite; pointer-events: none;}
-  .nav-tooltip::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); border-width: 5px 5px 0; border-style: solid; border-color: var(--text-main) transparent transparent transparent; }
-  @keyframes bounceTip { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -4px); } }
 
   .app-container { max-width: 800px; margin: 0 auto; padding: 0; }
   .view { display: none; animation: fadeView 0.4s ease; padding-bottom: 80px;}
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ================= BOTONES Y ACCIONES ================= */
-  .btn-primary { background: var(--accent); color: var(--accent-text); border: none; padding: 16px 24px; border-radius: 100px; font-size: 13px; font-weight: 600; width: 100%; max-width: 400px; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; gap: 8px;}
-  .btn-primary:active { transform: scale(0.96); opacity: 0.9;}
+  /* ================= BOTONES ================= */
+  .btn-primary { background: var(--accent); color: var(--accent-text); border: none; padding: 16px 24px; border-radius: 100px; font-size: 14px; font-weight: 600; width: 100%; max-width: 400px; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 auto;}
+  .btn-primary:active { transform: scale(0.96); }
 
-  .btn-secondary { background: var(--bg-base); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 100%; display: flex; justify-content: center;}
-  .btn-secondary:active { transform: scale(0.96); background: var(--border-color); }
+  .btn-secondary { background: var(--accent-light); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;}
+  .btn-secondary:active { transform: scale(0.96); }
 
-  .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; margin-bottom: 25px; }
+  /* ================= BENTO GRID ================= */
+  .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; margin-bottom: 25px; }
   .bento-item { border-radius: 20px; padding: 20px 15px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; text-decoration: none; color: var(--text-main); transition: transform 0.2s; cursor: pointer; min-height: 120px; position: relative; overflow: hidden; }
   .bento-item:active { transform: scale(0.97); }
   .bi-icon { font-size: 24px; margin-bottom: 15px; background: var(--accent-light); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: var(--text-main); }
-  .bi-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2; text-transform: uppercase;}
-  .bi-desc { font-size: 10px; color: var(--text-muted); line-height: 1.3; font-weight: 600; text-transform: uppercase; color: var(--gold);}
+  .bi-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;}
+  .bi-desc { font-size: 12px; color: var(--text-muted); line-height: 1.3; }
 
   /* ================= BUSCADOR ================= */
-  .search-container { margin: 0 20px 15px 20px; }
+  .search-container { margin: 0 20px 25px 20px; }
   .search-box { display: flex; align-items: center; border-radius: 16px; padding: 14px 18px; gap: 12px; background: var(--accent-light); transition: 0.3s; border: 1px solid transparent;}
   .search-box:focus-within { border-color: var(--border-color); background: var(--bg-card); box-shadow: var(--shadow-sm);}
   .search-box i { color: var(--text-muted); font-size: 16px; }
-  .search-box input { border: none; background: transparent; width: 100%; font-size: 14px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
+  .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
   .search-box input::placeholder { color: var(--text-muted); font-weight: 400; }
   .empty-state { text-align: center; padding: 40px 20px; }
 
-  /* ================= PRODUCTOS (CARRUSEL) ================= */
-  .carousel-wrapper { position: relative; width: 100%; margin-bottom: 30px; }
-  .product-grid { display: flex; gap: 15px; overflow-x: auto; padding: 0 20px 15px 20px; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
-  .product-grid::-webkit-scrollbar { display: none; }
+  /* ================= PRODUCTOS ================= */
+  .product-grid { display: flex; gap: 15px; overflow-x: auto; padding: 0 20px; scroll-snap-type: x mandatory; scrollbar-width: none; margin-bottom: 30px; }
   
   .prod-card { border-radius: 20px; padding: 12px; display: flex; flex-direction: column; transition: 0.3s; min-width: 200px; scroll-snap-align: start; }
   .prod-img { width: 100%; aspect-ratio: 1; background: #FFFFFF; border-radius: 14px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);}
@@ -193,17 +177,12 @@
   .btn-add { background: var(--accent-light); color: var(--text-main); border: none; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-top: auto;}
   .btn-add.selected { background: var(--accent); color: var(--accent-text); }
 
-  .carousel-btn { position: absolute; top: 40%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md); color: var(--text-main); font-size: 14px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s; opacity: 0.9; }
-  .carousel-btn:active { transform: translateY(-50%) scale(0.9); background: var(--accent); color: var(--accent-text);}
-  .carousel-btn.left { left: 5px; }
-  .carousel-btn.right { right: 5px; }
+  /* ================= CARRITO ================= */
+  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px); left: 50%; transform: translateX(-50%) translateY(150px); width: 90%; max-width: 400px; background: var(--accent); color: var(--accent-text); padding: 12px 16px 12px 20px; border-radius: 100px; display: flex; justify-content: space-between; align-items: center; z-index: 1500; box-shadow: var(--shadow-md); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;}
+  .ios-cart.show { transform: translateX(-50%) translateY(0); }
+  .cart-text { font-size: 14px; font-weight: 600;}
+  .btn-cart { background: var(--bg-card); color: var(--text-main); border: none; padding: 8px 16px; border-radius: 100px; font-weight: 700; font-size: 11px; cursor: pointer; pointer-events: none;}
 
-  /* ================= CARRITO FLOTANTE ================= */
-  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px); right: 20px; width: 60px; height: 60px; background: var(--accent); color: var(--accent-text); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; box-shadow: var(--shadow-md); z-index: 1500; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(0); opacity: 0;}
-  .ios-cart.show { transform: scale(1); opacity: 1; }
-  .cart-badge { position: absolute; top: 0px; right: 0px; background: #FF3B30; color: #FFF; font-size: 10px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
-
-  /* ================= MODALES Y SHEETS ================= */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
@@ -217,28 +196,28 @@
   .cart-item-info { flex: 1; margin-right: 15px; }
   .cart-item-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; line-height: 1.3;}
   .cart-item-price { font-size: 12px; color: var(--text-muted); font-weight: 500;}
-  .cart-controls { display: flex; align-items: center; gap: 10px;}
-  .c-btn-group { display: flex; align-items: center; gap: 12px; background: var(--accent-light); border-radius: 100px; padding: 6px 14px;}
+  .cart-controls { display: flex; align-items: center; gap: 15px; background: var(--accent-light); border-radius: 100px; padding: 6px 14px;}
   .c-btn { background: none; border: none; font-size: 16px; color: var(--text-main); cursor: pointer; font-weight: 500;}
   .c-qty { font-size: 14px; font-weight: 600; min-width: 20px; text-align: center;}
   .c-btn-trash { color: #FF3B30; background: none; border: none; font-size: 16px; cursor: pointer; padding: 5px;}
 
-  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 85%; max-width: 360px; border-radius: 28px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; background: var(--bg-card); box-shadow: var(--shadow-md); border: 1px solid var(--border-color);}
+  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 90%; max-width: 360px; border-radius: 28px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md);}
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%);}
   .close-cm { position: absolute; top: 15px; right: 15px; background: var(--accent-light); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-main); cursor: pointer;}
   
-  .styled-select { width: 100%; padding: 14px; margin-bottom: 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-size: 13px; outline: none; font-weight: 500; font-family: inherit;}
+  .styled-select { width: 100%; padding: 14px; margin-bottom: 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-size: 14px; outline: none; font-weight: 500; font-family: inherit;}
 
   /* ================= DINÁMICAS ================= */
   .raffle-card { padding: 30px 25px; text-align: left; transition: 0.3s; margin: 0 20px 20px 20px; }
   .r-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-  .r-tag { display: inline-block; background: var(--accent-light); color: var(--text-main); padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+  .r-tag { display: inline-block; background: var(--accent-light); color: var(--text-main); padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
   .r-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;}
   
+  .carousel-wrapper { position: relative; width: 100%; padding: 0 20px; margin-bottom: 20px; }
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
   .w-card { min-width: 280px; scroll-snap-align: start; padding: 25px; display: flex; gap: 20px; align-items: center;}
   .w-icon-large { font-size: 30px; color: var(--text-main); margin-bottom: 0; opacity: 0.8;}
-  .w-number { font-size: 26px; font-weight: 800; color: var(--text-main); line-height: 1; letter-spacing: -1px;}
+  .w-number { font-size: 24px; font-weight: 800; color: var(--text-main); line-height: 1;}
   .w-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--text-main); }
   .w-info p { font-size: 13px; color: var(--text-muted); font-weight: 400;}
 
@@ -246,11 +225,11 @@
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
   .info-card-large { padding: 25px; display: flex; flex-direction: column; gap: 15px; }
   .ic-header { display: flex; align-items: center; gap: 15px; }
-  .ic-icon-box { width: 40px; height: 40px; background: var(--bg-base); color: var(--text-main); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;}
-  .ic-title { font-size: 16px; font-weight: 600; letter-spacing: -0.2px;}
-  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.5;}
-  .ic-list li { margin-bottom: 10px; }
-  .ic-list li b { color: var(--text-main); font-weight: 500;}
+  .ic-icon-box { width: 45px; height: 45px; background: var(--accent-light); color: var(--text-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;}
+  .ic-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px;}
+  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
+  .ic-list li { margin-bottom: 12px; }
+  .ic-list li b { color: var(--text-main); font-weight: 600;}
 
   /* TABLERO DE PUESTOS / NÚMEROS */
   .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; }
@@ -277,7 +256,6 @@
 <body>
 
 <div id="splash">
-  <img src="https://drive.google.com/uc?export=view&id=1mxRBRkvDrJ24XTAI5czbC5V_GSAJyO_d" alt="John Stiven" class="splash-avatar" onerror="this.style.display='none'">
   <h1 class="splash-greeting" id="greetingText">Hola.</h1>
   <p class="splash-user">@soyjohnstiven</p>
 </div>
@@ -286,7 +264,7 @@
 <div class="modal-overlay" id="negociarOverlay"></div>
 <div class="center-modal bento-box" id="negociarModal">
   <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
-  <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: var(--text-main); margin-bottom: 20px;"></i>
+  <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: #34C759; margin-bottom: 20px;"></i>
   <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
   <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
   
@@ -306,6 +284,10 @@
        <i class="fa-solid fa-certificate" style="font-size: 12px; color: var(--text-main);"></i> John Stiven
     </div>
     <div class="top-stats-container">
+        <div class="header-stats">
+            <div style="color:var(--text-muted);">En Línea: <span id="uCount" class="online">--</span></div>
+            <div style="color:var(--text-muted);">Ventas: <span id="vCount" class="sales">--</span></div>
+        </div>
         <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
     </div>
   </header>
@@ -315,7 +297,6 @@
         <i class="fa-solid fa-layer-group"></i><span>Inicio</span>
     </div>
     <div class="nav-item" onclick="switchView('sorteos', 'Dinámicas', this)">
-        <div class="nav-tooltip">¡Participa por un perfume GRATIS!</div>
         <i class="fa-solid fa-ticket"></i><span>Dinámicas</span>
     </div>
     <div class="nav-item" onclick="switchView('info', 'Información', this)">
@@ -324,13 +305,13 @@
   </nav>
 
   <div class="ios-cart" id="appleCart" onclick="openCartSheet()">
-    <i class="fa-solid fa-bag-shopping"></i>
-    <div class="cart-badge" id="cartCount">0</div>
+    <div class="cart-text"><i class="fa-solid fa-bag-shopping" style="margin-right:8px;"></i> <span id="cartCount">0</span> SELECCIONADOS</div>
+    <button class="btn-cart">VER PEDIDO</button>
   </div>
 
   <div class="modal-overlay" id="sheetOverlay" onclick="closeSheets(event)"></div>
 
-  <div class="bottom-sheet bento-box" id="sheetCart">
+  <div class="bottom-sheet" id="sheetCart">
     <div class="sheet-handle"></div>
     <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; flex-shrink: 0;">Tu Selección</h3>
     
@@ -338,27 +319,15 @@
     <div id="cartSummaryContainer" style="flex-shrink: 0; margin-bottom: 20px;"></div>
     
     <button class="btn-primary" style="flex-shrink: 0; width: 100%;" onclick="sendCartWA()">
-      <i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i> ENVIAR PEDIDO
+      <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> ENVIAR PEDIDO
     </button>
   </div>
 
   <section id="viewTienda" class="view active">
     
     <div class="profile-section reveal">
-       <img src="https://drive.google.com/uc?export=view&id=1mxRBRkvDrJ24XTAI5czbC5V_GSAJyO_d" alt="John Stiven" class="profile-img">
        <h1 class="profile-name">John Stiven <i class="fa-solid fa-circle-check verified-badge"></i></h1>
        <p class="profile-bio">Venta de Perfumería 100% Original</p>
-       
-       <div class="profile-stats">
-         <div class="stat-item">
-           <span class="stat-val" id="vCount">Cargando...</span>
-           <span class="stat-label">Ventas</span>
-         </div>
-         <div class="stat-item" style="border-left: 1px solid var(--border-color); padding-left: 30px;">
-           <span class="stat-val" id="uCount">--</span>
-           <span class="stat-label">En Línea</span>
-         </div>
-       </div>
     </div>
 
     <!-- BANNER DE POLÍTICAS FIJO -->
@@ -409,14 +378,12 @@
       
       <!-- CARRUSEL DE PRODUCTOS -->
       <div class="carousel-wrapper reveal">
-          <button class="carousel-btn left" onclick="scrollProducts(-220)"><i class="fa-solid fa-chevron-left"></i></button>
           <div class="product-grid" id="catalogGrid">
             <div class="loader-container" style="min-width: 100%;">
                 <i class="fa-solid fa-spinner loader-spinner"></i>
                 <p style="font-weight: 500; font-size: 14px;">Cargando productos...</p>
             </div>
           </div>
-          <button class="carousel-btn right" onclick="scrollProducts(220)"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
     </div>
 
@@ -426,6 +393,31 @@
       <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">¿Buscas atención personalizada?</h3>
       <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-bottom: 20px;">Escríbeme para atención personalizada, asesoría o para negociar compras al por mayor.</p>
       <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="openNegociar()">Contactar por WhatsApp</button>
+    </div>
+
+    <!-- TARJETAS DE POLÍTICAS EN INICIO -->
+    <div class="info-cards-container reveal">
+      <div class="bento-box info-card-large">
+        <div class="ic-header">
+          <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
+          <h3 class="ic-title">Envíos Seguros</h3>
+        </div>
+        <ul class="ic-list">
+          <li><b>Nacionales:</b> Enviamos por Interrapidísimo a partir de $18,500.</li>
+          <li><b>Medellín:</b> Domicilios gratis (10:00 a.m. a 10:00 p.m.) aplicando a precio detal.</li>
+        </ul>
+      </div>
+
+      <div class="bento-box info-card-large">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: var(--bg-base);"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3 class="ic-title">Garantía y Pagos</h3>
+        </div>
+        <ul class="ic-list">
+          <li><b>Garantía Total:</b> Si el producto llega en mal estado por transporte, te respondemos de inmediato.</li>
+          <li><b>Medios de Pago:</b> Recibimos transferencias y otras opciones seguras para facilitar tu compra.</li>
+        </ul>
+      </div>
     </div>
 
     <div class="empty-state" id="emptyState" style="display: none;">
@@ -447,9 +439,7 @@
 
     <h2 class="section-title reveal">Ganadores Anteriores</h2>
     <div class="carousel-wrapper reveal">
-      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="winners-scroll" id="winnersContainer"></div>
-      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
   </section>
 
@@ -472,28 +462,6 @@
           <h3 class="ic-title" style="color: #FFF;">Perfil de TikTok</h3>
         </div>
         <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
-      </div>
-
-      <div class="bento-box info-card-large reveal">
-        <div class="ic-header">
-          <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
-          <h3 class="ic-title">Envíos y Entregas</h3>
-        </div>
-        <ul class="ic-list">
-          <li><b>Nacionales:</b> Enviamos por Interrapidísimo a partir de $18,500.</li>
-          <li><b>Medellín:</b> Domicilios gratis (10:00 a.m. a 10:00 p.m.) aplicando a precio detal.</li>
-        </ul>
-      </div>
-
-      <div class="bento-box info-card-large reveal">
-        <div class="ic-header">
-          <div class="ic-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-          <h3 class="ic-title">Garantía y Pagos</h3>
-        </div>
-        <ul class="ic-list">
-          <li><b>Garantía Total:</b> Si el producto llega en mal estado por transporte, te respondemos de inmediato.</li>
-          <li><b>Medios de Pago:</b> Recibimos transferencias y otras opciones seguras para facilitar tu compra.</li>
-        </ul>
       </div>
 
       <div class="bento-box info-card-large reveal">
@@ -539,7 +507,7 @@
     </div>
 
     <div class="reveal" style="display:flex; justify-content:center; gap:15px; font-size:12px; font-weight:500; margin-bottom:20px; color:var(--text-muted);">
-      <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:12px; border-radius:3px; border:1px solid var(--text-main); background:var(--bg-card);"></div> Libre</div>
+      <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:12px; border-radius:3px; border:1px solid var(--border-color); background:var(--bg-card);"></div> Libre</div>
       <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:12px; border-radius:3px; background:var(--accent-light);"></div> Ocupado</div>
       <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:12px; border-radius:3px; border:1px dashed var(--text-muted);"></div> Pendiente</div>
     </div>
@@ -643,12 +611,6 @@
     if (element) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
-        
-        // Quitar tooltip de dinámicas
-        if(viewId === 'sorteos') {
-            const tooltip = element.querySelector('.nav-tooltip');
-            if (tooltip) tooltip.style.display = 'none';
-        }
     }
     
     const nextView = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
@@ -676,14 +638,6 @@
 
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
-
-  // Scroll Carruseles
-  function scrollProducts(px) {
-      document.getElementById('catalogGrid').scrollBy({ left: px, behavior: 'smooth' });
-  }
-  function scrollWinners(px) {
-      document.getElementById('winnersContainer').scrollBy({ left: px, behavior: 'smooth' });
-  }
 
   let cartObj = {}; 
 
@@ -759,17 +713,23 @@
       let discount = calculateDiscount(totalItems);
       let total = subtotal - discount;
 
+      let msg = "";
+      if (totalItems === 1) msg = "Agrega 1 perfume más y obtén $10.000 de descuento inmediato.";
+      else if (totalItems === 2) msg = "Ahorraste $10.000. Si llevas 3 te descontamos $15.000.";
+      else if (totalItems > 2 && totalItems < 6) msg = `Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $50.000.`;
+      else msg = `Precio especial aplicado. Ahorraste $${discount.toLocaleString('es-CO')} en total.`;
+
       summ.innerHTML = `
         <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
             <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: var(--text-muted);">
                 <span>Subtotal</span>
                 <span>$${subtotal.toLocaleString('es-CO')}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--text-main); font-weight: 600;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--accent); font-weight: 500;">
                 <span>Descuentos</span>
                 <span>-$${discount.toLocaleString('es-CO')}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
+            <div style="display:flex; justify-content:space-between; font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 20px;">
                 <span>Total</span>
                 <span>$${total.toLocaleString('es-CO')}</span>
             </div>
@@ -928,7 +888,7 @@
       results.forEach(csv => {
         var rows = parseCSV(csv).slice(1);
         if (rows.length > 0 && rows[0].length >= 7) {
-          const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica';
+          const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
           const desc = rows[0][4] ? rows[0][4].trim() : '';
           const lottery = rows[0][5] ? rows[0][5].trim() : ''; 
           const price = rows[0][6] ? rows[0][6].trim() : '';
@@ -981,7 +941,7 @@
                <span class="r-tag" style="${tagStyle}">${tagText}</span>
             </div>
             <p style="font-size:14px; margin-bottom:12px; color:var(--text-muted);">Premio: <b>${d.desc || 'Próximamente'}</b></p>
-            ${d.price && !d.isInactiveEmpty ? `<p style="font-size:16px; font-weight:700; color:var(--text-main); margin-bottom:20px;">Valor: ${d.price}</p>` : '<div style="margin-bottom:20px;"></div>'}
+            ${d.price && !d.isInactiveEmpty ? `<p style="font-size:16px; font-weight:700; color:var(--text-main); margin-bottom:20px;">Valor Puesto: ${d.price}</p>` : '<div style="margin-bottom:20px;"></div>'}
             <button class="btn-secondary" onclick="openSorteoView(${index})" ${d.isInactiveEmpty ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>${d.isInactiveEmpty ? 'Tablero Cerrado' : 'Ver Puestos Libres'}</button>
           </div>
         `;
