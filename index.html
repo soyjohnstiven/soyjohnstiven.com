@@ -205,7 +205,7 @@
   .cart-badge { position: absolute; top: 0px; right: 0px; background: #FFD700; color: #000; font-size: 11px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
 
   /* ================= BOTTOM SHEETS (DRAWERS) ================= */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.3s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
   .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 30px 30px 0 0; padding: 25px 20px 40px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column; background: var(--bg-card); border-top: 1px solid var(--border-color); box-shadow: 0 -10px 40px rgba(0,0,0,0.2);}
@@ -238,18 +238,18 @@
   
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
   .w-card { min-width: 280px; scroll-snap-align: start; background: var(--bg-card); padding: 20px; border-radius: 16px; display: flex; gap: 20px; align-items: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
-  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0;}
+  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0; filter: drop-shadow(0 4px 10px rgba(212,175,55,0.3));}
   .w-number { font-size: 24px; font-weight: 700; color: var(--text-main); line-height: 1;}
   .w-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--text-main); }
   .w-info p { font-size: 13px; color: var(--text-muted); font-weight: 400;}
-  
-  /* ================= INFO LIST ================= */
+
+  /* ================= INFO CARDS ================= */
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
   .info-card-large { background: var(--bg-card); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); }
   .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px;}
   .ic-icon-box { width: 40px; height: 40px; background: var(--bg-base); color: var(--text-main); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;}
   .ic-title { font-size: 16px; font-weight: 600; letter-spacing: -0.2px;}
-  .ic-list { list-style: none; padding: 0; font-size: 15px; color: var(--text-muted); line-height: 1.5;}
+  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.5;}
   .ic-list li { margin-bottom: 10px; }
   .ic-list li b { color: var(--text-main); font-weight: 500;}
 
@@ -288,7 +288,7 @@
   <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
   <i class="fa-brands fa-whatsapp" style="font-size: 40px; color: #25D366; margin-bottom: 20px;"></i>
   <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
-  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
+  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Selecciona el motivo de tu consulta:</p>
   
   <select id="motivoConsulta" class="styled-select">
       <option value="Quiero obtener mejores precios">Quiero obtener mejores precios</option>
@@ -399,7 +399,37 @@
         <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base); width: auto; padding: 16px 35px; margin: 0 auto; display: inline-flex;" onclick="openNegociar()">Contactar</button>
     </div>
 
-    <!-- TODAS LAS TARJETAS DE INFORMACIÓN MOVÍDAS AQUÍ AL FINAL DEL INICIO -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <h3 style="margin-bottom:15px; font-weight:600; font-size: 16px;">Sin resultados</h3>
+      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Comunícate por WhatsApp para verificar disponibilidad.</p>
+      <button class="btn-primary" onclick="askAvailability()">Preguntar disponibilidad</button>
+    </div>
+  </section>
+
+  <!-- ================= VISTA DINÁMICAS ================= -->
+  <section id="viewSorteos" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
+    
+    <div id="sorteosList">
+        <div class="loader-container">
+            <i class="fa-solid fa-spinner loader-spinner"></i>
+            <p style="font-weight: 500; font-size: 14px;">Actualizando eventos...</p>
+        </div>
+    </div>
+
+    <h2 class="section-title">Ganadores Anteriores</h2>
+    <div class="carousel-wrapper">
+      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="winners-scroll" id="winnersContainer"></div>
+      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- ================= VISTA REDES ================= -->
+  <section id="viewInfo" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Redes</h1>
+
+    <!-- TODAS LAS TARJETAS DE INFORMACIÓN MOVÍDAS AQUÍ -->
     <div class="info-cards-container">
       
       <!-- Comunidad VIP -->
@@ -457,61 +487,13 @@
       </div>
 
     </div>
-
-    <div class="empty-state" id="emptyState" style="display: none;">
-      <h3 style="margin-bottom:15px; font-weight:600; font-size: 16px;">Sin resultados</h3>
-      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Comunícate por WhatsApp para verificar disponibilidad.</p>
-      <button class="btn-primary" onclick="askAvailability()">Preguntar disponibilidad</button>
-    </div>
-  </section>
-
-  <!-- ================= VISTA DINÁMICAS ================= -->
-  <section id="viewSorteos" class="view">
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
-    
-    <div id="sorteosList">
-        <div class="loader-container">
-            <i class="fa-solid fa-spinner loader-spinner"></i>
-            <p style="font-weight: 500; font-size: 14px;">Actualizando eventos...</p>
-        </div>
-    </div>
-
-    <h2 class="section-title">Ganadores Anteriores</h2>
-    <div class="carousel-wrapper">
-      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
-      <div class="winners-scroll" id="winnersContainer"></div>
-      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <!-- ================= VISTA REDES ================= -->
-  <section id="viewInfo" class="view">
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Redes</h1>
-    
-    <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5; text-align: center;">
-      Toda nuestra información detallada, redes sociales y políticas de trabajo las puedes encontrar en la parte inferior de la pestaña <b>Inicio</b>.
-    </div>
-
-    <div style="padding: 0 20px;">
-        <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base);" onclick="switchView('tienda', 'Inicio', document.querySelectorAll('.nav-item')[0])">Ir a Inicio</button>
-    </div>
   </section>
 
   <!-- ================= VISTA DETALLE SORTEOS ================= -->
   <section id="viewSorteoDetalle" class="view">
-    <div style="padding-top: calc(var(--top-height) + 15px); text-align: center; padding-bottom: 10px;">
-        <h2 style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px;" id="sorteoDetalleTitle">Tablero</h2>
-        <p style="padding: 0 20px; color: var(--text-muted); margin-top: 8px; font-size: 14px;" id="sorteoDetalleDesc"></p>
-    </div>
-
-    <!-- EXPLICACIÓN (Oculto dinámicamente si es Gratis) -->
-    <div id="explicacionChances" style="margin: 0 20px 20px 20px; padding: 16px; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border-color); text-align: center; box-shadow: var(--shadow-sm);">
-      <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text-main);">¡Multiplica tus opciones de ganar!</h4>
-      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;">
-        Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades reales de llevarte el premio!
-      </p>
-    </div>
-
+    
+    <div id="sorteoDetalleHeader" style="margin-top: calc(var(--top-height) + 15px);"></div>
+    
     <!-- Conteo Real de Puestos -->
     <div id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 25px 20px; font-weight: 600; font-size: 11px; text-align:center; line-height: 1.4;">
        <div><span id="labelLibres" style="color:var(--text-muted); display:block; margin-bottom:4px;">PUESTOS LIBRES</span><span id="countLibres" style="font-size:18px; color:var(--text-main);">0</span></div>
@@ -535,9 +517,6 @@
     <!-- Tableros -->
     <div id="boardGridDetalle" style="padding: 0 20px; margin-bottom: 40px;"></div>
 
-    <div style="padding: 0 20px;">
-      <button class="btn-secondary" onclick="switchView('sorteos', 'Dinámicas', document.querySelectorAll('.nav-item')[1])">VOLVER A DINÁMICAS</button>
-    </div>
   </section>
 
 </div>
@@ -621,6 +600,8 @@
     // Título estricto
     if(viewId === 'tienda') {
         document.getElementById('topTitle').innerText = 'Inicio';
+    } else if(viewId === 'sorteoDetalle') {
+        document.getElementById('topTitle').innerText = 'Detalle Dinámica';
     } else {
         document.getElementById('topTitle').innerText = title;
     }
@@ -655,12 +636,13 @@
   function calculateDiscount(qty) {
     let packsOf6 = Math.floor(qty / 6);
     let remainder = qty % 6;
-    let discount = packsOf6 * 40000; 
+    // Según instrucciones: 6 unidades = 48.000 de descuento (Ganancia final: 90.000, 15k c/u)
+    let discount = packsOf6 * 48000; 
     
-    if (remainder === 5) discount += 30000;
-    else if (remainder === 4) discount += 20000;
-    else if (remainder === 3) discount += 15000;
-    else if (remainder === 2) discount += 10000;
+    if (remainder === 5) discount += 35000;
+    else if (remainder === 4) discount += 27000;
+    else if (remainder === 3) discount += 19000;
+    else if (remainder === 2) discount += 11000;
     
     return discount;
   }
@@ -725,11 +707,11 @@
       let total = subtotal - discount;
 
       let msg = "";
-      if (totalItems === 1) msg = "Agrega 1 perfume más y obtén $10.000 de descuento inmediato.";
-      else if (totalItems === 2) msg = "Ahorraste $10.000. Si llevas 3 te descontamos $15.000.";
-      else if (totalItems === 3) msg = "Ahorraste $15.000. Si llevas 4 te descontamos $20.000.";
-      else if (totalItems > 3 && totalItems < 6) msg = `Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $40.000.`;
-      else msg = `Precio especial aplicado. Ahorraste $${discount.toLocaleString('es-CO')} en total.`;
+      if (totalItems === 1) msg = "Agrega 1 perfume más y obtén $11.000 de descuento inmediato.";
+      else if (totalItems === 2) msg = "Ahorraste $11.000. Si llevas 3 te descontamos $19.000.";
+      else if (totalItems === 3) msg = "Ahorraste $19.000. Si llevas 4 te descontamos $27.000.";
+      else if (totalItems > 3 && totalItems < 6) msg = `Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $48.000.`;
+      else msg = `Precio mayorista aplicado. Ahorraste $${discount.toLocaleString('es-CO')} en total.`;
 
       summ.innerHTML = `
         <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
@@ -987,11 +969,10 @@
     const data = dynamicsDataArray[index];
     currentBoardData = data.pData;
     
-    document.getElementById('sorteoDetalleTitle').innerText = data.title;
-    
-    let descHtml = data.desc ? `<b>Premio:</b> ${data.desc}` : '';
-    
-    if(data.lottery) descHtml += `<br><span style="font-size:13px; display:inline-block; margin-top:10px; text-transform:uppercase; letter-spacing: 0.5px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b>${data.lottery}</b></span>`;
+    document.getElementById('sorteoDetalleHeader').innerHTML = `
+        <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: var(--text-main); text-transform: uppercase;">${data.title}</h2>
+        ${data.desc ? `<p style="font-size:15px; color:var(--text-muted); font-weight:600; margin-top:8px;">Premio: ${data.desc}</p>` : ''}
+    `;
     
     let isGratis = false;
     if (data.price) {
@@ -999,32 +980,51 @@
         if(p.includes('gratis') || p === '$0' || p === '0') isGratis = true;
     }
     
+    let infoHtml = `
+      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; margin: 20px; box-shadow: var(--shadow-sm);">
+    `;
+    
+    if(data.lottery) {
+        infoHtml += `<p style="font-size:12px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b style="color:var(--text-main); font-size:14px;">${data.lottery}</b></p>`;
+    }
+    
     if(isGratis) {
-        descHtml += `<br><span style="color:var(--text-main); font-weight:700; font-size:16px; display:inline-block; margin-top:8px;">GRATIS</span>`;
-        document.getElementById('explicacionChances').style.display = 'none'; 
+        infoHtml += `<div style="display:inline-block; font-size:18px; font-weight:800; color:var(--text-main);">GRATIS</div>`;
         document.getElementById('labelLibres').innerText = "NÚMEROS LIBRES";
         document.getElementById('labelOcupados').innerText = "NÚMEROS OCUPADOS";
         document.getElementById('labelPendientes').innerText = "NÚMEROS PENDIENTES";
         document.getElementById('searchPuestoInput').placeholder = "Buscar un número...";
     } else {
-        descHtml += `<br><span style="color:var(--text-main); font-weight:700; font-size:16px; display:inline-block; margin-top:8px;">Valor Puesto: ${data.price}</span>`;
-        document.getElementById('explicacionChances').style.display = 'block'; 
+        infoHtml += `<div style="display:inline-block; font-size:18px; font-weight:800; color:var(--accent);">Valor Puesto: ${data.price}</div>`;
+        infoHtml += `<p style="font-size:13px; color:var(--text-muted); margin-top: 15px; line-height: 1.4;">Por cada puesto tienes 3 posibilidades de ganar. Esos son los números con los que participas.</p>`;
         document.getElementById('labelLibres').innerText = "PUESTOS LIBRES";
         document.getElementById('labelOcupados').innerText = "PUESTOS OCUPADOS";
         document.getElementById('labelPendientes').innerText = "PUESTOS PENDIENTES";
         document.getElementById('searchPuestoInput').placeholder = "Buscar un puesto o número...";
     }
     
-    document.getElementById('sorteoDetalleDesc').innerHTML = descHtml;
+    infoHtml += `</div>`;
+    
+    if (!isGratis) {
+        infoHtml += `
+        <div style="margin: 0 20px 20px 20px; padding: 15px; background: rgba(211, 47, 47, 0.05); border-radius: 16px; border: 1px solid rgba(211, 47, 47, 0.2); text-align: center;">
+          <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--accent);">¡Multiplica tus opciones de ganar!</h4>
+          <p style="font-size: 12px; color: var(--text-main); line-height: 1.4;">Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades reales de llevarte el premio!</p>
+        </div>`;
+    }
+    
+    // Asignar al Header
+    document.getElementById('sorteoDetalleHeader').innerHTML += infoHtml;
+    
     document.getElementById('searchPuestoInput').value = '';
     
     renderBoardDetalle('', isGratis);
-    switchView('sorteoDetalle', 'Tablero Dinámica', null);
+    switchView('sorteoDetalle', 'Detalle Dinámica', null);
   }
 
   document.getElementById('searchPuestoInput').addEventListener('input', (e) => {
-    const titleText = document.getElementById('sorteoDetalleDesc').innerText.toLowerCase();
-    const isGratis = titleText.includes('gratis');
+    // Si el placeholder dice "Buscar un número...", es gratis.
+    const isGratis = document.getElementById('searchPuestoInput').placeholder.includes('número');
     renderBoardDetalle(e.target.value.trim(), isGratis);
   });
 
