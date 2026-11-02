@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 
 <!-- CONFIGURACIÓN PWA (APP INSTALABLE) -->
-<meta name="theme-color" content="#F2F2F7">
+<meta name="theme-color" content="#F5F5F7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.json">
@@ -25,7 +25,7 @@
 <style>
   :root {
     --bg-base: #F5F5F7;
-    --bg-card: rgba(255, 255, 255, 0.7);
+    --bg-card: rgba(255, 255, 255, 0.8);
     --text-main: #1D1D1F;
     --text-muted: #86868B;
     --accent: #000000; 
@@ -33,7 +33,7 @@
     --accent-text: #FFFFFF;
     
     --glass-border: rgba(0, 0, 0, 0.05);
-    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-bg: rgba(255, 255, 255, 0.85);
     --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
     
     --nav-height: 85px;
@@ -94,7 +94,6 @@
   }
   .top-notification.show { transform: translate(-50%, 0); }
 
-  /* ================= SPLASH MINIMALISTA ================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -142,7 +141,6 @@
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ================= BOTONES MINIMALISTAS ================= */
   .btn-ask, .btn-board { background: var(--accent); color: var(--accent-text); border: none; padding: 16px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; width: 100%; max-width: 400px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
   .btn-ask:active, .btn-board:active { transform: scale(0.96); opacity: 0.9; }
 
@@ -230,7 +228,7 @@
 
   /* TABLERO DE PUESTOS */
   .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: 12px; margin-top: 15px; }
-  .puesto-card { border-radius: 14px; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; }
+  .puesto-card { border-radius: 14px; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--glass-border); }
   .puesto-card.ocupado { background: var(--accent-light); opacity: 0.5; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
   .puesto-card.pendiente { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.1); }
@@ -254,13 +252,13 @@
 <body>
 
 <div class="top-notification" id="topNotif">
-  <i class="fa-brands fa-safari" style="font-size: 14px;"></i>
+  <i class="fa-solid fa-compass" style="font-size: 14px;"></i>
   <span>Abre esta página en el navegador oficial de tu dispositivo.</span>
 </div>
 
 <div id="splash">
   <i class="fa-solid fa-droplet splash-icon"></i>
-  <h1 class="splash-greeting" id="greetingText">¡Buenos días!</h1>
+  <h1 class="splash-greeting" id="greetingText">Buenos días.</h1>
   <p class="splash-user">@soyjohnstiven</p>
 </div>
 
@@ -269,7 +267,7 @@
   <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
   <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: var(--text-main); margin-bottom: 20px;"></i>
   <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px; line-height: 1.2;">ESTADOS WHATSAPP</h3>
-  <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
+  <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Agrégame a WhatsApp para ver mis estados y ofertas exclusivas.</p>
   <button class="btn-ask" onclick="goPromoWA()">AGREGAR A WHATSAPP</button>
 </div>
 
@@ -361,7 +359,7 @@
   <section id="viewSorteos" class="view">
     <h1 class="large-title reveal">Dinámicas</h1>
     
-    <!-- NOTIFICACIÓN DE NUEVA DINÁMICA (ACTUALIZADO SEGÚN HISTORIAL)[cite: 2] -->
+    <!-- NOTIFICACIÓN DE NUEVA DINÁMICA -->
     <div class="reveal glass-effect" style="margin: 0 20px 20px 20px; padding: 18px; border-radius: 20px; text-align: center; border: 1px solid var(--text-main);">
       <h4 style="color: var(--text-main); font-size: 14px; font-weight: 700; margin-bottom: 6px;">
         ¡NUEVA DINÁMICA ACTIVA! Ingresa y participa.
@@ -395,7 +393,7 @@
         <p style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;">Conoce mis videos, envíos y más contenido en mi cuenta oficial <b>@soyjohnstiven</b>.</p>
       </div>
 
-      <div class="info-card-large glass-effect reveal" style="cursor:pointer;" onclick="openWhatsApp('Hola! Quiero agregarlos a mis contactos para ver los estados y acceder a mejores precios.')">
+      <div class="info-card-large glass-effect reveal" style="cursor:pointer;" onclick="openWhatsApp('Hola, quiero agregarlos a mis contactos para ver los estados y acceder a mejores precios.')">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-brands fa-whatsapp"></i></div>
           <h3 class="ic-title">Estados WhatsApp</h3>
@@ -466,9 +464,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     
     const hour = new Date().getHours();
-    let greeting = "¡Buenas noches!";
-    if (hour >= 6 && hour < 12) greeting = "¡Buenos días!";
-    else if (hour >= 12 && hour < 19) greeting = "¡Buenas tardes!";
+    let greeting = "Buenas noches.";
+    if (hour >= 6 && hour < 12) greeting = "Buenos días.";
+    else if (hour >= 12 && hour < 19) greeting = "Buenas tardes.";
     document.getElementById('greetingText').innerText = greeting;
 
     const statsBox = document.getElementById('statsBox');
@@ -524,7 +522,7 @@
   }
   function goPromoWA() {
     closePromo();
-    openWhatsApp("Hola! Quiero agregarlos a mis contactos para ver los estados, precios y promociones.");
+    openWhatsApp("Hola, quiero agregarlos a mis contactos para ver los estados, precios y promociones.");
   }
 
   function toggleTheme() {
@@ -572,7 +570,6 @@
     
     if (viewId === 'sorteos') {
         setTimeout(() => {
-            // Confeti monocromático minimalista
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#000000', '#8E8E93', '#FFFFFF', '#D1D1D6'] });
         }, 300);
     }
@@ -920,7 +917,7 @@
     document.getElementById('sorteoDetalleTitle').innerText = title;
     
     let descHtml = desc ? `Premio: ${desc}` : '';
-    if(lottery) descHtml += `<br><span style="font-size:12px; color:var(--text-main); font-weight:500; display:inline-block; margin-top:8px;">Sorteo con las 2 últimas cifras de la <b>${lottery}</b></span>`;
+    if(lottery) descHtml += `<br><span style="font-size:12px; color:var(--text-main); font-weight:500; display:inline-block; margin-top:8px;">Sortea con las 2 últimas cifras de: <b>${lottery}</b></span>`;
     if(price) descHtml += `<br><span style="color:var(--text-main); font-weight:700; font-size:14px; display:inline-block; margin-top:4px;">Valor Puesto: ${price}</span>`;
     
     document.getElementById('sorteoDetalleDesc').innerHTML = descHtml;
@@ -996,7 +993,6 @@
     `;
   }
 
-  // MENSAJE WHATSAPP EXACTO COMO FUE SOLICITADO[cite: 2]
   function pedirPuesto(id) {
     openWhatsApp(`Hola, quiero el puesto ${id}. Mándame la cuenta para pagarte de una vez.`);
   }
