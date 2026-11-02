@@ -23,7 +23,7 @@
 
 <style>
   /* =========================================
-     ESTÉTICA BOUTIQUE / REALISTA (Sin Emojis)
+     ESTÉTICA BOUTIQUE / NAVIDEÑA (Sin Emojis)
   ========================================= */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
@@ -33,14 +33,14 @@
     --text-main: #111111;
     --text-muted: #6B6B6B;
     
-    --accent: #000000; 
-    --accent-light: #F2F2F7;
+    /* Colores Elegantes (Rojo y Dorado) */
+    --accent: #D32F2F; 
+    --accent-light: rgba(211, 47, 47, 0.08);
     --accent-text: #FFFFFF;
-    
     --gold: #C5A059;
     
     --border-color: rgba(0, 0, 0, 0.06);
-    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
     --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.08);
     
     --nav-height: 80px;
@@ -49,14 +49,15 @@
   }
 
   body.dark-mode {
-    --bg-base: #050505;
-    --bg-card: #111111;
+    --bg-base: #0A0A0A;
+    --bg-card: #141414;
     --text-main: #FFFFFF;
     --text-muted: #A0A0A0;
     
-    --accent: #FFFFFF;
-    --accent-light: #1A1A1A;
-    --accent-text: #000000;
+    --accent: #D32F2F;
+    --accent-light: rgba(211, 47, 47, 0.15);
+    --accent-text: #FFFFFF;
+    --gold: #D4AF37;
     
     --border-color: rgba(255, 255, 255, 0.08);
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -78,63 +79,61 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
-  .glass-effect {
+  .bento-box {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
+    border-radius: 20px;
     box-shadow: var(--shadow-sm);
   }
 
-  .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; grid-column: 1 / -1; color: var(--text-main); }
+  .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; grid-column: 1 / -1; color: var(--accent); }
   .loader-spinner { font-size: 28px; margin-bottom: 12px; animation: spin 1s linear infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  /* ================= SPLASH PERSONALIZADO ================= */
+  /* ================= SPLASH PERSONAL ================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
     transition: opacity 0.5s ease;
   }
   .splash-avatar {
-    width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin-bottom: 25px;
-    border: 1px solid var(--border-color); box-shadow: var(--shadow-md);
-    animation: scaleIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;
+    border: 2px solid var(--border-color); box-shadow: var(--shadow-md);
+    animation: scaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .splash-greeting { 
     font-size: 24px; font-weight: 700; letter-spacing: -0.5px; color: var(--text-main);
     opacity: 0; transform: translateY(10px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
   }
   .splash-user { 
-    font-size: 14px; font-weight: 500; color: var(--text-muted); margin-top: 5px; letter-spacing: 1px;
+    font-size: 14px; font-weight: 500; color: var(--text-muted); margin-top: 5px;
     opacity: 0; transform: translateY(10px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; 
   }
 
-  @keyframes scaleIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes scaleIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
   @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
 
-  /* ================= TOP BAR MINIMALISTA ================= */
+  /* ================= TOP BAR ================= */
   .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; transition: 0.3s; background: transparent; }
   .top-bar.scrolled { background: var(--bg-card); border-bottom: 1px solid var(--border-color); }
-  .top-brand { font-size: 15px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
+  .top-brand { font-size: 16px; font-weight: 700; letter-spacing: -0.5px; opacity: 0; transition: 0.3s; display: flex; align-items: center; gap: 8px;}
   .top-bar.scrolled .top-brand { opacity: 1; }
-  .theme-toggle { font-size: 18px; color: var(--text-main); cursor: pointer; background: var(--accent-light); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; transition: 0.2s;}
+  
+  .top-stats-container { display: flex; align-items: center; gap: 15px; }
+  .header-stats { display: flex; flex-direction: column; align-items: flex-end; font-size: 10px; font-weight: 600; line-height: 1.2;}
+  .header-stats span { color: var(--accent); }
+
+  .theme-toggle { font-size: 20px; color: var(--accent); cursor: pointer; background: var(--accent-light); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; transition: 0.2s;}
   .theme-toggle:active { transform: scale(0.9); }
 
-  /* ================= PERFIL HERO ================= */
+  /* ================= HERO PROFILE ================= */
   .profile-section { display: flex; flex-direction: column; align-items: center; text-align: center; padding: calc(var(--top-height) + 15px) 20px 25px 20px; }
-  .profile-img { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-base); outline: 1px solid var(--border-color); margin-bottom: 15px; box-shadow: var(--shadow-sm); }
+  .profile-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-base); outline: 1px solid var(--border-color); margin-bottom: 15px; box-shadow: var(--shadow-sm); }
   .profile-name { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; justify-content: center; }
-  .verified-badge { color: #3399FF; font-size: 14px; }
+  .verified-badge { color: var(--accent); font-size: 14px; }
   .profile-bio { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin: 0 auto 20px auto; font-weight: 400; }
-  
-  .profile-stats { display: flex; gap: 35px; }
-  .stat-item { display: flex; flex-direction: column; align-items: center; }
-  .stat-val { font-size: 15px; font-weight: 700; color: var(--text-main); }
-  .stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
 
-  .section-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: var(--text-main); margin: 30px 20px 15px 20px; text-transform: uppercase; }
-  .large-title { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 20px) 20px 20px 20px; text-transform: uppercase; }
-
-  /* ================= NAVEGACIÓN ================= */
+  /* ================= NAV INFERIOR ================= */
   .bottom-nav { 
     position: fixed; bottom: var(--safe-bottom); left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; height: 65px; 
     z-index: 2000; display: flex; justify-content: space-between; align-items: center; padding: 0 10px;
@@ -153,34 +152,39 @@
   .view.active { display: block; }
   @keyframes fadeView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ================= BOTONES Y ACCIONES ================= */
-  .btn-primary { background: var(--accent); color: var(--accent-text); border: none; padding: 16px 24px; border-radius: 100px; font-size: 13px; font-weight: 600; width: 100%; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; gap: 8px;}
+  /* ================= BOTONES ================= */
+  .btn-primary { background: var(--text-main); color: var(--bg-base); border: none; padding: 16px 24px; border-radius: 100px; font-size: 13px; font-weight: 600; width: 100%; max-width: 400px; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; gap: 8px;}
   .btn-primary:active { transform: scale(0.96); opacity: 0.9;}
 
-  .btn-secondary { background: var(--accent-light); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 100%; display: flex; justify-content: center;}
-  .btn-secondary:active { transform: scale(0.96); }
+  .btn-secondary { background: var(--bg-base); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 100%; display: flex; justify-content: center;}
+  .btn-secondary:active { transform: scale(0.96); background: var(--border-color); }
 
+  /* ================= BENTO GRID (CATÁLOGOS) ================= */
   .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; margin-bottom: 25px; }
-  .action-box { border-radius: 20px; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; color: var(--text-main); transition: transform 0.2s; cursor: pointer; min-height: 130px; }
-  .action-box:active { transform: scale(0.97); background: var(--accent-light);}
-  .ab-icon { font-size: 26px; margin-bottom: 12px; color: var(--text-main); }
-  .ab-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.2px; text-transform: uppercase;}
-  .ab-desc { font-size: 10px; color: var(--text-muted); line-height: 1.3; font-weight: 500; text-transform: uppercase; color: var(--gold);}
+  .bento-item { padding: 20px 15px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; text-decoration: none; color: var(--text-main); transition: transform 0.2s; cursor: pointer; min-height: 120px; position: relative; overflow: hidden; }
+  .bento-item:active { transform: scale(0.97); }
+  .bi-icon { font-size: 24px; margin-bottom: 15px; background: var(--accent-light); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: var(--accent); }
+  .bi-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.2; text-transform: uppercase;}
+  .bi-desc { font-size: 10px; color: var(--text-muted); line-height: 1.3; font-weight: 600; text-transform: uppercase; color: var(--gold);}
 
   /* ================= BUSCADOR ================= */
-  .search-container { margin: 0 20px 20px 20px; }
+  .search-container { margin: 0 20px 15px 20px; }
   .search-box { display: flex; align-items: center; border-radius: 16px; padding: 14px 18px; gap: 12px; background: var(--accent-light); transition: 0.3s; border: 1px solid transparent;}
   .search-box:focus-within { border-color: var(--border-color); background: var(--bg-card); box-shadow: var(--shadow-sm);}
-  .search-box i { color: var(--text-muted); font-size: 16px; }
+  .search-box i { color: var(--accent); font-size: 16px; }
   .search-box input { border: none; background: transparent; width: 100%; font-size: 14px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
   .search-box input::placeholder { color: var(--text-muted); font-weight: 400; }
-  
-  /* ================= PRODUCTOS (CARRUSEL) ================= */
-  .carousel-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
+  .empty-state { text-align: center; padding: 40px 20px; }
+
+  /* ================= PRODUCTOS ================= */
+  .section-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: var(--text-main); margin: 30px 20px 15px 20px; text-transform: uppercase; }
+  .large-title { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin: calc(var(--top-height) + 20px) 20px 20px 20px; text-transform: uppercase; }
+
+  .carousel-wrapper { position: relative; width: 100%; margin-bottom: 30px; }
   .product-grid { display: flex; gap: 15px; overflow-x: auto; padding: 0 20px 15px 20px; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
   .product-grid::-webkit-scrollbar { display: none; }
   
-  .prod-card { border-radius: 20px; padding: 12px; display: flex; flex-direction: column; transition: 0.3s; min-width: 220px; scroll-snap-align: start; }
+  .prod-card { padding: 12px; display: flex; flex-direction: column; transition: 0.3s; min-width: 200px; scroll-snap-align: start; }
   .prod-img { width: 100%; aspect-ratio: 1; background: #FFFFFF; border-radius: 14px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);}
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
   
@@ -189,18 +193,18 @@
   .price-main { font-size: 15px; font-weight: 800; color: var(--text-main); }
   .price-fake { font-size: 11px; font-weight: 500; color: var(--text-muted); text-decoration: line-through;}
   
-  .btn-add { background: var(--accent-light); color: var(--text-main); border: none; padding: 10px; border-radius: 10px; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s; margin-top: auto; text-transform: uppercase; letter-spacing: 0.5px;}
+  .btn-add { background: var(--accent-light); color: var(--accent); border: none; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-top: auto;}
   .btn-add.selected { background: var(--accent); color: var(--accent-text); }
-  
+
   .carousel-btn { position: absolute; top: 40%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md); color: var(--text-main); font-size: 14px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s; opacity: 0.9; }
   .carousel-btn:active { transform: translateY(-50%) scale(0.9); background: var(--accent); color: var(--accent-text);}
   .carousel-btn.left { left: 5px; }
   .carousel-btn.right { right: 5px; }
 
-  /* ================= CARRITO FLOTANTE ================= */
-  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px); right: 20px; width: 60px; height: 60px; background: var(--accent); color: var(--accent-text); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; box-shadow: var(--shadow-md); z-index: 1500; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(0); opacity: 0;}
+  /* ================= CARRITO ================= */
+  .ios-cart { position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; width: 60px; height: 60px; background: var(--accent); color: var(--accent-text); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; box-shadow: var(--shadow-md); z-index: 1500; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(0); opacity: 0;}
   .ios-cart.show { transform: scale(1); opacity: 1; }
-  .cart-badge { position: absolute; top: 0px; right: 0px; background: #FF3B30; color: #FFF; font-size: 10px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
+  .cart-badge { position: absolute; top: 0px; right: 0px; background: var(--gold); color: #000; font-size: 11px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
 
   /* ================= MODALES Y SHEETS ================= */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s; }
@@ -220,51 +224,51 @@
   .c-btn-group { display: flex; align-items: center; gap: 12px; background: var(--accent-light); border-radius: 100px; padding: 6px 14px;}
   .c-btn { background: none; border: none; font-size: 16px; color: var(--text-main); cursor: pointer; font-weight: 500;}
   .c-qty { font-size: 14px; font-weight: 600; min-width: 20px; text-align: center;}
-  .c-btn-trash { color: #FF3B30; background: none; border: none; font-size: 16px; cursor: pointer; padding: 5px; }
+  .c-btn-trash { color: #FF3B30; background: none; border: none; font-size: 16px; cursor: pointer; padding: 5px;}
 
-  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 85%; max-width: 360px; border-radius: 28px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; background: var(--bg-card); box-shadow: var(--shadow-md); border: 1px solid var(--border-color);}
+  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -40%); width: 85%; max-width: 360px; border-radius: 28px; padding: 35px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.4s; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md);}
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%);}
-  .close-cm { position: absolute; top: 15px; right: 15px; background: var(--accent-light); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-main); cursor: pointer;}
+  .close-cm { position: absolute; top: 15px; right: 15px; background: var(--bg-base); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; color: var(--text-muted); cursor: pointer;}
   
-  .styled-select { width: 100%; padding: 14px; margin-bottom: 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-size: 13px; outline: none; font-weight: 500; font-family: inherit;}
+  .styled-select { width: 100%; padding: 14px; margin-bottom: 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-size: 14px; outline: none; font-weight: 500; font-family: inherit;}
 
   /* ================= DINÁMICAS ================= */
-  .raffle-card { background: var(--bg-card); border-radius: 20px; margin: 0 20px 20px 20px; padding: 25px 20px; text-align: left; box-shadow: var(--shadow-sm); transition: 0.3s;}
+  .raffle-card { padding: 30px 25px; text-align: left; transition: 0.3s; margin: 0 20px 20px 20px; }
   .r-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
   .r-tag { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-  .r-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px;}
+  .r-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;}
   
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
-  .w-card { min-width: 280px; scroll-snap-align: start; background: var(--bg-card); padding: 20px; border-radius: 16px; display: flex; gap: 20px; align-items: center; box-shadow: var(--shadow-sm);}
-  .w-icon-large { font-size: 30px; color: var(--text-main); margin-bottom: 0; opacity: 0.8;}
-  .w-number { font-size: 24px; font-weight: 700; color: var(--text-main); line-height: 1;}
+  .w-card { min-width: 280px; scroll-snap-align: start; padding: 25px; display: flex; gap: 20px; align-items: center;}
+  .w-icon-large { font-size: 30px; color: var(--gold); margin-bottom: 0; opacity: 0.8;}
+  .w-number { font-size: 24px; font-weight: 800; color: var(--text-main); line-height: 1;}
   .w-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--text-main); }
   .w-info p { font-size: 13px; color: var(--text-muted); font-weight: 400;}
   
   /* ================= INFO LIST ================= */
   .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
-  .info-card-large { background: var(--bg-card); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-sm); }
-  .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px;}
-  .ic-icon-box { width: 40px; height: 40px; background: var(--bg-base); color: var(--text-main); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;}
-  .ic-title { font-size: 16px; font-weight: 600; letter-spacing: -0.2px;}
+  .info-card-large { padding: 25px; display: flex; flex-direction: column; gap: 15px; }
+  .ic-header { display: flex; align-items: center; gap: 15px; }
+  .ic-icon-box { width: 40px; height: 40px; background: var(--accent-light); color: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;}
+  .ic-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px;}
   .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.5;}
   .ic-list li { margin-bottom: 10px; }
   .ic-list li b { color: var(--text-main); font-weight: 500;}
 
   /* TABLERO DE PUESTOS / NÚMEROS */
   .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; }
-  .puesto-card { background: var(--bg-card); border-radius: 12px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--border-color); }
+  .puesto-card { padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--border-color); }
   .puesto-card.ocupado { background: var(--accent-light); opacity: 0.4; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
   .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); border-style: dashed; }
   .puesto-card.libre { border-color: var(--text-main); }
   .puesto-card.libre:active { transform: scale(0.95); background: var(--bg-base); }
-  .puesto-title { font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; text-transform: uppercase;}
-  .puesto-nums { font-size: 11px; color: var(--text-muted); line-height: 1.2; font-weight: 400;}
+  .puesto-title { font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; text-transform: uppercase;}
+  .puesto-nums { font-size: 10px; color: var(--text-muted); line-height: 1.2; font-weight: 500;}
 
   /* TABLERO GENERAL (00-99) */
   .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 10px;}
-  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 13px; font-weight: 500; cursor: pointer; background: var(--bg-base); transition: 0.2s;}
+  .b-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--bg-base); transition: 0.2s;}
   .b-cell.libre { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); }
   .b-cell.libre:active { transform: scale(0.92); opacity: 0.7; }
   .b-cell.ocupado { background: transparent; color: var(--text-muted); pointer-events: none; border-color: transparent; opacity: 0.4;}
@@ -283,10 +287,10 @@
 
 <!-- Modal Negociación (Asesoría) -->
 <div class="modal-overlay" id="negociarOverlay"></div>
-<div class="center-modal" id="negociarModal">
+<div class="center-modal bento-box" id="negociarModal">
   <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
-  <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: var(--text-main); margin-bottom: 15px;"></i>
-  <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 10px;">Atención Personalizada</h3>
+  <i class="fa-brands fa-whatsapp" style="font-size: 45px; color: #34C759; margin-bottom: 20px;"></i>
+  <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">Atención Personalizada</h3>
   <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
   
   <select id="motivoConsulta" class="styled-select">
@@ -304,7 +308,13 @@
     <div class="top-brand">
        <i class="fa-solid fa-certificate" style="font-size: 12px; color: var(--text-main);"></i> John Stiven
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    <div class="top-stats-container">
+        <div class="header-stats">
+            <div style="color:var(--text-muted);">En Línea: <span id="uCount" class="online">--</span></div>
+            <div style="color:var(--text-muted);">Ventas: <span id="vCount" class="sales">--</span></div>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    </div>
   </header>
 
   <nav class="bottom-nav">
@@ -327,7 +337,7 @@
 
   <div class="modal-overlay" id="sheetOverlay" onclick="closeSheets(event)"></div>
 
-  <div class="bottom-sheet" id="sheetCart">
+  <div class="bottom-sheet bento-box" id="sheetCart">
     <div class="sheet-handle"></div>
     <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; flex-shrink: 0;">Tu Selección</h3>
     
@@ -345,21 +355,10 @@
        <img src="https://drive.google.com/uc?export=view&id=1mxRBRkvDrJ24XTAI5czbC5V_GSAJyO_d" alt="John Stiven" class="profile-img">
        <h1 class="profile-name">John Stiven <i class="fa-solid fa-circle-check verified-badge"></i></h1>
        <p class="profile-bio">Venta de Perfumería 100% Original</p>
-       
-       <div class="profile-stats">
-         <div class="stat-item">
-           <span class="stat-val" id="vCount">Cargando...</span>
-           <span class="stat-label">Ventas</span>
-         </div>
-         <div class="stat-item" style="border-left: 1px solid var(--border-color); padding-left: 30px;">
-           <span class="stat-val" id="uCount">--</span>
-           <span class="stat-label">En Línea</span>
-         </div>
-       </div>
     </div>
 
-    <!-- BANNER DE POLÍTICAS (DEBAJO DEL PERFIL) -->
-    <div class="reveal glass-effect" style="margin: 0 20px 25px 20px; padding: 15px 20px; border-radius: 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer;" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
+    <!-- BANNER DE POLÍTICAS FIJO -->
+    <div class="reveal bento-box" style="margin: 0 20px 25px 20px; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer;" onclick="switchView('info', 'Información', document.querySelectorAll('.nav-item')[2])">
        <div style="display: flex; align-items: center; gap: 15px;">
            <div style="background: var(--text-main); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                <i class="fa-solid fa-shield-halved" style="font-size: 18px; color: var(--bg-base);"></i>
@@ -376,21 +375,20 @@
        <strong>Nota:</strong> Nuestro catálogo muestra precios al detal. Si buscas precios más favorables, escríbeme para negociar.
     </div>
 
-    <!-- ACCIÓN: 2 CATÁLOGOS PDF Y DRIVE -->
     <div class="action-grid reveal">
-      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="bento-box action-box">
-        <i class="fa-regular fa-file-pdf ab-icon"></i>
+      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="bento-box bento-item">
+        <i class="fa-regular fa-file-pdf bi-icon"></i>
         <div>
-          <div class="ab-title">CATÁLOGO PDF</div>
+          <div class="bi-title">CATÁLOGO PDF</div>
           <div style="font-size: 10px; color: var(--text-muted);">Colección completa</div>
         </div>
       </a>
       
-      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="bento-box action-box">
-        <i class="fa-brands fa-google-drive ab-icon"></i>
+      <a href="https://drive.google.com/drive/folders/14abZGabOfXIaDtYjbnCTR0TW-bQ6xS6f" target="_blank" class="bento-box bento-item">
+        <i class="fa-brands fa-google-drive bi-icon"></i>
         <div>
-          <div style="font-size: 9px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 6px;">PERFUMES PARA ENTREGA INMEDIATA</div>
-          <div class="ab-title">Entregas en Medellín</div>
+          <div class="ab-desc">PERFUMES PARA ENTREGA INMEDIATA</div>
+          <div class="bi-title">Entregas en Medellín</div>
         </div>
       </a>
     </div>
@@ -408,26 +406,26 @@
       
       <!-- CARRUSEL DE PRODUCTOS -->
       <div class="carousel-wrapper reveal">
-          <button class="prod-carousel-btn left" onclick="scrollProducts(-220)"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="carousel-btn left" onclick="scrollProducts(-220)"><i class="fa-solid fa-chevron-left"></i></button>
           <div class="product-grid" id="catalogGrid">
             <div class="loader-container" style="min-width: 100%;">
                 <i class="fa-solid fa-spinner loader-spinner"></i>
                 <p style="font-weight: 500; font-size: 14px;">Cargando productos...</p>
             </div>
           </div>
-          <button class="prod-carousel-btn right" onclick="scrollProducts(220)"><i class="fa-solid fa-chevron-right"></i></button>
+          <button class="carousel-btn right" onclick="scrollProducts(220)"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
     </div>
 
-    <!-- TARJETA CONTACTO DEBAJO DEL CARRUSEL -->
-    <div class="bento-box reveal" style="margin: 10px 20px 30px 20px; padding: 25px; text-align: center; border-color: var(--text-main);">
+    <!-- TARJETA CONTACTO AL FINAL -->
+    <div class="bento-box reveal" style="margin: 10px 20px 30px 20px; padding: 25px; text-align: center; border: 1px solid var(--text-main);">
       <i class="fa-brands fa-whatsapp" style="font-size: 32px; color: var(--text-main); margin-bottom: 12px;"></i>
       <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">¿Buscas atención personalizada?</h3>
       <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-bottom: 20px;">Escríbeme para atención personalizada, asesoría o para negociar compras al por mayor.</p>
       <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="openNegociar()">Contactar por WhatsApp</button>
     </div>
 
-    <!-- TARJETAS DE POLÍTICAS EN INICIO -->
+    <!-- TARJETAS DE POLÍTICAS -->
     <div class="info-cards-container reveal">
       <div class="bento-box info-card-large">
         <div class="ic-header">
@@ -435,19 +433,19 @@
           <h3 class="ic-title">Envíos Seguros</h3>
         </div>
         <ul class="ic-list">
-          <li><b>Envíos Nacionales:</b> Trabajo con <b>Interrapidísimo</b> a partir de <b>$18,500</b>. Los despachos se hacen de forma segura para que te llegue rápido.</li>
-          <li><b>Domicilios GRATIS Medellín:</b> Hago entregas de 10:00 a.m. a 10:00 p.m. <br><span style="color: var(--text-muted); font-weight: 500;">(Aplica para compras al detal).</span></li>
+          <li><b>Nacionales:</b> Enviamos por Interrapidísimo a partir de $18,500.</li>
+          <li><b>Medellín:</b> Domicilios gratis (10:00 a.m. a 10:00 p.m.) aplicando a precio detal.</li>
         </ul>
       </div>
 
       <div class="bento-box info-card-large">
         <div class="ic-header">
-          <div class="ic-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="ic-icon-box" style="background: var(--bg-base);"><i class="fa-solid fa-shield-halved"></i></div>
           <h3 class="ic-title">Garantía y Pagos</h3>
         </div>
         <ul class="ic-list">
-          <li><b>Garantía Total:</b> Si tu paquete sufre algún daño por la transportadora, me avisas y te soluciono de una. Mi prioridad es tu confianza.</li>
-          <li><b>Medios de Pago:</b> Recibo Nequi, Bancolombia y diversas opciones fáciles para ti.</li>
+          <li><b>Garantía Total:</b> Si el producto llega en mal estado por transporte, te respondemos de inmediato.</li>
+          <li><b>Medios de Pago:</b> Recibimos transferencias y otras opciones seguras para facilitar tu compra.</li>
         </ul>
       </div>
     </div>
@@ -471,9 +469,9 @@
 
     <h2 class="section-title reveal">Ganadores Anteriores</h2>
     <div class="carousel-wrapper reveal">
-      <button class="win-carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="carousel-btn left" onclick="scrollWinners(-300)"><i class="fa-solid fa-chevron-left"></i></button>
       <div class="winners-scroll" id="winnersContainer"></div>
-      <button class="win-carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
+      <button class="carousel-btn right" onclick="scrollWinners(300)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
   </section>
 
@@ -514,19 +512,19 @@
 
   <section id="viewSorteoDetalle" class="view">
     <div style="padding-top: calc(var(--top-height) + 15px); text-align: center; padding-bottom: 10px;" class="reveal">
-        <h2 style="font-size: 22px; font-weight: 700; letter-spacing: -0.5px;" id="sorteoDetalleTitle">Tablero</h2>
+        <h2 style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px;" id="sorteoDetalleTitle">Tablero</h2>
         <p style="padding: 0 20px; color: var(--text-muted); margin-top: 5px; font-size: 14px;" id="sorteoDetalleDesc"></p>
     </div>
 
-    <!-- EXPLICACIÓN DE CHANCES (Se oculta dinámicamente si es Gratis) -->
-    <div id="explicacionChances" class="reveal bento-box" style="margin: 0 20px 20px 20px; padding: 16px; text-align: center;">
+    <!-- EXPLICACIÓN (Oculto dinámicamente si es Gratis) -->
+    <div id="explicacionChances" class="reveal bento-box" style="margin: 0 20px 20px 20px; padding: 16px; text-align: center; border: 1px solid var(--accent-light);">
       <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text-main);">¡Multiplica tus opciones de ganar!</h4>
       <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;">
         Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades reales de llevarte el premio!
       </p>
     </div>
 
-    <!-- Conteo Real de Puestos -->
+    <!-- Conteo de Puestos -->
     <div class="reveal" id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 25px 20px; font-weight: 600; font-size: 11px; text-align:center; line-height: 1.4;">
        <div><span id="labelLibres" style="color:var(--text-muted); display:block; margin-bottom:4px;">PUESTOS LIBRES</span><span id="countLibres" style="font-size:18px; color:var(--text-main);">0</span></div>
        <div><span id="labelOcupados" style="color:var(--text-muted); display:block; margin-bottom:4px;">PUESTOS OCUPADOS</span><span id="countOcupados" style="font-size:18px; color:var(--text-main);">0</span></div>
@@ -536,7 +534,7 @@
     <div class="search-container reveal">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchPuestoInput" placeholder="Buscar un puesto o número...">
+        <input type="text" id="searchPuestoInput" placeholder="Buscar tu puesto o número...">
       </div>
     </div>
 
@@ -557,13 +555,15 @@
 </div>
 
 <script>
+  let dynamicsDataArray = []; // Almacena datos globalmente para evitar bugs de comillas
+
   document.addEventListener('DOMContentLoaded', () => {
     
     // Splash screen fluido
     setTimeout(() => {
       const s = document.getElementById('splash');
       s.classList.add('fade-out');
-      setTimeout(() => s.style.display = 'none', 500);
+      setTimeout(() => s.style.display = 'none', 600);
       observeElements();
     }, 1500);
 
@@ -590,7 +590,7 @@
     }, 3500);
 
   });
-  
+
   // Lógica Modal Negociar
   function openNegociar() {
       document.getElementById('negociarOverlay').classList.add('active');
@@ -644,7 +644,7 @@
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         
-        // Ocultar notificación de regalo al visitar dinámicas
+        // Quitar tooltip de dinámicas
         if(viewId === 'sorteos') {
             const tooltip = element.querySelector('.nav-tooltip');
             if (tooltip) tooltip.style.display = 'none';
@@ -654,7 +654,7 @@
     const nextView = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
     nextView.classList.add('active');
     
-    // Título de la vista estricto para que no se superponga
+    // Título de la vista estricto 
     if(viewId === 'tienda') document.getElementById('topTitle').innerText = 'Inicio';
     else document.getElementById('topTitle').innerText = title;
     
@@ -662,4 +662,462 @@
     
     if (viewId === 'sorteos') {
         setTimeout(() => {
-            confetti({ particleCount:
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#D32F2F', '#D4AF37', '#FFFFFF'] });
+        }, 300);
+    }
+    
+    setTimeout(() => observeElements(), 50);
+  }
+
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('.top-bar');
+    window.scrollY > 40 ? header.classList.add('scrolled') : header.classList.remove('scrolled');
+  });
+
+  const PHONE = "573245706274"; 
+  function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
+
+  // Scroll Carruseles
+  function scrollProducts(px) {
+      document.getElementById('catalogGrid').scrollBy({ left: px, behavior: 'smooth' });
+  }
+  function scrollWinners(px) {
+      document.getElementById('winnersContainer').scrollBy({ left: px, behavior: 'smooth' });
+  }
+
+  let cartObj = {}; 
+
+  function calculateDiscount(qty) {
+    let packsOf6 = Math.floor(qty / 6);
+    let remainder = qty % 6;
+    let discount = packsOf6 * 50000; 
+    
+    if (remainder === 5) discount += 30000;
+    else if (remainder === 4) discount += 20000;
+    else if (remainder === 3) discount += 15000;
+    else if (remainder === 2) discount += 10000;
+    
+    return discount;
+  }
+
+  function addDirectToCart(name, priceStr, btn) {
+    if(cartObj[name]) { cartObj[name].qty += 1; } 
+    else { cartObj[name] = { qty: 1, price: priceStr }; btn.classList.add('selected'); btn.innerText = "AGREGADO"; }
+    updateCartIcon();
+  }
+
+  function updateCartIcon() {
+    const fab = document.getElementById('appleCart');
+    let totalItems = 0;
+    for (let item in cartObj) { totalItems += cartObj[item].qty; }
+    document.getElementById('cartCount').innerText = totalItems;
+    totalItems > 0 ? fab.classList.add('show') : fab.classList.remove('show');
+    if(document.getElementById('sheetCart').classList.contains('active')) { renderCartSheet(); }
+  }
+
+  function openCartSheet() {
+    renderCartSheet();
+    document.getElementById('sheetCart').style.display = 'flex';
+    document.getElementById('sheetOverlay').classList.add('active');
+    setTimeout(() => document.getElementById('sheetCart').classList.add('active'), 10);
+  }
+
+  function renderCartSheet() {
+    const cont = document.getElementById('cartItemsContainer');
+    const summ = document.getElementById('cartSummaryContainer');
+    
+    let html = ''; let totalItems = 0; let subtotal = 0;
+    
+    for (let name in cartObj) {
+      const item = cartObj[name]; 
+      totalItems += item.qty;
+      let numPrice = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+      subtotal += numPrice * item.qty;
+      
+      html += `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <h4 class="cart-item-title">${name}</h4>
+            <p class="cart-item-price">${item.price}</p>
+          </div>
+          <div class="cart-controls">
+            <button class="c-btn" onclick="changeQty('${name}', -1)">-</button>
+            <span class="c-qty">${item.qty}</span>
+            <button class="c-btn" onclick="changeQty('${name}', 1)">+</button>
+            <button class="c-btn-trash" onclick="removeItem('${name}')"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+      `;
+    }
+    
+    if(totalItems === 0) {
+      closeSheets();
+      document.querySelectorAll('.btn-add').forEach(btn => { btn.classList.remove('selected'); btn.innerText = "AGREGAR"; });
+    } else { 
+      cont.innerHTML = html; 
+      
+      let discount = calculateDiscount(totalItems);
+      let total = subtotal - discount;
+
+      summ.innerHTML = `
+        <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: var(--text-muted);">
+                <span>Subtotal</span>
+                <span>$${subtotal.toLocaleString('es-CO')}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--accent); font-weight: 500;">
+                <span>Descuentos</span>
+                <span>-$${discount.toLocaleString('es-CO')}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 20px;">
+                <span>Total</span>
+                <span>$${total.toLocaleString('es-CO')}</span>
+            </div>
+        </div>
+      `;
+    }
+  }
+
+  function changeQty(name, delta) {
+    if(!cartObj[name]) return;
+    cartObj[name].qty += delta;
+    if(cartObj[name].qty <= 0) { delete cartObj[name]; }
+    updateCartIcon();
+  }
+
+  function removeItem(name) {
+      delete cartObj[name];
+      updateCartIcon();
+      
+      // Reiniciar botón en UI
+      document.querySelectorAll('.prod-title').forEach(t => {
+          if(t.innerText === name) {
+              const btn = t.nextElementSibling.nextElementSibling;
+              if(btn) {
+                  btn.classList.remove('selected');
+                  btn.innerText = 'AGREGAR';
+              }
+          }
+      });
+  }
+
+  function sendCartWA() {
+    let listStr = "";
+    let totalItems = 0; let subtotal = 0;
+    
+    for (let name in cartObj) { 
+        totalItems += cartObj[name].qty;
+        let numPrice = parseInt(cartObj[name].price.replace(/[^0-9]/g, '')) || 0;
+        subtotal += numPrice * cartObj[name].qty;
+        listStr += `- Quiero este perfume: ${name} a ${cartObj[name].price} (${cartObj[name].qty} und)\n`; 
+    }
+    
+    let discount = calculateDiscount(totalItems);
+    let total = subtotal - discount;
+
+    let msg = `Hola, este es mi pedido:\n\n${listStr}\n`;
+    msg += `*Subtotal:* $${subtotal.toLocaleString('es-CO')}\n`;
+    if (discount > 0) msg += `*Descuento Aplicado:* -$${discount.toLocaleString('es-CO')}\n`;
+    msg += `*Total a Pagar:* $${total.toLocaleString('es-CO')}\n\n`;
+    msg += `Este perfume tiene descuento el día de hoy, ya te doy precio final del producto y si deseas ver fotos, también te las compartimos.`;
+
+    closeSheets();
+    openWhatsApp(msg);
+  }
+
+  function closeSheets(e) {
+    if(e && e.target.id !== 'sheetOverlay') return;
+    document.getElementById('sheetCart').classList.remove('active');
+    document.getElementById('sheetOverlay').classList.remove('active');
+  }
+
+  const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
+  const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
+  let catNacional = []; let catTop = [];
+
+  function parseCSV(t){
+    var rows=[], row=[], f='', inQ=false;
+    for(var i=0; i<t.length; i++){
+      var c=t[i];
+      if(inQ){ if(c==='"'){ if(t[i+1]==='"'){ f+='"'; i++; } else inQ=false; } else f+=c; }
+      else { if(c==='"') inQ=true; else if(c===','){ row.push(f); f=''; } else if(c==='\n'){ row.push(f); rows.push(row); row=[]; f=''; } else if(c!=='\r') f+=c; }
+    }
+    if(f!==''||row.length){ row.push(f); rows.push(row); } return rows;
+  }
+  function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function shuffleArray(array) {
+    let curId = array.length;
+    while (0 !== curId) {
+      let randId = Math.floor(Math.random() * curId);
+      curId -= 1;
+      let tmp = array[curId]; array[curId] = array[randId]; array[randId] = tmp;
+    }
+    return array;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchSorteos();
+    fetch(URL_NACIONAL + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      catNacional = parseCSV(csv).slice(1).map(cols => {
+        if(!cols || cols.length < 2) return null;
+        var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
+        var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
+        var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEF_IMG;
+        if (foto.includes('drive.google.com')) {
+          const match = foto.match(/\/d\/([a-zA-Z0-9_-]+)/) || foto.match(/id=([a-zA-Z0-9_-]+)/);
+          if (match && match[1]) foto = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+        }
+        
+        let numPrice = parseInt(precio.replace(/[^0-9]/g, ''));
+        let fakeOld = ""; 
+        if(!isNaN(numPrice) && numPrice > 0) { fakeOld = "$" + (numPrice + 15000).toLocaleString('es-CO'); }
+        
+        return { nombre, precio, foto, fakeOld };
+      }).filter(Boolean);
+      catTop = shuffleArray([...catNacional]).slice(0, 60); renderCatalog(catTop);
+    });
+  });
+
+  function renderCatalog(lista) {
+    const grid = document.getElementById('catalogGrid');
+    if(lista.length === 0) return;
+    grid.innerHTML = lista.map(p => {
+      const isSel = !!cartObj[p.nombre];
+      const btnCls = isSel ? 'btn-add selected' : 'btn-add';
+      const btnTxt = isSel ? 'AGREGADO' : 'AGREGAR';
+      return `
+      <div class="prod-card bento-box reveal">
+        <div class="prod-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
+        <h4 class="prod-title">${esc(p.nombre)}</h4>
+        <div class="prod-prices">
+           <span class="price-main">${esc(p.precio)}</span>
+           ${p.fakeOld ? `<span class="price-fake">${p.fakeOld}</span>` : ''}
+        </div>
+        <button class="${btnCls}" onclick="addDirectToCart('${esc(p.nombre)}', '${esc(p.precio)}', this)">${btnTxt}</button>
+      </div>
+    `}).join('');
+    setTimeout(() => observeElements(), 50);
+  }
+
+  let currentSearchTerm = "";
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    currentSearchTerm = e.target.value.toLowerCase().trim();
+    const mainContent = document.getElementById('mainContent');
+    const emptyState = document.getElementById('emptyState');
+    if(!currentSearchTerm) { mainContent.style.display = 'block'; emptyState.style.display = 'none'; renderCatalog(catTop); return; }
+    const filtrados = catNacional.filter(p => p.nombre.toLowerCase().includes(currentSearchTerm));
+    if(filtrados.length === 0) { mainContent.style.display = 'none'; emptyState.style.display = 'block'; } 
+    else { mainContent.style.display = 'block'; emptyState.style.display = 'none'; renderCatalog(filtrados); }
+  });
+
+  function askAvailability() { openWhatsApp(`Hola, no encontré esta fragancia en la página:\n- ${currentSearchTerm}\n\n¿Me ayudas a conseguirla por favor?`); }
+
+  const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
+  const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
+  let allWinners = [];
+
+  function fetchSorteos() {
+    Promise.all([
+      fetch(URL_S1 + '&t=' + new Date().getTime()).then(r => r.text()),
+      fetch(URL_S2 + '&t=' + new Date().getTime()).then(r => r.text())
+    ]).then(results => {
+      let dynamicsArray = [];
+      dynamicsDataArray = []; // reiniciamos array global
+      
+      results.forEach(csv => {
+        var rows = parseCSV(csv).slice(1);
+        if (rows.length > 0 && rows[0].length >= 7) {
+          const title = rows[0][3] ? rows[0][3].trim() : 'Dinámica';
+          const desc = rows[0][4] ? rows[0][4].trim() : '';
+          const lottery = rows[0][5] ? rows[0][5].trim() : ''; 
+          const price = rows[0][6] ? rows[0][6].trim() : '';
+          
+          let pData = rows.map(cols => {
+            if(!cols || !cols[0] || !cols[0].trim()) return null;
+            let idPuesto = cols[0].trim();
+            
+            let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
+              let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
+            }).filter(n => n !== '');
+            
+            let st = (cols[2] || '').toUpperCase();
+            let estado = 'libre';
+            if(st.includes('PEN')) estado = 'pendiente';
+            else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
+            
+            return { id: idPuesto, numeros: arr, estado: estado };
+          }).filter(Boolean);
+
+          const isActive = pData.some(p => p.estado !== 'ocupado');
+          let isInactiveEmpty = (!desc || desc.trim() === '');
+          
+          dynamicsArray.push({ title, desc, lottery, price, pData, isActive, isInactiveEmpty });
+        }
+        
+        rows.forEach(cols => {
+          if (cols.length >= 8 && cols[7] && cols[7].trim() !== '') {
+            allWinners.push({ num: cols[7].trim(), name: (cols.length > 8 && cols[8]) ? cols[8].trim() : 'Ganador', prize: (cols.length > 9 && cols[9]) ? cols[9].trim() : 'Premio' });
+          }
+        });
+      });
+
+      dynamicsArray.sort((a, b) => a.isInactiveEmpty - b.isInactiveEmpty);
+
+      const listContainer = document.getElementById('sorteosList');
+      listContainer.innerHTML = "";
+      
+      dynamicsArray.forEach((d, index) => {
+        dynamicsDataArray.push(d); // Guardamos la info para el botón
+        
+        let cardStyle = d.isInactiveEmpty ? 'background: var(--accent-light); box-shadow: none;' : '';
+        let tagStyle = d.isInactiveEmpty ? 'background: var(--bg-base); color: var(--text-muted);' : 'background: var(--accent); color: var(--accent-text);';
+        let tagText = d.isInactiveEmpty ? 'FINALIZADA' : (d.isActive ? 'ACTIVA' : 'FINALIZADA');
+
+        listContainer.innerHTML += `
+          <div class="raffle-card bento-box reveal" style="${cardStyle}">
+            <div class="r-header" style="flex-direction:column; gap:8px;">
+               <span class="r-tag" style="${tagStyle}">${tagText}</span>
+               <h3 class="r-title">${d.title}</h3>
+            </div>
+            <p style="font-size:14px; margin-bottom:12px; color:var(--text-muted);">Premio: <b>${d.desc || 'Próximamente'}</b></p>
+            ${d.price && !d.isInactiveEmpty ? `<p style="font-size:16px; font-weight:700; color:var(--text-main); margin-bottom:20px;">Valor Puesto: ${d.price}</p>` : '<div style="margin-bottom:20px;"></div>'}
+            <button class="btn-secondary" onclick="openSorteoView(${index})" ${d.isInactiveEmpty ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>${d.isInactiveEmpty ? 'Tablero Cerrado' : 'Ver Puestos Libres'}</button>
+          </div>
+        `;
+      });
+      renderWinners();
+    });
+  }
+
+  function renderWinners() {
+    const wc = document.getElementById('winnersContainer');
+    if(allWinners.length === 0) return;
+    wc.innerHTML = allWinners.map(w => `
+      <div class="w-card bento-box">
+        <div class="w-icon-large"><i class="fa-solid fa-trophy"></i></div>
+        <div>
+           <div class="w-number">${w.num}</div>
+           <div class="w-info"><h4>${w.name}</h4><p>${w.prize}</p></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function openSorteoView(index) {
+    const data = dynamicsDataArray[index];
+    currentBoardData = data.pData;
+    
+    document.getElementById('sorteoDetalleTitle').innerText = data.title;
+    
+    let descHtml = data.desc ? `<b>Premio:</b> ${data.desc}` : '';
+    
+    if(data.lottery) descHtml += `<br><span style="font-size:13px; display:inline-block; margin-top:10px; text-transform:uppercase; letter-spacing: 0.5px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b>${data.lottery}</b></span>`;
+    
+    const isGratis = (!data.price || data.price === "$0" || data.price.toLowerCase().includes('gratis'));
+    
+    if(isGratis) {
+        descHtml += `<br><span style="color:var(--text-main); font-weight:700; font-size:16px; display:inline-block; margin-top:8px;">GRATIS</span>`;
+        document.getElementById('explicacionChances').style.display = 'none'; 
+        document.getElementById('labelLibres').innerText = "NÚMEROS LIBRES";
+        document.getElementById('labelOcupados').innerText = "NÚMEROS OCUPADOS";
+        document.getElementById('labelPendientes').innerText = "NÚMEROS PENDIENTES";
+        document.getElementById('searchPuestoInput').placeholder = "Buscar un número...";
+    } else {
+        descHtml += `<br><span style="color:var(--text-main); font-weight:700; font-size:16px; display:inline-block; margin-top:8px;">Valor Puesto: ${data.price}</span>`;
+        document.getElementById('explicacionChances').style.display = 'block'; 
+        document.getElementById('labelLibres').innerText = "PUESTOS LIBRES";
+        document.getElementById('labelOcupados').innerText = "PUESTOS OCUPADOS";
+        document.getElementById('labelPendientes').innerText = "PUESTOS PENDIENTES";
+        document.getElementById('searchPuestoInput').placeholder = "Buscar un puesto o número...";
+    }
+    
+    document.getElementById('sorteoDetalleDesc').innerHTML = descHtml;
+    document.getElementById('searchPuestoInput').value = '';
+    
+    renderBoardDetalle('', isGratis);
+    switchView('sorteoDetalle', 'Comunidad', null);
+  }
+
+  document.getElementById('searchPuestoInput').addEventListener('input', (e) => {
+    const titleText = document.getElementById('sorteoDetalleDesc').innerText.toLowerCase();
+    const isGratis = titleText.includes('gratis');
+    renderBoardDetalle(e.target.value.trim(), isGratis);
+  });
+
+  function renderBoardDetalle(searchTerm, isGratis) {
+    const board = document.getElementById('boardGridDetalle');
+    const resumen = document.getElementById('resumenPuestos');
+    
+    let htmlPuestos = '';
+    let libres = 0; let ocupados = 0; let pendientes = 0;
+
+    currentBoardData.forEach(p => {
+       if(p.estado === 'ocupado') ocupados++;
+       else if(p.estado === 'pendiente') pendientes++;
+       else libres++;
+
+       let searchMatch = true;
+       if (searchTerm) {
+          searchMatch = p.id.includes(searchTerm) || p.numeros.some(num => num.includes(searchTerm));
+       }
+
+       if (searchMatch) {
+         let displayNums = p.numeros.length > 0 ? p.numeros.join(' - ') : 'Libre';
+         let cellClass = p.estado === 'ocupado' ? 'ocupado' : (p.estado === 'pendiente' ? 'pendiente' : 'libre');
+         
+         let onClickAction = '';
+         if (p.estado !== 'ocupado') {
+             if (isGratis) onClickAction = `onclick="pedirNumero('${p.id}')"`;
+             else onClickAction = `onclick="pedirPuesto('${p.id}')"`;
+         }
+         
+         htmlPuestos += `
+           <div class="puesto-card ${cellClass}" ${onClickAction}>
+             <div class="puesto-title">${isGratis ? 'Número' : 'Puesto'} ${p.id}</div>
+             <div class="puesto-nums">${displayNums}</div>
+           </div>
+         `;
+       }
+    });
+
+    let tableroHtml = `<h3 style="margin: 40px 0 15px 0; font-size: 15px; font-weight: 700; text-align: center; text-transform: uppercase; letter-spacing: 1px;">Tablero General</h3>`;
+    tableroHtml += `<div class="board-grid">`;
+    for(let i = 0; i <= 99; i++) {
+        const num = i < 10 ? '0' + i : '' + i;
+        const p = currentBoardData.find(x => x.numeros.includes(num));
+        
+        let matchOpacity = (searchTerm && !num.includes(searchTerm)) ? '0.1' : '1';
+
+        if(p) {
+            if(p.estado === 'ocupado') {
+                tableroHtml += `<div class="b-cell ocupado" style="opacity:${matchOpacity};">X<span>${num}</span></div>`;
+            } else if(p.estado === 'pendiente') {
+                tableroHtml += `<div class="b-cell pendiente" style="opacity:${matchOpacity};" onclick="${isGratis ? `pedirNumero('${p.id}')` : `pedirPuesto('${p.id}')`}">${num}</div>`;
+            } else {
+                tableroHtml += `<div class="b-cell libre" style="opacity:${matchOpacity};" onclick="${isGratis ? `pedirNumero('${p.id}')` : `pedirPuesto('${p.id}')`}">${num}</div>`;
+            }
+        } else {
+            tableroHtml += `<div class="b-cell libre" style="opacity:${matchOpacity};" onclick="pedirNumero('${num}')">${num}</div>`;
+        }
+    }
+    tableroHtml += `</div>`;
+    
+    board.innerHTML = `<div class="puestos-grid">${htmlPuestos}</div>` + tableroHtml;
+    
+    document.getElementById('countLibres').innerText = libres;
+    document.getElementById('countOcupados').innerText = ocupados;
+    document.getElementById('countPendientes').innerText = pendientes;
+  }
+
+  function pedirPuesto(id) {
+    openWhatsApp(`Hola, quiero el puesto ${id}. Mándame la cuenta para pagarte de una vez.`);
+  }
+  
+  function pedirNumero(num) {
+    openWhatsApp(`Hola, quiero el número ${num} de la dinámica.\n- ¿Cómo hago para participar?`);
+  }
+
+</script>
+</body>
+</html>
