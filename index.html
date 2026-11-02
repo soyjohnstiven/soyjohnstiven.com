@@ -172,7 +172,7 @@
   .btn-add.selected { background: var(--accent); color: var(--accent-text); }
   
   /* FLECHAS DEL CARRUSEL (Adaptables) */
-  .carousel-btn { 
+  .carousel-btn, .win-carousel-btn { 
     position: absolute; top: 40%; transform: translateY(-50%); 
     width: 45px; height: 45px; border-radius: 50%; 
     background: var(--bg-card); border: 1px solid var(--border-color); 
@@ -180,17 +180,20 @@
     cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; 
     transition: 0.3s; 
   }
-  .carousel-btn:hover { background: var(--accent); color: #FFF; }
-  .carousel-btn:active { transform: translateY(-50%) scale(0.9); }
-  .carousel-btn.left { left: -15px; }
-  .carousel-btn.right { right: -15px; }
+  .carousel-btn:hover, .win-carousel-btn:hover { background: var(--accent); color: #FFF; }
+  .carousel-btn:active, .win-carousel-btn:active { transform: translateY(-50%) scale(0.9); }
+  .carousel-btn.left, .win-carousel-btn.left { left: -15px; }
+  .carousel-btn.right, .win-carousel-btn.right { right: -15px; }
+  
+  /* Centrado vertical especial para ganadores */
+  .win-carousel-btn { top: 50%; }
 
   /* Ocultar flechas en dispositivos móviles */
   @media (max-width: 768px) {
-      .carousel-btn { display: none; }
+      .carousel-btn, .win-carousel-btn { display: none; }
   }
 
-  /* ================= CARRITO FLOTANTE ================= */
+  /* ================= CARRITO FLOTANTE (Redondo en esquina) ================= */
   .ios-cart { 
       position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; 
       width: 60px; height: 60px; border-radius: 50%; 
@@ -204,7 +207,7 @@
   .cart-badge { position: absolute; top: 0px; right: 0px; background: #FFD700; color: #000; font-size: 11px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); }
 
   /* ================= BOTTOM SHEETS (DRAWERS) ================= */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.3s; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.3s; }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   
   .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 30px 30px 0 0; padding: 25px 20px 40px 20px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column; background: var(--bg-card); border-top: 1px solid var(--border-color); box-shadow: 0 -10px 40px rgba(0,0,0,0.2);}
@@ -237,7 +240,7 @@
   
   .winners-scroll { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 15px; scroll-behavior: smooth;}
   .w-card { min-width: 280px; scroll-snap-align: start; background: var(--bg-card); padding: 20px; border-radius: 16px; display: flex; gap: 20px; align-items: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);}
-  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0;}
+  .w-icon-large { font-size: 35px; color: var(--gold); margin-bottom: 0; filter: drop-shadow(0 4px 10px rgba(212,175,55,0.3));}
   .w-number { font-size: 24px; font-weight: 700; color: var(--text-main); line-height: 1;}
   .w-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--text-main); }
   .w-info p { font-size: 13px; color: var(--text-muted); font-weight: 400;}
@@ -257,8 +260,8 @@
   .puesto-card { background: var(--bg-card); border-radius: 12px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--border-color); }
   .puesto-card.ocupado { background: rgba(142, 142, 147, 0.12); opacity: 0.5; pointer-events: none; border-color: transparent;}
   .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
-  .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); }
-  .puesto-card.libre { border-color: var(--text-main); }
+  .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); border-style: dashed; }
+  .puesto-card.libre { border-color: var(--text-main); box-shadow: var(--shadow-sm); }
   .puesto-card.libre:active { transform: scale(0.95); background: var(--bg-base); }
   .puesto-title { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
   .puesto-nums { font-size: 11px; color: var(--text-muted); line-height: 1.2; font-weight: 400;}
@@ -398,7 +401,7 @@
         <button class="btn-primary" style="background: var(--text-main); color: var(--bg-base); width: auto; padding: 16px 35px; margin: 0 auto; display: inline-flex;" onclick="openNegociar()">Contactar</button>
     </div>
 
-    <!-- TODAS LAS TARJETAS DE INFORMACIÓN MOVÍDAS AQUÍ AL FINAL DEL INICIO -->
+    <!-- TODAS LAS TARJETAS DE INFORMACIÓN AL FINAL DEL INICIO -->
     <div class="info-cards-container reveal">
       
       <!-- Envíos -->
@@ -655,10 +658,10 @@
 
   let cartObj = {}; 
 
+  // CÁLCULO DE DESCUENTOS OPTIMIZADO (Protege margen de ganancia)
   function calculateDiscount(qty) {
     let packsOf6 = Math.floor(qty / 6);
     let remainder = qty % 6;
-    // Nueva regla de descuentos: 6 unidades = 48.000 de descuento
     let discount = packsOf6 * 48000; 
     
     if (remainder === 5) discount += 35000;
@@ -727,33 +730,6 @@
       
       let discount = calculateDiscount(totalItems);
       let total = subtotal - discount;
-
-      let msg = "";
-      if (totalItems === 1) msg = "Agrega 1 perfume más y obtén $11.000 de descuento inmediato.";
-      else if (totalItems === 2) msg = "Ahorraste $11.000. Si llevas 3 te descontamos $19.000.";
-      else if (totalItems === 3) msg = "Ahorraste $19.000. Si llevas 4 te descontamos $27.000.";
-      else if (totalItems > 3 && totalItems < 6) msg = `Llevas $${discount.toLocaleString('es-CO')} de descuento. Con 6 perfumes ahorras $48.000.`;
-      else msg = `Precio mayorista aplicado. Ahorraste $${discount.toLocaleString('es-CO')} en total.`;
-
-      summ.innerHTML = `
-        <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: var(--text-muted);">
-                <span>Subtotal</span>
-                <span>$${subtotal.toLocaleString('es-CO')}</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom: 15px; font-size: 14px; color: var(--accent); font-weight: 600;">
-                <span>Descuentos</span>
-                <span>-$${discount.toLocaleString('es-CO')}</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
-                <span>Total</span>
-                <span>$${total.toLocaleString('es-CO')}</span>
-            </div>
-            <div style="background: var(--accent-light); border-radius: 12px; padding: 12px; text-align: center; font-size: 12px; color: var(--text-main); font-weight: 500; border: 1px solid var(--border-color);">
-                ${msg}
-            </div>
-        </div>
-      `;
     }
   }
 
@@ -780,25 +756,22 @@
       });
   }
 
+  // MENSAJE LIMPIO PARA WHATSAPP
   function sendCartWA() {
-    let listStr = "";
-    let totalItems = 0; let subtotal = 0;
+    let msg = "";
+    let totalItems = 0;
+    for (let name in cartObj) { totalItems += cartObj[name].qty; }
     
-    for (let name in cartObj) { 
-        totalItems += cartObj[name].qty;
-        let numPrice = parseInt(cartObj[name].price.replace(/[^0-9]/g, '')) || 0;
-        subtotal += numPrice * cartObj[name].qty;
-        listStr += `- Quiero este perfume: ${name} a ${cartObj[name].price} (${cartObj[name].qty} und)\n`; 
+    if (totalItems === 1) {
+        for (let name in cartObj) {
+            msg = `Quiero este perfume: ${name} ${cartObj[name].price}`;
+        }
+    } else {
+        msg = `Quiero estos perfumes:\n`;
+        for (let name in cartObj) { 
+            msg += `- ${name} ${cartObj[name].price} (${cartObj[name].qty} unds)\n`; 
+        }
     }
-    
-    let discount = calculateDiscount(totalItems);
-    let total = subtotal - discount;
-
-    let msg = `Hola, este es mi pedido:\n\n${listStr}\n`;
-    msg += `*Subtotal:* $${subtotal.toLocaleString('es-CO')}\n`;
-    if (discount > 0) msg += `*Descuento Aplicado:* -$${discount.toLocaleString('es-CO')}\n`;
-    msg += `*Total a Pagar:* $${total.toLocaleString('es-CO')}\n\n`;
-    msg += `Este perfume tiene descuento el día de hoy, ya te doy precio final del producto y si deseas ver fotos, también te las compartimos.`;
 
     closeSheets();
     openWhatsApp(msg);
@@ -993,21 +966,24 @@
     const data = dynamicsDataArray[index];
     currentBoardData = data.pData;
     
-    document.getElementById('sorteoDetalleTitle').innerText = data.title;
-    
-    let descHtml = data.desc ? `<b>Premio:</b> ${data.desc}` : '';
-    
-    if(data.lottery) descHtml += `<br><span style="font-size:12px; color:var(--text-main); font-weight:700; display:inline-block; margin-top:10px; text-transform:uppercase; letter-spacing: 0.5px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b style="font-size:13px;">${data.lottery}</b></span>`;
-    
     let isGratis = false;
     if (data.price) {
         let p = String(data.price).toLowerCase();
         if(p.includes('gratis') || p === '$0' || p === '0') isGratis = true;
     }
     
+    let headerHtml = `
+        <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: var(--text-main); text-transform: uppercase;">${data.title}</h2>
+        ${data.desc ? `<p style="font-size:15px; color:var(--text-muted); font-weight:600; margin-top:8px;">Premio: ${data.desc}</p>` : ''}
+    `;
+    
     let infoHtml = `
       <div class="reveal" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; margin: 20px; box-shadow: var(--shadow-sm);">
     `;
+    
+    if(data.lottery) {
+        infoHtml += `<p style="font-size:12px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <b style="color:var(--text-main); font-size:14px;">${data.lottery}</b></p>`;
+    }
     
     if(isGratis) {
         infoHtml += `<div style="display:inline-block; font-size:18px; font-weight:800; color:var(--text-main);">GRATIS</div>`;
@@ -1034,7 +1010,7 @@
     }
     
     // Asignar al Header
-    document.getElementById('sorteoDetalleHeader').innerHTML = `<p style="font-size:14px; color:var(--text-muted); margin-bottom:10px;">${descHtml}</p>` + infoHtml;
+    document.getElementById('sorteoDetalleHeader').innerHTML = headerHtml + infoHtml;
     
     document.getElementById('searchPuestoInput').value = '';
     
