@@ -550,7 +550,7 @@
       </div>
     </div>
 
-    <!-- CUADRÍCULA ESTILO TIENDA NATIVA (2 COLUMNAS) -->
+    <!-- CUADRÍCULA ESTILO TIENDA NATIVA -->
     <div id="inmediataGrid" class="inmediata-grid-container">
         <div class="loader-container" style="grid-column: 1 / -1;">
             <i class="fa-solid fa-spinner loader-spinner"></i>
@@ -951,15 +951,15 @@
     return array;
   }
 
-  // ================= NUEVO MÉTODO ROBUSTO PARA EXTRAER IMÁGENES =================
+  // ================= MÉTODO ROBUSTO PARA EXTRAER IMÁGENES DE GOOGLE DRIVE =================
   function formatImageLink(fotoStr) {
     let url = String(fotoStr).trim();
     if (!url) return DEF_IMG;
     if (url.includes('drive.google.com')) {
       const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
       if (match && match[1]) {
-        // Obligamos a Drive a descargar la imagen directamente
-        return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+        // TRUCO: Usar el servidor interno de miniaturas de Google para evadir el bloqueo
+        return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
       }
     }
     return url;
@@ -1133,6 +1133,7 @@
         let tagStyle = !d.isActive ? 'background: var(--bg-solid); color: var(--text-muted); border: 1px solid var(--border-color);' : 'background: var(--accent); color: var(--accent-text); box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);';
         let tagText = !d.isActive ? 'FINALIZADA' : 'ACTIVA';
 
+        // Animación sutil extra en la tarjeta de dinámica
         listContainer.innerHTML += `
           <div class="raffle-card reveal" style="${cardStyle}">
             <div class="r-header">
@@ -1179,6 +1180,7 @@
         document.getElementById('searchPuestoInput').placeholder = "Buscar un número...";
     } else {
         infoHtml += `<div style="display:inline-block; font-size:22px; font-weight:800; color:var(--accent);">Valor Puesto: ${data.price}</div>`;
+        infoHtml += `<p style="font-size:13px; color:var(--text-muted); margin-top: 15px; line-height: 1.4;">Por cada puesto tienes 3 posibilidades de ganar. Esos son los números con los que participas.</p>`;
         document.getElementById('labelLibres').innerText = "PUESTOS LIBRES";
         document.getElementById('labelOcupados').innerText = "PUESTOS OCUPADOS";
         document.getElementById('labelPendientes').innerText = "PUESTOS PENDIENTES";
