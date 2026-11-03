@@ -80,15 +80,15 @@
   .loader-spinner { font-size: 28px; margin-bottom: 12px; animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  /* ================= SPLASH NAVIDEÑO DINÁMICO ================= */
+  /* ================= SPLASH NAVIDEÑO ================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    transition: opacity 0.5s ease;
+    transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
   .splash-icon { 
     font-size: 60px; color: var(--accent); margin-bottom: 20px; 
-    animation: scalePulse 2s ease-in-out infinite; 
+    animation: scalePulse 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite; 
   }
   @keyframes scalePulse {
     0% { transform: scale(0.95); opacity: 0.8; }
@@ -536,7 +536,7 @@
     </div>
   </section>
 
-  <!-- ================= VISTA ENTREGAS INMEDIATAS (ACTUALIZADA) ================= -->
+  <!-- ================= VISTA ENTREGAS INMEDIATAS ================= -->
   <section id="viewInmediata" class="view">
     <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Entregas Inmediatas</h1>
     <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5;">
@@ -925,7 +925,7 @@
   const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
   
   // ================= ENLACE A NUEVA HOJA DE ENTREGAS INMEDIATAS =================
-  const URL_INMEDIATA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?output=csv'; 
+  const URL_INMEDIATA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=0&single=true&output=csv'; 
   
   let catNacional = []; let catTop = [];
   let catInmediata = [];
@@ -990,7 +990,7 @@
       renderCatalog(catTop);
     });
 
-    // CARGAR CATÁLOGO ENTREGAS INMEDIATAS
+    // CARGAR CATÁLOGO STOCK LOCAL (INMEDIATA)
     fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
       catInmediata = parseCSV(csv).slice(1).map(formatInmediataRow).filter(Boolean);
       renderInmediata(catInmediata);
@@ -1126,6 +1126,7 @@
         let tagStyle = !d.isActive ? 'background: var(--bg-solid); color: var(--text-muted); border: 1px solid var(--border-color);' : 'background: var(--accent); color: var(--accent-text); box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);';
         let tagText = !d.isActive ? 'FINALIZADA' : 'ACTIVA';
 
+        // Animación sutil extra en la tarjeta de dinámica
         listContainer.innerHTML += `
           <div class="raffle-card reveal" style="${cardStyle}">
             <div class="r-header">
@@ -1192,7 +1193,7 @@
     document.getElementById('searchPuestoInput').value = '';
     
     renderBoardDetalle('', isGratis);
-    switchView('sorteoDetalle', 'Detalle Dinámica', null);
+    switchView('sorteoDetalle', 'Tablero Dinámica', null);
   }
 
   document.getElementById('searchPuestoInput').addEventListener('input', (e) => {
