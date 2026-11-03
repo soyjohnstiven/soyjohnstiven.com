@@ -80,15 +80,15 @@
   .loader-spinner { font-size: 28px; margin-bottom: 12px; animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  /* ================= SPLASH NAVIDEÑO ================= */
+  /* ================= SPLASH NAVIDEÑO DINÁMICO ================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: opacity 0.5s ease;
   }
   .splash-icon { 
     font-size: 60px; color: var(--accent); margin-bottom: 20px; 
-    animation: scalePulse 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite; 
+    animation: scalePulse 2s ease-in-out infinite; 
   }
   @keyframes scalePulse {
     0% { transform: scale(0.95); opacity: 0.8; }
@@ -925,7 +925,7 @@
   const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
   
   // ================= ENLACE A NUEVA HOJA DE ENTREGAS INMEDIATAS =================
-  const URL_INMEDIATA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=0&single=true&output=csv'; 
+  const URL_INMEDIATA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?output=csv'; 
   
   let catNacional = []; let catTop = [];
   let catInmediata = [];
@@ -951,15 +951,25 @@
     return array;
   }
 
+  // ================= NUEVO MÉTODO ROBUSTO PARA EXTRAER IMÁGENES =================
+  function formatImageLink(fotoStr) {
+    let url = String(fotoStr).trim();
+    if (!url) return DEF_IMG;
+    if (url.includes('drive.google.com')) {
+      const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        // Obligamos a Drive a descargar la imagen directamente
+        return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+      }
+    }
+    return url;
+  }
+
   function formatProductRow(cols) {
     if(!cols || cols.length < 2) return null;
     var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
     var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
-    var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEF_IMG;
-    if (foto.includes('drive.google.com')) {
-      const match = foto.match(/\/d\/([a-zA-Z0-9_-]+)/) || foto.match(/id=([a-zA-Z0-9_-]+)/);
-      if (match && match[1]) foto = `https://drive.google.com/uc?export=view&id=${match[1]}`;
-    }
+    var foto = formatImageLink(cols[2]);
     
     let numPrice = parseInt(precio.replace(/[^0-9]/g, ''));
     let fakeOld = ""; 
@@ -972,11 +982,8 @@
     if(!cols || cols.length < 2) return null;
     var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
     var estado = String(cols[1]||'').replace(/"/g,'').trim();
-    var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEF_IMG;
-    if (foto.includes('drive.google.com')) {
-      const match = foto.match(/\/d\/([a-zA-Z0-9_-]+)/) || foto.match(/id=([a-zA-Z0-9_-]+)/);
-      if (match && match[1]) foto = `https://drive.google.com/uc?export=view&id=${match[1]}`;
-    }
+    var foto = formatImageLink(cols[2]);
+    
     return { nombre, estado, foto };
   }
 
@@ -990,7 +997,7 @@
       renderCatalog(catTop);
     });
 
-    // CARGAR CATÁLOGO STOCK LOCAL (INMEDIATA)
+    // CARGAR CATÁLOGO ENTREGAS INMEDIATAS
     fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
       catInmediata = parseCSV(csv).slice(1).map(formatInmediataRow).filter(Boolean);
       renderInmediata(catInmediata);
@@ -1126,7 +1133,6 @@
         let tagStyle = !d.isActive ? 'background: var(--bg-solid); color: var(--text-muted); border: 1px solid var(--border-color);' : 'background: var(--accent); color: var(--accent-text); box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);';
         let tagText = !d.isActive ? 'FINALIZADA' : 'ACTIVA';
 
-        // Animación sutil extra en la tarjeta de dinámica
         listContainer.innerHTML += `
           <div class="raffle-card reveal" style="${cardStyle}">
             <div class="r-header">
