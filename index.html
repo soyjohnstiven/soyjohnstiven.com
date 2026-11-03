@@ -80,15 +80,15 @@
   .loader-spinner { font-size: 28px; margin-bottom: 12px; animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  /* ================= SPLASH NAVIDEÑO ================= */
+  /* ================= SPLASH NAVIDEÑO DINÁMICO ================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: opacity 0.5s ease;
   }
   .splash-icon { 
     font-size: 60px; color: var(--accent); margin-bottom: 20px; 
-    animation: scalePulse 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite; 
+    animation: scalePulse 2s ease-in-out infinite; 
   }
   @keyframes scalePulse {
     0% { transform: scale(0.95); opacity: 0.8; }
@@ -356,7 +356,7 @@
 <div class="center-modal" id="promoModal">
   <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
   <i class="fa-brands fa-whatsapp" style="font-size: 50px; color: #25D366; margin-bottom: 15px; filter: drop-shadow(0 4px 10px rgba(37,211,102,0.3));"></i>
-  <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 10px; line-height: 1.2;">¡MEJORES PRECIOS!</h3>
+  <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 10px; line-height: 1.2;">ESTADOS WHATSAPP</h3>
   <p style="font-size: 15px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Si quieres ver y obtener mejores precios, mira nuestros estados de WhatsApp.</p>
   <button class="btn-primary" style="background: #25D366; color: #FFF; box-shadow: 0 8px 20px rgba(37,211,102,0.3); padding: 16px 30px; margin: 0 auto; border-radius: 16px;" onclick="goPromoWA()">Ver Estados de WhatsApp</button>
 </div>
@@ -399,12 +399,12 @@
     </div>
     <div class="nav-item" onclick="switchView('sorteos', 'Dinámicas', this)">
         <div class="nav-tooltip">REGALO GRATIS <i class="fa-solid fa-arrow-down" style="margin-left: 3px;"></i></div>
-        <i class="fa-solid fa-ticket"></i><span>Dinámicas</span>
+        <i class="fa-solid fa-gift"></i><span>Dinámicas</span>
     </div>
     
-    <!-- NUEVA PESTAÑA ENTREGA INMEDIATA -->
-    <div class="nav-item" onclick="switchView('inmediata', 'Stock Local', this)">
-        <i class="fa-solid fa-motorcycle"></i><span>Inmediata</span>
+    <!-- PESTAÑA ENTREGAS INMEDIATAS -->
+    <div class="nav-item" onclick="switchView('inmediata', 'Entregas Inmediatas', this)">
+        <i class="fa-solid fa-motorcycle"></i><span style="font-size: 9px; line-height: 1.1; text-align: center;">Entregas<br>Inmediatas</span>
     </div>
 
     <div class="nav-item" onclick="switchView('info', 'Redes', this)">
@@ -412,6 +412,7 @@
     </div>
   </nav>
 
+  <!-- CARRITO DE COMPRAS DEL INICIO -->
   <div class="ios-cart" id="appleCart" onclick="openCartSheet()">
     <i class="fa-solid fa-bag-shopping"></i>
     <div class="cart-badge" id="cartCount">0</div>
@@ -439,7 +440,7 @@
        <strong>Nota:</strong> Nuestro catálogo muestra precios al detal. Si buscas precios más favorables, escríbeme para negociar.
     </div>
 
-    <!-- ACCIÓN: 1 CATÁLOGO PDF (El de inmediata ahora tiene su propia pestaña) -->
+    <!-- ACCIÓN: CATÁLOGO PDF -->
     <div class="catalog-grid" style="grid-template-columns: 1fr;">
       <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="catalog-card" style="flex-direction: row; gap: 20px; min-height: 90px; justify-content: flex-start; padding: 20px;">
         <div class="cc-icon" style="margin-bottom: 0; font-size: 35px;"><i class="fa-regular fa-file-pdf"></i></div>
@@ -474,7 +475,7 @@
       </div>
     </div>
 
-    <!-- TARJETA CONTACTO DEBAJO DEL CARRUSEL (Centrada) -->
+    <!-- TARJETA CONTACTO DEBAJO DEL CARRUSEL -->
     <div class="reveal" style="margin: 10px 20px 40px 20px; padding: 35px 25px; background: var(--bg-card); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-radius: 24px; text-align: center; border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
         <i class="fa-solid fa-headset" style="font-size: 40px; color: var(--text-main); margin-bottom: 18px;"></i>
         <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px;">¿Buscas atención personalizada?</h3>
@@ -482,10 +483,8 @@
         <button class="btn-primary" style="background: var(--text-main); color: var(--bg-solid); width: auto; padding: 18px 40px; margin: 0 auto; display: inline-flex; border-radius: 16px;" onclick="openNegociar()">Contactar</button>
     </div>
 
-    <!-- TODAS LAS TARJETAS DE INFORMACIÓN AL FINAL DEL INICIO -->
+    <!-- TARJETAS DE INFORMACIÓN -->
     <div class="info-cards-container reveal">
-      
-      <!-- Envíos -->
       <div class="info-card-large">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
@@ -496,8 +495,6 @@
           <li><b>Medellín:</b> Domicilios gratis (10:00 a.m. a 10:00 p.m.) aplicando a precio detal.</li>
         </ul>
       </div>
-
-      <!-- Garantías -->
       <div class="info-card-large">
         <div class="ic-header">
           <div class="ic-icon-box" style="background: var(--bg-base); color: var(--text-main);"><i class="fa-solid fa-shield-halved"></i></div>
@@ -508,8 +505,6 @@
           <li><b>Medios de Pago:</b> Recibimos transferencias y otras opciones seguras para facilitar tu compra.</li>
         </ul>
       </div>
-
-      <!-- Horarios -->
       <div class="info-card-large">
         <div class="ic-header">
           <div class="ic-icon-box"><i class="fa-regular fa-clock"></i></div>
@@ -520,7 +515,6 @@
           <li>Mejoramos la experiencia en WhatsApp para brindarte una atención más rápida.</li>
         </ul>
       </div>
-
     </div>
 
     <div class="empty-state" id="emptyState" style="display: none;">
@@ -537,14 +531,14 @@
     <div id="sorteosList">
         <div class="loader-container">
             <i class="fa-solid fa-spinner loader-spinner"></i>
-            <p style="font-weight: 600; font-size: 15px;">Actualizando eventos...</p>
+            <p style="font-weight: 500; font-size: 14px;">Actualizando eventos...</p>
         </div>
     </div>
   </section>
 
-  <!-- ================= VISTA ENTREGA INMEDIATA (NUEVA PESTAÑA) ================= -->
+  <!-- ================= VISTA ENTREGAS INMEDIATAS (ACTUALIZADA) ================= -->
   <section id="viewInmediata" class="view">
-    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Stock Local</h1>
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Entregas Inmediatas</h1>
     <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5;">
        Perfumes exclusivos con <b>entrega inmediata</b> en Medellín. ¡Pídelo hoy, recíbelo hoy!
     </div>
@@ -595,7 +589,6 @@
     
     <div id="sorteoDetalleHeader" style="margin-top: calc(var(--top-height) + 15px);"></div>
     
-    <!-- Conteo Real de Puestos -->
     <div id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 25px 20px; font-weight: 700; font-size: 11px; text-align:center; line-height: 1.4;">
        <div><span id="labelLibres" style="color:var(--text-muted); display:block; margin-bottom:6px;">PUESTOS LIBRES</span><span id="countLibres" style="font-size:22px; color:var(--text-main);">0</span></div>
        <div><span id="labelOcupados" style="color:var(--text-muted); display:block; margin-bottom:6px;">PUESTOS OCUPADOS</span><span id="countOcupados" style="font-size:22px; color:var(--text-main);">0</span></div>
@@ -627,7 +620,6 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     
-    // Saludo Dinámico según la hora
     const hour = new Date().getHours();
     let greeting = "Buenas noches";
     if (hour >= 5 && hour < 12) greeting = "Buenos días";
@@ -636,7 +628,6 @@
     const splashText = document.getElementById('greetingText');
     if(splashText) splashText.innerText = greeting;
 
-    // Splash screen fluido con easing iOS
     setTimeout(() => {
       const s = document.getElementById('splash');
       if (s) {
@@ -647,13 +638,11 @@
       observeElements();
     }, 1500);
 
-    // Modal Promocional de WhatsApp a los 4 segundos
     setTimeout(() => {
       document.getElementById('promoOverlay').classList.add('active');
       document.getElementById('promoModal').classList.add('active');
     }, 4000);
 
-    // Estadísticas
     const baseDate = new Date("2026-10-26T00:00:00-05:00").getTime();
     const now = new Date().getTime();
     const diffTime = Math.max(0, now - baseDate);
@@ -676,7 +665,6 @@
     }, 3500);
   });
 
-  // Lógica Modal WhatsApp
   function closePromo() {
     document.getElementById('promoOverlay').classList.remove('active');
     document.getElementById('promoModal').classList.remove('active');
@@ -687,7 +675,6 @@
     openWhatsApp("Hola, me puedes agregar para ver los estados, gracias.");
   }
 
-  // Lógica Modal Negociar
   function openNegociar() {
       document.getElementById('negociarOverlay').classList.add('active');
       document.getElementById('negociarModal').classList.add('active');
@@ -740,7 +727,6 @@
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         
-        // Quitar tooltip de dinámicas cuando toquen el botón
         if(viewId === 'sorteos') {
             const tooltip = element.querySelector('.nav-tooltip');
             if (tooltip) tooltip.style.display = 'none';
@@ -750,11 +736,10 @@
     const nextView = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
     nextView.classList.add('active');
     
-    // Título estricto
     if(viewId === 'tienda') {
         document.getElementById('topTitle').innerText = 'Inicio';
     } else if(viewId === 'inmediata') {
-        document.getElementById('topTitle').innerText = 'Stock Local';
+        document.getElementById('topTitle').innerText = 'Entregas Inmediatas';
     } else if(viewId === 'sorteoDetalle') {
         document.getElementById('topTitle').innerText = 'Detalle Dinámica';
     } else {
@@ -780,14 +765,12 @@
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
 
-  // Scroll Carruseles
   function scrollProducts(px) {
       document.getElementById('catalogGrid').scrollBy({ left: px, behavior: 'smooth' });
   }
 
   let cartObj = {}; 
 
-  // CÁLCULO DE DESCUENTOS (Protege margen de ganancia)
   function calculateDiscount(qty) {
     let packsOf6 = Math.floor(qty / 6);
     let remainder = qty % 6;
@@ -900,7 +883,6 @@
       delete cartObj[name];
       updateCartIcon();
       
-      // Reiniciar botón en UI
       document.querySelectorAll('.prod-title').forEach(t => {
           if(t.innerText === name) {
               const btn = t.nextElementSibling.nextElementSibling;
@@ -912,7 +894,6 @@
       });
   }
 
-  // MENSAJE LIMPIO PARA WHATSAPP
   function sendCartWA() {
     let msg = "";
     let totalItems = 0;
@@ -940,10 +921,11 @@
   }
 
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
+  
   const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
   
-  // ================= ENLACE A TU NUEVA HOJA DE ENTREGA INMEDIATA =================
-  const URL_INMEDIATA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1546237539&single=true&output=csv'; 
+  // ================= ENLACE A NUEVA HOJA DE ENTREGAS INMEDIATAS =================
+  const URL_INMEDIATA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?output=csv'; 
   
   let catNacional = []; let catTop = [];
   let catInmediata = [];
@@ -986,6 +968,18 @@
     return { nombre, precio, foto, fakeOld };
   }
 
+  function formatInmediataRow(cols) {
+    if(!cols || cols.length < 2) return null;
+    var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
+    var estado = String(cols[1]||'').replace(/"/g,'').trim();
+    var foto = (cols[2] && String(cols[2]).trim()) ? String(cols[2]).replace(/"/g,'').trim() : DEF_IMG;
+    if (foto.includes('drive.google.com')) {
+      const match = foto.match(/\/d\/([a-zA-Z0-9_-]+)/) || foto.match(/id=([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) foto = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    }
+    return { nombre, estado, foto };
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     fetchSorteos();
     
@@ -996,9 +990,9 @@
       renderCatalog(catTop);
     });
 
-    // CARGAR CATÁLOGO STOCK LOCAL (INMEDIATA)
+    // CARGAR CATÁLOGO ENTREGAS INMEDIATAS
     fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
-      catInmediata = parseCSV(csv).slice(1).map(formatProductRow).filter(Boolean);
+      catInmediata = parseCSV(csv).slice(1).map(formatInmediataRow).filter(Boolean);
       renderInmediata(catInmediata);
     });
   });
@@ -1024,7 +1018,7 @@
     setTimeout(() => observeElements(), 50);
   }
 
-  // RENDERIZAR CUADRÍCULA DE ENTREGA INMEDIATA
+  // RENDERIZAR CUADRÍCULA DE ENTREGAS INMEDIATAS
   function renderInmediata(lista) {
     const grid = document.getElementById('inmediataGrid');
     if(lista.length === 0) {
@@ -1032,21 +1026,27 @@
         return;
     }
     grid.innerHTML = lista.map(p => {
-      const isSel = !!cartObj[p.nombre];
-      const btnCls = isSel ? 'btn-add selected' : 'btn-add';
-      const btnTxt = isSel ? 'AGREGADO' : 'AGREGAR';
+      const isAgotado = p.estado.toLowerCase().includes('agotado');
+      const colorEstado = isAgotado ? 'var(--text-muted)' : '#25D366';
+      const btnTxt = isAgotado ? 'AGOTADO' : 'CONSULTAR PRECIO';
+      const btnCls = isAgotado ? 'btn-add' : 'btn-add selected';
+      const btnAction = isAgotado ? `disabled style="background:rgba(142, 142, 147, 0.1); color:var(--text-muted); cursor:not-allowed;"` : `onclick="pedirInmediata('${esc(p.nombre)}')"`;
+      
       return `
       <div class="prod-card reveal">
         <div class="prod-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
         <h4 class="prod-title">${esc(p.nombre)}</h4>
         <div class="prod-prices">
-           <span class="price-main">${esc(p.precio)}</span>
-           ${p.fakeOld ? `<span class="price-fake" style="font-size:10px;">${p.fakeOld}</span>` : ''}
+           <span class="price-main" style="color: ${colorEstado}; font-size: 15px; font-weight: 700;">${esc(p.estado)}</span>
         </div>
-        <button class="${btnCls}" onclick="addDirectToCart('${esc(p.nombre)}', '${esc(p.precio)}', this)">${btnTxt}</button>
+        <button class="${btnCls}" ${btnAction} style="font-size:11px;">${btnTxt}</button>
       </div>
     `}).join('');
     setTimeout(() => observeElements(), 50);
+  }
+
+  function pedirInmediata(nombre) {
+    openWhatsApp(`Hola, ¿qué precio tiene este perfume para entrega inmediata?\n- ${nombre}`);
   }
 
   let currentSearchTerm = "";
@@ -1060,7 +1060,6 @@
     else { mainContent.style.display = 'block'; emptyState.style.display = 'none'; renderCatalog(filtrados); }
   });
 
-  // Buscador Pestaña Inmediata
   document.getElementById('searchInmediataInput').addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase().trim();
     if(!term) { renderInmediata(catInmediata); return; }
@@ -1072,7 +1071,6 @@
 
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
-  let allWinners = [];
 
   function fetchSorteos() {
     Promise.all([
@@ -1167,7 +1165,7 @@
     }
     
     if(isGratis) {
-        infoHtml += `<div class="xmas-glow" style="display:inline-block; font-size:22px; font-weight:800; color:var(--accent);">GRATIS</div>`;
+        infoHtml += `<div class="xmas-glow" style="display:inline-block; font-size:22px; font-weight:800; color:var(--text-main);">GRATIS</div>`;
         document.getElementById('labelLibres').innerText = "NÚMEROS LIBRES";
         document.getElementById('labelOcupados').innerText = "NÚMEROS OCUPADOS";
         document.getElementById('labelPendientes').innerText = "NÚMEROS PENDIENTES";
@@ -1194,7 +1192,7 @@
     document.getElementById('searchPuestoInput').value = '';
     
     renderBoardDetalle('', isGratis);
-    switchView('sorteoDetalle', 'Tablero Dinámica', null);
+    switchView('sorteoDetalle', 'Detalle Dinámica', null);
   }
 
   document.getElementById('searchPuestoInput').addEventListener('input', (e) => {
