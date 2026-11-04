@@ -1098,8 +1098,11 @@
           if(title === '') return; 
 
           let pData = rows.map(cols => {
-            if(!cols || !cols[0] || !cols[0].trim()) return null;
-            let idPuesto = cols[0].trim();
+            // CORRECCIÓN: Si no hay datos en la columna B (Números), ignoramos la fila
+            if(!cols || cols.length < 2 || !cols[1] || !cols[1].trim()) return null;
+            
+            // CORRECCIÓN: Si la columna A (Puesto) está vacía, usamos el Número de la columna B como ID
+            let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : cols[1].trim();
             
             let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
               let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
@@ -1107,6 +1110,8 @@
             
             let st = (cols[2] || '').toUpperCase();
             let estado = 'libre';
+            
+            // Evaluamos la columna C (Estado)
             if(st.includes('PEN')) estado = 'pendiente';
             else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
             
