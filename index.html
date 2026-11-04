@@ -958,7 +958,6 @@
     if (url.includes('drive.google.com')) {
       const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
       if (match && match[1]) {
-        // TRUCO: Usar el servidor interno de miniaturas de Google para evadir el bloqueo
         return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
       }
     }
@@ -1098,10 +1097,8 @@
           if(title === '') return; 
 
           let pData = rows.map(cols => {
-            // CORRECCIÓN: Si no hay datos en la columna B (Números), ignoramos la fila
             if(!cols || cols.length < 2 || !cols[1] || !cols[1].trim()) return null;
             
-            // CORRECCIÓN: Si la columna A (Puesto) está vacía, usamos el Número de la columna B como ID
             let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : cols[1].trim();
             
             let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
@@ -1111,7 +1108,6 @@
             let st = (cols[2] || '').toUpperCase();
             let estado = 'libre';
             
-            // Evaluamos la columna C (Estado)
             if(st.includes('PEN')) estado = 'pendiente';
             else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
             
@@ -1138,7 +1134,6 @@
         let tagStyle = !d.isActive ? 'background: var(--bg-solid); color: var(--text-muted); border: 1px solid var(--border-color);' : 'background: var(--accent); color: var(--accent-text); box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);';
         let tagText = !d.isActive ? 'FINALIZADA' : 'ACTIVA';
 
-        // Animación sutil extra en la tarjeta de dinámica
         listContainer.innerHTML += `
           <div class="raffle-card reveal" style="${cardStyle}">
             <div class="r-header">
@@ -1217,40 +1212,15 @@
   function renderBoardDetalle(searchTerm, isGratis) {
     const board = document.getElementById('boardGridDetalle');
     
-    let htmlPuestos = '';
     let libres = 0; let ocupados = 0; let pendientes = 0;
 
     currentBoardData.forEach(p => {
        if(p.estado === 'ocupado') ocupados++;
        else if(p.estado === 'pendiente') pendientes++;
        else libres++;
-
-       let searchMatch = true;
-       if (searchTerm) {
-          searchMatch = p.id.includes(searchTerm) || p.numeros.some(num => num.includes(searchTerm));
-       }
-
-       if (searchMatch) {
-         let displayNums = p.numeros.length > 0 ? p.numeros.join(' - ') : 'Libre';
-         let cellClass = p.estado === 'ocupado' ? 'ocupado' : (p.estado === 'pendiente' ? 'pendiente' : 'libre');
-         
-         let onClickAction = '';
-         if (p.estado !== 'ocupado') {
-             if (isGratis) onClickAction = `onclick="pedirNumero('${p.id}')"`;
-             else onClickAction = `onclick="pedirPuesto('${p.id}')"`;
-         }
-         
-         htmlPuestos += `
-           <div class="puesto-card ${cellClass} reveal" ${onClickAction}>
-             <div class="puesto-title">${isGratis ? 'Número' : 'Puesto'} ${p.id}</div>
-             <div class="puesto-nums">${displayNums}</div>
-           </div>
-         `;
-       }
     });
 
-    let tableroHtml = `<h3 class="reveal" style="margin: 40px 0 20px 0; font-size: 16px; font-weight: 800; text-align: center; text-transform: uppercase; letter-spacing: 1px;">Tablero General</h3>`;
-    tableroHtml += `<div class="board-grid reveal">`;
+    let tableroHtml = `<div class="board-grid reveal" style="margin-top: 15px;">`;
     for(let i = 0; i <= 99; i++) {
         const num = i < 10 ? '0' + i : '' + i;
         const p = currentBoardData.find(x => x.numeros.includes(num));
@@ -1271,7 +1241,7 @@
     }
     tableroHtml += `</div>`;
     
-    board.innerHTML = `<div class="puestos-grid">${htmlPuestos}</div>` + tableroHtml;
+    board.innerHTML = tableroHtml;
     
     document.getElementById('countLibres').innerText = libres;
     document.getElementById('countOcupados').innerText = ocupados;
