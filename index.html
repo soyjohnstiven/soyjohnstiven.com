@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 
 <!-- CONFIGURACIÓN PWA -->
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#F9F9FB">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.json">
@@ -22,14 +22,14 @@
 
 <style>
   /* =========================================
-     ESTÉTICA NAVIDEÑA (ROJO, VERDE Y BLANCO) + TRANSPARENCIA TOTAL
+     ESTÉTICA NAVIDEÑA (ROJO, VERDE Y BLANCO PASTEL) + CRISTAL LIMPIO
   ========================================= */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
   :root {
-    --bg-base: #FFFFFF; /* Fondo Totalmente Blanco */
-    --bg-card: rgba(255, 255, 255, 0.25); /* MODO TRANSPARENTE */
-    --bg-solid: rgba(255, 255, 255, 0.6);
+    --bg-base: #F9F9FB; /* Tono pastel claro limpio */
+    --bg-card: rgba(255, 255, 255, 0.75); /* Cristal premium legible */
+    --bg-solid: rgba(255, 255, 255, 0.9);
     --text-main: #111111;
     --text-muted: #666666;
     
@@ -40,7 +40,7 @@
     --xmas-green: #146B3A; /* Verde Navidad */
     --gold: #D4AF37; 
     
-    --border-color: rgba(0, 0, 0, 0.08);
+    --border-color: rgba(0, 0, 0, 0.06);
     --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.03);
     --shadow-md: 0 8px 32px rgba(31, 38, 135, 0.08);
     
@@ -51,8 +51,8 @@
 
   body.dark-mode {
     --bg-base: #0A0A0A;
-    --bg-card: rgba(30, 30, 30, 0.3);
-    --bg-solid: rgba(28, 28, 30, 0.8);
+    --bg-card: rgba(30, 30, 30, 0.6);
+    --bg-solid: rgba(28, 28, 30, 0.9);
     --text-main: #FFFFFF;
     --text-muted: #A0A0A0;
     
@@ -60,7 +60,7 @@
     --accent-light: rgba(255, 59, 48, 0.15);
     
     --xmas-green: #24A159;
-    --border-color: rgba(255, 255, 255, 0.12);
+    --border-color: rgba(255, 255, 255, 0.1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -73,25 +73,18 @@
 
   body {
     background-color: var(--bg-base);
-    /* Adornos de Navidad fondo (Estrellas sutiles 2%) */
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L32 25 L50 30 L32 35 L30 55 L28 35 L10 30 L28 25 Z' fill='%23000000' fill-opacity='0.02' /%3E%3C/svg%3E");
-    background-size: 60px 60px;
     color: var(--text-main);
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased; 
     padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 30px);
     transition: background-color 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.5s ease;
   }
-  
-  body.dark-mode {
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L32 25 L50 30 L32 35 L30 55 L28 35 L10 30 L28 25 Z' fill='%23FFFFFF' fill-opacity='0.02' /%3E%3C/svg%3E");
-  }
 
   .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; grid-column: 1 / -1; color: var(--accent); }
   .loader-spinner { font-size: 28px; margin-bottom: 12px; animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  /* ================= SPLASH NAVIDEÑO DINÁMICO (2 SEGUNDOS) ================= */
+  /* ================= SPLASH NAVIDEÑO DINÁMICO ================= */
   #splash {
     position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -181,7 +174,7 @@
   .nav-item i { font-size: 20px; transition: 0.3s; margin-bottom: 2px;}
   .nav-item.active { color: var(--accent-text); background: var(--accent); margin: 6px; height: calc(100% - 12px); box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4); }
 
-  /* GLOBO DE NOTIFICACIÓN PARA DINÁMICAS (NUEVA DINÁMICA) */
+  /* GLOBO DE NOTIFICACIÓN PARA DINÁMICAS */
   .nav-tooltip { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); background: var(--xmas-green); color: #FFF; font-size: 10px; font-weight: 800; padding: 7px 12px; border-radius: 10px; white-space: nowrap; box-shadow: var(--shadow-md); animation: bounceTip 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite; pointer-events: none;}
   .nav-tooltip::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); border-width: 6px 6px 0; border-style: solid; border-color: var(--xmas-green) transparent transparent transparent; }
   @keyframes bounceTip { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
@@ -196,7 +189,7 @@
   .btn-primary { background: var(--accent); color: var(--accent-text); border: none; padding: 16px 30px; border-radius: 100px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3); display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
   .btn-primary:active { transform: scale(0.92); opacity: 0.9; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.2);}
 
-  .btn-secondary { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 100%; display: flex; justify-content: center;}
+  .btn-secondary { background: var(--bg-solid); color: var(--text-main); border: 1px solid var(--border-color); padding: 14px 20px; border-radius: 100px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 100%; display: flex; justify-content: center;}
   .btn-secondary:active { transform: scale(0.94); background: var(--border-color); }
 
   /* ================= CLASES DE CRISTAL GLOBAL ================= */
@@ -334,27 +327,65 @@
   .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-  /* TABLEROS */
-  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); gap: 12px; margin-top: 20px; }
-  .puesto-card { background: var(--bg-solid); border-radius: 16px; padding: 15px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);}
-  .puesto-card.ocupado { background: rgba(142, 142, 147, 0.08); opacity: 0.4; pointer-events: none; border-color: transparent; box-shadow: none;}
-  .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
-  .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); border-style: dashed; box-shadow: none;}
-  .puesto-card.libre { border-color: var(--text-main); }
-  .puesto-card.libre:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--xmas-green);}
-  .puesto-card.libre:active { transform: scale(0.92); }
-  .puesto-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; text-transform: uppercase;}
-  .puesto-nums { font-size: 12px; color: var(--text-muted); line-height: 1.3; font-weight: 500;}
+  /* ================= TABLEROS DE NÚMEROS ================= */
+  .board-grid { 
+      display: grid; 
+      grid-template-columns: repeat(10, 1fr); 
+      gap: 3px; 
+      margin: 15px auto 40px auto; 
+      max-width: 480px; 
+      width: 100%;
+      box-sizing: border-box;
+  }
 
-  .board-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 15px;}
-  .b-cell { aspect-ratio: 1; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 15px; font-weight: 600; cursor: pointer; background: var(--bg-solid); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);}
-  .b-cell.libre:hover { transform: translateY(-2px); border-color: var(--xmas-green); box-shadow: var(--shadow-md); color: var(--xmas-green);}
+  @media (max-width: 380px) {
+      .board-grid { gap: 2px; }
+  }
+
+  .b-cell { 
+      aspect-ratio: 1; 
+      border-radius: 6px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      font-size: clamp(11px, 3.5vw, 15px); 
+      font-weight: 700; 
+      cursor: pointer; 
+      background: var(--bg-solid); 
+      transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+      border: 1px solid var(--border-color); 
+      box-shadow: var(--shadow-sm);
+      padding: 0; 
+      margin: 0;
+  }
+  .b-cell.libre:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow-md); color: var(--accent);}
   .b-cell.libre:active { transform: scale(0.85); }
-  .b-cell.ocupado { background: transparent; color: var(--text-muted); pointer-events: none; border-color: transparent; opacity: 0.3; box-shadow: none;}
-  .b-cell.ocupado span { font-size: 11px; text-decoration: line-through;}
-  .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); box-shadow: none;}
+  
+  .b-cell.ocupado { 
+      background: #2C2C2E; 
+      color: #FFFFFF; 
+      pointer-events: none; 
+      border-color: transparent; 
+      opacity: 1;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+  }
+  body.dark-mode .b-cell.ocupado { 
+      background: #111111; 
+      color: #777777; 
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.8);
+  }
+  
+  .b-cell.ocupado span { 
+      font-size: clamp(9px, 2.5vw, 11px); 
+      text-decoration: line-through; 
+      color: rgba(255, 255, 255, 0.6); 
+      margin-top: 1px;
+  }
+  body.dark-mode .b-cell.ocupado span { color: #555555; }
 
-  .xmas-glow { filter: drop-shadow(0 4px 15px rgba(20, 107, 58, 0.4)); }
+  .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); box-shadow: none;}
+  .xmas-glow { filter: drop-shadow(0 4px 15px rgba(211, 47, 47, 0.4)); }
 
 </style>
 </head>
@@ -372,7 +403,7 @@
   <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
   <i class="fa-brands fa-whatsapp" style="font-size: 50px; color: #25D366; margin-bottom: 15px; filter: drop-shadow(0 4px 10px rgba(37,211,102,0.3));"></i>
   <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 10px; line-height: 1.2;">ESTADOS WHATSAPP</h3>
-  <p style="font-size: 15px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Si quieres ver y obtener mejores precios, mira nuestros estados de WhatsApp.</p>
+  <p style="font-size: 15px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Si quieres obtener mejores precios, mira nuestros estados de WhatsApp.</p>
   <button class="btn-primary" style="background: #25D366; color: #FFF; box-shadow: 0 8px 20px rgba(37,211,102,0.3); padding: 16px 30px; margin: 0 auto; border-radius: 16px;" onclick="goPromoWA()">Ver Estados de WhatsApp</button>
 </div>
 
@@ -978,8 +1009,6 @@
     let fakeOld = ""; 
     if(!isNaN(numPrice) && numPrice > 0) { 
         
-        // VARIACIÓN DIARIA INTELIGENTE: Alterna cada día sin que tengas que hacer nada.
-        // Día Par = Baja $9,000 / Día Impar = Sube $7,000
         const epochDay = Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24));
         const priceVariation = (epochDay % 2 === 0) ? -9000 : 7000;
         
@@ -1045,7 +1074,8 @@
         return;
     }
     grid.innerHTML = lista.map(p => {
-      const isAgotado = p.estado.toLowerCase().includes('agotado');
+      // Detección mejorada que lee tanto "agotado" como "agotada"
+      const isAgotado = p.estado.toLowerCase().includes('agotad'); 
       const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--xmas-green)';
       const btnTxt = isAgotado ? 'AGOTADO' : 'CONSULTAR PRECIO';
       const btnCls = isAgotado ? 'btn-add' : 'btn-add selected';
