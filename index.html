@@ -174,7 +174,7 @@
   .nav-item i { font-size: 20px; transition: 0.3s; margin-bottom: 2px;}
   .nav-item.active { color: var(--accent-text); background: var(--accent); margin: 6px; height: calc(100% - 12px); box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4); }
 
-  /* GLOBO DE NOTIFICACIÓN PARA DINÁMICAS (NUEVA DINÁMICA) */
+  /* GLOBO DE NOTIFICACIÓN PARA DINÁMICAS */
   .nav-tooltip { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); background: var(--xmas-green); color: #FFF; font-size: 10px; font-weight: 800; padding: 7px 12px; border-radius: 10px; white-space: nowrap; box-shadow: var(--shadow-md); animation: bounceTip 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite; pointer-events: none;}
   .nav-tooltip::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); border-width: 6px 6px 0; border-style: solid; border-color: var(--xmas-green) transparent transparent transparent; }
   @keyframes bounceTip { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
@@ -285,6 +285,7 @@
     transform: translateY(150%); opacity: 0; pointer-events: none;
     transition: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column; background: var(--bg-card); backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%); border-top: 1px solid var(--border-color); box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
   }
+  body.dark-mode .bottom-sheet { background: rgba(28, 28, 30, 0.85); }
   @media(min-width: 768px) { .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 36px; bottom: 20px; max-height: 80vh; border: 1px solid var(--border-color);} }
   .bottom-sheet.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
   .sheet-handle { width: 45px; height: 6px; background: rgba(142, 142, 147, 0.3); border-radius: 10px; margin: 0 auto 25px auto; flex-shrink: 0; }
@@ -302,6 +303,7 @@
   .c-btn-delete:active { transform: scale(0.8); }
 
   .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -35%) scale(0.95); width: 90%; max-width: 400px; border-radius: 28px; padding: 40px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); background: var(--bg-card); backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%); box-shadow: var(--shadow-md); border: 1px solid var(--border-color);}
+  body.dark-mode .center-modal { background: rgba(28, 28, 30, 0.85); }
   .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1);}
   .close-cm { position: absolute; top: 15px; right: 15px; background: rgba(142, 142, 147, 0.15); border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; color: var(--text-main); cursor: pointer; transition: 0.2s;}
   .close-cm:active { transform: scale(0.8); }
@@ -327,37 +329,36 @@
   .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-  /* ================= TABLEROS DE NÚMEROS MEJORADOS ================= */
+  /* ================= TABLEROS DE NÚMEROS (CORREGIDO Y RESTAURADO) ================= */
   .board-grid { 
       display: grid; 
       grid-template-columns: repeat(10, 1fr); 
-      gap: 3px; 
+      gap: 5px; /* Separación entre números restaurada */
       margin: 15px auto 40px auto; 
       max-width: 480px; 
       width: 100%;
       box-sizing: border-box;
+      padding: 0 10px;
   }
 
   @media (max-width: 380px) {
-      .board-grid { gap: 2px; }
+      .board-grid { gap: 3px; padding: 0 5px; }
   }
 
   .b-cell { 
       aspect-ratio: 1; 
-      border-radius: 6px; 
+      border-radius: 8px; 
       display: flex; 
       flex-direction: column; 
       justify-content: center; 
       align-items: center; 
-      font-size: clamp(11px, 3.5vw, 15px); 
+      font-size: clamp(12px, 4vw, 16px); 
       font-weight: 700; 
       cursor: pointer; 
       background: var(--bg-solid); 
       transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
       border: 1px solid var(--border-color); 
       box-shadow: var(--shadow-sm);
-      padding: 0; 
-      margin: 0;
   }
   .b-cell.libre:hover { transform: translateY(-2px); border-color: var(--xmas-green); box-shadow: var(--shadow-md); color: var(--xmas-green);}
   .b-cell.libre:active { transform: scale(0.85); }
@@ -377,7 +378,7 @@
   }
   
   .b-cell.ocupado span { 
-      font-size: clamp(9px, 2.5vw, 11px); 
+      font-size: clamp(10px, 3vw, 12px); 
       text-decoration: line-through; 
       color: rgba(255, 255, 255, 0.6); 
       margin-top: 1px;
@@ -385,6 +386,7 @@
   body.dark-mode .b-cell.ocupado span { color: #555555; }
 
   .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); box-shadow: none;}
+  .xmas-glow { filter: drop-shadow(0 4px 15px rgba(211, 47, 47, 0.4)); }
 
 </style>
 </head>
@@ -644,7 +646,8 @@
       <div style="display:flex; align-items:center; gap:8px;"><div style="width:14px; height:14px; border-radius:4px; border:1px dashed var(--text-muted);"></div> Pendiente</div>
     </div>
 
-    <div id="boardGridDetalle" style="padding: 0 8px; margin-bottom: 40px; box-sizing: border-box;"></div>
+    <!-- Contenedor general del tablero -->
+    <div id="boardGridDetalle" style="margin-bottom: 40px;"></div>
 
   </section>
 
@@ -663,7 +666,6 @@
     const splashText = document.getElementById('greetingText');
     if(splashText) splashText.innerText = greeting;
 
-    // RETRASO DE 2 SEGUNDOS EN EL SPLASH
     setTimeout(() => {
       const s = document.getElementById('splash');
       if (s) {
@@ -1065,7 +1067,7 @@
     setTimeout(() => observeElements(), 50);
   }
 
-  // ================= RENDER DE ENTREGAS INMEDIATAS (CORREGIDO PARA CUALQUIER CASO DE 'AGOTADA/O') =================
+  // ================= RENDER DE ENTREGAS INMEDIATAS (CON X PARA AGOTADOS) =================
   function renderInmediata(lista) {
     const grid = document.getElementById('inmediataGrid');
     if(lista.length === 0) {
@@ -1156,10 +1158,8 @@
           if(title === '') return; 
 
           let pData = rows.map(cols => {
-            // Protección contra filas rotas o mal formateadas
             if(!cols || cols.length < 2) return null;
             
-            // Toma el ID de la primera o segunda columna para evitar fallos si cambian de orden
             let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : (cols[1] ? cols[1].trim() : '');
             if(idPuesto === '') return null;
             
@@ -1321,8 +1321,9 @@
        }
     });
 
+    // ================= RESTAURACIÓN DEL TABLERO GENERAL (00 AL 99) =================
     let tableroHtml = `<h3 class="reveal" style="margin: 40px 0 20px 0; font-size: 16px; font-weight: 800; text-align: center; text-transform: uppercase; letter-spacing: 1px;">Tablero General</h3>`;
-    tableroHtml += `<div class="board-grid reveal">`;
+    tableroHtml += `<div class="board-grid reveal">`; // Esta es la clase que se había borrado
     for(let i = 0; i <= 99; i++) {
         const num = i < 10 ? '0' + i : '' + i;
         const p = currentBoardData.find(x => x.numeros.includes(num));
@@ -1343,6 +1344,7 @@
     }
     tableroHtml += `</div>`;
     
+    // Inserta tanto las tarjetas de puestos como el tablero general
     board.innerHTML = `<div class="puestos-grid">${htmlPuestos}</div>` + tableroHtml;
     
     document.getElementById('countLibres').innerText = libres;
