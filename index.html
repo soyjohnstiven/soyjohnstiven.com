@@ -174,7 +174,7 @@
   .nav-item i { font-size: 20px; transition: 0.3s; margin-bottom: 2px;}
   .nav-item.active { color: var(--accent-text); background: var(--accent); margin: 6px; height: calc(100% - 12px); box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4); }
 
-  /* GLOBO DE NOTIFICACIÓN PARA DINÁMICAS */
+  /* GLOBO DE NOTIFICACIÓN PARA DINÁMICAS (NUEVA DINÁMICA) */
   .nav-tooltip { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); background: var(--xmas-green); color: #FFF; font-size: 10px; font-weight: 800; padding: 7px 12px; border-radius: 10px; white-space: nowrap; box-shadow: var(--shadow-md); animation: bounceTip 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite; pointer-events: none;}
   .nav-tooltip::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); border-width: 6px 6px 0; border-style: solid; border-color: var(--xmas-green) transparent transparent transparent; }
   @keyframes bounceTip { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
@@ -327,7 +327,7 @@
   .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-  /* ================= TABLEROS DE NÚMEROS ================= */
+  /* ================= TABLEROS DE NÚMEROS MEJORADOS ================= */
   .board-grid { 
       display: grid; 
       grid-template-columns: repeat(10, 1fr); 
@@ -359,7 +359,7 @@
       padding: 0; 
       margin: 0;
   }
-  .b-cell.libre:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow-md); color: var(--accent);}
+  .b-cell.libre:hover { transform: translateY(-2px); border-color: var(--xmas-green); box-shadow: var(--shadow-md); color: var(--xmas-green);}
   .b-cell.libre:active { transform: scale(0.85); }
   
   .b-cell.ocupado { 
@@ -385,7 +385,6 @@
   body.dark-mode .b-cell.ocupado span { color: #555555; }
 
   .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); box-shadow: none;}
-  .xmas-glow { filter: drop-shadow(0 4px 15px rgba(211, 47, 47, 0.4)); }
 
 </style>
 </head>
@@ -580,7 +579,7 @@
   <section id="viewInmediata" class="view">
     <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Entregas Inmediatas</h1>
     <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5;">
-       Perfumes exclusivos con <b>entrega inmediata</b> en Medellín. ¡Pídelo hoy, recíbelo hoy!
+       Perfumes disponibles con entrega inmediata. Pídelo hoy, recíbelo hoy (domicilio gratis válido solo en Medellín).
     </div>
 
     <div class="search-container">
@@ -1066,7 +1065,7 @@
     setTimeout(() => observeElements(), 50);
   }
 
-  // ================= RENDER DE ENTREGAS INMEDIATAS (CON X PARA AGOTADOS) =================
+  // ================= RENDER DE ENTREGAS INMEDIATAS (CORREGIDO PARA CUALQUIER CASO DE 'AGOTADA/O') =================
   function renderInmediata(lista) {
     const grid = document.getElementById('inmediataGrid');
     if(lista.length === 0) {
@@ -1074,7 +1073,7 @@
         return;
     }
     grid.innerHTML = lista.map(p => {
-      // Detección mejorada que lee tanto "agotado" como "agotada"
+      // Ahora detecta "Agotada", "agotada", "Agotado", "agotado"
       const isAgotado = p.estado.toLowerCase().includes('agotad'); 
       const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--xmas-green)';
       const btnTxt = isAgotado ? 'AGOTADO' : 'CONSULTAR PRECIO';
@@ -1137,6 +1136,7 @@
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
   const URL_S2 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=1512969174&single=true&output=csv';
 
+  // ================= LECTURA DE SORTEOS MUCHO MÁS RESISTENTE A ERRORES EN SHEETS =================
   function fetchSorteos() {
     Promise.all([
       fetch(URL_S1 + '&t=' + new Date().getTime()).then(r => r.text()),
@@ -1156,8 +1156,12 @@
           if(title === '') return; 
 
           let pData = rows.map(cols => {
-            if(!cols || !cols[0] || !cols[0].trim()) return null;
-            let idPuesto = cols[0].trim();
+            // Protección contra filas rotas o mal formateadas
+            if(!cols || cols.length < 2) return null;
+            
+            // Toma el ID de la primera o segunda columna para evitar fallos si cambian de orden
+            let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : (cols[1] ? cols[1].trim() : '');
+            if(idPuesto === '') return null;
             
             let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
               let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
@@ -1177,7 +1181,7 @@
           }
           const isActive = !isSoldOut;
           
-          // ================= LÓGICA DE SORTEO GRATIS (JUEGA HOY / EXPIRA A LAS 11:55 PM) =================
+          // LÓGICA DE SORTEO GRATIS (EXPIRA A LAS 11:55 PM)
           let isGratis = false;
           if (price) {
               let p = String(price).toLowerCase();
@@ -1186,8 +1190,9 @@
           
           if (isGratis) {
               const now = new Date();
+              // Si son las 11:55 PM o más tarde, se oculta la dinámica
               if (now.getHours() === 23 && now.getMinutes() >= 55) {
-                  return; // Omite esta dinámica por completo
+                  return; 
               }
               title += " (¡JUEGA HOY!)";
           }
@@ -1213,7 +1218,7 @@
                <span class="r-tag" style="${tagStyle}">${tagText}</span>
             </div>
             <p style="font-size:15px; margin-bottom:12px; color:var(--text-muted);">Premio: <b style="color:var(--text-main);">${d.desc || 'Próximamente'}</b></p>
-            ${d.price ? `<p style="font-size:18px; font-weight:800; color:var(--text-main); margin-bottom:25px;">Valor: ${d.price}</p>` : '<div style="margin-bottom:25px;"></div>'}
+            ${d.price ? `<p style="font-size:18px; font-weight:800; color:var(--xmas-green); margin-bottom:25px;">Valor: ${d.price}</p>` : '<div style="margin-bottom:25px;"></div>'}
             <button class="btn-primary" style="width: 100%;" onclick="openSorteoView(${index})" ${!d.isActive ? 'disabled style="opacity:0.5; background:var(--border-color); color:var(--text-muted); box-shadow:none; cursor:not-allowed;"' : ''}>${!d.isActive ? 'Tablero Cerrado' : 'Ver Tablero'}</button>
           </div>
         `;
