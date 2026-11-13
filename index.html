@@ -174,6 +174,11 @@
   .nav-item i { font-size: 20px; transition: 0.3s; margin-bottom: 2px;}
   .nav-item.active { color: var(--accent-text); background: var(--accent); margin: 6px; height: calc(100% - 12px); box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4); }
 
+  /* GLOBO DE NOTIFICACIÓN PARA DINÁMICAS */
+  .nav-tooltip { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); background: var(--xmas-green); color: #FFF; font-size: 10px; font-weight: 800; padding: 7px 12px; border-radius: 10px; white-space: nowrap; box-shadow: var(--shadow-md); animation: bounceTip 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite; pointer-events: none;}
+  .nav-tooltip::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); border-width: 6px 6px 0; border-style: solid; border-color: var(--xmas-green) transparent transparent transparent; }
+  @keyframes bounceTip { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
+
   .app-container { max-width: 1000px; margin: 0 auto; padding: 0; }
   
   .view { display: none; animation: fadeView 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); padding-bottom: 80px;}
@@ -324,76 +329,70 @@
   .ic-list li { margin-bottom: 12px; }
   .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-  /* ================= TABLEROS DE NÚMEROS ================= */
-  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); gap: 12px; margin-top: 20px; }
-  
-  .puesto-card { background: var(--bg-solid); border-radius: 16px; padding: 15px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);}
-  .puesto-card.ocupado { background: rgba(142, 142, 147, 0.08); opacity: 0.4; pointer-events: none; border-color: transparent; box-shadow: none;}
-  .puesto-card.ocupado .puesto-title { text-decoration: line-through; color: var(--text-muted); }
-  .puesto-card.pendiente { background: transparent; border-color: var(--text-muted); border-style: dashed; box-shadow: none;}
-  .puesto-card.libre { border-color: var(--text-main); }
-  .puesto-card.libre:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--xmas-green);}
-  .puesto-card.libre:active { transform: scale(0.92); }
-  .puesto-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; text-transform: uppercase;}
-  .puesto-nums { font-size: 12px; color: var(--text-muted); line-height: 1.3; font-weight: 500;}
-
-  /* Tablero General */
-  .board-grid { 
+  /* ================= CUADRÍCULA DE PUESTOS (DISEÑO REQUERIDO) ================= */
+  .puestos-grid { 
       display: grid; 
-      grid-template-columns: repeat(10, 1fr); 
-      gap: 5px; 
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); 
+      gap: 12px; 
       margin: 15px auto 40px auto; 
-      max-width: 480px; 
-      width: 100%;
-      box-sizing: border-box;
-      padding: 0 10px;
+      padding: 0 15px;
+      max-width: 600px;
   }
-
   @media (max-width: 380px) {
-      .board-grid { gap: 3px; padding: 0 5px; }
+      .puestos-grid { grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 10px; }
   }
-
-  .b-cell { 
-      aspect-ratio: 1; 
-      border-radius: 8px; 
+  
+  .puesto-card { 
+      background: var(--bg-solid); 
+      border-radius: 16px; 
+      padding: 12px 6px; 
       display: flex; 
       flex-direction: column; 
-      justify-content: center; 
       align-items: center; 
-      font-size: clamp(12px, 4vw, 16px); 
-      font-weight: 700; 
+      justify-content: center; 
+      text-align: center; 
       cursor: pointer; 
-      background: var(--bg-solid); 
       transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
       border: 1px solid var(--border-color); 
       box-shadow: var(--shadow-sm);
+      aspect-ratio: 1; /* Cuadrado perfecto */
   }
-  .b-cell.libre:hover { transform: translateY(-2px); border-color: var(--xmas-green); box-shadow: var(--shadow-md); color: var(--xmas-green);}
-  .b-cell.libre:active { transform: scale(0.85); }
+  .puesto-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+  }
+  .puesto-title { 
+      font-size: 24px; 
+      font-weight: 800; 
+      color: var(--text-main); 
+      line-height: 1;
+      margin-bottom: 6px; 
+  }
+  .puesto-nums { 
+      font-size: 11px; 
+      color: var(--xmas-green); 
+      line-height: 1.2; 
+      font-weight: 700;
+      min-height: 14px;
+  }
   
-  .b-cell.ocupado { 
+  .puesto-card.ocupado { 
       background: #111111; 
-      color: #FFFFFF; 
       pointer-events: none; 
       border-color: transparent; 
-      opacity: 1;
       box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
   }
-  body.dark-mode .b-cell.ocupado { 
-      background: #111111; 
-      color: #777777; 
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.8);
-  }
-  
-  .b-cell.ocupado span { 
-      font-size: clamp(10px, 3vw, 12px); 
-      text-decoration: line-through; 
-      color: rgba(255, 255, 255, 0.6); 
-      margin-top: 1px;
-  }
-  body.dark-mode .b-cell.ocupado span { color: #555555; }
+  .puesto-card.ocupado .puesto-label { color: rgba(255,255,255,0.5); }
+  .puesto-card.ocupado .puesto-title { color: #FFFFFF; text-decoration: line-through; }
+  .puesto-card.ocupado .puesto-nums { color: rgba(255,255,255,0.7); text-decoration: line-through; }
 
-  .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); box-shadow: none;}
+  .puesto-card.pendiente { background: transparent; border: 1px dashed var(--text-muted); box-shadow: none;}
+  .puesto-card.libre:hover { transform: translateY(-3px); border-color: var(--xmas-green); box-shadow: var(--shadow-md);}
+  .puesto-card.libre:active { transform: scale(0.92); }
+  
   .xmas-glow { filter: drop-shadow(0 4px 15px rgba(211, 47, 47, 0.4)); }
 
 </style>
@@ -636,15 +635,15 @@
     <div id="sorteoDetalleHeader" style="margin-top: calc(var(--top-height) + 15px);"></div>
     
     <div id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 25px 20px; font-weight: 700; font-size: 11px; text-align:center; line-height: 1.4;">
-       <div><span id="labelLibres" style="color:var(--text-muted); display:block; margin-bottom:6px;">NÚMEROS LIBRES</span><span id="countLibres" style="font-size:22px; color:var(--text-main);">0</span></div>
-       <div><span id="labelOcupados" style="color:var(--text-muted); display:block; margin-bottom:6px;">NÚMEROS OCUPADOS</span><span id="countOcupados" style="font-size:22px; color:var(--text-main);">0</span></div>
-       <div><span id="labelPendientes" style="color:var(--text-muted); display:block; margin-bottom:6px;">NÚMEROS PENDIENTES</span><span id="countPendientes" style="font-size:22px; color:var(--text-main);">0</span></div>
+       <div><span id="labelLibres" style="color:var(--text-muted); display:block; margin-bottom:6px;">PUESTOS LIBRES</span><span id="countLibres" style="font-size:22px; color:var(--text-main);">0</span></div>
+       <div><span id="labelOcupados" style="color:var(--text-muted); display:block; margin-bottom:6px;">PUESTOS OCUPADOS</span><span id="countOcupados" style="font-size:22px; color:var(--text-main);">0</span></div>
+       <div><span id="labelPendientes" style="color:var(--text-muted); display:block; margin-bottom:6px;">PUESTOS PENDIENTES</span><span id="countPendientes" style="font-size:22px; color:var(--text-main);">0</span></div>
     </div>
 
     <div class="search-container">
       <div class="search-box glass-panel">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchPuestoInput" placeholder="Buscar tu número...">
+        <input type="text" id="searchPuestoInput" placeholder="Buscar tu número o puesto...">
       </div>
     </div>
 
@@ -654,7 +653,7 @@
       <div style="display:flex; align-items:center; gap:8px;"><div style="width:14px; height:14px; border-radius:4px; border:1px dashed var(--text-muted);"></div> Pendiente</div>
     </div>
 
-    <div id="boardGridDetalle" style="margin-bottom: 40px; padding: 0 8px; box-sizing: border-box;"></div>
+    <div id="boardGridDetalle" style="margin-bottom: 40px;"></div>
 
   </section>
 
@@ -873,6 +872,7 @@
     } else { 
       cont.innerHTML = html; 
       
+      // SIN MENSAJES DE DESCUENTO: El total a pagar es el valor exacto de la suma de los productos.
       summ.innerHTML = `
         <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
             <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: var(--text-muted);">
@@ -977,6 +977,7 @@
     return url;
   }
 
+  // ================= CÁLCULO DE PRECIOS EXACTOS (LEÍDOS DIRECTO DE TU HOJA) =================
   function formatProductRow(cols) {
     if(!cols || cols.length < 2) return null;
     var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
@@ -1104,7 +1105,8 @@
   function askAvailability() { openWhatsApp(`Hola, no encontré esta fragancia en la página:\n- ${currentSearchTerm}\n\n¿Me ayudas a conseguirla por favor?`); }
 
   const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
-  
+
+  // ================= LECTURA DE TU ÚNICO SORTEO Y GENERACIÓN DE PUESTOS =================
   function fetchSorteos() {
     Promise.all([
       fetch(URL_S1 + '&t=' + new Date().getTime()).then(r => r.text())
@@ -1123,9 +1125,9 @@
           if(title === '') return; 
 
           let pData = rows.map(cols => {
-            if(!cols || cols.length < 2) return null;
+            if(!cols || cols.length < 1) return null;
             
-            let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : (cols[1] ? cols[1].trim() : '');
+            let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : '';
             if(idPuesto === '') return null;
             
             let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
@@ -1214,10 +1216,10 @@
     
     if(isGratis) {
         infoHtml += `<div class="xmas-glow" style="display:inline-block; font-size:22px; font-weight:800; color:var(--xmas-green);">GRATIS</div>`;
-        document.getElementById('labelLibres').innerText = "NÚMEROS LIBRES";
-        document.getElementById('labelOcupados').innerText = "NÚMEROS OCUPADOS";
-        document.getElementById('labelPendientes').innerText = "NÚMEROS PENDIENTES";
-        document.getElementById('searchPuestoInput').placeholder = "Buscar un número...";
+        document.getElementById('labelLibres').innerText = "PUESTOS LIBRES";
+        document.getElementById('labelOcupados').innerText = "PUESTOS OCUPADOS";
+        document.getElementById('labelPendientes').innerText = "PUESTOS PENDIENTES";
+        document.getElementById('searchPuestoInput').placeholder = "Buscar tu puesto...";
     } else {
         infoHtml += `<div style="display:inline-block; font-size:22px; font-weight:800; color:var(--accent);">Valor Puesto: ${data.price}</div>`;
         infoHtml += `<p style="font-size:13px; color:var(--text-muted); margin-top: 15px; line-height: 1.4;">Por cada puesto tienes 3 posibilidades de ganar. Esos son los números con los que participas.</p>`;
@@ -1249,43 +1251,44 @@
     renderBoardDetalle(e.target.value.trim(), isGratis);
   });
 
+  // ================= TABLERO ÚNICO: LOS PUESTOS CON LOS NÚMEROS DEBAJO =================
   function renderBoardDetalle(searchTerm, isGratis) {
     const board = document.getElementById('boardGridDetalle');
     
+    let htmlPuestos = '';
     let libres = 0; let ocupados = 0; let pendientes = 0;
 
-    let tableroHtml = `<h3 class="reveal" style="margin: 30px 0 15px 0; font-size: 16px; font-weight: 800; text-align: center; text-transform: uppercase; letter-spacing: 1px;">Tablero General</h3>`;
-    tableroHtml += `<div class="board-grid reveal">`;
-    
-    for(let i = 1; i <= 30; i++) {
-        const num = i < 10 ? '0' + i : '' + i;
-        const p = currentBoardData.find(x => x.numeros.includes(num));
-        
-        let matchesSearch = true;
-        if (searchTerm) {
-            matchesSearch = num.includes(searchTerm) || (p && p.id.toLowerCase().includes(searchTerm.toLowerCase()));
-        }
-        let matchOpacity = matchesSearch ? '1' : '0.1';
+    currentBoardData.forEach(p => {
+       if(p.estado === 'ocupado') ocupados++;
+       else if(p.estado === 'pendiente') pendientes++;
+       else libres++;
 
-        if(p) {
-            if(p.estado === 'ocupado') {
-                ocupados++;
-                tableroHtml += `<div class="b-cell ocupado" style="opacity:${matchOpacity};">X<span style="display:block;">${num}</span></div>`;
-            } else if(p.estado === 'pendiente') {
-                pendientes++;
-                tableroHtml += `<div class="b-cell pendiente" style="opacity:${matchOpacity};" onclick="${isGratis ? `pedirNumero('${p.id}')` : `pedirPuesto('${p.id}')`}">${num}</div>`;
-            } else {
-                libres++;
-                tableroHtml += `<div class="b-cell libre" style="opacity:${matchOpacity};" onclick="${isGratis ? `pedirNumero('${p.id}')` : `pedirPuesto('${p.id}')`}">${num}</div>`;
-            }
-        } else {
-            libres++;
-            tableroHtml += `<div class="b-cell libre" style="opacity:${matchOpacity};" onclick="pedirNumero('${num}')">${num}</div>`;
-        }
-    }
-    tableroHtml += `</div>`;
+       let searchMatch = true;
+       if (searchTerm) {
+          searchMatch = p.id.includes(searchTerm) || p.numeros.some(num => num.includes(searchTerm));
+       }
+
+       if (searchMatch) {
+         // Si tú aún no pones números en Sheets, muestra '---'
+         let displayNums = p.numeros.length > 0 ? p.numeros.join(' - ') : '---';
+         let cellClass = p.estado === 'ocupado' ? 'ocupado' : (p.estado === 'pendiente' ? 'pendiente' : 'libre');
+         
+         let onClickAction = '';
+         if (p.estado !== 'ocupado') {
+             onClickAction = `onclick="pedirPuesto('${p.id}')"`;
+         }
+         
+         htmlPuestos += `
+           <div class="puesto-card ${cellClass} reveal" ${onClickAction}>
+             <div class="puesto-label">Puesto</div>
+             <div class="puesto-title">${p.id}</div>
+             <div class="puesto-nums">${displayNums}</div>
+           </div>
+         `;
+       }
+    });
     
-    board.innerHTML = tableroHtml;
+    board.innerHTML = `<div class="puestos-grid">${htmlPuestos}</div>`;
     
     document.getElementById('countLibres').innerText = libres;
     document.getElementById('countOcupados').innerText = ocupados;
