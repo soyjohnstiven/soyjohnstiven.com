@@ -1,1700 +1,1263 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MI NEGOCIO | OS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Perfumería Original</title>
+
+<!-- META TAGS -->
+<meta property="og:title" content="Perfumería Original - Catálogo Exclusivo">
+<meta property="og:description" content="Descubre nuestra colección de fragancias y dinámicas exclusivas.">
+<meta property="og:url" content="https://www.soyjohnstiven.com">
+<meta property="og:type" content="website">
+
+<!-- CONFIGURACIÓN PWA -->
+<meta name="theme-color" content="#FFFFFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+  /* =========================================
+     ESTÉTICA CORPORATIVA: NARANJA, NEGRO Y BLANCO
+  ========================================= */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg-base: #FFFFFF;
+    --bg-card: rgba(255, 255, 255, 0.85);
+    --bg-solid: #FFFFFF;
+    
+    --text-main: #111111;
+    --text-muted: #666666;
+    
+    --accent: #FF6600; /* Naranja de tu marca */
+    --accent-light: rgba(255, 102, 0, 0.1);
+    --accent-text: #FFFFFF;
+    
+    --border-color: rgba(0, 0, 0, 0.08);
+    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+    
+    --nav-height: 80px;
+    --top-height: 60px;
+    --safe-bottom: env(safe-area-inset-bottom, 20px);
+  }
+
+  body.dark-mode {
+    --bg-base: #0A0A0A;
+    --bg-card: rgba(30, 30, 30, 0.85);
+    --bg-solid: #111111;
+    --text-main: #FFFFFF;
+    --text-muted: #A0A0A0;
+    
+    --accent: #FF6600;
+    --accent-light: rgba(255, 102, 0, 0.15);
+    
+    --border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased; 
+    padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 30px);
+    transition: background-color 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.5s ease;
+  }
+
+  .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; grid-column: 1 / -1; color: var(--accent); }
+  .loader-spinner { font-size: 28px; margin-bottom: 12px; animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  /* ================= SPLASH DINÁMICO ================= */
+  #splash {
+    position: fixed; inset: 0; background: var(--bg-base); z-index: 9999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; 
+    transition: opacity 0.5s ease;
+  }
+  .splash-icon { 
+    font-size: 60px; color: var(--text-main); margin-bottom: 20px; 
+    animation: scalePulse 2s ease-in-out infinite; 
+  }
+  @keyframes scalePulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+  }
+  .splash-greeting { 
+    font-size: 28px; font-weight: 800; letter-spacing: -0.5px; color: var(--accent);
+  }
+  .splash-user { 
+    font-size: 14px; font-weight: 600; color: var(--text-muted); margin-top: 5px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ================= TOP BAR ================= */
+  .top-bar { 
+    position: fixed; top: 0; left: 0; width: 100%; height: var(--top-height); 
+    z-index: 1000; display: flex; justify-content: space-between; align-items: center; 
+    padding: 0 20px; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    background: transparent; border-bottom: 1px solid transparent; 
+  }
+  .top-bar.scrolled { 
+    background: var(--bg-card); 
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color); 
+  }
+  .top-brand { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px;}
   
-  <style>
-    /* ================= NATIVE RESET & BASE FONTS ================= */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  .top-stats-container { display: flex; align-items: center; gap: 15px; }
+  .header-stats { display: flex; flex-direction: column; align-items: flex-end; font-size: 10px; font-weight: 700; line-height: 1.2;}
+  .header-stats span { color: var(--accent); }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    html, body { height: 100%; width: 100%; overflow: hidden; font-size: 14px; letter-spacing: -0.3px; font-weight: 400; }
-    
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 10px; }
-    [data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); }
-    .no-scroll::-webkit-scrollbar { display: none; }
+  .theme-toggle { font-size: 20px; color: var(--text-main); cursor: pointer; background: var(--bg-card); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); transition: 0.3s; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);}
+  .theme-toggle:active { transform: scale(0.85); }
 
-    /* ================= BRANDING CORPORATIVO (NARANJA, NEGRO, BLANCO) ================= */
-    :root {
-      /* Fondo base blanco limpio */
-      --bg-gradient: #FFFFFF; 
-      
-      /* Paneles translúcidos / limpios */
-      --glass-panel: #FFFFFF;
-      --glass-sidebar: #FAFAFA; /* Gris muy suave para diferenciar */
-      --glass-border: #E5E7EB; /* Borde sutil */
-      --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Sombra elegante */
-      --glass-input: #F3F4F6; /* Gris claro para inputs */
-      --glass-hover: #F9FAFB;
+  /* ================= TITULOS ================= */
+  .large-title { font-size: 34px; font-weight: 800; letter-spacing: -1.5px; margin: calc(var(--top-height) + 20px) 20px 10px 20px; }
+  .section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin: 35px 20px 15px 20px; text-transform: uppercase;}
 
-      /* Textos */
-      --mac-text: #111827; /* Negro casi puro */
-      --mac-text-muted: #6B7280; /* Gris medio */
-      
-      /* Color Principal: Naranja */
-      --accent-brand: #FF6600; /* Naranja corporativo vibrante */
-      --accent-hover: #E55C00;
-      
-      --mac-divider: #E5E7EB;
-      
-      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; /* Bordes un poco más cuadrados/profesionales */
-    }
+  /* ================= NAV INFERIOR ================= */
+  .bottom-nav { 
+    position: fixed; 
+    bottom: max(20px, env(safe-area-inset-bottom)); 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 94%; 
+    max-width: 450px; 
+    height: 70px; 
+    z-index: 2000; 
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center; 
+    padding: 6px;
+    background: var(--bg-card); 
+    backdrop-filter: saturate(180%) blur(25px); 
+    -webkit-backdrop-filter: saturate(180%) blur(25px);
+    border: 1px solid var(--border-color); 
+    border-radius: 100px; 
+    box-shadow: var(--shadow-md); 
+    transition: 0.4s;
+  }
+  
+  .nav-item { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 3px; 
+    color: var(--text-muted); 
+    font-size: 10px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    height: 100%; 
+    border-radius: 100px; 
+    position: relative;
+  }
+  .nav-item i { font-size: 20px; transition: 0.3s; margin-bottom: 2px;}
+  .nav-item.active { color: var(--accent-text); background: var(--accent); margin: 6px; height: calc(100% - 12px); box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3); }
 
-    [data-theme="dark"] {
-      --bg-gradient: #111827; /* Fondo oscuro */
-      
-      --glass-panel: #1F2937;
-      --glass-sidebar: #111827;
-      --glass-border: #374151;
-      --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      --glass-input: #374151;
-      --glass-hover: #374151;
+  .nav-tooltip { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-base); font-size: 10px; font-weight: 800; padding: 7px 12px; border-radius: 10px; white-space: nowrap; box-shadow: var(--shadow-md); animation: bounceTip 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite; pointer-events: none;}
+  .nav-tooltip::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); border-width: 6px 6px 0; border-style: solid; border-color: var(--text-main) transparent transparent transparent; }
+  @keyframes bounceTip { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
 
-      --mac-text: #F9FAFB;
-      --mac-text-muted: #9CA3AF;
-      --accent-brand: #FF8533; /* Naranja más suave para modo oscuro */
-      --mac-divider: #374151;
-    }
-    
-    [data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea { color: #fff; }
+  .app-container { max-width: 1000px; margin: 0 auto; padding: 0; }
+  
+  .view { display: none; animation: fadeView 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); padding-bottom: 80px;}
+  .view.active { display: block; }
+  @keyframes fadeView { from { opacity: 0; transform: translateY(15px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-    body { background: var(--bg-gradient); color: var(--mac-text); background-attachment: fixed; }
+  /* ================= BOTONES Y ACCIONES ================= */
+  .btn-primary { background: var(--text-main); color: var(--bg-base); border: none; padding: 16px 30px; border-radius: 100px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
+  .btn-primary:active { transform: scale(0.92); opacity: 0.9;}
 
-    /* ================= LAYOUT PRINCIPAL ================= */
-    .app-container { display: flex; height: 100vh; width: 100vw; }
-    
-    /* SIDEBAR COMPACTA */
-    .sidebar { 
-        width: 220px; 
-        background: var(--glass-sidebar); 
-        border-right: 1px solid var(--glass-border); 
-        display: flex; 
-        flex-direction: column; 
-        flex-shrink: 0; 
-        padding: 20px 10px; 
-        z-index: 100; 
-        box-shadow: 2px 0 10px rgba(0,0,0,0.02); 
-    }
-    .brand-area { 
-        padding: 0 10px 20px 10px; 
-        display: flex; 
-        align-items: center; 
-        gap: 10px; 
-        font-weight: 800; 
-        font-size: 1.1rem; 
-        color: var(--mac-text); 
-        letter-spacing: -0.5px; 
-    }
-    .brand-area i { font-size: 1.4rem; color: var(--accent-brand); }
-    
-    .nav-group { margin-bottom: 20px; } 
-    .nav-label { 
-        font-size: 0.65rem; 
-        font-weight: 800; 
-        color: var(--mac-text-muted); 
-        text-transform: uppercase; 
-        padding: 0 10px; 
-        margin-bottom: 8px; 
-        letter-spacing: 0.8px; 
-    }
-    .nav-item { 
-        padding: 10px 12px; 
-        border-radius: var(--radius-sm); 
-        cursor: pointer; 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        font-size: 0.85rem; 
-        font-weight: 600; 
-        color: var(--mac-text); 
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
-        border: none; 
-        margin-bottom: 2px; 
-    }
-    .nav-item i { width: 20px; text-align: center; color: var(--accent-brand); font-size: 1.1rem; transition: 0.2s; }
-    .nav-item:hover { background: var(--glass-hover); transform: translateX(2px); }
-    
-    .nav-item.active { background: var(--accent-brand); color: #FFF; box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3); }
-    .nav-item.active i { color: #FFF; }
-    
-    .nav-item.action-btn { background: var(--glass-hover); margin-bottom: 4px; font-size: 0.8rem; color: var(--mac-text-muted); }
-    .nav-item.action-btn i { color: var(--mac-text-muted); font-size: 1rem; }
-    .nav-item.action-btn:hover { background: var(--glass-input); color: var(--mac-text); transform: translateY(-2px); }
+  /* ================= CATÁLOGOS ================= */
+  .catalog-grid { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 0 20px; margin-bottom: 25px; }
+  .catalog-card { background: var(--bg-card); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-radius: 24px; padding: 20px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 20px; text-decoration: none; color: var(--text-main); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; min-height: 90px;}
+  .catalog-card:active { transform: scale(0.96); background: var(--border-color);}
+  .cc-icon { font-size: 35px; color: var(--accent); transition: 0.3s;}
+  .catalog-card:active .cc-icon { transform: scale(1.1); }
+  .cc-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; text-transform: uppercase;}
+  .cc-desc { font-size: 11px; color: var(--text-muted); line-height: 1.3; font-weight: 600; text-transform: uppercase; }
 
-    /* MAIN CONTENT AREA */
-    .main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-    
-    /* TOPBAR */
-    .topbar { height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; flex-shrink: 0; background: transparent; }
-    .topbar-title { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
-    .topbar-controls { display: flex; align-items: center; gap: 20px; }
-    .clock-display { font-size: 0.95rem; font-weight: 700; color: var(--mac-text-muted); text-align: right; }
-    
-    /* BOTONES GLOBALES NATIVOS */
-    button { font-family: inherit; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; }
-    .btn-mac { background: var(--glass-panel); color: var(--mac-text); padding: 12px 20px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .btn-mac:hover { background: var(--glass-hover); border-color: var(--mac-text-muted); }
-    
-    .btn-mac.primary { background: var(--accent-brand); color: #FFFFFF; border: none; box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3); }
-    .btn-mac.primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 102, 0, 0.4); }
-    
-    .btn-icon { background: var(--glass-panel); border: 1px solid var(--glass-border); font-size: 1.2rem; color: var(--mac-text-muted); width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-    .btn-icon:hover { background: var(--glass-input); color: var(--accent-brand); transform: rotate(15deg); }
+  /* ================= BUSCADOR ================= */
+  .search-container { margin: 0 20px 20px 20px; }
+  .search-box { display: flex; align-items: center; border-radius: 20px; padding: 14px 18px; gap: 12px; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); backdrop-filter: blur(10px); transition: 0.4s;}
+  .search-box:focus-within { transform: scale(1.02); box-shadow: var(--shadow-md); border-color: var(--accent);}
+  .search-box i { color: var(--text-main); font-size: 18px; }
+  .search-box input { border: none; background: transparent; width: 100%; font-size: 16px; outline: none; color: var(--text-main); font-family: 'Inter', sans-serif;}
+  .search-box input::placeholder { color: var(--text-muted); font-weight: 400; }
+  
+  .empty-state { text-align: center; padding: 40px 20px; }
 
-    /* CONTENT SCROLL AREA */
-    .content-scroll { flex: 1; overflow-y: auto; padding: 10px 40px 40px 40px; }
-    .view-section { display: none; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-    .view-section.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+  /* ================= PRODUCTOS ================= */
+  .carousel-wrapper { position: relative; width: 100%; margin-bottom: 30px; }
+  .product-grid { display: flex; gap: 15px; overflow-x: auto; padding: 0 20px 20px 20px; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
+  .product-grid::-webkit-scrollbar { display: none; }
+  
+  .prod-card { background: var(--bg-card); border-radius: 24px; padding: 12px; display: flex; flex-direction: column; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); min-width: 220px; scroll-snap-align: start; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);}
+  .prod-card:active { transform: scale(0.96); }
+  .prod-img { width: 100%; aspect-ratio: 1; background: var(--bg-solid); border-radius: 16px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);}
+  .prod-img img { width: 100%; height: 100%; object-fit: contain; max-height: 200px; mix-blend-mode: multiply; border-radius: 8px; }
+  
+  .prod-title { font-size: 14px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 39px;}
+  .prod-prices { display: flex; align-items: center; gap: 8px; margin-bottom: 15px;}
+  .price-main { font-size: 18px; font-weight: 800; color: var(--text-main); }
+  .price-fake { font-size: 12px; font-weight: 500; color: var(--text-muted); text-decoration: line-through;}
+  
+  .btn-add { background: var(--accent-light); color: var(--accent); border: none; padding: 12px; border-radius: 14px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-top: auto; text-transform: uppercase; letter-spacing: 0.5px;}
+  .btn-add.selected { background: var(--accent); color: var(--accent-text); }
+  .btn-add:active { transform: scale(0.9); }
+  
+  .carousel-btn { 
+    position: absolute; top: 40%; transform: translateY(-50%); 
+    width: 45px; height: 45px; border-radius: 50%; 
+    background: var(--bg-card); border: 1px solid var(--border-color); 
+    box-shadow: var(--shadow-md); color: var(--text-main); font-size: 18px; 
+    cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; 
+    transition: 0.3s; 
+  }
+  .carousel-btn:hover { background: var(--text-main); color: var(--bg-base); }
+  .carousel-btn.left { left: -15px; }
+  .carousel-btn.right { right: -15px; }
 
-    /* PANELS */
-    .mac-panel { background: var(--glass-panel); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); box-shadow: var(--glass-shadow); padding: 30px; margin-bottom: 30px; transition: 0.3s; }
-    .mac-panel:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
-    .panel-header { font-size: 1.2rem; font-weight: 800; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--mac-divider); padding-bottom: 15px; }
-    
-    /* INPUTS Y FORMULARIOS */
-    .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
-    .form-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px; align-items: start;}
-    .form-row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 15px; align-items: end;}
-    
-    label { font-size: 0.8rem; font-weight: 700; color: var(--mac-text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; margin-left: 5px; }
-    input, select, textarea { border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 0.95rem; background: var(--glass-input); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); outline: none; width: 100%; color: var(--mac-text); font-weight: 500; }
-    input:focus, select:focus, textarea:focus { border-color: var(--accent-brand); background: var(--glass-panel); transform: translateY(-1px); box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.2); }
+  @media (max-width: 768px) {
+      .carousel-btn { display: none; }
+  }
 
-    /* TABLES */
-    .table-wrapper { overflow-x: auto; width: 100%; border-radius: var(--radius-md); border: 1px solid var(--glass-border); }
-    table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; }
-    th { font-size: 0.75rem; font-weight: 800; color: var(--mac-text-muted); border-bottom: 1px solid var(--mac-divider); background: var(--glass-input); padding: 16px 14px; text-transform: uppercase; white-space: nowrap; }
-    td { padding: 18px 14px; font-size: 0.95rem; border-bottom: 1px solid var(--mac-divider); vertical-align: middle; font-weight: 600; transition: background 0.2s;}
-    tbody tr:hover td { background: var(--glass-hover); }
-    tr:last-child td { border-bottom: none; }
-    .empty-state { text-align: center; padding: 50px; color: var(--mac-text-muted); font-size: 1rem; font-weight: 500;}
+  /* ================= PRODUCTOS GRID (ENTREGA INMEDIATA) ================= */
+  .inmediata-grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px 40px 20px; }
+  .inmediata-grid-container .prod-card { min-width: 0; scroll-snap-align: none; }
 
-    /* BOTONES ACCIÓN TABLAS */
-    .action-icons-container { display: flex; gap: 8px; align-items: center; justify-content: flex-start; flex-wrap: nowrap; }
-    .btn-action-sm { background: var(--glass-input); border: 1px solid var(--glass-border); font-size: 0.9rem; cursor: pointer; border-radius: var(--radius-sm); width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; color: var(--mac-text-muted); transition: 0.2s; flex-shrink: 0; }
-    .btn-action-sm:hover { color: #FFF; background: var(--accent-brand); border-color: var(--accent-brand); transform: translateY(-2px); box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3); }
+  /* ================= CARRITO FLOTANTE ================= */
+  .ios-cart { 
+      position: fixed; bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px); right: 20px; 
+      width: 65px; height: 65px; border-radius: 50%; 
+      background: var(--text-main); color: var(--bg-base); 
+      display: flex; justify-content: center; align-items: center; font-size: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+      z-index: 1500; cursor: pointer; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: scale(0) rotate(-15deg); opacity: 0; 
+  }
+  .ios-cart.show { transform: scale(1) rotate(0); opacity: 1; }
+  .cart-badge { position: absolute; top: -2px; right: -2px; background: var(--accent); color: #FFF; font-size: 12px; font-weight: 800; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-base); box-shadow: var(--shadow-sm);}
 
-    /* BADGES */
-    .badge { padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; background: var(--glass-input); color: var(--mac-text); border: 1px solid var(--glass-border); }
-    
-    /* GRID LAYOUTS */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; align-items: start; }
-    @media(max-width: 1000px) { .grid-2 { grid-template-columns: 1fr; } }
+  /* ================= BOTTOM SHEETS & MODALES ================= */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(12px); z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s ease; }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  
+  .bottom-sheet { 
+    position: fixed; bottom: 0; left: 0; width: 100%; border-radius: 36px 36px 0 0; padding: 25px 20px 40px 20px; 
+    transform: translateY(150%); opacity: 0; pointer-events: none;
+    transition: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 3001; max-height: 85vh; display: flex; flex-direction: column; background: var(--bg-card); backdrop-filter: blur(25px); border-top: 1px solid var(--border-color); box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+  }
+  @media(min-width: 768px) { .bottom-sheet { width: 500px; left: 50%; margin-left: -250px; border-radius: 36px; bottom: 20px; max-height: 80vh; border: 1px solid var(--border-color);} }
+  .bottom-sheet.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .sheet-handle { width: 45px; height: 6px; background: rgba(142, 142, 147, 0.3); border-radius: 10px; margin: 0 auto 25px auto; flex-shrink: 0; }
+  
+  #cartItemsContainer { overflow-y: auto; padding-right: 5px; flex-grow: 1; margin-bottom: 10px; max-height: 35vh;}
+  .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid var(--border-color);}
+  .cart-item-info { flex: 1; margin-right: 15px; }
+  .cart-item-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; line-height: 1.3;}
+  .cart-item-price { font-size: 13px; color: var(--text-muted); font-weight: 600;}
+  .cart-controls { display: flex; align-items: center; gap: 10px; background: var(--bg-solid); border-radius: 30px; padding: 6px 12px; border: 1px solid var(--border-color);}
+  .c-btn { background: none; border: none; font-size: 20px; color: var(--text-main); cursor: pointer; font-weight: bold; transition: 0.2s;}
+  .c-btn:active { transform: scale(0.8); }
+  .c-qty { font-size: 16px; font-weight: 800; min-width: 24px; text-align: center;}
+  .c-btn-delete { background: rgba(255, 102, 0, 0.1); color: var(--accent); border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; margin-left: 5px;}
 
-    /* LISTAS NATIVAS */
-    .list-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--mac-divider); transition: 0.2s; }
-    .list-item:hover { transform: translateX(4px); }
-    .list-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .l-info { display: flex; flex-direction: column; gap: 6px; }
-    .l-title { font-size: 1.05rem; font-weight: 700; display:flex; align-items:center; gap:10px;}
-    .l-sub { font-size: 0.85rem; color: var(--mac-text-muted); font-weight: 600; }
+  .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -35%) scale(0.95); width: 90%; max-width: 400px; border-radius: 28px; padding: 40px 25px; text-align: center; z-index: 3002; opacity: 0; pointer-events: none; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); background: var(--bg-card); backdrop-filter: blur(25px); box-shadow: var(--shadow-md); border: 1px solid var(--border-color);}
+  .center-modal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1);}
+  .close-cm { position: absolute; top: 15px; right: 15px; background: rgba(142, 142, 147, 0.15); border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; color: var(--text-main); cursor: pointer; transition: 0.2s;}
+  
+  .styled-select { width: 100%; padding: 16px; margin-bottom: 25px; border-radius: 16px; border: 1px solid var(--border-color); background: var(--bg-solid); color: var(--text-main); font-size: 15px; outline: none; font-weight: 500; font-family: inherit; transition: 0.3s; box-shadow: var(--shadow-sm);}
+  .styled-select:focus { border-color: var(--accent); box-shadow: var(--shadow-md); transform: scale(1.02);}
 
-    /* CALENDARIO MINI */
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; margin-top: 20px; }
-    .cal-day-name { font-size: 0.75rem; font-weight: 800; color: var(--mac-text-muted); padding-bottom: 8px; }
-    .cal-day { font-size: 0.95rem; padding: 10px; border-radius: 10px; font-weight: 600; transition: 0.2s;}
-    .cal-day.today { background: var(--accent-brand); color: #FFF; font-weight: 800; box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4); transform: scale(1.05); }
-    .cal-day.event { background: var(--glass-input); font-weight: 800; color: var(--accent-brand); cursor: pointer; border: 1px solid var(--glass-border); }
-    .cal-day.event:hover { background: var(--glass-hover); }
+  /* ================= DINÁMICAS ================= */
+  .raffle-card, .info-card-large { border-radius: 24px; padding: 25px 20px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);}
+  .raffle-card { margin: 0 20px 20px 20px; text-align: left; }
+  .raffle-card:active { transform: scale(0.97); }
+  .r-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .r-tag { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 6px 14px; border-radius: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+  .r-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;}
 
-    /* NOTIFICACIÓN 30 MIN */
-    .mac-notification { position: fixed; top: 20px; right: -400px; width: 360px; background: var(--glass-panel); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 25px; z-index: 9999; display: flex; gap: 20px; transition: right 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-    .mac-notification.show { right: 20px; }
-    .notif-icon { font-size: 2.2rem; color: var(--accent-brand); display: flex; align-items: center; justify-content: center; }
-    .notif-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-    .notif-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 6px; }
-    .notif-desc { font-size: 0.95rem; color: var(--mac-text-muted); margin-bottom: 15px; line-height: 1.5; font-weight: 500; }
-    
-    /* SUB NAVEGACIÓN MODULOS */
-    .module-subnav { display: flex; gap: 12px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 10px; }
-    .subnav-item { padding: 12px 24px; border-radius: 20px; font-size: 0.95rem; font-weight: 700; color: var(--mac-text-muted); cursor: pointer; transition: 0.3s; background: var(--glass-panel); border: 1px solid var(--glass-border); white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
-    .subnav-item:hover { color: var(--mac-text); background: var(--glass-input); transform: translateY(-2px); }
-    .subnav-item.active { background: var(--accent-brand); color: #FFF !important; box-shadow: 0 4px 12px rgba(255, 102, 0, 0.3); border-color: transparent; }
+  .info-cards-container { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+  .ic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px;}
+  .ic-icon-box { width: 45px; height: 45px; background: var(--bg-solid); color: var(--text-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);}
+  .ic-title { font-size: 17px; font-weight: 700; letter-spacing: -0.2px;}
+  .ic-list { list-style: none; padding: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;}
+  .ic-list li { margin-bottom: 12px; }
+  .ic-list li b { color: var(--text-main); font-weight: 600;}
 
-    /* BÚSQUEDA */
-    .search-box { position: relative; width: 280px; }
-    .search-box input { width: 100%; padding: 12px 16px 12px 42px; border-radius: 12px; font-size: 0.95rem; background: var(--glass-input); border: 1px solid var(--glass-border); }
-    .search-box i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--mac-text-muted); font-size: 1rem; }
+  /* ================= TABLEROS DE NÚMEROS (CUADRÍCULA 30 PUESTOS) ================= */
+  .board-grid { 
+      display: grid; 
+      grid-template-columns: repeat(10, 1fr); 
+      gap: 5px; 
+      margin: 15px auto 40px auto; 
+      max-width: 480px; 
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 10px;
+  }
 
-    /* TOAST */
-    .toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(30px); opacity: 0; background: var(--mac-text); color: var(--bg-gradient); padding: 16px 32px; border-radius: 30px; font-weight: 700; display: flex; z-index: 1000; align-items: center; gap: 12px; font-size: 1.05rem; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; }
-    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-    
-    /* SPLIT VIEW NORMAL */
-    .split-layout { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 30px; align-items: flex-start; }
-    @media(max-width: 950px) { .split-layout { grid-template-columns: 1fr; } }
-    
-    .form-panel-floating { background: var(--glass-panel); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); box-shadow: var(--glass-shadow); padding: 30px; position: sticky; top: 20px; }
-    .data-panel-glass { background: var(--glass-panel); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); box-shadow: var(--glass-shadow); overflow: hidden; display: flex; flex-direction: column; min-height: 400px; padding-bottom: 20px;}
+  @media (max-width: 380px) {
+      .board-grid { gap: 3px; padding: 0 5px; }
+  }
 
-    /* FORM PANEL HORIZONTAL PARA VENTAS */
-    .form-panel-horizontal { background: var(--glass-panel); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); box-shadow: var(--glass-shadow); padding: 25px 30px; margin-bottom: 30px;}
+  /* Celdas individuales del Tablero */
+  .b-cell { 
+      aspect-ratio: 1; 
+      border-radius: 8px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      font-size: clamp(12px, 4vw, 16px); 
+      font-weight: 700; 
+      cursor: pointer; 
+      background: var(--bg-solid); 
+      transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+      border: 1px solid var(--border-color); 
+      box-shadow: var(--shadow-sm);
+  }
+  .b-cell.libre:hover { transform: translateY(-2px); border-color: var(--text-main); box-shadow: var(--shadow-md); color: var(--text-main);}
+  .b-cell.libre:active { transform: scale(0.85); }
+  
+  .b-cell.ocupado { 
+      background: #111111; 
+      color: #FFFFFF; 
+      pointer-events: none; 
+      border-color: transparent; 
+      opacity: 1;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+  }
+  
+  .b-cell.ocupado span { 
+      font-size: clamp(10px, 3vw, 12px); 
+      text-decoration: line-through; 
+      color: rgba(255, 255, 255, 0.6); 
+      margin-top: 1px;
+  }
 
-    /* EDITORCITOS BANCARIOS */
-    .bank-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
-    .bank-card { background: var(--glass-panel); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 25px; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--glass-shadow); transition: 0.3s; }
-    .bank-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-    .bank-name { font-size: 0.85rem; font-weight: 800; color: var(--mac-text-muted); text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; }
-    .bank-balance { font-size: 2rem; font-weight: 800; letter-spacing: -1px; color: var(--mac-text); }
-    .bank-editor { display: flex; gap: 10px; margin-top: 8px; }
-    .bank-editor input { padding: 12px 14px; font-size: 1rem; }
-    .bank-editor button { padding: 0 18px; border-radius: 10px; }
-  </style>
+  .b-cell.pendiente { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-main); box-shadow: none;}
+</style>
 </head>
 <body data-theme="light">
 
-  <input type="file" id="import-file" style="display:none;" accept=".json" onchange="importarRespaldo(event)">
+<div id="splash">
+  <i class="fa-solid fa-cube splash-icon"></i>
+  <h1 class="splash-greeting" id="greetingText">Cargando...</h1>
+  <p class="splash-user">@soyjohnstiven</p>
+</div>
 
-  <!-- MAC NOTIFICATION -->
-  <div id="mac-notif" class="mac-notification">
-    <div class="notif-icon"><i class="fa-solid fa-layer-group"></i></div>
-    <div class="notif-content">
-      <div class="notif-title">Asistente de Sistema</div>
-      <div class="notif-desc">¿Tienes ventas o gastos recientes sin registrar?</div>
-      <div style="display: flex; gap: 12px;">
-        <button class="btn-mac" style="flex:1;" onclick="cerrarNotificacion()">Omitir</button>
-        <button class="btn-mac primary" style="flex:1;" onclick="irARegistrarVenta()">Registrar</button>
+<!-- Modal Notificación de Estados de WhatsApp -->
+<div class="modal-overlay" id="promoOverlay"></div>
+<div class="center-modal" id="promoModal">
+  <button class="close-cm" onclick="closePromo()"><i class="fa-solid fa-xmark"></i></button>
+  <i class="fa-brands fa-whatsapp" style="font-size: 50px; color: #25D366; margin-bottom: 15px; filter: drop-shadow(0 4px 10px rgba(37,211,102,0.3));"></i>
+  <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 10px; line-height: 1.2;">ESTADOS WHATSAPP</h3>
+  <p style="font-size: 15px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Si quieres obtener mejores precios, mira nuestros estados de WhatsApp.</p>
+  <button class="btn-primary" style="background: #25D366; color: #FFF; box-shadow: 0 8px 20px rgba(37,211,102,0.3); padding: 16px 30px; margin: 0 auto; border-radius: 16px;" onclick="goPromoWA()">Ver Estados de WhatsApp</button>
+</div>
+
+<!-- Modal Negociación (Asesoría) -->
+<div class="modal-overlay" id="negociarOverlay"></div>
+<div class="center-modal" id="negociarModal">
+  <button class="close-cm" onclick="closeNegociar()"><i class="fa-solid fa-xmark"></i></button>
+  <i class="fa-solid fa-headset" style="font-size: 45px; color: var(--text-main); margin-bottom: 20px;"></i>
+  <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 10px;">Atención Personalizada</h3>
+  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Selecciona el motivo de tu consulta:</p>
+  
+  <select id="motivoConsulta" class="styled-select">
+      <option value="Quiero obtener mejores precios">Quiero obtener mejores precios</option>
+      <option value="Ayuda para elegir un perfume">Ayuda para elegir un perfume</option>
+      <option value="Quiero emprender, ¿me enseñas?">Quiero emprender, ¿me enseñas?</option>
+  </select>
+  
+  <button class="btn-primary" style="margin: 0 auto; padding: 16px 40px; border-radius: 16px;" onclick="sendNegociarWA()">INICIAR CHAT</button>
+</div>
+
+<div class="app-container">
+  
+  <header class="top-bar" id="mainHeader">
+    <div class="top-brand">
+       <i class="fa-solid fa-cube" style="font-size: 16px; color: var(--accent);"></i> John Stiven
+    </div>
+    <div class="top-stats-container">
+        <div class="header-stats">
+            <div style="color:var(--text-muted);">En Línea: <span id="uCount" class="online" style="color: var(--text-main); font-weight:800;">--</span></div>
+            <div style="color:var(--text-muted);">Ventas: <span id="vCount" class="sales" style="color: var(--text-main); font-weight:800;">--</span></div>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    </div>
+  </header>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active" onclick="switchView('tienda', 'Inicio', this)">
+        <i class="fa-solid fa-house"></i><span>Inicio</span>
+    </div>
+    <div class="nav-item" onclick="switchView('sorteos', 'Dinámicas', this)">
+        <div class="nav-tooltip">NUEVA DINÁMICA <i class="fa-solid fa-arrow-down" style="margin-left: 3px;"></i></div>
+        <i class="fa-solid fa-gift"></i><span>Dinámicas</span>
+    </div>
+    
+    <div class="nav-item" onclick="switchView('inmediata', 'Entregas Inmediatas', this)">
+        <i class="fa-solid fa-motorcycle"></i><span style="font-size: 9px; line-height: 1.1; text-align: center;">Entregas<br>Inmediatas</span>
+    </div>
+
+    <div class="nav-item" onclick="switchView('info', 'Redes', this)">
+        <i class="fa-solid fa-comment-dots"></i><span>Redes</span>
+    </div>
+  </nav>
+
+  <!-- CARRITO DE COMPRAS -->
+  <div class="ios-cart" id="appleCart" onclick="openCartSheet()">
+    <i class="fa-solid fa-bag-shopping"></i>
+    <div class="cart-badge" id="cartCount">0</div>
+  </div>
+
+  <div class="modal-overlay" id="sheetOverlay" onclick="closeSheets(event)"></div>
+
+  <div class="bottom-sheet" id="sheetCart">
+    <div class="sheet-handle"></div>
+    <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; flex-shrink: 0;">Tu Selección</h3>
+    
+    <div id="cartItemsContainer"></div>
+    <div id="cartSummaryContainer" style="flex-shrink: 0; margin-bottom: 20px;"></div>
+    
+    <button class="btn-primary" style="flex-shrink: 0; width: 100%; max-width: 100%; border-radius: 20px; padding: 18px;" onclick="sendCartWA()">
+      <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> ENVIAR PEDIDO
+    </button>
+  </div>
+
+  <!-- ================= VISTA PRINCIPAL (INICIO) ================= -->
+  <section id="viewTienda" class="view active">
+    
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Inicio</h1>
+    <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5;">
+       <strong>Nota:</strong> Nuestro catálogo muestra precios al detal. Si buscas precios más favorables, escríbeme para negociar.
+    </div>
+
+    <div class="catalog-grid" style="grid-template-columns: 1fr;">
+      <a href="https://drive.google.com/file/d/1Y8Glxwiy8xaIqgamE3AkalFrNRK89csY/view" target="_blank" class="catalog-card" style="flex-direction: row; gap: 20px; min-height: 90px; justify-content: flex-start; padding: 20px;">
+        <div class="cc-icon" style="margin-bottom: 0; font-size: 35px;"><i class="fa-regular fa-file-pdf"></i></div>
+        <div style="text-align: left;">
+            <h3 class="cc-title" style="margin-bottom: 4px;">CATÁLOGO PDF</h3>
+            <div class="cc-desc">Ver la Colección Completa</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Buscar fragancias...">
+      </div>
+      <p class="search-note">Nuestro inventario se renueva diariamente con nuevas referencias.</p>
+    </div>
+
+    <div id="mainContent">
+      <h2 class="section-title">Top Ventas</h2>
+      <div class="carousel-wrapper">
+          <button class="carousel-btn left" onclick="scrollProducts(-240)"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="product-grid" id="catalogGrid">
+            <div class="loader-container" style="min-width: 100%;">
+                <i class="fa-solid fa-spinner loader-spinner"></i>
+                <p style="font-weight: 600; font-size: 15px;">Cargando colección...</p>
+            </div>
+          </div>
+          <button class="carousel-btn right" onclick="scrollProducts(240)"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
     </div>
-  </div>
 
-  <!-- TOAST -->
-  <div id="toast" class="toast"><i class="fa-solid fa-check"></i> <span id="toast-msg">Guardado</span></div>
+    <div class="reveal" style="margin: 10px 20px 40px 20px; padding: 35px 25px; background: var(--bg-card); border-radius: 24px; text-align: center; border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+        <i class="fa-solid fa-headset" style="font-size: 40px; color: var(--text-main); margin-bottom: 18px;"></i>
+        <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px;">¿Buscas atención personalizada?</h3>
+        <p style="font-size: 15px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">Escríbeme para atención personalizada, asesoría o para negociar compras al por mayor.</p>
+        <button class="btn-primary" style="width: auto; padding: 18px 40px; margin: 0 auto; display: inline-flex; border-radius: 16px;" onclick="openNegociar()">Contactar</button>
+    </div>
 
-  <div class="app-container">
-    
-    <!-- ================= SIDEBAR ================= -->
-    <aside class="sidebar">
-      <div class="brand-area">
-        <i class="fa-solid fa-cube"></i>
-        <span>MI NEGOCIO</span>
-      </div>
-      
-      <div class="nav-group">
-        <div class="nav-label">General</div>
-        <div class="nav-item active" onclick="navMain('dashboard')" id="tab-dashboard"><i class="fa-solid fa-chart-pie"></i> CFO Dashboard</div>
-      </div>
-      
-      <div class="nav-group">
-        <div class="nav-label">Operaciones</div>
-        <div class="nav-item" onclick="navMain('perfumes')" id="tab-perfumes"><i class="fa-solid fa-spray-can"></i> Perfumería</div>
-        <div class="nav-item" onclick="navMain('oro')" id="tab-oro"><i class="fa-solid fa-ring"></i> Oro Laminado</div>
-      </div>
-      
-      <div class="nav-group">
-        <div class="nav-label">Life OS</div>
-        <div class="nav-item" onclick="navMain('personal')" id="tab-personal"><i class="fa-solid fa-seedling"></i> Espacio Personal</div>
-        <div class="nav-item" onclick="navMain('cerebro')" id="tab-cerebro"><i class="fa-solid fa-bolt"></i> Cerebro Operativo</div>
-      </div>
-
-      <div style="flex:1;"></div>
-      
-      <div class="nav-group">
-        <div class="nav-label">Seguridad (PC)</div>
-        <div class="nav-item action-btn" onclick="navMain('perfumes', true)"><i class="fa-solid fa-plus"></i> Registrar Venta</div>
-        <!-- Botones de Respaldo Resaltados -->
-        <div class="nav-item action-btn" style="color:var(--accent-brand); font-weight:800;" onclick="descargarRespaldo()"><i class="fa-solid fa-download"></i> 1. Respaldar Data</div>
-        <div class="nav-item action-btn" style="color:#10B981; font-weight:800;" onclick="document.getElementById('import-file').click()"><i class="fa-solid fa-upload"></i> 2. Restaurar Data</div>
-        <div class="nav-item action-btn" onclick="exportarExcel()"><i class="fa-solid fa-file-csv"></i> Exportar a Excel</div>
-      </div>
-    </aside>
-
-    <!-- ================= MAIN CONTENT ================= -->
-    <main class="main-area">
-      
-      <header class="topbar">
-        <div class="topbar-title" id="titulo-actual">CFO Dashboard</div>
-        <div class="topbar-controls">
-          <div class="clock-display" id="live-clock">--:--</div>
-          <button class="btn-icon" onclick="toggleTheme()" title="Cambiar Tema"><i class="fa-solid fa-circle-half-stroke"></i></button>
+    <div class="info-cards-container reveal">
+      <div class="info-card-large">
+        <div class="ic-header">
+          <div class="ic-icon-box"><i class="fa-solid fa-truck-fast"></i></div>
+          <h3 class="ic-title">Envíos Seguros</h3>
         </div>
-      </header>
-
-      <div class="content-scroll">
-
-        <!-- ================= VISTA: DASHBOARD ================= -->
-        <section id="view-dashboard" class="view-section active">
-          
-          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 35px;">
-            <div>
-              <h2 style="font-size:2.8rem; font-weight:800; margin-bottom:10px; letter-spacing:-1.5px;">Hola, parce.</h2>
-              <p style="color:var(--mac-text-muted); font-size:1.15rem; font-weight:600;">Bienvenido al control maestro de tu negocio.</p>
-            </div>
-            <button class="btn-mac primary" style="padding: 14px 24px; border-radius:24px; font-size:1.05rem;" onclick="generarReporteMes()"><i class="fa-solid fa-file-pdf"></i> Reporte Cierre de Mes</button>
-          </div>
-
-          <div class="grid-2">
-            
-            <!-- COL IZQ -->
-            <div style="display:flex; flex-direction:column; gap:30px;">
-              <div class="mac-panel">
-                <div class="panel-header" style="border:none; margin-bottom:8px;">
-                    <span>Cierre de Caja Diario</span>
-                </div>
-                <div style="font-size:0.95rem; color:var(--mac-text-muted); font-weight:500; margin-bottom: 30px;">Análisis automático de tus ventas de hoy (Ambos negocios).</div>
-                
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px; margin-bottom: 30px;">
-                  <div style="padding-left:18px; border-left: 4px solid var(--accent-brand);">
-                      <div style="font-size:0.8rem; font-weight:800; color:var(--mac-text-muted); text-transform:uppercase; margin-bottom:10px;">Ingresos Hoy</div>
-                      <div style="font-size:2.2rem; font-weight:800; letter-spacing:-1px;" id="caja-ventas">$0</div>
-                  </div>
-                  <div style="padding-left:18px; border-left: 4px solid var(--accent-brand);">
-                      <div style="font-size:0.8rem; font-weight:800; color:var(--mac-text-muted); text-transform:uppercase; margin-bottom:10px;">Ganancia Neta Hoy</div>
-                      <div style="font-size:2.2rem; font-weight:800; letter-spacing:-1px;" id="caja-ganancia">$0</div>
-                  </div>
-                </div>
-                
-                <div class="list-item" style="border-top:1px solid var(--mac-divider); border-bottom:none; padding-bottom:12px; padding-top:20px;">
-                  <div class="l-info"><span class="l-title">Reposición Inventario</span><span class="l-sub">Dinero intocable para proveedor o re-stock.</span></div>
-                  <span class="badge" id="caja-costos" style="font-size:0.95rem;">$0</span>
-                </div>
-                
-                <div class="list-item" style="border:none; padding-bottom:0; padding-top:12px;">
-                  <div class="l-info"><span class="l-title">Cuota Supervivencia</span><span class="l-sub">Separar para gastos/deudas de tu ganancia.</span></div>
-                  <span class="badge" id="caja-meta-diaria" style="font-size:0.95rem; background:var(--accent-brand); color:white; border:none;">$0</span>
-                </div>
-              </div>
-
-              <div class="mac-panel" style="flex:1;">
-                <div class="panel-header"><span>Tareas del Día (Inbox)</span></div>
-                <div id="dash-radar-dia" style="max-height: 250px; overflow-y: auto; padding-right:10px;"></div>
-                
-                <div style="margin-top: 30px; padding: 25px; background: var(--glass-input); border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
-                  <div style="font-size: 0.8rem; font-weight: 800; color: var(--mac-text-muted); text-transform: uppercase; margin-bottom: 18px; text-align: center;">Calendario Mensual</div>
-                  <div id="calendario-mes"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- COL DER -->
-            <div style="display:flex; flex-direction:column; gap:30px;">
-              <div class="mac-panel">
-                <div class="panel-header"><span>Patrimonio Global</span></div>
-                
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--mac-divider); padding-bottom:25px; margin-bottom:25px;">
-                  <div>
-                    <div style="font-size:0.8rem; font-weight:800; color:var(--mac-text-muted); text-transform:uppercase; margin-bottom:10px;">Facturado (Mes Actual)</div>
-                    <div style="font-size:2.6rem; font-weight:800; letter-spacing:-1.5px;" id="dash-kpi-mes">$0</div>
-                  </div>
-                  <div style="text-align:right;">
-                    <div style="font-size:0.8rem; font-weight:800; color:var(--mac-text-muted); text-transform:uppercase; margin-bottom:10px;">Progreso Meta ($30M)</div>
-                    <div style="font-size:1.8rem; font-weight:800; color:var(--accent-brand);" id="kpi-progreso-meta">0%</div>
-                  </div>
-                </div>
-                
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--mac-divider); padding-bottom:25px; margin-bottom:25px;">
-                  <div>
-                    <div style="font-size:0.8rem; font-weight:800; color:var(--mac-text-muted); text-transform:uppercase; margin-bottom:10px;">Capital en Bodegas (Costo)</div>
-                    <div style="font-size:2.6rem; font-weight:800; letter-spacing:-1.5px;" id="dash-kpi-bodega">$0</div>
-                  </div>
-                  <div style="text-align:right;">
-                    <div style="font-size:0.8rem; font-weight:800; color:var(--mac-text-muted); text-transform:uppercase; margin-bottom:10px;">Retorno Potencial</div>
-                    <div style="font-size:1.8rem; font-weight:800; color:var(--success, #10B981);" id="dash-kpi-potencial">$0</div>
-                  </div>
-                </div>
-                
-                <div>
-                  <div style="font-size:0.8rem; font-weight:800; color:var(--mac-text-muted); text-transform:uppercase; margin-bottom:10px;">Cuentas por Cobrar (En la calle)</div>
-                  <div style="font-size:2.6rem; font-weight:800; letter-spacing:-1.5px;" id="dash-kpi-cxc">$0</div>
-                </div>
-              </div>
-
-              <div class="mac-panel" style="flex:1;">
-                <div class="panel-header"><span>Progreso Deudas y Gastos Fijos</span></div>
-                <div id="dash-deudas-gastos-resumen" style="max-height: 400px; overflow-y: auto; padding-right:10px;"></div>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- ================= VISTA: ESPACIO PERSONAL (LIFE OS) ================= -->
-        <section id="view-personal" class="view-section">
-          <div class="module-subnav">
-            <button class="subnav-item active" onclick="navPersonalSection('notas')" id="sub-pers-notas">Mis Notas</button>
-            <button class="subnav-item" onclick="navPersonalSection('metas')" id="sub-pers-metas">Metas & Logros</button>
-            <button class="subnav-item" onclick="navPersonalSection('checklist')" id="sub-pers-checklist">Checklist Diario</button>
-          </div>
-
-          <!-- NOTAS -->
-          <div id="mod-pers-notas" class="sub-module-pers" style="display:block;">
-            <div class="split-layout">
-              <div class="form-panel-floating" style="display:flex; flex-direction:column; gap:12px;">
-                <div class="panel-header" style="border:none; padding:0; margin-bottom:15px;">Nueva Nota</div>
-                <input type="text" id="notion_title" placeholder="Título de la página..." style="font-size:1.3rem; font-weight:800; background:transparent; border:none; border-bottom: 1px solid var(--glass-border); border-radius:0; padding:15px 0;">
-                <textarea id="notion_content" placeholder="Escribe tus pensamientos, ideas o rutinas..." style="flex:1; min-height:300px; font-size:1.05rem; border:none; background:transparent; resize:none; padding:20px 0; line-height: 1.6;"></textarea>
-                <button class="btn-mac primary" style="padding:14px; margin-top:15px; font-size:1.05rem;" onclick="guardarNotion()">Guardar Nota</button>
-              </div>
-              
-              <div class="data-panel-glass">
-                <div class="panel-header" style="padding: 30px; border-bottom:1px solid var(--mac-divider); margin:0;">
-                  <span>Mis Archivos Personales</span>
-                </div>
-                <div id="notion-pages-list" style="padding:25px; display:flex; flex-direction:column; gap:12px; overflow-y:auto;"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- METAS Y LOGROS -->
-          <div id="mod-pers-metas" class="sub-module-pers" style="display:none;">
-            <div class="split-layout">
-              <div class="form-panel-floating">
-                <div class="panel-header" style="border:none; padding:0; margin-bottom:25px;">Nuevo Registro</div>
-                <div class="form-group"><label>Descripción</label><input type="text" id="meta_desc" placeholder="Ej. Bajar 5kg, Nuevo cliente..."></div>
-                <div class="form-group"><label>Categoría</label>
-                  <select id="meta_tipo">
-                    <option>Meta (En Proceso)</option>
-                    <option>Logro (Alcanzado)</option>
-                  </select>
-                </div>
-                <button class="btn-mac primary" style="width:100%; padding:14px; font-size:1.05rem; margin-top:15px;" onclick="guardarMeta()">Registrar</button>
-              </div>
-              <div class="data-panel-glass">
-                <div class="panel-header" style="padding: 30px; border-bottom:1px solid var(--mac-divider); margin:0;">
-                  <span>Historial de Crecimiento</span>
-                </div>
-                <div class="table-wrapper">
-                  <table><thead><tr><th>Fecha</th><th>Descripción</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="tabla-metas"></tbody></table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CHECKLIST DIARIO -->
-          <div id="mod-pers-checklist" class="sub-module-pers" style="display:none;">
-            <div class="split-layout">
-              <div class="form-panel-floating">
-                <div class="panel-header" style="border:none; padding:0; margin-bottom:25px;">Añadir Tarea Rápida</div>
-                <div class="form-group"><label>¿Qué hay que hacer hoy?</label><input type="text" id="chk_desc" placeholder="Escribe aquí..."></div>
-                <button class="btn-mac primary" style="width:100%; padding:14px; font-size:1.05rem; margin-top:15px;" onclick="guardarCheck()">Añadir Tarea</button>
-              </div>
-              <div class="data-panel-glass">
-                <div class="panel-header" style="padding: 30px; border-bottom:1px solid var(--mac-divider); margin:0;">
-                  <span>Mi Checklist Diario</span>
-                </div>
-                <div class="table-wrapper">
-                  <table><thead><tr><th>Estado</th><th>Tarea</th><th>Acciones</th></tr></thead><tbody id="tabla-check"></tbody></table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ================= VISTA: NEGOCIOS ================= -->
-        <section id="view-negocios" class="view-section">
-          
-          <!-- BANCOS MINI DASHBOARD DINÁMICO -->
-          <div id="bancos-perfumeria" class="bank-grid" style="display:none;">
-            <div class="bank-card">
-              <div class="bank-name">Bancolombia <i class="fa-solid fa-building-columns" style="color:var(--accent-brand);"></i></div>
-              <div class="bank-balance" id="disp_bco">$0</div>
-              <div class="bank-editor">
-                <input type="text" id="edit_bco" inputmode="numeric" oninput="formatNumberInput(this)" placeholder="0">
-                <button class="btn-mac primary" onclick="guardarSaldoEnLinea('bco', 'edit_bco')">Guardar</button>
-              </div>
-            </div>
-            <div class="bank-card">
-              <div class="bank-name">Nequi <i class="fa-solid fa-mobile-screen" style="color:var(--accent-brand);"></i></div>
-              <div class="bank-balance" id="disp_neq">$0</div>
-              <div class="bank-editor">
-                <input type="text" id="edit_neq" inputmode="numeric" oninput="formatNumberInput(this)" placeholder="0">
-                <button class="btn-mac primary" onclick="guardarSaldoEnLinea('neq', 'edit_neq')">Guardar</button>
-              </div>
-            </div>
-            <div class="bank-card">
-              <div class="bank-name">Efectivo <i class="fa-solid fa-money-bill" style="color:var(--accent-brand);"></i></div>
-              <div class="bank-balance" id="disp_efc">$0</div>
-              <div class="bank-editor">
-                <input type="text" id="edit_efc" inputmode="numeric" oninput="formatNumberInput(this)" placeholder="0">
-                <button class="btn-mac primary" onclick="guardarSaldoEnLinea('efc', 'edit_efc')">Guardar</button>
-              </div>
-            </div>
-          </div>
-
-          <div id="bancos-oro" class="bank-grid" style="display:none;">
-            <div class="bank-card" style="max-width: 340px;">
-              <div class="bank-name">Nu Bank (Joyería) <i class="fa-solid fa-credit-card" style="color:var(--accent-brand);"></i></div>
-              <div class="bank-balance" id="disp_nu">$0</div>
-              <div class="bank-editor">
-                <input type="text" id="edit_nu" inputmode="numeric" oninput="formatNumberInput(this)" placeholder="0">
-                <button class="btn-mac primary" onclick="guardarSaldoEnLinea('nu', 'edit_nu')">Guardar</button>
-              </div>
-            </div>
-          </div>
-          <!-- FIN BANCOS -->
-
-          <div class="module-subnav">
-            <button class="subnav-item active" onclick="navSub('ventas')" id="sub-ventas">Ventas & Despachos</button>
-            <button class="subnav-item" onclick="navSub('inventario')" id="sub-inventario">Bodega e Inventario</button>
-            <button class="subnav-item" onclick="navSub('crm')" id="sub-crm">Base de Clientes (CRM)</button>
-            <button class="subnav-item" onclick="navSub('finanzas')" id="sub-finanzas">Egresos Operativos</button>
-          </div>
-
-          <!-- SUB-MÓDULO: VENTAS (DISEÑO HORIZONTAL) -->
-          <div id="mod-ventas" class="sub-module-view" style="display:block;">
-            
-            <div class="form-panel-horizontal">
-              <div class="panel-header" style="margin-bottom:20px; border:none; padding:0;">Facturar Venta</div>
-              
-              <div class="form-row-4">
-                <div class="form-group" style="margin:0;"><label>Cliente (Opcional)</label><select id="ven_cliente"><option value="">Seleccionar...</option></select></div>
-                <div class="form-group" style="margin:0;"><label id="lbl-ven-prod">Artículo</label><select id="ven_prod" onchange="autoCompletarPrecioVenta()"></select></div>
-                <div class="form-group" style="margin:0;"><label>Cant.</label><input type="text" inputmode="numeric" id="ven_cant" value="1" oninput="formatNumberInput(this)"></div>
-                <div class="form-group" style="margin:0;"><label>Modalidad Envío</label>
-                  <select id="ven_canal">
-                    <option value="envio">Envío Estándar</option>
-                    <option value="dropshipping">Dropshipping</option>
-                    <option value="mayorista">Venta Mayorista</option>
-                    <option value="presencial">Presencial / Física</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-row-3" style="background:var(--glass-input); padding:20px; border-radius:16px; border: 1px solid var(--glass-border); align-items:center;">
-                <div class="form-group" style="margin:0;">
-                  <label>Precio Pagado ($)</label>
-                  <input type="text" inputmode="numeric" id="ven_monto" placeholder="Ej. 150.000" oninput="formatNumberInput(this)" style="font-weight:800; font-size:1.15rem; background:var(--glass-panel);">
-                </div>
-                <div class="form-group" style="margin:0;">
-                  <label>Mi Ganancia Libre ($)</label>
-                  <input type="text" inputmode="numeric" id="ven_ganancia" placeholder="Ej. 45.000" oninput="formatNumberInput(this)" style="font-weight:800; font-size:1.15rem; background:var(--glass-panel);">
-                </div>
-                <div class="form-group" style="margin:0; padding-left: 10px;">
-                    <label>Costo Inventario Deducido</label>
-                    <input type="text" id="ven_costo" placeholder="$0" readonly style="background:transparent; border:none; padding:0; font-weight:800; font-size:1.5rem; color:var(--mac-text-muted);">
-                </div>
-              </div>
-              
-              <div class="form-row-4">
-                <div class="form-group" style="margin:0;"><label>Descto VIP (%)</label><input type="text" inputmode="numeric" id="ven_desc" placeholder="0" oninput="formatNumberInput(this)"></div>
-                <div class="form-group" style="margin:0;"><label>Pago en</label><select id="ven_pago"><option>Bancolombia</option><option>Nequi</option><option>Nu Bank (Joyería)</option><option>Efectivo</option><option>Por Cobrar</option></select></div>
-                <div class="form-group" style="margin:0;"><label>Estado</label><select id="ven_estado"><option>Pendiente</option><option>Enviado / Entregado</option><option>Cotización (Pre-venta)</option></select></div>
-                <div class="form-group" style="margin:0;"><label>Guía (Opcional)</label><input type="text" id="ven_guia" placeholder="No. guía"></div>
-              </div>
-              
-              <div style="display:flex; justify-content:flex-end;">
-                <!-- EL BOTÓN ESTRELLA: SOLO GUARDAR -->
-                <button class="btn-mac primary" id="btn-guardar-venta" style="padding:14px 40px; font-size:1.05rem; margin-top:10px;" onclick="guardarDatos('ventas')">
-                  <i class="fa-solid fa-floppy-disk"></i> Guardar Registro
-                </button>
-              </div>
-            </div>
-            
-            <!-- TABLA DE DATOS DEBAJO -->
-            <div class="data-panel-glass" style="min-height: 500px;">
-              <div class="panel-header" style="padding: 30px; border-bottom:1px solid var(--mac-divider); margin:0;">
-                <span>Historial Comercial</span>
-                <div class="search-box">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                  <input type="text" id="search-ventas" onkeyup="filtrarTabla('ventas')" placeholder="Buscar venta o cliente...">
-                </div>
-              </div>
-              <div class="table-wrapper">
-                <table><thead><tr><th>Fecha</th><th>Detalle</th><th>Total</th><th>Ganancia</th><th>Status</th><th>Acciones</th></tr></thead><tbody id="tabla-ventas"></tbody></table>
-              </div>
-            </div>
-            
-          </div>
-
-          <!-- SUB-MÓDULO: INVENTARIO -->
-          <div id="mod-inventario" class="sub-module-view" style="display:none;">
-            <div class="split-layout">
-              <div class="form-panel-floating">
-                <div class="panel-header" style="border:none; padding:0; margin-bottom:30px;">Actualizar Bodega</div>
-                <div class="form-group"><label id="lbl-inv-prod">Artículo</label><input type="text" id="inv_prod" placeholder="Nombre exacto"></div>
-                
-                <div class="form-row">
-                  <div class="form-group" style="margin:0;"><label>Operación</label><select id="inv_tipo"><option>Ingreso (+)</option><option>Salida (-)</option></select></div>
-                  <div class="form-group" style="margin:0;"><label>Cant.</label><input type="text" inputmode="numeric" id="inv_cant" placeholder="0" oninput="formatNumberInput(this)"></div>
-                </div>
-                
-                <div class="form-row">
-                  <div class="form-group" style="margin:0;"><label>Costo Compra ($)</label><input type="text" inputmode="numeric" id="inv_costo" placeholder="0" oninput="formatNumberInput(this)"></div>
-                  <div class="form-group" style="margin:0;"><label>Precio Venta ($)</label><input type="text" inputmode="numeric" id="inv_precio" placeholder="0" oninput="formatNumberInput(this)"></div>
-                </div>
-                
-                <button class="btn-mac primary" style="width:100%; padding:14px; font-size:1.05rem; margin-top:20px;" onclick="guardarDatos('inventario')">Guardar Stock</button>
-                <p style="font-size:0.85rem; color:var(--mac-text-muted); margin-top:25px; text-align:center; font-weight:600;">Al registrar una venta, el inventario se descuenta solo.</p>
-              </div>
-              <div class="data-panel-glass">
-                <div class="panel-header" style="padding: 30px; margin:0; border-bottom:1px solid var(--mac-divider);">
-                  <span>Trazabilidad</span>
-                  <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="search-inventario" onkeyup="filtrarTabla('inventario')" placeholder="Buscar...">
-                  </div>
-                </div>
-                <div class="table-wrapper">
-                  <table><thead><tr><th>Fecha</th><th>Operación</th><th>Artículo</th><th>Stock Actual</th><th>Costo</th><th>P. Sugerido</th><th>Acciones</th></tr></thead><tbody id="tabla-inventario"></tbody></table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SUB-MÓDULO: CRM -->
-          <div id="mod-crm" class="sub-module-view" style="display:none;">
-            <div class="split-layout">
-              <div class="form-panel-floating">
-                <div class="panel-header" style="border:none; padding:0; margin-bottom:30px;">Nuevo Cliente VIP</div>
-                <div class="form-group"><label>Nombre</label><input type="text" id="crm_nombre" placeholder="Coincidir con ventas"></div>
-                <div class="form-group"><label>Ciudad</label><input type="text" id="crm_ciudad" placeholder="Ciudad"></div>
-                <div class="form-group"><label>WhatsApp</label><input type="tel" id="crm_tel" placeholder="Número sin espacios"></div>
-                <button class="btn-mac primary" style="width:100%; padding:14px; font-size:1.05rem; margin-top:20px;" onclick="guardarDatos('crm')">Guardar Cliente</button>
-              </div>
-              <div class="data-panel-glass">
-                <div class="panel-header" style="padding: 30px; margin:0; border-bottom:1px solid var(--mac-divider);">
-                  <span>Directorio</span>
-                  <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="search-crm" onkeyup="filtrarTabla('crm')" placeholder="Buscar...">
-                  </div>
-                </div>
-                <div class="table-wrapper">
-                  <table><thead><tr><th>Nombre</th><th>Ciudad</th><th>WhatsApp</th><th># Compras</th><th>LTV Total</th><th>Acciones</th></tr></thead><tbody id="tabla-crm"></tbody></table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SUB-MÓDULO: FINANZAS -->
-          <div id="mod-finanzas" class="sub-module-view" style="display:none;">
-            <div class="split-layout">
-              <div class="form-panel-floating">
-                <div class="panel-header" style="border:none; padding:0; margin-bottom:30px;">Registrar Egreso</div>
-                <div class="form-group"><label>Tipo</label>
-                  <select id="fin_tipo" onchange="autoCompletarConcepto()">
-                    <option value="Gasto Operativo">Pago Gasto Fijo</option>
-                    <option value="Liquidación de Deudas">Abono a Deuda</option>
-                    <option value="Costo de Mercancía">Pago Proveedor (Bodega)</option>
-                  </select>
-                </div>
-                <div class="form-group"><label>Concepto</label><select id="fin_concepto"></select></div>
-                <div class="form-group"><label>Detalle Adicional</label><input type="text" id="fin_detalle" placeholder="Opcional"></div>
-                <div class="form-group"><label>Valor Pagado ($)</label><input type="text" inputmode="numeric" id="fin_valor" placeholder="0" oninput="formatNumberInput(this)"></div>
-                <button class="btn-mac primary" style="width:100%; padding:14px; font-size:1.05rem; margin-top:20px;" onclick="guardarDatos('finanzas')">Asentar Pago</button>
-              </div>
-              <div class="data-panel-glass">
-                <div class="panel-header" style="padding: 30px; margin:0; border-bottom:1px solid var(--mac-divider);">
-                  <span>Libro Mayor</span>
-                  <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="search-finanzas" onkeyup="filtrarTabla('finanzas')" placeholder="Buscar...">
-                  </div>
-                </div>
-                <div class="table-wrapper">
-                  <table><thead><tr><th>Fecha</th><th>Clase</th><th>Concepto/Detalle</th><th>Monto</th><th>Acciones</th></tr></thead><tbody id="tabla-finanzas"></tbody></table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-        <!-- ================= VISTA: CEREBRO OPERATIVO (PRODUCTIVIDAD) ================= -->
-        <section id="view-cerebro" class="view-section">
-          
-          <div class="module-subnav">
-            <button class="subnav-item active" onclick="navPersonal('tareas')" id="sub-p-tareas">Tareas Operativas</button>
-            <button class="subnav-item" onclick="navPersonal('calendario')" id="sub-p-calendario">Calendario Eventos</button>
-          </div>
-
-          <!-- TAREAS OPERATIVAS -->
-          <div id="mod-p-tareas" class="sub-module-personal" style="display:block;">
-            <div class="split-layout">
-              <div class="form-panel-floating">
-                <div class="panel-header" style="border:none; padding:0; margin-bottom:30px;">Nueva Tarea Operativa</div>
-                <div class="form-group"><label>Descripción</label><input type="text" id="tar_desc" placeholder="Objetivo de negocio"></div>
-                <div class="form-group"><label>Urgencia</label><select id="tar_prio"><option>Alta (Urgente)</option><option>Normal</option></select></div>
-                <button class="btn-mac primary" style="width:100%; padding:14px; font-size:1.05rem; margin-top:20px;" onclick="guardarDatoGlobal('tareas')">Fijar Tarea</button>
-              </div>
-              <div class="data-panel-glass">
-                <div class="panel-header" style="padding: 30px; margin:0; border-bottom:1px solid var(--mac-divider);"><span>Pendientes del Negocio</span></div>
-                <div class="table-wrapper"><table><thead><tr><th>Fecha</th><th>Objetivo</th><th>Urgencia</th><th>Acciones</th></tr></thead><tbody id="tabla-tareas"></tbody></table></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CALENDARIO -->
-          <div id="mod-p-calendario" class="sub-module-personal" style="display:none;">
-            <div class="split-layout">
-              <div class="form-panel-floating">
-                <div class="panel-header" style="border:none; padding:0; margin-bottom:30px;">Agendar Evento</div>
-                <div class="form-group"><label>Título</label><input type="text" id="cal_titulo" placeholder="Ej. Lanzamiento"></div>
-                <div class="form-group"><label>Fecha</label><input type="datetime-local" id="cal_fecha"></div>
-                <div class="form-group"><label>Etiqueta</label><select id="cal_tipo"><option>Recordatorio</option><option>Reunión</option></select></div>
-                <button class="btn-mac primary" style="width:100%; padding:14px; font-size:1.05rem; margin-top:20px;" onclick="guardarDatoGlobal('calendario')">Agendar Evento</button>
-              </div>
-              <div class="data-panel-glass">
-                <div class="panel-header" style="padding: 30px; margin:0; border-bottom:1px solid var(--mac-divider);"><span>Cronograma</span></div>
-                <div class="table-wrapper"><table><thead><tr><th>Registro</th><th>Evento</th><th>Fecha</th><th>Etiqueta</th><th>Acciones</th></tr></thead><tbody id="tabla-calendario"></tbody></table></div>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
+        <ul class="ic-list">
+          <li><b>Nacionales:</b> Enviamos por Interrapidísimo a partir de $18,500.</li>
+          <li><b>Medellín:</b> Domicilios gratis (10:00 a.m. a 10:00 p.m.) aplicando a precio detal.</li>
+        </ul>
       </div>
-    </main>
-  </div>
+      <div class="info-card-large">
+        <div class="ic-header">
+          <div class="ic-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3 class="ic-title">Garantía y Pagos</h3>
+        </div>
+        <ul class="ic-list">
+          <li><b>Garantía Total:</b> Si el producto llega en mal estado por transporte, te respondemos de inmediato.</li>
+          <li><b>Medios de Pago:</b> Recibimos transferencias y otras opciones seguras para facilitar tu compra.</li>
+        </ul>
+      </div>
+      <div class="info-card-large">
+        <div class="ic-header">
+          <div class="ic-icon-box"><i class="fa-regular fa-clock"></i></div>
+          <h3 class="ic-title">Atención al Cliente</h3>
+        </div>
+        <ul class="ic-list">
+          <li><b>Horario de atención:</b> Lunes a domingo de 10:00 a.m. a 10:00 p.m.</li>
+          <li>Mejoramos la experiencia en WhatsApp para brindarte una atención más rápida.</li>
+        </ul>
+      </div>
+    </div>
 
-  <script>
-    let modoEdicion = null; 
-    let currentBusiness = 'perfumes'; 
-    let activeSubMod = 'ventas';
-    let activePersonalMod = 'tareas';
-    let activeNotionMod = 'notas';
-    let notifInterval;
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <h3 style="margin-bottom:15px; font-weight:700; font-size: 18px;">Sin resultados</h3>
+      <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 25px;">Comunícate por WhatsApp para verificar disponibilidad.</p>
+      <button class="btn-primary" style="padding: 16px 30px; border-radius: 16px;" onclick="askAvailability()">Preguntar disponibilidad</button>
+    </div>
+  </section>
 
-    /* CONFIGURACIONES */
-    const optionsBusiness = {
-      perfumes: { lblProd: 'Perfume' },
-      oro: { lblProd: 'Joya / Artículo' }
-    };
+  <!-- ================= VISTA DINÁMICAS ================= -->
+  <section id="viewSorteos" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Dinámicas</h1>
+    
+    <div id="sorteosList">
+        <div class="loader-container">
+            <i class="fa-solid fa-spinner loader-spinner"></i>
+            <p style="font-weight: 500; font-size: 14px;">Actualizando eventos...</p>
+        </div>
+    </div>
+  </section>
 
-    const modulosBizIds = {
-      ventas: { ids: ['ven_cliente', 'ven_prod', 'ven_cant', 'ven_canal', 'ven_monto', 'ven_ganancia', 'ven_costo', 'ven_desc', 'ven_pago', 'ven_estado', 'ven_guia'], tags: ['Cliente', 'Producto', 'Cantidad', 'Canal', 'PrecioVenta', 'Ganancia', 'Costo', 'Descuento', 'Pago', 'Status', 'Guia'] },
-      inventario: { ids: ['inv_prod', 'inv_tipo', 'inv_costo', 'inv_precio', 'inv_cant'], tags: ['Producto', 'Operación', 'CostoUnitario', 'PrecioSugerido', 'Cantidad'] },
-      crm: { ids: ['crm_nombre', 'crm_ciudad', 'crm_tel'], tags: ['Nombre', 'Ciudad', 'WhatsApp'] },
-      finanzas: { ids: ['fin_tipo', 'fin_concepto', 'fin_detalle', 'fin_valor'], tags: ['Naturaleza', 'Concepto', 'Detalle', 'Monto'] }
-    };
+  <!-- ================= VISTA ENTREGAS INMEDIATAS ================= -->
+  <section id="viewInmediata" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Entregas Inmediatas</h1>
+    <div style="margin: 0 20px 25px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.5;">
+       Perfumes disponibles con entrega inmediata. Pídelo hoy, recíbelo hoy (domicilio gratis válido solo en Medellín).
+    </div>
 
-    const modulosGlobalIds = {
-      tareas: { ids: ['tar_desc', 'tar_prio'], tags: ['Objetivo', 'Prioridad'] },
-      calendario: { ids: ['cal_titulo', 'cal_fecha', 'cal_tipo'], tags: ['Evento', 'Programación', 'Etiqueta'] }
-    };
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInmediataInput" placeholder="Buscar en stock inmediato...">
+      </div>
+    </div>
 
-    /* VALORES FINANCIEROS INICIALES */
-    const deudasIniciales = { "Deuda - Andrés": 975000, "Deuda - Celular Mamá": 1500000, "Deuda - Ropa Mamá": 900000, "Deuda - Factura Perfumes": 4882000 };
-    const gastosFijosMes = { "Gasto - Casa": 1600000, "Gasto - Vicio": 200000, "Gasto - Ocio": 200000, "Gasto - Comida": 300000, "Gasto - Datos": 50000, "Gasto - Moto Gasolina": 200000, "Gasto - Motilada": 50000 };
-    const GASTO_MENSUAL_FIJO = 2600000; const DEUDA_CUOTAS_MENSUALES = 1258000;
-    const META_DIARIA = Math.round((GASTO_MENSUAL_FIJO + DEUDA_CUOTAS_MENSUALES) / 30);
+    <div id="inmediataGrid" class="inmediata-grid-container">
+        <div class="loader-container" style="grid-column: 1 / -1;">
+            <i class="fa-solid fa-spinner loader-spinner"></i>
+            <p style="font-weight: 500; font-size: 14px;">Conectando inventario local...</p>
+        </div>
+    </div>
+  </section>
 
-    /* UTILIDAD GUARDADO SEGURO (Manejo de errores si el navegador bloquea la memoria interna por privacidad) */
-    function safeSetItem(key, val) {
-        try {
-            localStorage.setItem(key, val);
-            return true;
-        } catch (e) {
-            console.error("Storage Error: ", e);
-            alert("Aviso: Tu navegador está bloqueando el almacenamiento local (probablemente por Modo Incógnito o Navegación Privada).");
-            return false;
+  <!-- ================= VISTA REDES ================= -->
+  <section id="viewInfo" class="view">
+    <h1 class="large-title" style="margin-top: calc(var(--top-height) + 15px);">Redes</h1>
+    
+    <div class="info-cards-container reveal">
+      <div class="info-card-large" style="cursor:pointer; border-color: #25D366; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.1);" onclick="openWhatsApp('Hola, me puedes agregar para ver los estados, gracias.')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: rgba(37, 211, 102, 0.15); color: #25D366; border: none;"><i class="fa-brands fa-whatsapp" style="font-size: 24px;"></i></div>
+          <h3 class="ic-title" style="font-size: 18px;">Comunidad VIP</h3>
+        </div>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Agrégame a WhatsApp para ver mis estados. Allí publicamos los mejores precios y ofertas exclusivas todos los días.</p>
+      </div>
+
+      <div class="info-card-large" style="cursor:pointer; background: #000; color: #FFF; border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.3);" onclick="window.open('https://www.tiktok.com/@soyjohnstiven', '_blank')">
+        <div class="ic-header">
+          <div class="ic-icon-box" style="background: #FFF; color: #000; border: none;"><i class="fa-brands fa-tiktok" style="font-size: 22px;"></i></div>
+          <h3 class="ic-title" style="color: #FFF; font-size: 18px;">Perfil de TikTok</h3>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6;">Síguenos en <b>@soyjohnstiven</b> para ver reseñas y nuevo contenido.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VISTA DETALLE SORTEOS ================= -->
+  <section id="viewSorteoDetalle" class="view">
+    
+    <div id="sorteoDetalleHeader" style="margin-top: calc(var(--top-height) + 15px);"></div>
+    
+    <div id="resumenPuestos" style="display:flex; justify-content:space-around; margin: 0 20px 25px 20px; font-weight: 700; font-size: 11px; text-align:center; line-height: 1.4;">
+       <div><span id="labelLibres" style="color:var(--text-muted); display:block; margin-bottom:6px;">NÚMEROS LIBRES</span><span id="countLibres" style="font-size:22px; color:var(--text-main);">0</span></div>
+       <div><span id="labelOcupados" style="color:var(--text-muted); display:block; margin-bottom:6px;">NÚMEROS OCUPADOS</span><span id="countOcupados" style="font-size:22px; color:var(--text-main);">0</span></div>
+       <div><span id="labelPendientes" style="color:var(--text-muted); display:block; margin-bottom:6px;">NÚMEROS PENDIENTES</span><span id="countPendientes" style="font-size:22px; color:var(--text-main);">0</span></div>
+    </div>
+
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchPuestoInput" placeholder="Buscar tu número...">
+      </div>
+    </div>
+
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px; font-size:13px; font-weight:600; margin-bottom:25px; color:var(--text-muted); padding: 0 15px;">
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:14px; height:14px; border-radius:4px; border:1px solid var(--border-color); background:var(--bg-solid);"></div> Libre</div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:14px; height:14px; border-radius:4px; background:#111111;"></div> Ocupado</div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:14px; height:14px; border-radius:4px; border:1px dashed var(--text-muted);"></div> Pendiente</div>
+    </div>
+
+    <div id="boardGridDetalle" style="margin-bottom: 40px; padding: 0 8px; box-sizing: border-box;"></div>
+
+  </section>
+
+</div>
+
+<script>
+  let dynamicsDataArray = []; 
+  let currentBoardData = [];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const hour = new Date().getHours();
+    let greeting = "Buenas noches";
+    if (hour >= 5 && hour < 12) greeting = "Buenos días";
+    else if (hour >= 12 && hour < 19) greeting = "Buenas tardes";
+    
+    const splashText = document.getElementById('greetingText');
+    if(splashText) splashText.innerText = greeting;
+
+    setTimeout(() => {
+      const s = document.getElementById('splash');
+      if (s) {
+        s.style.opacity = '0';
+        s.style.transform = 'scale(1.05)';
+        setTimeout(() => s.style.display = 'none', 600);
+      }
+      observeElements();
+    }, 2000); 
+
+    setTimeout(() => {
+      document.getElementById('promoOverlay').classList.add('active');
+      document.getElementById('promoModal').classList.add('active');
+    }, 4000);
+
+    const baseDate = new Date("2026-10-26T00:00:00-05:00").getTime();
+    const now = new Date().getTime();
+    const diffTime = Math.max(0, now - baseDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const ventasDia = 1206 + (diffDays * 13);
+    
+    document.getElementById('vCount').innerText = ventasDia.toLocaleString('es-CO');
+    
+    let usuarios = Math.floor(Math.random() * (74 - 29 + 1)) + 29;
+    document.getElementById('uCount').innerText = usuarios;
+    
+    setInterval(() => {
+      let rnd = Math.random();
+      if(rnd > 0.4) usuarios += 6; 
+      else usuarios -= 10; 
+      if(usuarios < 15) usuarios = 18 + Math.floor(Math.random()*5);
+      if(usuarios > 180) usuarios = 160 - Math.floor(Math.random()*15);
+      const uCount = document.getElementById('uCount');
+      if(uCount) uCount.innerText = usuarios;
+    }, 3500);
+  });
+
+  function closePromo() {
+    document.getElementById('promoOverlay').classList.remove('active');
+    document.getElementById('promoModal').classList.remove('active');
+  }
+
+  function goPromoWA() {
+    closePromo();
+    openWhatsApp("Hola, me puedes agregar para ver los estados, gracias.");
+  }
+
+  function openNegociar() {
+      document.getElementById('negociarOverlay').classList.add('active');
+      document.getElementById('negociarModal').classList.add('active');
+  }
+  function closeNegociar() {
+      document.getElementById('negociarOverlay').classList.remove('active');
+      document.getElementById('negociarModal').classList.remove('active');
+  }
+  function sendNegociarWA() {
+      const motivo = document.getElementById('motivoConsulta').value;
+      const msg = `Hola, estoy buscando:\n- ${motivo}`;
+      closeNegociar();
+      openWhatsApp(msg);
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const icon = document.getElementById('themeIcon');
+    if(document.body.classList.contains('dark-mode')){
+      icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+    } else {
+      icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+    }
+  }
+
+  const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); }
+    });
+  }, observerOptions);
+
+  function observeElements() {
+    const activeView = document.querySelector('.view.active');
+    if(!activeView) return;
+    activeView.querySelectorAll('.reveal').forEach(el => {
+      if(!el.classList.contains('active')) { observer.observe(el); }
+    });
+  }
+
+  function switchView(viewId, title, element) {
+    document.querySelectorAll('.view').forEach(v => {
+      v.classList.remove('active');
+      v.querySelectorAll('.reveal').forEach(r => {
+        r.classList.remove('active'); observer.unobserve(r); 
+      });
+    });
+    
+    if (element) {
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+        
+        if(viewId === 'sorteos') {
+            const tooltip = element.querySelector('.nav-tooltip');
+            if (tooltip) tooltip.style.display = 'none';
         }
     }
+    
+    const nextView = document.getElementById('view' + viewId.charAt(0).toUpperCase() + viewId.slice(1));
+    nextView.classList.add('active');
+    
+    if(viewId === 'tienda') {
+        document.getElementById('topTitle').innerText = 'Inicio';
+    } else if(viewId === 'inmediata') {
+        document.getElementById('topTitle').innerText = 'Entregas Inmediatas';
+    } else if(viewId === 'sorteoDetalle') {
+        document.getElementById('topTitle').innerText = 'Detalle Dinámica';
+    } else {
+        document.getElementById('topTitle').innerText = title;
+    }
+    
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    
+    if (viewId === 'sorteos') {
+        setTimeout(() => {
+            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#FF6600', '#111111', '#FFFFFF'] });
+        }, 300);
+    }
+    
+    setTimeout(() => observeElements(), 50);
+  }
 
-    /* MOTOR DE EXPORTACIÓN Y DESCARGA JSON COMPROBADO Y SEGURO */
-    function descargarRespaldoForce() {
-      let data = {}; 
-      for(let i=0; i<localStorage.length; i++) { 
-          let key = localStorage.key(i); 
-          if(key.startsWith('erp_')) {
-              let rawVal = localStorage.getItem(key);
-              try {
-                  data[key] = JSON.parse(rawVal);
-              } catch(e) {
-                  data[key] = rawVal; 
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('.top-bar');
+    window.scrollY > 10 ? header.classList.add('scrolled') : header.classList.remove('scrolled');
+  });
+
+  const PHONE = "573245706274"; 
+  function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
+
+  function scrollProducts(px) {
+      document.getElementById('catalogGrid').scrollBy({ left: px, behavior: 'smooth' });
+  }
+
+  let cartObj = {}; 
+
+  function addDirectToCart(name, priceStr, btn) {
+    if(cartObj[name]) { cartObj[name].qty += 1; } 
+    else { cartObj[name] = { qty: 1, price: priceStr }; btn.classList.add('selected'); btn.innerText = "AGREGADO"; }
+    updateCartIcon();
+  }
+
+  function updateCartIcon() {
+    const fab = document.getElementById('appleCart');
+    let totalItems = 0;
+    for (let item in cartObj) { totalItems += cartObj[item].qty; }
+    document.getElementById('cartCount').innerText = totalItems;
+    totalItems > 0 ? fab.classList.add('show') : fab.classList.remove('show');
+    if(document.getElementById('sheetCart').classList.contains('active')) { renderCartSheet(); }
+  }
+
+  function openCartSheet() {
+    renderCartSheet();
+    document.getElementById('sheetCart').style.display = 'flex';
+    document.getElementById('sheetOverlay').classList.add('active');
+    setTimeout(() => document.getElementById('sheetCart').classList.add('active'), 10);
+  }
+
+  function renderCartSheet() {
+    const cont = document.getElementById('cartItemsContainer');
+    const summ = document.getElementById('cartSummaryContainer');
+    
+    let html = ''; let totalItems = 0; let subtotal = 0;
+    
+    for (let name in cartObj) {
+      const item = cartObj[name]; 
+      totalItems += item.qty;
+      let numPrice = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+      subtotal += numPrice * item.qty;
+      
+      html += `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <h4 class="cart-item-title">${name}</h4>
+            <p class="cart-item-price">${item.price}</p>
+          </div>
+          <div class="cart-controls">
+            <button class="c-btn" onclick="changeQty('${name}', -1)">-</button>
+            <span class="c-qty">${item.qty}</span>
+            <button class="c-btn" onclick="changeQty('${name}', 1)">+</button>
+            <button class="c-btn-delete" onclick="removeItem('${name}')"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+      `;
+    }
+    
+    if(totalItems === 0) {
+      closeSheets();
+      document.querySelectorAll('.btn-add').forEach(btn => { btn.classList.remove('selected'); btn.innerText = "AGREGAR"; });
+    } else { 
+      cont.innerHTML = html; 
+      
+      summ.innerHTML = `
+        <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size: 14px; color: var(--text-muted);">
+                <span>Artículos en total (${totalItems})</span>
+                <span>$${subtotal.toLocaleString('es-CO')}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
+                <span>Total a Pagar</span>
+                <span>$${subtotal.toLocaleString('es-CO')}</span>
+            </div>
+        </div>
+      `;
+    }
+  }
+
+  function changeQty(name, delta) {
+    if(!cartObj[name]) return;
+    cartObj[name].qty += delta;
+    if(cartObj[name].qty <= 0) { delete cartObj[name]; }
+    updateCartIcon();
+  }
+
+  function removeItem(name) {
+      delete cartObj[name];
+      updateCartIcon();
+      
+      document.querySelectorAll('.prod-title').forEach(t => {
+          if(t.innerText === name) {
+              const btn = t.nextElementSibling.nextElementSibling;
+              if(btn) {
+                  btn.classList.remove('selected');
+                  btn.innerText = 'AGREGAR';
               }
           }
+      });
+  }
+
+  function sendCartWA() {
+    let msg = "";
+    let totalItems = 0;
+    for (let name in cartObj) { totalItems += cartObj[name].qty; }
+    
+    if (totalItems === 1) {
+        for (let name in cartObj) {
+            msg = `Quiero este perfume: ${name} ${cartObj[name].price}`;
+        }
+    } else {
+        msg = `Quiero estos perfumes:\n`;
+        for (let name in cartObj) { 
+            msg += `- ${name} ${cartObj[name].price} (${cartObj[name].qty} unds)\n`; 
+        }
+    }
+
+    closeSheets();
+    openWhatsApp(msg);
+  }
+
+  function closeSheets(e) {
+    if(e && e.target.id !== 'sheetOverlay') return;
+    document.getElementById('sheetCart').classList.remove('active');
+    document.getElementById('sheetOverlay').classList.remove('active');
+  }
+
+  const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
+  
+  const URL_NACIONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=0&single=true&output=csv';
+  const URL_INMEDIATA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?output=csv'; 
+  
+  let catNacional = []; let catTop = [];
+  let catInmediata = [];
+
+  function parseCSV(t){
+    var rows=[], row=[], f='', inQ=false;
+    for(var i=0; i<t.length; i++){
+      var c=t[i];
+      if(inQ){ if(c==='"'){ if(t[i+1]==='"'){ f+='"'; i++; } else inQ=false; } else f+=c; }
+      else { if(c==='"') inQ=true; else if(c===','){ row.push(f); f=''; } else if(c==='\n'){ row.push(f); rows.push(row); row=[]; f=''; } else if(c!=='\r') f+=c; }
+    }
+    if(f!==''||row.length){ row.push(f); rows.push(row); } return rows;
+  }
+  function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function shuffleArray(array) {
+    let curId = array.length;
+    while (0 !== curId) {
+      let randId = Math.floor(Math.random() * curId);
+      curId -= 1;
+      let tmp = array[curId]; array[curId] = array[randId]; array[randId] = tmp;
+    }
+    return array;
+  }
+
+  function formatImageLink(fotoStr) {
+    let url = String(fotoStr).trim();
+    if (!url) return DEF_IMG;
+    if (url.includes('drive.google.com')) {
+      const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
       }
-      
-      if(Object.keys(data).length === 0) {
-          alert("No hay datos guardados todavía para respaldar.");
-          return;
-      }
-      
-      let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
-      let link = document.createElement("a"); 
-      link.setAttribute("href", dataStr);
-      link.setAttribute("download", `Backup_MI_NEGOCIO_${new Date().toLocaleDateString().replace(/\//g,'-')}.json`);
-      
-      document.body.appendChild(link); 
-      link.click(); 
-      document.body.removeChild(link);
-      
-      mostrarToast("Copia JSON descargada exitosamente.");
     }
+    return url;
+  }
 
-    /* PROGRAMACIÓN: DESCARGA AUTOMÁTICA A LAS 11:50 PM */
-    function chequearHoraParaBackup() {
-        const ahora = new Date();
-        if (ahora.getHours() === 23 && ahora.getMinutes() === 50) {
-            let ultimoBackup = localStorage.getItem('erp_last_auto_backup');
-            let fechaHoy = ahora.toLocaleDateString();
-            
-            if (ultimoBackup !== fechaHoy) {
-                console.log("¡Hora del backup automático!");
-                descargarRespaldoForce();
-                safeSetItem('erp_last_auto_backup', fechaHoy);
-            }
-        }
+  function formatProductRow(cols) {
+    if(!cols || cols.length < 2) return null;
+    var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
+    var precio = String(cols[1]||'').replace(/"/g,'').trim(); precio = precio?(precio.charAt(0)==='$'?precio:'$'+precio):'';
+    var foto = formatImageLink(cols[2]);
+    
+    let numPrice = parseInt(precio.replace(/[^0-9]/g, ''));
+    let fakeOld = ""; 
+    if(!isNaN(numPrice) && numPrice > 0) { 
+        fakeOld = "$" + (numPrice + 15000).toLocaleString('es-CO'); 
     }
-    setInterval(chequearHoraParaBackup, 30000); // Revisa cada 30 seg
+    
+    return { nombre, precio, foto, fakeOld };
+  }
 
-    /* UTILIDAD PARA FORMATEAR NÚMEROS */
-    function formatNumberInput(elem) {
-        let val = elem.value.replace(/\D/g, ''); 
-        if(val !== '') {
-            elem.value = parseInt(val, 10).toLocaleString('es-CO'); 
-        } else {
-            elem.value = '';
-        }
-        if(elem.id === 'ven_monto' || elem.id === 'ven_ganancia') {
-            calcularCostoAutomatico();
-        }
-    }
+  function formatInmediataRow(cols) {
+    if(!cols || cols.length < 2) return null;
+    var nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
+    var estado = String(cols[1]||'').replace(/"/g,'').trim();
+    var foto = formatImageLink(cols[2]);
+    
+    return { nombre, estado, foto };
+  }
 
-    function getRawNumber(valStr) {
-        if(valStr === undefined || valStr === null || valStr === '') return 0;
-        let parsed = parseFloat(String(valStr).replace(/[^0-9-]/g, ''));
-        return isNaN(parsed) ? 0 : parsed;
-    }
-
-    /* RELOJ */
-    function updateClock() {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
-        const dateStr = now.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'short' });
-        if(document.getElementById('live-clock')) {
-            document.getElementById('live-clock').innerHTML = `<span class="lc-time">${timeStr}</span><br><span style="font-size:0.75rem; font-weight:600;">${dateStr}</span>`;
-        }
-    }
-
-    /* INICIALIZAR APP */
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => { initApp(); }, 50);
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchSorteos();
+    
+    fetch(URL_NACIONAL + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      catNacional = parseCSV(csv).slice(1).map(formatProductRow).filter(Boolean);
+      catTop = shuffleArray([...catNacional]).slice(0, 60); 
+      renderCatalog(catTop);
     });
 
-    function initApp() {
-      setInterval(updateClock, 1000); updateClock();
+    fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      catInmediata = parseCSV(csv).slice(1).map(formatInmediataRow).filter(Boolean);
+      renderInmediata(catInmediata);
+    });
+  });
 
-      let savedTheme = localStorage.getItem('erp_theme') || 'light';
-      document.body.setAttribute('data-theme', savedTheme);
+  function renderCatalog(lista) {
+    const grid = document.getElementById('catalogGrid');
+    if(lista.length === 0) return;
+    grid.innerHTML = lista.map(p => {
+      const isSel = !!cartObj[p.nombre];
+      const btnCls = isSel ? 'btn-add selected' : 'btn-add';
+      const btnTxt = isSel ? 'AGREGADO' : 'AGREGAR';
+      return `
+      <div class="prod-card">
+        <div class="prod-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
+        <h4 class="prod-title">${esc(p.nombre)}</h4>
+        <div class="prod-prices">
+           <span class="price-main">${esc(p.precio)}</span>
+           ${p.fakeOld ? `<span class="price-fake">${p.fakeOld}</span>` : ''}
+        </div>
+        <button class="${btnCls}" onclick="addDirectToCart('${esc(p.nombre)}', '${esc(p.precio)}', this)">${btnTxt}</button>
+      </div>
+    `}).join('');
+    setTimeout(() => observeElements(), 50);
+  }
+
+  function renderInmediata(lista) {
+    const grid = document.getElementById('inmediataGrid');
+    if(lista.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px 20px; color: var(--text-muted);">No se encontraron perfumes en stock local.</div>';
+        return;
+    }
+    grid.innerHTML = lista.map(p => {
+      const isAgotado = p.estado.toLowerCase().includes('agotad'); 
+      const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
+      const btnTxt = isAgotado ? 'AGOTADO' : 'CONSULTAR PRECIO';
+      const btnCls = isAgotado ? 'btn-add' : 'btn-add selected';
+      const btnAction = isAgotado ? `disabled style="background:rgba(142, 142, 147, 0.1); color:var(--text-muted); cursor:not-allowed;"` : `onclick="pedirInmediata('${esc(p.nombre)}')"`;
       
-      cargarLiquidez();
-      renderGlobalTables();
+      let overlayHtml = '';
+      let badgeHtml = '';
       
-      renderNotion(); 
-      renderMetas();
-      renderCheck();
-      
-      currentBusiness = 'perfumes';
-      cargarSelectsBiz();
-      autoCompletarConcepto(); 
-      
-      actualizarDashboard(); 
-      navMain('dashboard');
-      
-      iniciarAlarma();
-    }
-
-    function iniciarAlarma() {
-      clearInterval(notifInterval);
-      notifInterval = setInterval(() => {
-        document.getElementById('mac-notif').classList.add('show');
-      }, 1800000);
-    }
-    
-    function cerrarNotificacion() { document.getElementById('mac-notif').classList.remove('show'); iniciarAlarma(); }
-    function irARegistrarVenta() { cerrarNotificacion(); navMain('perfumes', true); }
-
-    function toggleTheme() {
-      let body = document.body; let current = body.getAttribute('data-theme');
-      let next = current === 'dark' ? 'light' : 'dark';
-      body.setAttribute('data-theme', next); 
-      safeSetItem('erp_theme', next);
-    }
-
-    /* GUARDAR SALDOS EN LÍNEA */
-    function guardarSaldoEnLinea(banco, inputId) {
-        let val = document.getElementById(inputId).value;
-        if(val === '') return; 
-        
-        let s = JSON.parse(localStorage.getItem('erp_global_saldos')) || {bco:0, neq:0, nu:0, efc:0};
-        s[banco] = getRawNumber(val);
-        safeSetItem('erp_global_saldos', JSON.stringify(s));
-        
-        document.getElementById(inputId).value = ''; 
-        mostrarToast("Saldo guardado.");
-        cargarLiquidez();
-    }
-
-    function cargarLiquidez() {
-      let s = JSON.parse(localStorage.getItem('erp_global_saldos')) || {bco:0, neq:0, nu:0, efc:0};
-      if(document.getElementById('disp_bco')) document.getElementById('disp_bco').innerText = `$${getRawNumber(s.bco).toLocaleString('es-CO')}`;
-      if(document.getElementById('disp_neq')) document.getElementById('disp_neq').innerText = `$${getRawNumber(s.neq).toLocaleString('es-CO')}`;
-      if(document.getElementById('disp_nu')) document.getElementById('disp_nu').innerText = `$${getRawNumber(s.nu).toLocaleString('es-CO')}`;
-      if(document.getElementById('disp_efc')) document.getElementById('disp_efc').innerText = `$${getRawNumber(s.efc).toLocaleString('es-CO')}`;
-    }
-
-    /* NAVEGACIÓN Y VISTAS */
-    function navMain(view, forceVentas = false) {
-      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-      
-      if(view === 'perfumes' || view === 'oro') {
-        document.getElementById('view-negocios').classList.add('active');
-        document.getElementById('tab-' + view).classList.add('active');
-        document.getElementById('titulo-actual').innerText = view === 'perfumes' ? "Operación Perfumería" : "Operación Oro Laminado";
-        setBusiness(view, forceVentas);
-      } else {
-        document.getElementById('view-' + view).classList.add('active');
-        document.getElementById('tab-' + view).classList.add('active');
-        if(view === 'dashboard') {
-            document.getElementById('titulo-actual').innerText = "CFO Dashboard";
-            actualizarDashboard();
-        }
-        if(view === 'cerebro') {
-            document.getElementById('titulo-actual').innerText = "Cerebro Operativo";
-            navPersonal(activePersonalMod);
-        }
-        if(view === 'personal') {
-            document.getElementById('titulo-actual').innerText = "Life OS (Espacio Personal)";
-            navPersonalSection(activeNotionMod);
-        }
-      }
-    }
-
-    function setBusiness(biz, forceVentas = false) {
-      currentBusiness = biz;
-      let conf = optionsBusiness[biz];
-      document.getElementById('lbl-ven-prod').innerText = conf.lblProd;
-      document.getElementById('inv_prod').placeholder = biz === 'perfumes' ? 'Nombre del Perfume' : 'Referencia Joya';
-
-      if(biz === 'perfumes') {
-          document.getElementById('bancos-perfumeria').style.display = 'grid';
-          document.getElementById('bancos-oro').style.display = 'none';
-      } else {
-          document.getElementById('bancos-perfumeria').style.display = 'none';
-          document.getElementById('bancos-oro').style.display = 'grid';
-      }
-
-      cargarSelectsBiz();
-      navSub(forceVentas ? 'ventas' : activeSubMod);
-    }
-
-    function navSub(mod) {
-      activeSubMod = mod;
-      document.querySelectorAll('.sub-module-view').forEach(el => el.style.display = 'none');
-      document.getElementById('mod-' + mod).style.display = 'block';
-      document.querySelectorAll('.module-subnav .subnav-item').forEach(el => { el.classList.remove('active'); });
-      document.getElementById('sub-' + mod).classList.add('active');
-      renderTableBiz(mod);
-    }
-
-    function navPersonal(mod) {
-      activePersonalMod = mod;
-      document.querySelectorAll('.sub-module-personal').forEach(el => el.style.display = 'none');
-      document.getElementById('mod-p-' + mod).style.display = 'block';
-      document.querySelectorAll('#view-cerebro .subnav-item').forEach(el => { el.classList.remove('active'); });
-      document.getElementById('sub-p-' + mod).classList.add('active');
-      renderGlobalTables();
-    }
-    
-    function navPersonalSection(mod) {
-      activeNotionMod = mod;
-      document.querySelectorAll('.sub-module-pers').forEach(el => el.style.display = 'none');
-      document.getElementById('mod-pers-' + mod).style.display = 'block';
-      document.querySelectorAll('#view-personal .subnav-item').forEach(el => el.classList.remove('active'));
-      document.getElementById('sub-pers-' + mod).classList.add('active');
-    }
-
-    function filtrarTabla(modulo) {
-      let input = document.getElementById('search-' + modulo).value.toLowerCase();
-      let rows = document.querySelectorAll('#tabla-' + modulo + ' tr');
-      rows.forEach(row => { row.style.display = row.innerText.toLowerCase().includes(input) ? '' : 'none'; });
-    }
-
-    /* LÓGICA DE VENTAS Y COSTO AUTOMÁTICO */
-    function autoCompletarConcepto() {
-      let tipo = document.getElementById('fin_tipo').value;
-      let selCon = document.getElementById('fin_concepto');
-      if(!selCon) return;
-      selCon.innerHTML = '';
-      if(tipo === 'Gasto Operativo') {
-         Object.keys(gastosFijosMes).forEach(k => selCon.appendChild(new Option(k, k)));
-         selCon.appendChild(new Option("Otro (Manual)", "Otro"));
-      } else if (tipo === 'Liquidación de Deudas') {
-         Object.keys(deudasIniciales).forEach(k => selCon.appendChild(new Option(k, k)));
-         selCon.appendChild(new Option("Otro (Manual)", "Otro"));
-      } else {
-         selCon.appendChild(new Option("General", "General"));
-      }
-    }
-
-    function cargarSelectsBiz() {
-      let crm = JSON.parse(localStorage.getItem(getDbKey('crm'))) || [];
-      let selectC = document.getElementById('ven_cliente');
-      if(selectC) { selectC.innerHTML = '<option value="">Seleccionar (Opcional)...</option>'; crm.forEach(c => selectC.appendChild(new Option(c.Nombre, c.Nombre))); }
-      
-      let inv = JSON.parse(localStorage.getItem(getDbKey('inventario'))) || [];
-      let selectP = document.getElementById('ven_prod');
-      if(selectP) {
-        let prods = [...new Set(inv.map(i => i.Producto.trim()))].filter(p => p !== '');
-        selectP.innerHTML = '<option value="">Venta General / Sin producto</option>';
-        prods.forEach(p => selectP.appendChild(new Option(p, p)));
-      }
-    }
-
-    function autoCompletarPrecioVenta() {
-      let pSelected = document.getElementById('ven_prod').value;
-      if(pSelected) {
-        let inv = JSON.parse(localStorage.getItem(getDbKey('inventario'))) || [];
-        let item = inv.find(i => i.Producto === pSelected);
-        if(item && item.PrecioSugerido) {
-            document.getElementById('ven_monto').value = parseInt(item.PrecioSugerido).toLocaleString('es-CO');
-            calcularCostoAutomatico();
-        }
-      }
-    }
-
-    function calcularCostoAutomatico() {
-        let precio = getRawNumber(document.getElementById('ven_monto').value);
-        let ganancia = getRawNumber(document.getElementById('ven_ganancia').value);
-        let costo = precio - ganancia;
-        document.getElementById('ven_costo').value = costo > 0 ? parseInt(costo).toLocaleString('es-CO') : 0;
-    }
-
-    function getDbKey(modulo) { return `erp_biz_${currentBusiness}_${modulo}`; }
-
-    // ================= FUNCIÓN PRINCIPAL DE GUARDADO CERO BLOQUEOS =================
-    function guardarDatos(modulo) {
-      let conf = modulosBizIds[modulo];
-      let dbKey = getDbKey(modulo);
-      let bd = JSON.parse(localStorage.getItem(dbKey)) || [];
-      let reg = {};
-
-      for (let i = 0; i < conf.ids.length; i++) {
-        let el = document.getElementById(conf.ids[i]);
-        if(!el) continue;
-        
-        let val = el.value;
-        let cleanVal = val;
-        
-        if(['ven_monto', 'ven_ganancia', 'ven_costo', 'inv_costo', 'inv_precio', 'fin_valor'].includes(conf.ids[i])) {
-            cleanVal = getRawNumber(val).toString();
-        }
-        
-        reg[conf.tags[i]] = cleanVal || (conf.ids[i]==='ven_cant' ? "1" : "");
-      }
-
-      if (modoEdicion && modoEdicion.modulo === modulo) {
-        reg.fecha = modoEdicion.fecha; reg.rawDate = modoEdicion.rawDate;
-        bd[modoEdicion.index] = reg; modoEdicion = null;
-        let btn = document.getElementById('btn-guardar-venta') || document.querySelector(`#mod-${modulo} .btn-mac.primary`);
-        if(btn) { btn.innerHTML = 'Guardar Registro'; }
-      } else {
-        let d = new Date();
-        reg.fecha = d.toLocaleDateString('es-ES', {day:'2-digit', month:'short', year:'numeric'}).replace('.','');
-        reg.rawDate = d.getTime();
-        bd.unshift(reg);
+      if (isAgotado) {
+          overlayHtml = `
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.65); z-index:5; border-radius:16px;">
+                <i class="fa-solid fa-xmark" style="font-size:70px; color:var(--accent);"></i>
+            </div>`;
+          badgeHtml = `
+            <div style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--accent); color:white; padding:4px 10px; font-size:10px; font-weight:800; border-radius:12px; z-index:10; white-space:nowrap; box-shadow:var(--shadow-sm);">LLEGA EN 4 DÍAS</div>`;
       }
       
-      safeSetItem(dbKey, JSON.stringify(bd));
-      
-      conf.ids.forEach(id => { 
-        let el = document.getElementById(id);
-        if(!el) return;
-        if(el.tagName !== 'SELECT') { if(id === 'ven_cant') el.value = '1'; else el.value = ''; } 
-        else el.selectedIndex = 0; 
-      });
-      
-      if(modulo === 'crm' || modulo === 'inventario') cargarSelectsBiz();
-      
-      renderTableBiz(modulo); 
-      mostrarToast("Guardado Exitosamente.");
-      actualizarDashboard();
-    }
+      return `
+      <div class="prod-card reveal" style="position:relative;">
+        ${badgeHtml}
+        <div class="prod-img" style="position:relative;">
+          ${overlayHtml}
+          <img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy">
+        </div>
+        <h4 class="prod-title">${esc(p.nombre)}</h4>
+        <div class="prod-prices">
+           <span class="price-main" style="color: ${colorEstado}; font-size: 15px; font-weight: 700;">${esc(p.estado)}</span>
+        </div>
+        <button class="${btnCls}" ${btnAction} style="font-size:11px;">${btnTxt}</button>
+      </div>
+    `}).join('');
+    setTimeout(() => observeElements(), 50);
+  }
 
-    function editarRegistroBiz(modulo, index) {
-      let dbKey = getDbKey(modulo);
-      let bd = JSON.parse(localStorage.getItem(dbKey)) || [];
-      let reg = bd[index];
-      let conf = modulosBizIds[modulo];
-      if(modulo === 'ventas') cargarSelectsBiz();
-      
-      for(let i = 0; i < conf.ids.length; i++) {
-         let el = document.getElementById(conf.ids[i]);
-         if(el) {
-             let val = reg[conf.tags[i]] || (conf.ids[i]==='ven_cant'?'1':'');
-             if(['ven_monto', 'ven_ganancia', 'ven_costo', 'inv_costo', 'inv_precio', 'fin_valor'].includes(conf.ids[i])) {
-                 let num = getRawNumber(val);
-                 el.value = num === 0 ? '' : num.toLocaleString('es-CO');
-             } else {
-                 el.value = val;
-             }
-         }
-      }
-      modoEdicion = { modulo: modulo, index: index, rawDate: reg.rawDate, fecha: reg.fecha };
-      let btn = document.getElementById('btn-guardar-venta') || document.querySelector(`#mod-${modulo} .btn-mac.primary`);
-      if(btn) { btn.innerHTML = `<i class="fa-solid fa-pen"></i> Actualizar Cambios`; }
-    }
+  function pedirInmediata(nombre) {
+    openWhatsApp(`Hola, ¿qué precio tiene este perfume para entrega inmediata?\n- ${nombre}`);
+  }
 
-    function eliminarRegistroBiz(modulo, index) {
-      if(confirm('¿Borrar registro? Esta acción no se puede deshacer.')) {
-        let dbKey = getDbKey(modulo);
-        let bd = JSON.parse(localStorage.getItem(dbKey)) || [];
-        bd.splice(index, 1);
-        safeSetItem(dbKey, JSON.stringify(bd));
-        if(modulo === 'crm' || modulo === 'inventario') cargarSelectsBiz();
-        renderTableBiz(modulo); mostrarToast('Registro Eliminado.');
-        actualizarDashboard();
-      }
-    }
+  let currentSearchTerm = "";
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    currentSearchTerm = e.target.value.toLowerCase().trim();
+    const mainContent = document.getElementById('mainContent');
+    const emptyState = document.getElementById('emptyState');
+    if(!currentSearchTerm) { mainContent.style.display = 'block'; emptyState.style.display = 'none'; renderCatalog(catTop); return; }
+    const filtrados = catNacional.filter(p => p.nombre.toLowerCase().includes(currentSearchTerm));
+    if(filtrados.length === 0) { mainContent.style.display = 'none'; emptyState.style.display = 'block'; } 
+    else { mainContent.style.display = 'block'; emptyState.style.display = 'none'; renderCatalog(filtrados); }
+  });
 
-    /* RENDER TABLAS NEGOCIO */
-    function renderTableBiz(modulo) {
-      const tbody = document.getElementById('tabla-' + modulo);
-      if (!tbody) return;
-      let dbKey = getDbKey(modulo);
-      let datos = JSON.parse(localStorage.getItem(dbKey)) || [];
-      let crmData = JSON.parse(localStorage.getItem(getDbKey('crm'))) || []; 
-      let ventasH = JSON.parse(localStorage.getItem(getDbKey('ventas'))) || []; 
-      tbody.innerHTML = '';
-      
-      if (datos.length === 0) { tbody.innerHTML = `<tr><td colspan="7" class="empty-state">No hay registros aún en ${currentBusiness}.</td></tr>`; return; }
-      
-      let comprasPorCliente = {};
-      ventasH.forEach(v => { comprasPorCliente[v.Cliente] = (comprasPorCliente[v.Cliente] || 0) + 1; });
+  document.getElementById('searchInmediataInput').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase().trim();
+    if(!term) { renderInmediata(catInmediata); return; }
+    const filtrados = catInmediata.filter(p => p.nombre.toLowerCase().includes(term));
+    renderInmediata(filtrados);
+  });
 
-      datos.forEach((reg, index) => {
-        let tr = document.createElement('tr');
-        if (modulo === 'ventas') {
-          let pVenta = getRawNumber(reg.PrecioVenta || reg.MontoBase);
-          let pDesc = getRawNumber(reg.Descuento);
-          let final = pVenta - (pVenta * (pDesc/100));
+  function askAvailability() { openWhatsApp(`Hola, no encontré esta fragancia en la página:\n- ${currentSearchTerm}\n\n¿Me ayudas a conseguirla por favor?`); }
+
+  const URL_S1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
+
+  function fetchSorteos() {
+    Promise.all([
+      fetch(URL_S1 + '&t=' + new Date().getTime()).then(r => r.text())
+    ]).then(results => {
+      let dynamicsArray = [];
+      dynamicsDataArray = []; 
+      
+      results.forEach(csv => {
+        var rows = parseCSV(csv).slice(1);
+        if (rows.length > 0 && rows[0].length >= 7) {
+          let title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
+          const desc = rows[0][4] ? rows[0][4].trim() : '';
+          const lottery = rows[0][5] ? rows[0][5].trim() : ''; 
+          const price = rows[0][6] ? rows[0][6].trim() : '';
           
-          let costoViejo = getRawNumber(reg.Costo);
-          let ganancia = getRawNumber(reg.Ganancia);
-          if (ganancia === 0 && costoViejo > 0) ganancia = pVenta - costoViejo;
-          
-          let prodInfo = reg.Producto ? `<span style="font-size:0.85rem; color:var(--mac-text-muted); display:block; margin-top:2px;">${reg.Cantidad}x ${reg.Producto}</span>` : '';
-          
-          html = `
-            <td>${reg.fecha}</td>
-            <td><strong>${reg.Cliente || 'General'}</strong>${prodInfo}</td>
-            <td>$${final.toLocaleString('es-CO')}</td>
-            <td><strong style="color:var(--accent-brand);">$${ganancia.toLocaleString('es-CO')}</strong></td>
-            <td><span class="badge">${reg.Status}</span></td>
-          `;
-        } 
-        else if (modulo === 'inventario') {
-          let cU = getRawNumber(reg.CostoUnitario); 
-          let pS = getRawNumber(reg.PrecioSugerido);
-          let q = getRawNumber(reg.Cantidad);
-          html = `
-            <td>${reg.fecha}</td>
-            <td><span class="badge">${reg.Operación || 'Ingreso (+)'}</span></td>
-            <td><strong>${reg.Producto}</strong></td>
-            <td>${q}</td>
-            <td>$${cU.toLocaleString('es-CO')}</td>
-            <td><strong style="color:var(--accent-brand);">$${pS.toLocaleString('es-CO')}</strong></td>
-          `;
-        }
-        else if (modulo === 'crm') {
-           let times = comprasPorCliente[reg.Nombre] || 0;
-           let ltv = ventasH.filter(v => v.Cliente.trim() === reg.Nombre.trim() && v.Status !== 'Cotización (Pre-venta)').reduce((sum, v) => {
-               let b = getRawNumber(v.PrecioVenta || v.MontoBase);
-               return sum + b;
-           }, 0);
-           html = `
-            <td><strong>${reg.Nombre}</strong></td>
-            <td>${reg.Ciudad || '-'}</td>
-            <td>${reg.WhatsApp || '-'}</td>
-            <td><span class="badge">${times} Compras</span></td>
-            <td><strong style="color:var(--accent-brand);">$${ltv.toLocaleString('es-CO')}</strong></td>
-           `;
-        }
-        else if (modulo === 'finanzas') {
-           let monto = getRawNumber(reg.Monto);
-           html = `
-            <td>${reg.fecha}</td>
-            <td><span class="badge">${reg.Naturaleza}</span></td>
-            <td><strong>${reg.Concepto}</strong><br><span style="font-size:0.85rem; color:var(--mac-text-muted);">${reg.Detalle||''}</span></td>
-            <td><strong style="color:var(--accent-brand);">$${monto.toLocaleString('es-CO')}</strong></td>
-           `;
-        }
-        
-        let botonesAccion = `<td style="white-space:nowrap; width:1%;"><div class="action-icons-container">`;
-        if(modulo === 'ventas' && reg.Status === 'Pendiente' && reg.Cliente) {
-          let cliPhone = crmData.find(c => c.Nombre === reg.Cliente)?.WhatsApp;
-          if(cliPhone) {
-            let pVenta = getRawNumber(reg.PrecioVenta || reg.MontoBase);
-            let msg = encodeURIComponent(`Hola ${reg.Cliente}! Te escribo para confirmar tu compra por $${pVenta.toLocaleString('es-CO')}. ¿Cómo vas a realizar el pago?`);
-            botonesAccion += `<a href="https://wa.me/${cliPhone.replace(/\D/g,'')}?text=${msg}" target="_blank" class="btn-action-sm"><i class="fa-brands fa-whatsapp"></i></a>`;
+          if(title === '') return; 
+
+          let pData = rows.map(cols => {
+            if(!cols || cols.length < 2) return null;
+            
+            let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : (cols[1] ? cols[1].trim() : '');
+            if(idPuesto === '') return null;
+            
+            let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
+              let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
+            }).filter(n => n !== '');
+            
+            let st = (cols[2] || '').toUpperCase();
+            let estado = 'libre';
+            if(st.includes('PEN')) estado = 'pendiente';
+            else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
+            
+            return { id: idPuesto, numeros: arr, estado: estado };
+          }).filter(Boolean);
+
+          let isSoldOut = false;
+          if (pData.length > 0) {
+              isSoldOut = pData.every(p => p.estado === 'ocupado');
           }
-        }
-        botonesAccion += `<button class="btn-action-sm" onclick="editarRegistroBiz('${modulo}', ${index})"><i class="fa-solid fa-pen"></i></button><button class="btn-action-sm delete" style="color:var(--accent-brand);" onclick="eliminarRegistroBiz('${modulo}', ${index})"><i class="fa-solid fa-trash"></i></button>`;
-        botonesAccion += `</div></td>`;
-        html += botonesAccion;
-        
-        tr.innerHTML = html; tbody.appendChild(tr);
-      });
-    }
-
-    /* ESPACIO PERSONAL (LIFE OS) */
-    function guardarNotion() {
-      let title = document.getElementById('notion_title').value;
-      let content = document.getElementById('notion_content').value;
-      if(!title) { alert('Debes agregar al menos un título.'); return; }
-      
-      let db = JSON.parse(localStorage.getItem('erp_global_notion')) || [];
-      let d = new Date();
-      let fDate = d.toLocaleDateString('es-ES', {day:'2-digit', month:'short', year:'numeric'}).replace('.','');
-      
-      if(modoEdicion && modoEdicion.modulo === 'notion') {
-          db[modoEdicion.index] = {title, content, date: modoEdicion.date};
-          modoEdicion = null;
-      } else {
-          db.unshift({title, content, date: fDate});
-      }
-      
-      safeSetItem('erp_global_notion', JSON.stringify(db));
-      document.getElementById('notion_title').value = '';
-      document.getElementById('notion_content').value = '';
-      renderNotion();
-      mostrarToast("Página guardada con éxito.");
-    }
-    
-    function renderNotion() {
-      let db = JSON.parse(localStorage.getItem('erp_global_notion')) || [];
-      let list = document.getElementById('notion-pages-list');
-      if(!list) return;
-      list.innerHTML = '';
-      if(db.length === 0) { list.innerHTML = `<div class="empty-state">No tienes notas aún. Escribe a la izquierda para comenzar.</div>`; return; }
-      db.forEach((p, i) => {
-         list.innerHTML += `<div class="list-item" style="cursor:pointer; background:var(--glass-input); padding:20px; border-radius:16px; border:1px solid var(--glass-border); margin-bottom:12px;" onclick="editarNotion(${i})">
-            <div class="l-info"><span class="l-title"><i class="fa-regular fa-file-lines" style="color:var(--accent-brand);"></i> ${p.title}</span><span class="l-sub">Última edición: ${p.date}</span></div>
-            <button class="btn-action-sm delete" style="color:var(--accent-brand);" onclick="event.stopPropagation(); eliminarNotion(${i})"><i class="fa-solid fa-trash"></i></button>
-         </div>`;
-      });
-    }
-    
-    function editarNotion(i) {
-      let db = JSON.parse(localStorage.getItem('erp_global_notion')) || [];
-      document.getElementById('notion_title').value = db[i].title;
-      document.getElementById('notion_content').value = db[i].content;
-      modoEdicion = {modulo: 'notion', index: i, date: db[i].date};
-      mostrarToast('Modo edición activado.');
-    }
-    
-    function eliminarNotion(i) {
-      if(confirm('¿Borrar esta nota permanentemente?')) {
-          let db = JSON.parse(localStorage.getItem('erp_global_notion')) || [];
-          db.splice(i, 1);
-          safeSetItem('erp_global_notion', JSON.stringify(db));
-          renderNotion();
-      }
-    }
-
-    /* METAS Y LOGROS */
-    function guardarMeta() {
-        let desc = document.getElementById('meta_desc').value;
-        let tipo = document.getElementById('meta_tipo').value;
-        if(!desc) return; 
-        
-        let db = JSON.parse(localStorage.getItem('erp_global_metas')) || [];
-        let fecha = new Date().toLocaleDateString('es-ES', {day:'2-digit', month:'short', year:'numeric'}).replace('.','');
-        db.unshift({desc, tipo, fecha});
-        safeSetItem('erp_global_metas', JSON.stringify(db));
-        
-        document.getElementById('meta_desc').value = '';
-        renderMetas();
-        mostrarToast("Registro completado.");
-    }
-    
-    function renderMetas() {
-        let db = JSON.parse(localStorage.getItem('erp_global_metas')) || [];
-        let tbody = document.getElementById('tabla-metas');
-        if(!tbody) return;
-        tbody.innerHTML = '';
-        if(db.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No hay metas registradas.</td></tr>`; return; }
-        db.forEach((m, i) => {
-            let badgeStyle = m.tipo.includes('Logro') ? 'background:var(--accent-brand); color:#FFF; border:none;' : '';
-            tbody.innerHTML += `<tr>
-                <td>${m.fecha}</td>
-                <td><strong>${m.desc}</strong></td>
-                <td><span class="badge" style="${badgeStyle}">${m.tipo}</span></td>
-                <td style="width:1%;"><button class="btn-action-sm delete" style="color:var(--accent-brand);" onclick="eliminarMeta(${i})"><i class="fa-solid fa-trash"></i></button></td>
-            </tr>`;
-        });
-    }
-    
-    function eliminarMeta(i) {
-        if(confirm('¿Eliminar registro?')) {
-            let db = JSON.parse(localStorage.getItem('erp_global_metas')) || [];
-            db.splice(i, 1);
-            safeSetItem('erp_global_metas', JSON.stringify(db));
-            renderMetas();
-        }
-    }
-
-    /* CHECKLIST DIARIO */
-    function guardarCheck() {
-        let desc = document.getElementById('chk_desc').value;
-        if(!desc) return;
-        let db = JSON.parse(localStorage.getItem('erp_global_checklist')) || [];
-        db.unshift({desc, done: false});
-        safeSetItem('erp_global_checklist', JSON.stringify(db));
-        document.getElementById('chk_desc').value = '';
-        renderCheck();
-    }
-    
-    function renderCheck() {
-        let db = JSON.parse(localStorage.getItem('erp_global_checklist')) || [];
-        let tbody = document.getElementById('tabla-check');
-        if(!tbody) return;
-        tbody.innerHTML = '';
-        if(db.length === 0) { tbody.innerHTML = `<tr><td colspan="3" class="empty-state">Lista limpia por hoy.</td></tr>`; return; }
-        db.forEach((c, i) => {
-            let icon = c.done ? '<i class="fa-solid fa-circle-check" style="color:var(--accent-brand); font-size:1.6rem;"></i>' : '<i class="fa-regular fa-circle" style="font-size:1.6rem; color:var(--mac-text-muted);"></i>';
-            let style = c.done ? 'text-decoration: line-through; color:var(--mac-text-muted); opacity: 0.6;' : 'font-weight:700; color:var(--mac-text);';
-            tbody.innerHTML += `<tr>
-                <td style="width:1%; cursor:pointer;" onclick="toggleCheck(${i})">${icon}</td>
-                <td style="${style} cursor:pointer; font-size:1.1rem; transition: 0.2s;" onclick="toggleCheck(${i})">${c.desc}</td>
-                <td style="width:1%;"><button class="btn-action-sm delete" style="color:var(--accent-brand);" onclick="eliminarCheck(${i})"><i class="fa-solid fa-trash"></i></button></td>
-            </tr>`;
-        });
-    }
-    
-    function toggleCheck(i) {
-        let db = JSON.parse(localStorage.getItem('erp_global_checklist')) || [];
-        db[i].done = !db[i].done;
-        safeSetItem('erp_global_checklist', JSON.stringify(db));
-        renderCheck();
-    }
-    
-    function eliminarCheck(i) {
-        let db = JSON.parse(localStorage.getItem('erp_global_checklist')) || [];
-        db.splice(i, 1);
-        safeSetItem('erp_global_checklist', JSON.stringify(db));
-        renderCheck();
-    }
-
-    /* MOTOR DE DATOS GLOBALES (TAREAS / CALENDARIO) */
-    function guardarDatoGlobal(modulo) {
-      let conf = modulosGlobalIds[modulo];
-      let dbKey = `erp_global_${modulo}`;
-      let bd = JSON.parse(localStorage.getItem(dbKey)) || [];
-      let reg = {};
-      for (let i = 0; i < conf.ids.length; i++) { 
-          let el = document.getElementById(conf.ids[i]);
-          reg[conf.tags[i]] = el ? el.value : ''; 
-      }
-      
-      let d = new Date();
-      reg.fecha = d.toLocaleDateString('es-ES', {day:'2-digit', month:'short', year:'numeric'}).replace('.','');
-      reg.rawDate = d.getTime();
-      bd.unshift(reg);
-      safeSetItem(dbKey, JSON.stringify(bd));
-      
-      conf.ids.forEach(id => { let el = document.getElementById(id); if(el.tagName!=='SELECT') el.value = ''; else el.selectedIndex=0; });
-      renderGlobalTables(); mostrarToast("Guardado Exitosamente.");
-      actualizarDashboard();
-    }
-    
-    function eliminarGlobal(modulo, index) {
-      if(confirm('¿Borrar registro?')) {
-        let dbKey = `erp_global_${modulo}`;
-        let bd = JSON.parse(localStorage.getItem(dbKey)) || [];
-        bd.splice(index, 1); safeSetItem(dbKey, JSON.stringify(bd));
-        renderGlobalTables();
-        actualizarDashboard();
-      }
-    }
-
-    function renderGlobalTables() {
-      ['tareas', 'calendario'].forEach(modulo => {
-        const tbody = document.getElementById('tabla-' + modulo);
-        if(!tbody) return;
-        let datos = JSON.parse(localStorage.getItem(`erp_global_${modulo}`)) || [];
-        tbody.innerHTML = '';
-        if (datos.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No hay registros aquí.</td></tr>`; return; }
-        datos.forEach((reg, index) => {
-          let tr = document.createElement('tr');
-          html = `<td>${reg.fecha}</td>`;
-          for (const [clave, valor] of Object.entries(reg)) {
-            if (clave !== 'fecha' && clave !== 'rawDate') html += `<td><strong>${valor}</strong></td>`;
-          }
-          html += `<td style="white-space:nowrap; width:1%;"><div class="action-icons-container"><button class="btn-action-sm delete" style="color:var(--accent-brand);" onclick="eliminarGlobal('${modulo}', ${index})"><i class="fa-solid fa-trash"></i></button></div></td>`;
-          tr.innerHTML = html; tbody.appendChild(tr);
-        });
-      });
-    }
-
-    /* MINI CALENDARIO EN DASHBOARD */
-    function renderizarCalendarioMini() {
-        const calContainer = document.getElementById('calendario-mes');
-        if(!calContainer) return;
-        
-        let hoy = new Date();
-        let mesActual = hoy.getMonth(); let anioActual = hoy.getFullYear();
-        let primerDia = new Date(anioActual, mesActual, 1).getDay();
-        let diasMes = new Date(anioActual, mesActual + 1, 0).getDate();
-        let inicio = primerDia === 0 ? 6 : primerDia - 1; 
-        
-        let html = `<div class="cal-grid">`;
-        const dias = ['L','M','X','J','V','S','D'];
-        dias.forEach(d => html += `<div class="cal-day-name">${d}</div>`);
-        
-        let eventos = JSON.parse(localStorage.getItem('erp_global_calendario')) || [];
-        let diasConEvento = eventos.map(e => new Date(e.Programación).getDate());
-
-        for(let i=0; i<inicio; i++) html += `<div></div>`;
-        for(let i=1; i<=diasMes; i++) {
-            let cls = 'cal-day';
-            if(i === hoy.getDate()) cls += ' today';
-            else if (diasConEvento.includes(i)) cls += ' event';
-            html += `<div class="${cls}">${i}</div>`;
-        }
-        html += `</div>`;
-        calContainer.innerHTML = html;
-    }
-
-    /* DASHBOARD PRINCIPAL */
-    function actualizarDashboard() {
-      renderizarCalendarioMini();
-
-      let vPerf = JSON.parse(localStorage.getItem('erp_biz_perfumes_ventas')) || [];
-      let vOro = JSON.parse(localStorage.getItem('erp_biz_oro_ventas')) || [];
-      let fPerf = JSON.parse(localStorage.getItem('erp_biz_perfumes_finanzas')) || [];
-      let fOro = JSON.parse(localStorage.getItem('erp_biz_oro_finanzas')) || [];
-      let invPerf = JSON.parse(localStorage.getItem('erp_biz_perfumes_inventario')) || [];
-      let invOro = JSON.parse(localStorage.getItem('erp_biz_oro_inventario')) || [];
-
-      let tareas = JSON.parse(localStorage.getItem('erp_global_tareas')) || [];
-      let cal = JSON.parse(localStorage.getItem('erp_global_calendario')) || [];
-
-      let hoy = new Date(); 
-
-      let ventasTotales = 0; let ventasHoy = 0; let gananciaHoy = 0; let cxc = 0;
-
-      let todasVentas = [...vPerf, ...vOro];
-      let todasFinanzas = [...fPerf, ...fOro];
-      let todoInv = [...invPerf, ...invOro];
-
-      todasVentas.forEach(v => {
-          let pVenta = getRawNumber(v.PrecioVenta || v.MontoBase);
-          let pDesc = getRawNumber(v.Descuento);
-          let final = pVenta - (pVenta * (pDesc/100));
-          let costoViejo = getRawNumber(v.Costo);
-          let pGanancia = getRawNumber(v.Ganancia);
-          if (pGanancia === 0 && costoViejo > 0) pGanancia = pVenta - costoViejo;
-
-          if(v.Status !== 'Cotización (Pre-venta)') {
-              ventasTotales += final;
+          const isActive = !isSoldOut;
+          
+          let isGratis = false;
+          if (price) {
+              let p = String(price).toLowerCase();
+              if(p.includes('gratis') || p === '$0' || p === '0') isGratis = true;
           }
           
-          let vDate = new Date(v.rawDate);
-          if(vDate.getDate() === hoy.getDate() && vDate.getMonth() === hoy.getMonth() && vDate.getFullYear() === hoy.getFullYear() && v.Status !== 'Cotización (Pre-venta)') {
-              ventasHoy += final;
-              gananciaHoy += pGanancia;
+          if (isGratis) {
+              const now = new Date();
+              if (now.getHours() === 23 && now.getMinutes() >= 55) {
+                  return; 
+              }
+              title += " (¡JUEGA HOY!)";
           }
-
-          if(v.Status === 'Pendiente') cxc += final;
+          
+          dynamicsArray.push({ title, desc, lottery, price, pData, isActive });
+        }
       });
 
-      if(document.getElementById('dash-kpi-mes')) document.getElementById('dash-kpi-mes').innerText = `$${ventasTotales.toLocaleString('es-CO')}`;
-      if(document.getElementById('dash-kpi-cxc')) document.getElementById('dash-kpi-cxc').innerText = `$${cxc.toLocaleString('es-CO')}`;
-
-      if(document.getElementById('caja-ventas')) {
-          document.getElementById('caja-ventas').innerText = `$${ventasHoy.toLocaleString('es-CO')}`;
-          document.getElementById('caja-ganancia').innerText = `$${gananciaHoy.toLocaleString('es-CO')}`;
-          let costoReposicion = ventasHoy - gananciaHoy;
-          document.getElementById('caja-costos').innerText = `$${costoReposicion.toLocaleString('es-CO')}`;
-          
-          let cuotaSupervivencia = 0;
-          if(gananciaHoy >= META_DIARIA) cuotaSupervivencia = META_DIARIA;
-          else cuotaSupervivencia = gananciaHoy; 
-          
-          document.getElementById('caja-meta-diaria').innerText = `$${cuotaSupervivencia.toLocaleString('es-CO')}`;
-      }
-
-      // RADAR DEL DÍA
-      let radarHTML = "";
+      const listContainer = document.getElementById('sorteosList');
+      listContainer.innerHTML = "";
       
-      let pends = todasVentas.filter(v => v.Status === 'Pendiente');
-      pends.forEach(v => {
-          let p = getRawNumber(v.PrecioVenta || v.MontoBase);
-          let nCliente = v.Cliente || 'Cliente General';
-          radarHTML += `<div class="list-item"><div class="l-info"><span class="l-title">Enviar a ${nCliente}</span><span class="l-sub">Cobrar: $${p.toLocaleString('es-CO')}</span></div><span class="badge">Pendiente</span></div>`;
-      });
-      let urgentes = tareas.filter(t => t.Prioridad === 'Alta (Urgente)');
-      urgentes.forEach(t => {
-          radarHTML += `<div class="list-item"><div class="l-info"><span class="l-title">${t.Objetivo}</span></div><span class="badge" style="color:var(--accent-brand); border-color:var(--accent-brand);">Urgente</span></div>`;
-      });
-      cal.forEach(c => {
-          let fDate = new Date(c.Programación).toLocaleDateString('es-ES', {month:'short', day:'numeric'});
-          radarHTML += `<div class="list-item"><div class="l-info"><span class="l-title">${c.Evento}</span><span class="l-sub">${fDate}</span></div><span class="badge">${c.Etiqueta}</span></div>`;
-      });
+      dynamicsArray.forEach((d, index) => {
+        dynamicsDataArray.push(d); 
+        
+        let cardStyle = !d.isActive ? 'opacity: 0.6;' : '';
+        let tagStyle = !d.isActive ? 'background: var(--bg-solid); color: var(--text-muted); border: 1px solid var(--border-color);' : 'background: var(--accent); color: var(--accent-text); box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);';
+        let tagText = !d.isActive ? 'FINALIZADA' : 'ACTIVA';
 
-      if(radarHTML === "") radarHTML = `<div class="empty-state">Todo al día. No hay pendientes urgentes.</div>`;
-      if(document.getElementById('dash-radar-dia')) document.getElementById('dash-radar-dia').innerHTML = radarHTML;
-
-      // DEUDAS Y GASTOS (RESUMEN)
-      let resumenHTML = "";
-      for (const [key, deudaInicial] of Object.entries(deudasIniciales)) {
-          let abonado = todasFinanzas.filter(f => f.Concepto === key).reduce((s,f) => s + getRawNumber(f.Monto), 0);
-          let saldo = deudaInicial - abonado;
-          if(saldo > 0) {
-            let p = Math.min((abonado/deudaInicial)*100, 100).toFixed(0);
-            resumenHTML += `<div class="list-item"><div class="l-info"><span class="l-title">${key.replace('Deuda - ','')}</span><span class="l-sub">Resta: $${saldo.toLocaleString('es-CO')}</span></div><span class="badge" style="background:var(--accent-brand); color:white; border:none;">${p}%</span></div>`;
-          }
-      }
-      for (const [key, metaGasto] of Object.entries(gastosFijosMes)) {
-          let gastado = todasFinanzas.filter(f => {
-              let fDate = new Date(f.rawDate);
-              return f.Concepto === key && (fDate.getMonth() === hoy.getMonth());
-          }).reduce((s,f) => s + getRawNumber(f.Monto), 0);
-          
-          let p = Math.min((gastado/metaGasto)*100, 100).toFixed(0);
-          resumenHTML += `<div class="list-item"><div class="l-info"><span class="l-title">${key.replace('Gasto - ','')}</span><span class="l-sub">$${gastado.toLocaleString('es-CO')} / $${metaGasto.toLocaleString('es-CO')}</span></div><span class="badge">${p}%</span></div>`;
-      }
-      if(document.getElementById('dash-deudas-gastos-resumen')) document.getElementById('dash-deudas-gastos-resumen').innerHTML = resumenHTML;
-
-      // BODEGA
-      let stockCosto = 0; let stockVenta = 0;
-      let stockDict = {};
-      todoInv.forEach(i => {
-         let pName = i.Producto.trim();
-         if(!stockDict[pName]) stockDict[pName] = {qty: 0, cost: getRawNumber(i.CostoUnitario), sell: getRawNumber(i.PrecioSugerido)};
-         
-         if(i.Operación === 'Ingreso (+)' || !i.Operación) { 
-             stockDict[pName].qty += getRawNumber(i.Cantidad); 
-         } else { 
-             stockDict[pName].qty -= getRawNumber(i.Cantidad); 
-         }
-      });
-      todasVentas.forEach(v => {
-         let pName = (v.Producto || "").trim();
-         if(stockDict[pName]) stockDict[pName].qty -= getRawNumber(v.Cantidad || 1);
-      });
-      Object.keys(stockDict).forEach(k => {
-         if(stockDict[k].qty > 0) {
-             stockCosto += (stockDict[k].qty * stockDict[k].cost);
-             stockVenta += (stockDict[k].qty * stockDict[k].sell);
-         }
-      });
-      if(document.getElementById('dash-kpi-bodega')) document.getElementById('dash-kpi-bodega').innerText = `$${stockCosto.toLocaleString('es-CO')}`;
-      if(document.getElementById('dash-kpi-potencial')) document.getElementById('dash-kpi-potencial').innerText = `$${stockVenta.toLocaleString('es-CO')}`;
-
-      let metaMes = 30000000;
-      let pMeta = Math.min((ventasTotales / metaMes) * 100, 100).toFixed(0);
-      if(document.getElementById('kpi-progreso-meta')) document.getElementById('kpi-progreso-meta').innerText = `${pMeta}%`;
-    }
-
-    function exportarExcel() {
-      if (!document.getElementById('view-negocios').classList.contains('active')) { alert("Ve a Negocios y elige un módulo para exportar."); return; }
-      let bd = JSON.parse(localStorage.getItem(getDbKey(activeSubMod))) || [];
-      if (bd.length === 0) return alert("No hay datos.");
-      let keys = Object.keys(bd[0]).filter(k => k !== 'rawDate');
-      let csvContent = "data:text/csv;charset=utf-8," + keys.join(",") + "\n";
-      bd.forEach(row => {
-        let rowData = keys.map(k => { let val = row[k] ? row[k].toString() : ''; return `"${val.replace(/"/g, '""')}"`; });
-        csvContent += rowData.join(",") + "\n";
-      });
-      let link = document.createElement("a"); link.setAttribute("href", encodeURI(csvContent));
-      link.setAttribute("download", `Reporte_${currentBusiness}_${activeSubMod}_${new Date().toLocaleDateString().replace(/\//g,'-')}.csv`);
-      document.body.appendChild(link); link.click(); document.body.removeChild(link);
-    }
-    
-    function descargarRespaldo() {
-      descargarRespaldoForce();
-    }
-    
-    function importarRespaldo(event) {
-      let file = event.target.files[0]; if(!file) return;
-      let reader = new FileReader();
-      reader.onload = function(e) {
-        try { 
-            let data = JSON.parse(e.target.result); 
-            Object.keys(data).forEach(key => { 
-                let valToSave = typeof data[key] === 'string' ? data[key] : JSON.stringify(data[key]);
-                safeSetItem(key, valToSave); 
-            }); 
-            alert('¡Datos Restaurados con Éxito!'); 
-            location.reload(); 
-        } catch(err) { alert('Archivo inválido.'); }
-      }; reader.readAsText(file);
-    }
-
-    function generarReporteMes() {
-      let vPerf = JSON.parse(localStorage.getItem('erp_biz_perfumes_ventas')) || [];
-      let vOro = JSON.parse(localStorage.getItem('erp_biz_oro_ventas')) || [];
-      let fPerf = JSON.parse(localStorage.getItem('erp_biz_perfumes_finanzas')) || [];
-      let fOro = JSON.parse(localStorage.getItem('erp_biz_oro_finanzas')) || [];
-      let invPerf = JSON.parse(localStorage.getItem('erp_biz_perfumes_inventario')) || [];
-      let invOro = JSON.parse(localStorage.getItem('erp_biz_oro_inventario')) || [];
-
-      let hoy = new Date(); let m = hoy.getMonth(); let y = hoy.getFullYear();
-      let ventasMes = 0; let cxc = 0;
-
-      [...vPerf, ...vOro].forEach(v => {
-          if(v.Status !== 'Cotización (Pre-venta)') {
-              let b = getRawNumber(v.PrecioVenta || v.MontoBase);
-              let d = getRawNumber(v.Descuento);
-              let final = b - (b * (d/100));
-              
-              let vD = new Date(v.rawDate);
-              if(vD.getMonth()===m && vD.getFullYear()===y) ventasMes += final;
-              if(v.Status === 'Pendiente') cxc += final;
-          }
-      });
-
-      let abonos = [...fPerf, ...fOro].filter(f => f.Naturaleza === 'Liquidación de Deudas').reduce((s, f) => s + getRawNumber(f.Monto), 0);
-      let deudaActual = Object.values(deudasIniciales).reduce((a,b)=>a+b, 0) - abonos;
-
-      let stockCosto = 0; let stockDict = {};
-      [...invPerf, ...invOro].forEach(i => {
-         let pName = i.Producto.trim();
-         if(!stockDict[pName]) stockDict[pName] = {qty: 0, cost: getRawNumber(i.CostoUnitario)};
-         if(i.Operación === 'Ingreso (+)' || !i.Operación) stockDict[pName].qty += getRawNumber(i.Cantidad); else stockDict[pName].qty -= getRawNumber(i.Cantidad);
-      });
-      [...vPerf, ...vOro].forEach(v => { if(v.Producto && v.Status !== 'Cotización (Pre-venta)') { let pName = v.Producto.trim(); if(stockDict[pName]) stockDict[pName].qty -= getRawNumber(v.Cantidad || 1); } });
-      Object.keys(stockDict).forEach(k => { if(stockDict[k].qty > 0) stockCosto += (stockDict[k].qty * stockDict[k].cost); });
-
-      let mes = new Date().toLocaleString('es-ES', { month: 'long', year: 'numeric' });
-      let ventana = window.open('', '_blank');
-      if(!ventana) { alert("Tu navegador bloqueó el reporte. Permite las ventanas emergentes (Pop-ups)."); return; }
-      ventana.document.write(`
-        <html><head><title>Reporte ${mes}</title><style>
-          body { font-family: -apple-system, sans-serif; padding: 40px; color: #111827; max-width:800px; margin:0 auto; background: #F3F4F6;}
-          h1 { text-align: center; text-transform: uppercase; border-bottom: 2px solid #E5E7EB; padding-bottom: 20px; font-weight:800; letter-spacing:-1px;}
-          .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
-          .card { padding: 25px; border: 1px solid #E5E7EB; border-radius: 20px; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-          .title { font-size: 11px; color: #6B7280; text-transform: uppercase; font-weight: 800; letter-spacing:0.8px;}
-          .value { font-size: 32px; font-weight: 800; margin-top: 8px; letter-spacing:-1px; color: #FF6600;}
-          .advice { background: #FFFFFF; border: 1px solid #E5E7EB; padding: 30px; border-radius: 20px; margin-top: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-          .advice h2 { margin-top:0; font-size: 16px; color:#111; text-transform:uppercase; letter-spacing: 0.5px;}
-          .advice-list { margin-top: 15px; font-size: 14px; line-height: 1.6; color:#4B5563; }
-          .advice-list strong { color: #111827; }
-        </style></head><body>
-          <h1>Cierre de Mes | ${mes}</h1>
-          <div class="grid">
-            <div class="card"><div class="title">Ingresos Brutos (Mes)</div><div class="value">$${ventasMes.toLocaleString('es-CO')}</div></div>
-            <div class="card"><div class="title">Cuentas por Cobrar</div><div class="value">$${cxc.toLocaleString('es-CO')}</div></div>
-            <div class="card"><div class="title">Deuda Activa Restante</div><div class="value">$${deudaActual.toLocaleString('es-CO')}</div></div>
-            <div class="card"><div class="title">Costo Bodega Inmovilizado</div><div class="value">$${stockCosto.toLocaleString('es-CO')}</div></div>
-          </div>
-          <div class="advice">
-            <h2>Recomendación de Gestión (Bolsillos Inteligentes)</h2>
-            <div class="advice-list">
-                <p><strong>1. Bolsillo Bodega:</strong> Asegúrate de tener guardado el 100% de la <em>Reposición de Inventario</em> que generaste este mes para volver a comprar stock sin descapitalizarte.</p>
-                <p><strong>2. Bolsillo Obligaciones:</strong> Transfiere la <em>Cuota de Supervivencia</em> (Gastos y Deudas) a Nequi o Bancolombia para realizar los pagos programados.</p>
-                <p><strong>3. Bolsillo Ganancia Libre:</strong> Lo que sobre después de cubrir los dos puntos anteriores, es tu ganancia neta real disponible para ahorro o inversión.</p>
+        listContainer.innerHTML += `
+          <div class="raffle-card reveal" style="${cardStyle}">
+            <div class="r-header">
+               <h3 class="r-title">${d.title}</h3>
+               <span class="r-tag" style="${tagStyle}">${tagText}</span>
             </div>
+            <p style="font-size:15px; margin-bottom:12px; color:var(--text-muted);">Premio: <b style="color:var(--text-main);">${d.desc || 'Próximamente'}</b></p>
+            ${d.price ? `<p style="font-size:18px; font-weight:800; color:var(--accent); margin-bottom:25px;">Valor: ${d.price}</p>` : '<div style="margin-bottom:25px;"></div>'}
+            <button class="btn-primary" style="width: 100%;" onclick="openSorteoView(${index})" ${!d.isActive ? 'disabled style="opacity:0.5; background:var(--border-color); color:var(--text-muted); box-shadow:none; cursor:not-allowed;"' : ''}>${!d.isActive ? 'Tablero Cerrado' : 'Ver Tablero'}</button>
           </div>
-        </body></html>
-      `);
-      ventana.document.close(); ventana.focus(); setTimeout(() => { ventana.print(); }, 400);
+        `;
+      });
+    });
+  }
+
+  function openSorteoView(index) {
+    const data = dynamicsDataArray[index];
+    currentBoardData = data.pData;
+    
+    let isGratis = false;
+    if (data.price) {
+        let p = String(data.price).toLowerCase();
+        if(p.includes('gratis') || p === '$0' || p === '0') isGratis = true;
     }
-  </script>
+    
+    let headerHtml = `
+        <h2 style="font-size: 26px; font-weight: 800; letter-spacing: -1px; color: var(--text-main); text-transform: uppercase;">${data.title}</h2>
+        ${data.desc ? `<p style="font-size:16px; color:var(--text-muted); font-weight:600; margin-top:10px;">Premio: <span style="color:var(--text-main);">${data.desc}</span></p>` : ''}
+    `;
+    
+    let infoHtml = `
+      <div class="reveal" style="border-radius: 20px; padding: 25px; text-align: center; margin: 25px 20px; background: var(--bg-card); border: 1px solid var(--border-color);">
+    `;
+    
+    if(data.lottery) {
+        infoHtml += `<p style="font-size:12px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing: 0.5px; margin-bottom: 15px;">JUEGA CON LOS 2 ÚLTIMOS NÚMEROS DE LA LOTERÍA: <br><b style="color:var(--text-main); font-size:15px; display:inline-block; margin-top:4px;">${data.lottery}</b></p>`;
+    }
+    
+    if(isGratis) {
+        infoHtml += `<div style="display:inline-block; font-size:22px; font-weight:800; color:var(--accent);">GRATIS</div>`;
+        document.getElementById('labelLibres').innerText = "NÚMEROS LIBRES";
+        document.getElementById('labelOcupados').innerText = "NÚMEROS OCUPADOS";
+        document.getElementById('labelPendientes').innerText = "NÚMEROS PENDIENTES";
+        document.getElementById('searchPuestoInput').placeholder = "Buscar un número...";
+    } else {
+        infoHtml += `<div style="display:inline-block; font-size:22px; font-weight:800; color:var(--accent);">Valor Puesto: ${data.price}</div>`;
+        infoHtml += `<p style="font-size:13px; color:var(--text-muted); margin-top: 15px; line-height: 1.4;">Por cada puesto tienes 3 posibilidades de ganar. Esos son los números con los que participas.</p>`;
+        document.getElementById('labelLibres').innerText = "NÚMEROS LIBRES";
+        document.getElementById('labelOcupados').innerText = "NÚMEROS OCUPADOS";
+        document.getElementById('labelPendientes').innerText = "NÚMEROS PENDIENTES";
+        document.getElementById('searchPuestoInput').placeholder = "Buscar un número...";
+    }
+    
+    infoHtml += `</div>`;
+    
+    if (!isGratis) {
+        infoHtml += `
+        <div class="reveal" style="margin: 0 20px 20px 20px; padding: 18px; background: var(--accent-light); border-radius: 16px; text-align: center;">
+          <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--accent);">¡Multiplica tus opciones de ganar!</h4>
+          <p style="font-size: 13px; color: var(--text-main); line-height: 1.5;">Cada puesto incluye <b>3 números diferentes</b>. Esto significa que con un solo puesto, ¡tienes 3 oportunidades reales de llevarte el premio!</p>
+        </div>`;
+    }
+    
+    document.getElementById('sorteoDetalleHeader').innerHTML = headerHtml + infoHtml;
+    document.getElementById('searchPuestoInput').value = '';
+    
+    renderBoardDetalle('', isGratis);
+    switchView('sorteoDetalle', 'Tablero Dinámica', null);
+  }
+
+  document.getElementById('searchPuestoInput').addEventListener('input', (e) => {
+    const isGratis = document.getElementById('searchPuestoInput').placeholder.includes('número');
+    renderBoardDetalle(e.target.value.trim(), isGratis);
+  });
+
+  function renderBoardDetalle(searchTerm, isGratis) {
+    const board = document.getElementById('boardGridDetalle');
+    
+    let libres = 0; let ocupados = 0; let pendientes = 0;
+
+    let tableroHtml = `<h3 class="reveal" style="margin: 30px 0 15px 0; font-size: 16px; font-weight: 800; text-align: center; text-transform: uppercase; letter-spacing: 1px;">Tablero General</h3>`;
+    tableroHtml += `<div class="board-grid reveal">`;
+    
+    // TABLERO EXACTO DE 30 NÚMEROS
+    for(let i = 1; i <= 30; i++) {
+        const num = i < 10 ? '0' + i : '' + i;
+        const p = currentBoardData.find(x => x.numeros.includes(num));
+        
+        let matchesSearch = true;
+        if (searchTerm) {
+            matchesSearch = num.includes(searchTerm) || (p && p.id.toLowerCase().includes(searchTerm.toLowerCase()));
+        }
+        let matchOpacity = matchesSearch ? '1' : '0.1';
+
+        if(p) {
+            if(p.estado === 'ocupado') {
+                ocupados++;
+                tableroHtml += `<div class="b-cell ocupado" style="opacity:${matchOpacity};">X<span style="display:block;">${num}</span></div>`;
+            } else if(p.estado === 'pendiente') {
+                pendientes++;
+                tableroHtml += `<div class="b-cell pendiente" style="opacity:${matchOpacity};" onclick="${isGratis ? `pedirNumero('${num}')` : `pedirNumero('${num}')`}">${num}</div>`;
+            } else {
+                libres++;
+                tableroHtml += `<div class="b-cell libre" style="opacity:${matchOpacity};" onclick="${isGratis ? `pedirNumero('${num}')` : `pedirNumero('${num}')`}">${num}</div>`;
+            }
+        } else {
+            libres++;
+            tableroHtml += `<div class="b-cell libre" style="opacity:${matchOpacity};" onclick="pedirNumero('${num}')">${num}</div>`;
+        }
+    }
+    tableroHtml += `</div>`;
+    
+    board.innerHTML = tableroHtml;
+    
+    document.getElementById('countLibres').innerText = libres;
+    document.getElementById('countOcupados').innerText = ocupados;
+    document.getElementById('countPendientes').innerText = pendientes;
+    
+    setTimeout(() => observeElements(), 50);
+  }
+  
+  function pedirNumero(num) {
+    openWhatsApp(`Hola, quiero este número: ${num}. ¿Está disponible?`);
+  }
+
+</script>
 </body>
 </html>
