@@ -16,7 +16,7 @@
   /* =========================================
      DISEÑO NATIVO TIPO APPLE / FREEFORM
      PALETA: BLANCO, NEGRO, NARANJA (#FF6600)
-     TIPOGRAFÍA: MONTSERRAT (Elegante y Nítida)
+     TIPOGRAFÍA: MONTSERRAT
   ========================================= */
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
@@ -132,7 +132,7 @@
       background: var(--text-main); color: #FFF; border-color: var(--text-main);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   }
-  
+
   /* ================= CONTENEDOR PRINCIPAL ================= */
   .main-content {
       padding-top: calc(var(--header-height) + 20px);
@@ -155,8 +155,8 @@
   }
 
   .section-header { margin-bottom: 20px; }
-  .section-title { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 5px;}
-  .section-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
+  .section-title { font-size: 24px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 5px;}
+  .section-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
 
   /* Buscador */
   .search-box {
@@ -165,7 +165,7 @@
       border: 1px solid var(--border); box-shadow: var(--shadow-sm);
   }
   .search-box i { color: var(--text-muted); font-size: 16px; margin-right: 12px; }
-  .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; font-weight: 600; font-family: inherit;}
+  .search-box input { border: none; background: transparent; width: 100%; font-size: 14px; outline: none; font-weight: 600; font-family: inherit;}
 
   /* ================= PÁGINA DE INICIO (MENÚ PRINCIPAL) ================= */
   .home-grid {
@@ -189,7 +189,7 @@
   .hc-title { font-size: 20px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.5px;}
   .hc-desc { font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.4; padding: 0 10px;}
   
-  .badge-new { position: absolute; top: 15px; right: 15px; background: var(--accent); color: #FFF; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px;}
+  .badge-new { position: absolute; top: 15px; right: 15px; background: var(--text-main); color: #FFF; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px;}
 
   /* ================= TARJETAS DE PRODUCTOS ================= */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
@@ -202,10 +202,9 @@
   .prod-img { width: 100%; aspect-ratio: 1; background: var(--bg-alt); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; position: relative;}
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; padding: 10px;}
   
-  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
-  .prod-price { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 12px;}
+  .prod-title { font-size: 12px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
+  .prod-price { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 12px;}
   
-  /* Botones del producto */
   .btn-action {
       width: 100%; padding: 10px; border-radius: 10px; border: none; font-family: inherit;
       font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
@@ -213,10 +212,6 @@
   }
   .btn-action:active { transform: scale(0.95); }
   
-  .btn-inmediata { background: var(--text-main); color: #FFF; }
-  .btn-catalogo { background: var(--text-main); color: #FFF; }
-  
-  /* Overlay Agotado */
   .overlay-soldout {
       position: absolute; inset: 0; background: rgba(255,255,255,0.8);
       display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2;
@@ -237,10 +232,10 @@
       background: var(--accent);
       color: #FFF;
       box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3);
-      margin-top: 10px;
-      margin-bottom: 25px;
+      margin-top: 25px;
       padding: 18px 20px;
       text-align: center;
+      line-height: 1.4;
   }
 
   .btn-cross-sell {
@@ -269,7 +264,7 @@
       box-shadow: var(--shadow-sm);
   }
   .puesto-box:active { transform: scale(0.92); }
-  .pb-id { font-size: 22px; font-weight: 900; color: var(--text-main); margin-bottom: 4px;}
+  .pb-id { font-size: 20px; font-weight: 900; color: var(--text-main); margin-bottom: 4px;}
   .pb-nums { font-size: 11px; font-weight: 700; color: var(--text-muted); min-height: 14px;}
   .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
   .puesto-box.pendiente .pb-nums { color: var(--accent); }
@@ -279,7 +274,7 @@
       position: relative; width: 100%; min-height: 60vh;
   }
   .fake-content {
-      filter: blur(8px); opacity: 0.4; pointer-events: none; user-select: none;
+      filter: blur(8px); opacity: 0.4; pointer-events: none; user-select: none; padding:0;
   }
   .overlay-soon {
       position: absolute; inset: 0; z-index: 10;
@@ -290,7 +285,7 @@
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   
   .os-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 10px;}
-  .os-desc { font-size: 15px; font-weight: 600; color: var(--text-muted); max-width: 280px; line-height: 1.5;}
+  .os-desc { font-size: 14px; font-weight: 600; color: var(--text-muted); max-width: 280px; line-height: 1.5;}
 
   .progress-bar-container {
       width: 100%; max-width: 250px; height: 8px; background: var(--border);
@@ -311,7 +306,7 @@
 
   /* ================= FOOTER REDES SOCIALES ================= */
   .global-footer {
-      margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border);
+      margin-top: 40px; padding: 30px 20px 40px 20px; border-top: 1px solid var(--border);
   }
   .footer-title { font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 15px; text-align: center; letter-spacing: 1px;}
   
@@ -325,8 +320,8 @@
   .social-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #FFF; }
   .si-wa { background: #25D366; }
   .si-tk { background: #000000; }
-  .social-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 2px;}
-  .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 600;}
+  .social-info h4 { font-size: 14px; font-weight: 800; margin-bottom: 2px;}
+  .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 500;}
 
   .loader { display: flex; flex-direction: column; align-items: center; padding: 40px; grid-column: 1/-1; color: var(--text-muted);}
   .loader i { font-size: 24px; animation: spin 1s linear infinite; margin-bottom: 10px; color: var(--text-main);}
@@ -347,8 +342,8 @@
         </div>
     </div>
     
-    <!-- SUB-TABS (Se inyectan por JS dependiendo de la categoría) -->
-    <div class="tabs-wrapper" id="dynamicTabs" style="display: none;"></div>
+    <!-- SUB-TABS DINÁMICAS -->
+    <div class="tabs-wrapper" id="dynamicTabs" style="display: none; padding-top: 15px;"></div>
 </div>
 
 <main class="main-content">
@@ -363,15 +358,15 @@
         <div class="home-grid">
             <!-- Tarjeta Perfumería -->
             <div class="home-card" onclick="openCategory('perfumes')">
-                <div class="hc-icon-wrapper"><i class="fa-solid fa-droplet hc-icon" style="color: var(--text-main);"></i></div>
+                <div class="hc-icon-wrapper"><i class="fa-solid fa-droplet hc-icon"></i></div>
                 <h2 class="hc-title">Perfumería 100% Original</h2>
                 <p class="hc-desc">Catálogo disponible para entregas inmediatas y dinámicas.</p>
             </div>
             
             <!-- Tarjeta Joyería -->
             <div class="home-card" onclick="openCategory('joyeria')">
-                <span class="badge-new" style="background:var(--text-main);">NUEVO</span>
-                <div class="hc-icon-wrapper"><i class="fa-solid fa-gem hc-icon" style="color: var(--text-main);"></i></div>
+                <span class="badge-new">NUEVO</span>
+                <div class="hc-icon-wrapper"><i class="fa-solid fa-gem hc-icon"></i></div>
                 <h2 class="hc-title">Oro Laminado</h2>
                 <p class="hc-desc">Cadenas, dijes y aretes con 5 años de garantía.</p>
             </div>
@@ -384,13 +379,8 @@
         <div class="category-main-title">PERFUMERÍA 100% ORIGINAL</div>
 
         <!-- SUB-VISTA: STOCK LOCAL -->
-        <div id="sub-inmediata" class="sub-view active">
+        <div id="sub-perfumes-inmediata" class="sub-view active">
             
-            <!-- BOTÓN COTIZACIÓN GIGANTE ARRIBA -->
-            <button class="btn-primary btn-cotizar-especial" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n-\n-\n-')">
-                SI QUIERES OBTENER MEJORES PRECIOS, COTIZA TUS PERFUMES
-            </button>
-
             <div class="section-header">
                 <h1 class="section-title">Entrega Inmediata</h1>
                 <p class="section-desc">Para entrega inmediata en Medellín. <b>Pídelo hoy, recíbelo hoy</b>. Domicilio gratis y pago seguro.</p>
@@ -398,31 +388,35 @@
             
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="search-inmediata" placeholder="Buscar perfume..." onkeyup="filtrarInmediata()">
+                <input type="text" id="search-perfumes-inmediata" placeholder="Buscar perfume..." onkeyup="filtrarCatalogo('perfumes-inmediata')">
             </div>
 
-            <div id="grid-inmediata" class="product-grid">
+            <div id="grid-perfumes-inmediata" class="product-grid">
                 <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock...</span></div>
             </div>
 
+            <!-- BOTÓN COTIZACIÓN GIGANTE ABAJO -->
+            <button class="btn-primary btn-cotizar-especial" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n-\n-\n-')">
+                SI QUIERES OBTENER MEJORES PRECIOS, COTIZA TUS PERFUMES
+            </button>
+            
             <!-- BOTÓN CROSS-SELLING -->
             <button class="btn-primary btn-cross-sell" onclick="openCategory('joyeria')">
                 TE PUEDE INTERESAR: ORO LAMINADO (5 años de garantía) <i class="fa-solid fa-arrow-right"></i>
             </button>
         </div>
 
-        <!-- SUB-VISTA: DINÁMICAS -->
-        <div id="sub-sorteos" class="sub-view">
+        <!-- SUB-VISTA: DINÁMICAS PERFUMES -->
+        <div id="sub-perfumes-sorteos" class="sub-view">
             <div class="section-header">
                 <h1 class="section-title">Dinámicas</h1>
                 <p class="section-desc">Participa y gana fragancias exclusivas por una fracción del precio.</p>
             </div>
             
-            <div id="board-dinamica">
+            <div id="board-dinamica-perfumes">
                 <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas...</span></div>
             </div>
 
-            <!-- BOTÓN CROSS-SELLING -->
             <button class="btn-primary btn-cross-sell" onclick="openCategory('joyeria')">
                 TE PUEDE INTERESAR: ORO LAMINADO <i class="fa-solid fa-arrow-right"></i>
             </button>
@@ -430,7 +424,7 @@
 
     </section>
 
-    <!-- ================= CATEGORÍA: ORO LAMINADO (MUY PRONTO) ================= -->
+    <!-- ================= CATEGORÍA: ORO LAMINADO ================= -->
     <section id="category-joyeria" class="view-container">
         
         <div class="category-main-title">ORO LAMINADO</div>
@@ -448,16 +442,29 @@
             </div>
 
             <!-- Contenido Falso Borroso para dar efecto visual -->
-            <div class="fake-content sub-view active">
+            <div class="fake-content sub-view active" id="sub-joyas-catalogo" style="display: block;">
                 <div class="section-header">
                     <h1 class="section-title">Catálogo Actualizado</h1>
                     <p class="section-desc">Cadenas, dijes y aretes con 5 años de garantía.</p>
                 </div>
-                <div class="product-grid">
-                    <div class="prod-card"><div class="prod-img"></div><div class="prod-title">Cadena Cubana</div></div>
-                    <div class="prod-card"><div class="prod-img"></div><div class="prod-title">Pulsera Cartier</div></div>
-                    <div class="prod-card"><div class="prod-img"></div><div class="prod-title">Anillo Rolex</div></div>
-                    <div class="prod-card"><div class="prod-img"></div><div class="prod-title">Dije Cruz</div></div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar joya..." disabled>
+                </div>
+                <!-- El grid real se carga aquí atrás del cristal -->
+                <div id="grid-joyas-catalogo" class="product-grid">
+                    <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando catálogo...</span></div>
+                </div>
+            </div>
+
+            <!-- Pestaña Sorteos Joyas Oculta por defecto, también borrosa -->
+            <div class="fake-content sub-view" id="sub-joyas-sorteos">
+                <div class="section-header">
+                    <h1 class="section-title">Dinámicas</h1>
+                    <p class="section-desc">Sorteos de piezas de Oro Laminado.</p>
+                </div>
+                <div id="board-dinamica-joyas">
+                    <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas...</span></div>
                 </div>
             </div>
         </div>
@@ -472,7 +479,7 @@
     </section>
 
     <!-- ================= FOOTER GLOBAL (REDES SOCIALES) ================= -->
-    <div id="global-footer" class="global-footer" style="display: none; padding: 20px;">
+    <div id="global-footer" class="global-footer" style="display: none;">
         <h3 class="footer-title">Redes Sociales</h3>
         
         <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20VIP" class="social-card" target="_blank">
@@ -511,20 +518,24 @@
           document.getElementById('category-perfumes').classList.add('active');
           
           tabsWrapper.innerHTML = `
-              <button class="tab-pill active" onclick="switchSubTab('inmediata', this)"><i class="fa-solid fa-bolt" style="color:var(--accent);"></i> Entrega Inmediata</button>
-              <button class="tab-pill" onclick="switchSubTab('sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
+              <button class="tab-pill active" onclick="switchSubTab('perfumes-inmediata', this)"><i class="fa-solid fa-bolt" style="color:var(--accent);"></i> Entrega Inmediata</button>
+              <button class="tab-pill" onclick="switchSubTab('perfumes-sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
           `;
           
           document.querySelectorAll('#category-perfumes .sub-view').forEach(v => v.classList.remove('active'));
-          document.getElementById('sub-inmediata').classList.add('active');
+          document.getElementById('sub-perfumes-inmediata').classList.add('active');
           
       } else if (cat === 'joyeria') {
           document.getElementById('category-perfumes').classList.remove('active');
           document.getElementById('category-joyeria').classList.add('active');
           
           tabsWrapper.innerHTML = `
-              <button class="tab-pill active"><i class="fa-solid fa-book-open" style="color:var(--text-main);"></i> Catálogo Actualizado</button>
+              <button class="tab-pill active" onclick="switchSubTab('joyas-catalogo', this)"><i class="fa-solid fa-book-open" style="color:var(--text-main);"></i> Catálogo Actualizado</button>
+              <button class="tab-pill" onclick="switchSubTab('joyas-sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
           `;
+
+          document.querySelectorAll('#category-joyeria .sub-view').forEach(v => v.classList.remove('active'));
+          document.getElementById('sub-joyas-catalogo').classList.add('active');
       }
 
       document.getElementById('global-footer').style.display = 'block';
@@ -547,13 +558,16 @@
   }
 
   function switchSubTab(subId, element) {
-      document.querySelectorAll('#category-perfumes .sub-view').forEach(v => v.classList.remove('active'));
+      // Ocultar sub vistas de ambas categorías por si acaso
+      document.querySelectorAll('.sub-view').forEach(v => v.classList.remove('active'));
+      
       document.querySelectorAll('.tab-pill').forEach(el => {
           el.classList.remove('active');
           let icon = el.querySelector('i');
           if(icon) {
               if(icon.classList.contains('fa-bolt')) icon.style.color = 'var(--text-muted)';
               if(icon.classList.contains('fa-gift')) icon.style.color = 'var(--text-muted)';
+              if(icon.classList.contains('fa-book-open')) icon.style.color = 'var(--text-muted)';
           }
       });
       
@@ -562,13 +576,14 @@
       
       let activeIcon = element.querySelector('i');
       if(activeIcon) {
-          if(subId === 'inmediata') activeIcon.style.color = 'var(--accent)';
-          if(subId === 'sorteos') activeIcon.style.color = '#FF3B30';
+          if(subId.includes('inmediata')) activeIcon.style.color = 'var(--accent)';
+          if(subId.includes('catalogo')) activeIcon.style.color = 'var(--text-main)';
+          if(subId.includes('sorteos')) activeIcon.style.color = '#FF3B30';
       }
       
       window.scrollTo({top: 0, behavior: 'smooth'});
       
-      if(subId === 'sorteos') {
+      if(subId.includes('sorteos')) {
           confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#FF6600', '#111111', '#FFFFFF'] });
       }
   }
@@ -593,10 +608,17 @@
 
   // ================= CARGA DE DATOS (GOOGLE SHEETS) =================
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
-  const URL_INMEDIATA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?output=csv'; 
-  const URL_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjhueRyVQWgV7feelqjHUo0ZAEp02QuAIccpWJtJv4XgzomBiKVEWXFJ_YrXjzhBuTYMaer1U-b7Dc/pub?gid=339004946&single=true&output=csv';
+  
+  // URLs Proporcionadas
+  const URL_PERFUMES_INM = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=0&single=true&output=csv';
+  const URL_PERFUMES_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1378134320&single=true&output=csv';
+  const URL_JOYAS_CAT = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1835000586&single=true&output=csv';
+  const URL_JOYAS_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1408527128&single=true&output=csv';
 
-  let dataInmediata = [];
+  let globalData = {
+      'perfumes-inmediata': [],
+      'joyas-catalogo': []
+  };
 
   function parseCSV(t){
     var rows=[], row=[], f='', inQ=false;
@@ -621,65 +643,65 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-      fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
-          dataInmediata = parseCSV(csv).slice(1).map(cols => {
+      // 1. Cargar Perfumes Inmediata
+      fetch(URL_PERFUMES_INM + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+          globalData['perfumes-inmediata'] = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
               let nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
               let estado = String(cols[1]||'').replace(/"/g,'').trim();
               let foto = formatImageLink(cols[2]);
               return { nombre, estado, foto };
           }).filter(Boolean);
-          renderInmediata(dataInmediata);
+          renderGrid(globalData['perfumes-inmediata'], 'grid-perfumes-inmediata', 'perfumes');
       });
 
-      fetch(URL_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
-          let rows = parseCSV(csv).slice(1);
-          if (rows.length > 0 && rows[0].length >= 7) {
-              let title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Activa';
-              let desc = rows[0][4] ? rows[0][4].trim() : '';
-              let price = rows[0][6] ? rows[0][6].trim() : '';
-              
-              let pData = rows.map(cols => {
-                  if(!cols || cols.length < 1) return null;
-                  let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : '';
-                  if(idPuesto === '') return null;
-                  
-                  let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
-                      let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
-                  }).filter(n => n !== '');
-                  
-                  let st = (cols[2] || '').toUpperCase();
-                  let estado = 'libre';
-                  if(st.includes('PEN')) estado = 'pendiente';
-                  else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
-                  
-                  let comprador = cols[3] && cols[3].trim() !== '' ? cols[3].trim() : 'VIP';
-                  
-                  return { id: idPuesto, numeros: arr, estado: estado, nombre: comprador };
-              }).filter(Boolean);
+      // 2. Cargar Dinámicas Perfumes
+      fetch(URL_PERFUMES_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+          let html = procesarSorteoCSV(csv, 'perfumes');
+          document.getElementById('board-dinamica-perfumes').innerHTML = html;
+      });
 
-              pData = pData.filter(p => parseInt(p.id) <= 30);
-              renderSorteo(title, desc, price, pData);
-          } else {
-              document.getElementById('board-dinamica').innerHTML = '<div class="empty-state" style="padding:20px;">Organizando próxima dinámica...</div>';
-          }
+      // 3. Cargar Joyas Catálogo (Atrás del blur)
+      fetch(URL_JOYAS_CAT + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+          globalData['joyas-catalogo'] = parseCSV(csv).slice(1).map(cols => {
+              if(!cols || cols.length < 2) return null;
+              let nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
+              let estado = String(cols[1]||'').replace(/"/g,'').trim();
+              let foto = formatImageLink(cols[2]);
+              return { nombre, estado, foto };
+          }).filter(Boolean);
+          renderGrid(globalData['joyas-catalogo'], 'grid-joyas-catalogo', 'joyas');
+      });
+
+      // 4. Cargar Dinámicas Joyas (Atrás del blur)
+      fetch(URL_JOYAS_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+          let html = procesarSorteoCSV(csv, 'joyas');
+          document.getElementById('board-dinamica-joyas').innerHTML = html;
       });
   });
 
   // ================= RENDERIZADO =================
-  function renderInmediata(lista) {
-      const grid = document.getElementById('grid-inmediata');
-      if(lista.length === 0) { grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No hay resultados.</div>'; return; }
+  function renderGrid(lista, containerId, tipo) {
+      const grid = document.getElementById(containerId);
+      if(lista.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">No hay resultados.</div>'; return; }
       
       grid.innerHTML = lista.map(p => {
           const isAgotado = p.estado.toLowerCase().includes('agotad'); 
           const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
-          const btnTxt = isAgotado ? 'AGOTADO' : 'LO QUIERO HOY';
-          const btnCls = isAgotado ? 'btn-catalogo' : 'btn-inmediata';
+          
+          let btnTxt = 'LO QUIERO HOY';
+          let wspMsg = `Hola John, quiero este perfume para entrega inmediata en Medellín:\n- ${esc(p.nombre)}`;
+          
+          if(tipo === 'joyas') {
+              btnTxt = 'ME INTERESA';
+              wspMsg = `Hola John, me interesa esta joya del catálogo actualizado:\n- ${esc(p.nombre)}`;
+          }
+
+          if(isAgotado) btnTxt = 'AGOTADO';
           
           const btnAction = isAgotado 
-              ? `disabled style="opacity:0.4; cursor:not-allowed;"` 
-              : `onclick="openWhatsApp('Hola John, quiero este perfume para entrega inmediata en Medellín:\\n- ${esc(p.nombre)}') "`;
+              ? `disabled style="opacity:0.4; cursor:not-allowed; background:var(--text-main);"` 
+              : `onclick="openWhatsApp('${wspMsg}')" style="background:var(--text-main);"`;
           
           let overlayHtml = isAgotado ? `
               <div class="overlay-soldout">
@@ -695,24 +717,56 @@
             </div>
             <div class="prod-title">${esc(p.nombre)}</div>
             <div class="prod-price" style="color: ${colorEstado};">${esc(p.estado)}</div>
-            <button class="btn-action ${btnCls}" ${btnAction}>${btnTxt}</button>
+            <button class="btn-action" ${btnAction}>${btnTxt}</button>
           </div>
         `;
       }).join('');
   }
 
-  function filtrarInmediata() {
-      let term = document.getElementById('search-inmediata').value.toLowerCase().trim();
-      let filtrados = term ? dataInmediata.filter(p => p.nombre.toLowerCase().includes(term)) : dataInmediata;
-      renderInmediata(filtrados);
+  function filtrarCatalogo(dataKey) {
+      let inputId = dataKey === 'perfumes-inmediata' ? 'search-perfumes-inmediata' : '';
+      if(!inputId) return;
+      
+      let term = document.getElementById(inputId).value.toLowerCase().trim();
+      let data = globalData[dataKey];
+      let filtrados = term ? data.filter(p => p.nombre.toLowerCase().includes(term)) : data;
+      renderGrid(filtrados, 'grid-' + dataKey, dataKey.split('-')[0]);
   }
 
-  function renderSorteo(title, desc, price, pData) {
-      let container = document.getElementById('board-dinamica');
+  function procesarSorteoCSV(csv, tipo) {
+      let rows = parseCSV(csv).slice(1);
+      if (rows.length === 0 || rows[0].length < 7) {
+          return '<div style="text-align:center; padding:40px; color:var(--text-muted);">Organizando próxima dinámica...</div>';
+      }
+
+      let title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Activa';
+      let desc = rows[0][4] ? rows[0][4].trim() : '';
+      let price = rows[0][6] ? rows[0][6].trim() : '';
+      
+      let pData = rows.map(cols => {
+          if(!cols || cols.length < 1) return null;
+          let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : '';
+          if(idPuesto === '') return null;
+          
+          let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
+              let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
+          }).filter(n => n !== '');
+          
+          let st = (cols[2] || '').toUpperCase();
+          let estado = 'libre';
+          if(st.includes('PEN')) estado = 'pendiente';
+          else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
+          
+          let comprador = cols[3] && cols[3].trim() !== '' ? cols[3].trim() : 'VIP';
+          
+          return { id: idPuesto, numeros: arr, estado: estado, nombre: comprador };
+      }).filter(Boolean);
+
+      pData = pData.filter(p => parseInt(p.id) <= 30);
       
       let htmlInfo = `
         <div style="background:#FFF; border:1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow:var(--shadow-sm);">
-            <div style="font-size: 22px; font-weight:900; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
+            <div style="font-size: 20px; font-weight:900; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
             <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 20px; line-height:1.5; font-weight: 500;">${esc(desc)}</div>
             <div style="font-size: 26px; font-weight: 900; color: var(--accent); margin-bottom: 15px; letter-spacing:-1px;">${esc(price)}</div>
             <p style="font-size: 13px; font-weight:700; color:var(--text-main);">Cada puesto incluye <b>3 números</b>. ¡Más opciones de ganar!</p>
@@ -738,7 +792,8 @@
               </div>`;
           } else {
               let cls = estado;
-              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${i} del sorteo.')"`;
+              let tipoMsg = tipo === 'joyas' ? 'Oro Laminado' : 'Perfumería';
+              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${i} de la dinámica de ${tipoMsg}.')"`;
               gridDisponibles += `
               <div class="puesto-box ${cls}" ${act}>
                   <div class="pb-label">Puesto</div>
@@ -749,14 +804,14 @@
       }
 
       let secVendidos = carruselVendidos !== '' ? `
-          <h4 style="font-size:16px; font-weight:900; margin-bottom:12px; letter-spacing:-0.5px;">Puestos Vendidos 🎉</h4>
+          <h4 style="font-size:15px; font-weight:900; margin-bottom:12px; letter-spacing:-0.5px;">Puestos Vendidos 🎉</h4>
           <div class="ticket-carousel">${carruselVendidos}</div>
       ` : '';
 
-      container.innerHTML = `
+      return `
           ${htmlInfo}
           ${secVendidos}
-          <h4 style="font-size:16px; font-weight:900; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Puestos Disponibles 👇</h4>
+          <h4 style="font-size:15px; font-weight:900; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Puestos Disponibles 👇</h4>
           <div class="puestos-grid">${gridDisponibles}</div>
           <div style="text-align:center; font-size:12px; font-weight:600; color:var(--text-muted); margin-top:25px;">
               👆 Toca un puesto para separarlo por WhatsApp.
