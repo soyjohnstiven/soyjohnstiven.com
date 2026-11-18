@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>John Stiven</title>
+<title>John Stiven | Tienda Oficial</title>
 
 <meta property="og:title" content="John Stiven - Tienda">
 <meta property="og:description" content="Perfumería original y Oro Laminado. Entregas inmediatas y dinámicas exclusivas.">
@@ -205,12 +205,17 @@
   .prod-title { font-size: 12px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
   .prod-price { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 12px;}
   
+  /* Botones del producto */
   .btn-action {
       width: 100%; padding: 10px; border-radius: 10px; border: none; font-family: inherit;
       font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
-      cursor: pointer; transition: 0.2s; text-align: center; background: var(--text-main); color: #FFF;
+      cursor: pointer; transition: 0.2s; text-align: center;
   }
   .btn-action:active { transform: scale(0.95); }
+  
+  /* Estilos específicos restaurados para los botones */
+  .btn-inmediata { background: var(--text-main); color: #FFF; }
+  .btn-catalogo { background: var(--text-main); color: #FFF; }
   
   .overlay-soldout {
       position: absolute; inset: 0; background: rgba(255,255,255,0.8);
@@ -483,7 +488,7 @@
     <div id="global-footer" class="global-footer" style="display: none;">
         <h3 class="footer-title">Redes Sociales</h3>
         
-        <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20" class="social-card" target="_blank">
+        <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20VIP" class="social-card" target="_blank">
             <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
             <div class="social-info">
                 <h4>Estados de WhatsApp</h4>
@@ -684,11 +689,13 @@
           const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
           
           let btnTxt = 'LO QUIERO HOY';
-          let wspMsg = `Hola John, quiero este perfume para entrega inmediata en Medellín:\n- ${esc(p.nombre)}`;
+          
+          // Modificado el mensaje de WhatsApp a lo solicitado
+          let wspMsg = `Hola, que precio tiene este perfume hoy: ${esc(p.nombre)}`;
           
           if(tipo === 'joyas') {
               btnTxt = 'ME INTERESA';
-              wspMsg = `Hola John, me interesa esta joya del catálogo actualizado:\n- ${esc(p.nombre)}`;
+              wspMsg = `Hola, que precio tiene esta joya hoy: ${esc(p.nombre)}`;
           }
 
           if(isAgotado) btnTxt = 'AGOTADO';
@@ -711,7 +718,7 @@
             </div>
             <div class="prod-title">${esc(p.nombre)}</div>
             <div class="prod-price" style="color: ${colorEstado};">${esc(p.estado)}</div>
-            <button class="btn-action" ${btnAction}>${btnTxt}</button>
+            <button class="btn-action btn-inmediata" ${btnAction}>${btnTxt}</button>
           </div>
         `;
       }).join('');
