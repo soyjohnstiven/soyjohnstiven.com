@@ -6,7 +6,7 @@
 <title>John Stiven | Perfumería</title>
 
 <meta property="og:title" content="John Stiven - Perfumería">
-<meta property="og:description" content="Entregas inmediatas, catálogo económico y sorteos exclusivos.">
+<meta property="og:description" content="Entregas inmediatas, catálogo para revendedores y sorteos exclusivos.">
 <meta property="og:type" content="website">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,24 +14,26 @@
 
 <style>
   /* =========================================
-     DISEÑO E-COMMERCE PREMIUM (PESTAÑAS INTELIGENTES)
+     DISEÑO TIPO APPLE (GLASSMORPHISM / TRANSPARENTE)
      PALETA: BLANCO, NEGRO, NARANJA (#FF6600)
   ========================================= */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
   :root {
-    --bg-base: #FFFFFF;
-    --bg-alt: #F5F5F7; 
+    --bg-base: #F5F5F7; 
+    
+    /* Variables de Cristal (Apple Style) */
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-blur: blur(24px) saturate(180%);
     
     --text-main: #111111;
     --text-muted: #86868B;
     
     --accent: #FF6600; 
-    --accent-light: rgba(255, 102, 0, 0.1);
+    --accent-light: rgba(255, 102, 0, 0.15);
     
-    --border: #E5E5EA;
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.04);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.04);
     
     --header-height: 110px;
     --safe-bottom: env(safe-area-inset-bottom, 20px);
@@ -42,17 +44,22 @@
   html, body {
     width: 100%; height: 100%;
     font-family: 'Inter', -apple-system, sans-serif;
-    background-color: var(--bg-base);
     color: var(--text-main);
+    background-color: var(--bg-base);
+    /* Fondo con destellos muy sutiles para que el cristal (Glassmorphism) se note al hacer scroll */
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 102, 0, 0.05), transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba(0, 0, 0, 0.04), transparent 25%);
+    background-attachment: fixed;
   }
 
-  /* ================= NAVEGACIÓN SUPERIOR ================= */
+  /* ================= NAVEGACIÓN SUPERIOR (TRANSPARENTE) ================= */
   .header-container {
       position: fixed; top: 0; left: 0; width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
       z-index: 1000;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
   }
 
   .navbar {
@@ -66,9 +73,10 @@
   /* Indicador Usuarios En Línea */
   .online-indicator {
       display: flex; align-items: center; gap: 8px;
-      background: var(--bg-alt); padding: 8px 14px;
+      background: var(--glass-bg); padding: 8px 14px;
       border-radius: 100px; font-size: 12px; font-weight: 700;
-      color: var(--text-muted); border: 1px solid var(--border);
+      color: var(--text-muted); border: 1px solid var(--glass-border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
   }
   .pulse-dot {
       width: 8px; height: 8px; background-color: #34C759;
@@ -91,20 +99,21 @@
   .tabs-wrapper::-webkit-scrollbar { display: none; } 
   
   .tab-pill {
-      background: var(--bg-alt); color: var(--text-muted);
-      border: 1px solid transparent; padding: 10px 18px;
+      background: var(--glass-bg); color: var(--text-muted);
+      border: 1px solid var(--glass-border); padding: 10px 18px;
       border-radius: 100px; font-size: 13px; font-weight: 700;
       white-space: nowrap; cursor: pointer; transition: 0.3s;
   }
   .tab-pill.active {
       background: var(--text-main); color: #FFF;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      border-color: var(--text-main);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
   /* ================= CONTENEDOR PRINCIPAL ================= */
   .main-content {
-      padding-top: calc(var(--header-height) + 15px);
-      padding-bottom: calc(var(--safe-bottom) + 80px);
+      padding-top: calc(var(--header-height) + 20px);
+      padding-bottom: calc(var(--safe-bottom) + 50px);
       max-width: 600px; margin: 0 auto;
   }
 
@@ -113,88 +122,111 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   .section-header { margin-bottom: 20px; }
-  .section-title { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px;}
-  .section-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
+  .section-title { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px;}
+  .section-desc { font-size: 14.5px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
 
-  /* Buscador */
+  /* Buscador Tipo Apple */
   .search-box {
-      display: flex; align-items: center; background: var(--bg-alt);
-      border-radius: 14px; padding: 12px 16px; margin-bottom: 20px;
+      display: flex; align-items: center; 
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: 14px 18px; margin-bottom: 25px;
+      box-shadow: var(--shadow-glass);
+      transition: 0.3s;
+  }
+  .search-box:focus-within {
+      border-color: var(--text-main);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
   .search-box i { color: var(--text-muted); font-size: 16px; margin-right: 12px; }
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; font-family: inherit; font-weight: 500;}
 
-  /* ================= TARJETAS DE PRODUCTOS ================= */
+  /* ================= TARJETAS DE PRODUCTOS (GLASSMORPHISM) ================= */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
   
   .prod-card {
-      background: #FFF; border: 1px solid var(--border);
-      border-radius: 16px; padding: 12px; display: flex; flex-direction: column;
-      box-shadow: var(--shadow-sm); position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px; padding: 14px; display: flex; flex-direction: column;
+      box-shadow: var(--shadow-glass); position: relative; transition: 0.3s;
   }
-  .prod-img { width: 100%; aspect-ratio: 1; background: var(--bg-alt); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; position: relative;}
+  .prod-card:active { transform: scale(0.96); }
+
+  .prod-img { width: 100%; aspect-ratio: 1; background: rgba(255,255,255,0.5); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; position: relative;}
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; padding: 10px;}
   
-  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
-  .prod-price { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 12px;}
+  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 34px;}
+  .prod-price { font-size: 17px; font-weight: 800; color: var(--text-main); margin-bottom: 14px;}
   
   /* Botones del producto */
   .btn-action {
-      width: 100%; padding: 10px; border-radius: 10px; border: none;
-      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      width: 100%; padding: 12px; border-radius: 12px; border: none;
+      font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
       cursor: pointer; transition: 0.2s; text-align: center;
   }
   .btn-action:active { transform: scale(0.95); }
   
-  .btn-inmediata { background: var(--accent); color: #FFF; }
-  .btn-catalogo { background: var(--text-main); color: #FFF; }
+  /* Estilo Inmediata (Naranja) */
+  .btn-inmediata { background: var(--accent); color: #FFF; box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);}
   
-  /* Overlay Agotado */
+  /* Estilo Catálogo (Negro) */
+  .btn-catalogo { background: var(--text-main); color: #FFF; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);}
+  
+  /* Overlay Agotado Transparente */
   .overlay-soldout {
-      position: absolute; inset: 0; background: rgba(255,255,255,0.8);
+      position: absolute; inset: 0; 
+      background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
       display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2;
   }
-  .overlay-soldout i { font-size: 35px; color: var(--text-main); margin-bottom: 5px; }
-  .badge-soldout { background: var(--text-main); color: #FFF; font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 8px; }
+  .overlay-soldout i { font-size: 35px; color: var(--text-main); margin-bottom: 5px; opacity: 0.8;}
+  .badge-soldout { background: var(--text-main); color: #FFF; font-size: 9px; font-weight: 800; padding: 5px 10px; border-radius: 10px; }
 
   /* ================= DINÁMICAS (SORTEOS) ================= */
-  .dinamica-card { background: var(--bg-alt); border-radius: 20px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border);}
-  .d-price { font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 15px;}
-  
-  .ticket-carousel { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none;}
+  .ticket-carousel { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none;}
   .ticket-carousel::-webkit-scrollbar { display: none; }
   .ticket-sold {
-      background: var(--text-main); color: #FFF; border-radius: 16px; padding: 15px;
-      min-width: 180px; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px;
+      background: var(--text-main); color: #FFF; border-radius: 18px; padding: 18px;
+      min-width: 180px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   }
-  .ts-name { font-size: 13px; font-weight: 800; color: var(--accent); }
+  .ts-name { font-size: 13.5px; font-weight: 800; color: var(--accent); }
   .ts-nums { font-size: 16px; font-weight: 800; margin-top: 5px;}
 
-  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 8px; }
+  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
   .puesto-box {
-      background: #FFF; border: 1px solid var(--border); border-radius: 12px;
-      padding: 10px 5px; text-align: center; cursor: pointer; transition: 0.2s;
+      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border); border-radius: 16px;
+      padding: 12px 6px; text-align: center; cursor: pointer; transition: 0.2s;
+      box-shadow: var(--shadow-glass);
   }
   .puesto-box:active { transform: scale(0.92); }
-  .pb-id { font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;}
-  .pb-nums { font-size: 10px; font-weight: 700; color: var(--text-muted); min-height: 12px;}
+  .pb-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+  .pb-id { font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 6px;}
+  .pb-nums { font-size: 11px; font-weight: 700; color: var(--text-muted); min-height: 14px;}
+  
   .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
   .puesto-box.pendiente .pb-nums { color: var(--accent); }
 
   /* ================= REDES SOCIALES ================= */
   .social-card { 
-      display: flex; align-items: center; gap: 15px; padding: 15px; 
-      background: var(--bg-alt); border-radius: 16px; margin-bottom: 12px; 
-      text-decoration: none; color: var(--text-main); border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 16px; padding: 18px; 
+      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      border-radius: 20px; margin-bottom: 15px; 
+      text-decoration: none; color: var(--text-main); border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-glass); transition: 0.3s;
   }
-  .social-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #FFF; }
+  .social-card:active { transform: scale(0.97); }
+  .social-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; color: #FFF; }
   .si-wa { background: #25D366; }
   .si-tk { background: #000000; }
-  .social-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 2px;}
-  .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 500;}
-  
+  .social-info h4 { font-size: 16px; font-weight: 800; margin-bottom: 4px;}
+  .social-info p { font-size: 13px; color: var(--text-muted); font-weight: 500;}
+
   .loader { display: flex; flex-direction: column; align-items: center; padding: 40px; grid-column: 1/-1; color: var(--text-muted);}
-  .loader i { font-size: 24px; animation: spin 1s linear infinite; margin-bottom: 10px;}
+  .loader i { font-size: 26px; animation: spin 1s linear infinite; margin-bottom: 12px; color: var(--text-main);}
+  @keyframes spin { 100% { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -208,6 +240,7 @@
         </div>
     </div>
     
+    <!-- Filtros Superiores Inteligentes -->
     <div class="tabs-wrapper">
         <button class="tab-pill active" onclick="switchTab('inmediata', this)">⚡ Entrega Inmediata</button>
         <button class="tab-pill" onclick="switchTab('catalogo', this)">📦 Mejores Precios</button>
@@ -231,7 +264,7 @@
         </div>
 
         <div id="grid-inmediata" class="product-grid">
-            <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock...</span></div>
+            <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock en Medellín...</span></div>
         </div>
     </section>
 
@@ -239,7 +272,7 @@
     <section id="view-catalogo" class="view-section">
         <div class="section-header">
             <h1 class="section-title">Mejores Precios</h1>
-            <p class="section-desc">Precios económicos bajo encargo. <b>Los envíos se realizan exclusivamente por transportadora</b> a nivel nacional.</p>
+            <p class="section-desc">Paga hoy y te enviamos hoy mismo. <b>Obtén excelentes precios ideales para que revendas.</b></p>
         </div>
         
         <div class="search-box">
@@ -256,11 +289,11 @@
     <section id="view-sorteos" class="view-section">
         <div class="section-header">
             <h1 class="section-title">Dinámicas</h1>
-            <p class="section-desc">Participa y gana fragancias exclusivas por una fracción del precio.</p>
+            <p class="section-desc">Participa y gana fragancias exclusivas por una fracción de su precio original.</p>
         </div>
         
         <div id="board-dinamica">
-            <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas...</span></div>
+            <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas activas...</span></div>
         </div>
     </section>
 
@@ -268,22 +301,22 @@
     <section id="view-clientes" class="view-section">
         <div class="section-header">
             <h1 class="section-title">Redes Sociales</h1>
-            <p class="section-desc">Tu confianza es nuestra garantía. Únete a nuestras redes.</p>
+            <p class="section-desc">Tu confianza es nuestra garantía. Únete a nuestra comunidad VIP.</p>
         </div>
         
         <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20VIP" class="social-card" target="_blank">
             <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
             <div class="social-info">
                 <h4>Estados de WhatsApp</h4>
-                <p>Las mejores ofertas relámpago se suben aquí.</p>
+                <p>Ofertas relámpago todos los días.</p>
             </div>
         </a>
 
-        <a href="https://www.tiktok.com/@soyjohnstiven" class="social-card" target="_blank" style="margin-bottom: 30px;">
+        <a href="https://www.tiktok.com/@soyjohnstiven" class="social-card" target="_blank">
             <div class="social-icon si-tk"><i class="fa-brands fa-tiktok"></i></div>
             <div class="social-info">
                 <h4>Perfil de TikTok</h4>
-                <p>Reseñas y recomendaciones perfumeras.</p>
+                <p>Reseñas y recomendaciones.</p>
             </div>
         </a>
     </section>
@@ -356,6 +389,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+      // 1. INMEDIATA
       fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           dataInmediata = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
@@ -367,6 +401,7 @@
           renderInmediata(dataInmediata);
       });
 
+      // 2. CATÁLOGO
       fetch(URL_CATALOGO + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           dataCatalogo = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
@@ -378,6 +413,7 @@
           renderCatalogo(dataCatalogo);
       });
 
+      // 3. DINÁMICAS
       fetch(URL_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           let rows = parseCSV(csv).slice(1);
           if (rows.length > 0 && rows[0].length >= 7) {
@@ -407,15 +443,16 @@
               pData = pData.filter(p => parseInt(p.id) <= 30);
               renderSorteo(title, desc, price, pData);
           } else {
-              document.getElementById('board-dinamica').innerHTML = '<div class="empty-state" style="padding:20px;">Organizando próxima dinámica...</div>';
+              document.getElementById('board-dinamica').innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-muted);">Organizando próxima dinámica...</div>';
           }
       });
   });
 
-  // ================= RENDERIZADO =================
+  // ================= RENDERIZADO DE INTERFAZ =================
+
   function renderInmediata(lista) {
       const grid = document.getElementById('grid-inmediata');
-      if(lista.length === 0) { grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No hay resultados.</div>'; return; }
+      if(lista.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">No hay resultados.</div>'; return; }
       
       grid.innerHTML = lista.map(p => {
           const isAgotado = p.estado.toLowerCase().includes('agotad'); 
@@ -424,7 +461,7 @@
           const btnCls = isAgotado ? 'btn-catalogo' : 'btn-inmediata';
           
           const btnAction = isAgotado 
-              ? `disabled style="opacity:0.3; cursor:not-allowed;"` 
+              ? `disabled style="opacity:0.4; cursor:not-allowed;"` 
               : `onclick="openWhatsApp('Hola John, quiero este perfume para entrega inmediata en Medellín:\\n- ${esc(p.nombre)}') "`;
           
           let overlayHtml = isAgotado ? `
@@ -449,7 +486,7 @@
 
   function renderCatalogo(lista) {
       const grid = document.getElementById('grid-catalogo');
-      if(lista.length === 0) { grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No hay resultados.</div>'; return; }
+      if(lista.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">No hay resultados.</div>'; return; }
       
       grid.innerHTML = lista.map(p => {
           return `
@@ -478,11 +515,11 @@
       let container = document.getElementById('board-dinamica');
       
       let htmlInfo = `
-        <div class="dinamica-card">
-            <div style="font-size: 20px; font-weight:800; margin-bottom:8px;">${esc(title)}</div>
-            <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 15px;">${esc(desc)}</div>
-            <div class="d-price">${esc(price)}</div>
-            <p style="font-size: 12px; font-weight:600;">Cada puesto incluye <b>3 números</b>. ¡Más opciones de ganar!</p>
+        <div style="background:var(--glass-bg); backdrop-filter:var(--glass-blur); border:1px solid var(--glass-border); border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow:var(--shadow-glass);">
+            <div style="font-size: 22px; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
+            <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 20px; line-height:1.5;">${esc(desc)}</div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 15px;">${esc(price)}</div>
+            <p style="font-size: 13px; font-weight:600; color:var(--text-main);">Cada puesto incluye <b>3 números</b>. ¡Más opciones de ganar!</p>
         </div>
       `;
 
@@ -516,16 +553,16 @@
       }
 
       let secVendidos = carruselVendidos !== '' ? `
-          <h4 style="font-size:14px; font-weight:800; margin-bottom:10px;">Puestos Vendidos 🎉</h4>
+          <h4 style="font-size:15px; font-weight:800; margin-bottom:12px; letter-spacing:-0.5px;">Puestos Vendidos 🎉</h4>
           <div class="ticket-carousel">${carruselVendidos}</div>
       ` : '';
 
       container.innerHTML = `
           ${htmlInfo}
           ${secVendidos}
-          <h4 style="font-size:14px; font-weight:800; margin-top:20px; margin-bottom:15px;">Puestos Disponibles 👇</h4>
+          <h4 style="font-size:15px; font-weight:800; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Puestos Disponibles 👇</h4>
           <div class="puestos-grid">${gridDisponibles}</div>
-          <div style="text-align:center; font-size:12px; color:var(--text-muted); margin-top:20px;">
+          <div style="text-align:center; font-size:12px; font-weight:600; color:var(--text-muted); margin-top:25px;">
               👆 Toca un puesto para separarlo por WhatsApp.
           </div>
       `;
