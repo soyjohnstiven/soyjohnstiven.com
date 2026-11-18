@@ -21,12 +21,12 @@
 
   :root {
     --bg-base: #FFFFFF;
-    --bg-alt: #F5F5F7; /* Gris sutil Apple */
+    --bg-alt: #F5F5F7; 
     
     --text-main: #111111;
     --text-muted: #86868B;
     
-    --accent: #FF6600; /* Naranja corporativo */
+    --accent: #FF6600; 
     --accent-light: rgba(255, 102, 0, 0.1);
     
     --border: #E5E5EA;
@@ -63,27 +63,32 @@
   .brand-logo { font-size: 18px; font-weight: 900; letter-spacing: -0.5px; text-transform: uppercase;}
   .brand-logo span { color: var(--accent); }
 
-  .cart-btn {
-      position: relative; background: var(--bg-alt); width: 40px; height: 40px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: 0.2s; border: none; font-size: 18px; color: var(--text-main);
+  /* Indicador Usuarios En Línea */
+  .online-indicator {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg-alt); padding: 8px 14px;
+      border-radius: 100px; font-size: 12px; font-weight: 700;
+      color: var(--text-muted); border: 1px solid var(--border);
   }
-  .cart-btn:active { transform: scale(0.9); }
-  .cart-badge {
-      position: absolute; top: -2px; right: -2px;
-      background: var(--accent); color: #FFF; font-size: 10px; font-weight: 800;
-      width: 18px; height: 18px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      border: 2px solid #FFF;
+  .pulse-dot {
+      width: 8px; height: 8px; background-color: #34C759;
+      border-radius: 50%; display: block;
+      box-shadow: 0 0 0 rgba(52, 199, 89, 0.4);
+      animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(52, 199, 89, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); }
   }
 
   /* Pestañas Inteligentes */
   .tabs-wrapper {
       padding: 0 15px 15px 15px;
       display: flex; gap: 8px; overflow-x: auto;
-      scrollbar-width: none; /* Firefox */
+      scrollbar-width: none; 
   }
-  .tabs-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+  .tabs-wrapper::-webkit-scrollbar { display: none; } 
   
   .tab-pill {
       background: var(--bg-alt); color: var(--text-muted);
@@ -119,7 +124,7 @@
   .search-box i { color: var(--text-muted); font-size: 16px; margin-right: 12px; }
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; font-family: inherit; font-weight: 500;}
 
-  /* ================= TARJETAS DE PRODUCTOS (GRID) ================= */
+  /* ================= TARJETAS DE PRODUCTOS ================= */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
   
   .prod-card {
@@ -141,11 +146,7 @@
   }
   .btn-action:active { transform: scale(0.95); }
   
-  /* Estilo Inmediata (Naranja) */
   .btn-inmediata { background: var(--accent); color: #FFF; }
-  .btn-inmediata.added { background: var(--text-main); color: #FFF; }
-  
-  /* Estilo Catálogo (Negro) */
   .btn-catalogo { background: var(--text-main); color: #FFF; }
   
   /* Overlay Agotado */
@@ -180,7 +181,7 @@
   .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
   .puesto-box.pendiente .pb-nums { color: var(--accent); }
 
-  /* ================= CLIENTES Y REDES ================= */
+  /* ================= REDES SOCIALES ================= */
   .social-card { 
       display: flex; align-items: center; gap: 15px; padding: 15px; 
       background: var(--bg-alt); border-radius: 16px; margin-bottom: 12px; 
@@ -191,29 +192,6 @@
   .si-tk { background: #000000; }
   .social-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 2px;}
   .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 500;}
-
-  /* ================= BOTTOM SHEET (CARRITO) ================= */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 2000; opacity: 0; pointer-events: none; transition: 0.3s; }
-  .modal-overlay.active { opacity: 1; pointer-events: auto; }
-  
-  .bottom-sheet { 
-    position: fixed; bottom: 0; left: 0; width: 100%; 
-    background: #FFF; border-radius: 30px 30px 0 0; padding: 25px 20px 40px 20px; 
-    transform: translateY(100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-    z-index: 2001; max-height: 85vh; display: flex; flex-direction: column; box-shadow: var(--shadow-lg);
-  }
-  .bottom-sheet.active { transform: translateY(0); }
-  .sheet-handle { width: 40px; height: 5px; background: var(--border); border-radius: 10px; margin: 0 auto 20px auto; flex-shrink: 0; }
-  
-  #cartItemsContainer { overflow-y: auto; flex-grow: 1; margin-bottom: 20px; }
-  .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border);}
-  .cart-item-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.3;}
-  .cart-item-price { font-size: 13px; color: var(--accent); font-weight: 700;}
-  .cart-controls { display: flex; align-items: center; gap: 12px; background: var(--bg-alt); border-radius: 20px; padding: 6px 12px; }
-  .c-btn { background: none; border: none; font-size: 18px; color: var(--text-main); font-weight: bold; cursor: pointer;}
-  .c-qty { font-size: 15px; font-weight: 800; min-width: 20px; text-align: center;}
-  
-  .btn-whatsapp { background: #25D366; color: #FFF; width: 100%; padding: 16px; border: none; border-radius: 100px; font-size: 15px; font-weight: 800; display: flex; justify-content: center; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);}
   
   .loader { display: flex; flex-direction: column; align-items: center; padding: 40px; grid-column: 1/-1; color: var(--text-muted);}
   .loader i { font-size: 24px; animation: spin 1s linear infinite; margin-bottom: 10px;}
@@ -224,10 +202,10 @@
 <div class="header-container">
     <div class="navbar">
         <div class="brand-logo">JOHN<span>STIVEN</span></div>
-        <button class="cart-btn" onclick="openCartSheet()">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <div class="cart-badge" id="cartCount">0</div>
-        </button>
+        <div class="online-indicator">
+            <span class="pulse-dot"></span>
+            <span id="userCount">--</span> en línea
+        </div>
     </div>
     
     <div class="tabs-wrapper">
@@ -293,7 +271,6 @@
             <p class="section-desc">Tu confianza es nuestra garantía. Únete a nuestras redes.</p>
         </div>
         
-        <!-- Redes Sociales -->
         <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20VIP" class="social-card" target="_blank">
             <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
             <div class="social-info">
@@ -312,18 +289,6 @@
     </section>
 
 </main>
-
-<!-- BOTTOM SHEET CARRITO -->
-<div class="modal-overlay" id="sheetOverlay" onclick="closeSheets(event)"></div>
-<div class="bottom-sheet" id="sheetCart">
-  <div class="sheet-handle"></div>
-  <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 15px;">Tu Selección (Para Hoy)</h3>
-  <div id="cartItemsContainer"></div>
-  <div id="cartSummaryContainer"></div>
-  <button class="btn-whatsapp" onclick="sendCartWA()">
-    <i class="fa-brands fa-whatsapp"></i> PEDIR POR WHATSAPP
-  </button>
-</div>
 
 <script>
   // ================= LÓGICA DE PESTAÑAS (TABS) =================
@@ -344,109 +309,20 @@
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
 
-  // ================= LÓGICA CARRITO (SOLO PARA STOCK INMEDIATO) =================
-  let cartObj = {}; 
+  // ================= CONTADOR DE USUARIOS EN LÍNEA =================
+  document.addEventListener('DOMContentLoaded', () => {
+      let currentUsers = Math.floor(Math.random() * (210 - 71 + 1)) + 71;
+      const userCountEl = document.getElementById('userCount');
+      userCountEl.innerText = currentUsers;
 
-  function addDirectToCart(name, priceStr, btn) {
-    if(cartObj[name]) { cartObj[name].qty += 1; } 
-    else { 
-        cartObj[name] = { qty: 1, price: priceStr }; 
-        btn.classList.add('added'); 
-        btn.innerText = "LO QUIERO HOY"; 
-    }
-    updateCartIcon();
-  }
-
-  function updateCartIcon() {
-    let totalItems = 0;
-    for (let item in cartObj) { totalItems += cartObj[item].qty; }
-    document.getElementById('cartCount').innerText = totalItems;
-    
-    let badge = document.getElementById('cartCount');
-    badge.style.transform = 'scale(1.3)';
-    setTimeout(() => badge.style.transform = 'scale(1)', 200);
-  }
-
-  function openCartSheet() {
-    renderCartSheet();
-    document.getElementById('sheetOverlay').classList.add('active');
-    setTimeout(() => document.getElementById('sheetCart').classList.add('active'), 10);
-  }
-
-  function closeSheets(e) {
-    if(e && e.target.id !== 'sheetOverlay') return;
-    document.getElementById('sheetCart').classList.remove('active');
-    document.getElementById('sheetOverlay').classList.remove('active');
-  }
-
-  function renderCartSheet() {
-    const cont = document.getElementById('cartItemsContainer');
-    const summ = document.getElementById('cartSummaryContainer');
-    
-    let html = ''; let totalItems = 0; let subtotal = 0;
-    
-    for (let name in cartObj) {
-      const item = cartObj[name]; 
-      totalItems += item.qty;
-      let numPrice = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
-      subtotal += numPrice * item.qty;
-      
-      html += `
-        <div class="cart-item">
-          <div style="flex:1; padding-right:15px;">
-            <div class="cart-item-title">${name}</div>
-            <div class="cart-item-price">${item.price}</div>
-          </div>
-          <div class="cart-controls">
-            <button class="c-btn" onclick="changeQty('${name}', -1)">-</button>
-            <span class="c-qty">${item.qty}</span>
-            <button class="c-btn" onclick="changeQty('${name}', 1)">+</button>
-          </div>
-        </div>
-      `;
-    }
-    
-    if(totalItems === 0) {
-      closeSheets();
-      document.querySelectorAll('.btn-inmediata').forEach(btn => { 
-          if(btn.classList.contains('added')) {
-              btn.classList.remove('added'); 
-              btn.innerText = btn.getAttribute('data-text') || "AGREGAR"; 
-          }
-      });
-    } else { 
-      cont.innerHTML = html; 
-      summ.innerHTML = `
-        <div style="padding-top: 15px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom: 10px; font-size: 14px; color: var(--text-muted);">
-                <span>Total Artículos</span>
-                <span>${totalItems}</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
-                <span>Total a Pagar</span>
-                <span>$${subtotal.toLocaleString('es-CO')}</span>
-            </div>
-        </div>
-      `;
-    }
-  }
-
-  function changeQty(name, delta) {
-    if(!cartObj[name]) return;
-    cartObj[name].qty += delta;
-    if(cartObj[name].qty <= 0) { delete cartObj[name]; }
-    updateCartIcon();
-    renderCartSheet();
-  }
-
-  function sendCartWA() {
-    let msg = "Hola John, quiero pedir esto para *Entrega Inmediata*:\n\n";
-    for (let name in cartObj) { 
-        msg += `- ${name} ${cartObj[name].price} (x${cartObj[name].qty})\n`; 
-    }
-    closeSheets();
-    openWhatsApp(msg);
-  }
+      setInterval(() => {
+          let change = Math.floor(Math.random() * 5) - 2; 
+          currentUsers += change;
+          if(currentUsers < 71) currentUsers = 71 + Math.floor(Math.random() * 5);
+          if(currentUsers > 210) currentUsers = 210 - Math.floor(Math.random() * 5);
+          userCountEl.innerText = currentUsers;
+      }, 4500);
+  });
 
   // ================= CARGA DE DATOS (GOOGLE SHEETS) =================
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
@@ -544,9 +420,12 @@
       grid.innerHTML = lista.map(p => {
           const isAgotado = p.estado.toLowerCase().includes('agotad'); 
           const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
-          const btnTxt = isAgotado ? 'AGOTADO' : 'AGREGAR';
+          const btnTxt = isAgotado ? 'AGOTADO' : 'LO QUIERO HOY';
           const btnCls = isAgotado ? 'btn-catalogo' : 'btn-inmediata';
-          const btnAction = isAgotado ? `disabled style="opacity:0.3; cursor:not-allowed;"` : `onclick="addDirectToCart('${esc(p.nombre)}', '${esc(p.estado)}', this)" data-text="AGREGAR"`;
+          
+          const btnAction = isAgotado 
+              ? `disabled style="opacity:0.3; cursor:not-allowed;"` 
+              : `onclick="openWhatsApp('Hola John, quiero este perfume para entrega inmediata en Medellín:\\n- ${esc(p.nombre)}') "`;
           
           let overlayHtml = isAgotado ? `
               <div class="overlay-soldout">
@@ -621,16 +500,16 @@
               carruselVendidos += `
               <div class="ticket-sold">
                   <div class="ts-name">👤 ${esc(nombreComprador)}</div>
-                  <div style="font-size:12px; margin-top:4px;">Puesto #${idStr}</div>
+                  <div style="font-size:12px; margin-top:4px;">Puesto #${i}</div>
                   <div class="ts-nums">${numText}</div>
               </div>`;
           } else {
               let cls = estado;
-              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto ${idStr} del sorteo.')"`;
+              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${i} del sorteo.')"`;
               gridDisponibles += `
               <div class="puesto-box ${cls}" ${act}>
-                  <div class="pb-label">Pto</div>
-                  <div class="pb-id">${idStr}</div>
+                  <div class="pb-label">Puesto</div>
+                  <div class="pb-id">#${i}</div>
                   <div class="pb-nums">${numText}</div>
               </div>`;
           }
