@@ -16,8 +16,9 @@
   /* =========================================
      DISEÑO NATIVO TIPO APPLE / FREEFORM
      PALETA: BLANCO, NEGRO, NARANJA (#FF6600)
+     TIPOGRAFÍA: MONTSERRAT (Elegante y Nítida)
   ========================================= */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
   :root {
     --bg-base: #F5F5F7; 
@@ -44,7 +45,7 @@
   
   html, body {
     width: 100%; height: 100%;
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Montserrat', -apple-system, sans-serif;
     background-color: var(--bg-base);
     color: var(--text-main);
   }
@@ -78,11 +79,12 @@
 
   /* Botón Volver al Inicio */
   .btn-back {
-      display: none; /* Se muestra por JS */
+      display: none; 
       align-items: center; gap: 6px;
       font-size: 14px; font-weight: 700; color: var(--text-main);
       background: transparent; border: none; cursor: pointer;
       padding: 8px 12px; border-radius: 100px; transition: 0.2s;
+      font-family: inherit;
   }
   .btn-back:active { background: rgba(0,0,0,0.05); transform: scale(0.95); }
   .btn-back i { color: var(--accent); font-size: 16px; }
@@ -119,7 +121,7 @@
   .tabs-wrapper::-webkit-scrollbar { display: none; } 
   
   .tab-pill {
-      background: #FFF; color: var(--text-muted);
+      background: #FFF; color: var(--text-muted); font-family: inherit;
       border: 1px solid var(--border); padding: 10px 18px;
       border-radius: 100px; font-size: 13px; font-weight: 700;
       white-space: nowrap; cursor: pointer; transition: 0.3s;
@@ -146,6 +148,12 @@
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+  .category-main-title {
+      font-size: 16px; font-weight: 900; text-align: center; 
+      letter-spacing: 1.5px; margin-bottom: 25px; padding-top: 10px;
+      color: var(--text-main);
+  }
+
   .section-header { margin-bottom: 20px; }
   .section-title { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 5px;}
   .section-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
@@ -157,25 +165,31 @@
       border: 1px solid var(--border); box-shadow: var(--shadow-sm);
   }
   .search-box i { color: var(--text-muted); font-size: 16px; margin-right: 12px; }
-  .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; font-weight: 500;}
+  .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; font-weight: 600; font-family: inherit;}
 
   /* ================= PÁGINA DE INICIO (MENÚ PRINCIPAL) ================= */
   .home-grid {
       display: flex; flex-direction: column; gap: 20px; padding: 0 20px;
   }
   .home-card {
-      background: #FFF; border-radius: 24px; padding: 30px 20px;
+      background: #FFF; border-radius: 24px; padding: 35px 20px;
       border: 1px solid var(--border); box-shadow: var(--shadow-md);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative; overflow: hidden;
   }
   .home-card:active { transform: scale(0.96); }
-  .hc-icon { font-size: 50px; color: var(--accent); margin-bottom: 15px; }
-  .hc-title { font-size: 22px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.5px;}
-  .hc-desc { font-size: 14px; color: var(--text-muted); font-weight: 500; line-height: 1.4;}
   
-  .badge-new { position: absolute; top: 15px; right: 15px; background: var(--text-main); color: #FFF; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 100px; text-transform: uppercase;}
+  .hc-icon-wrapper {
+      width: 80px; height: 80px; background: var(--bg-base); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 15px;
+      border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  }
+  .hc-icon { font-size: 35px; color: var(--text-main); }
+  .hc-title { font-size: 20px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.5px;}
+  .hc-desc { font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.4; padding: 0 10px;}
+  
+  .badge-new { position: absolute; top: 15px; right: 15px; background: var(--accent); color: #FFF; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px;}
 
   /* ================= TARJETAS DE PRODUCTOS ================= */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
@@ -191,13 +205,18 @@
   .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
   .prod-price { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 12px;}
   
+  /* Botones del producto */
   .btn-action {
-      width: 100%; padding: 10px; border-radius: 10px; border: none;
+      width: 100%; padding: 10px; border-radius: 10px; border: none; font-family: inherit;
       font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
       cursor: pointer; transition: 0.2s; text-align: center; background: var(--text-main); color: #FFF;
   }
   .btn-action:active { transform: scale(0.95); }
   
+  .btn-inmediata { background: var(--text-main); color: #FFF; }
+  .btn-catalogo { background: var(--text-main); color: #FFF; }
+  
+  /* Overlay Agotado */
   .overlay-soldout {
       position: absolute; inset: 0; background: rgba(255,255,255,0.8);
       display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2;
@@ -207,8 +226,8 @@
 
   /* ================= BOTONES GLOBALES Y CROSS-SELLING ================= */
   .btn-primary { 
-      background: var(--text-main); color: #FFF; border: none; padding: 16px 24px; 
-      border-radius: 16px; font-size: 14px; font-weight: 800; cursor: pointer; 
+      background: var(--text-main); color: #FFF; border: none; padding: 16px 24px; font-family: inherit;
+      border-radius: 16px; font-size: 13px; font-weight: 800; cursor: pointer; 
       transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
       width: 100%; text-transform: uppercase; letter-spacing: 0.5px;
   }
@@ -218,12 +237,15 @@
       background: var(--accent);
       color: #FFF;
       box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3);
-      margin-top: 25px;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      padding: 18px 20px;
+      text-align: center;
   }
 
   .btn-cross-sell {
       background: #FFF; border: 1px solid var(--border); color: var(--text-main);
-      box-shadow: var(--shadow-sm); margin-top: 30px; font-size: 13px;
+      box-shadow: var(--shadow-sm); margin-top: 35px; font-size: 12px;
   }
 
   /* ================= DINÁMICAS (SORTEOS) ================= */
@@ -247,7 +269,7 @@
       box-shadow: var(--shadow-sm);
   }
   .puesto-box:active { transform: scale(0.92); }
-  .pb-id { font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;}
+  .pb-id { font-size: 22px; font-weight: 900; color: var(--text-main); margin-bottom: 4px;}
   .pb-nums { font-size: 11px; font-weight: 700; color: var(--text-muted); min-height: 14px;}
   .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
   .puesto-box.pendiente .pb-nums { color: var(--accent); }
@@ -256,7 +278,6 @@
   .coming-soon-container {
       position: relative; width: 100%; min-height: 60vh;
   }
-  /* Contenido falso borroso atrás */
   .fake-content {
       filter: blur(8px); opacity: 0.4; pointer-events: none; user-select: none;
   }
@@ -271,7 +292,6 @@
   .os-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 10px;}
   .os-desc { font-size: 15px; font-weight: 600; color: var(--text-muted); max-width: 280px; line-height: 1.5;}
 
-  /* Barra de Progreso */
   .progress-bar-container {
       width: 100%; max-width: 250px; height: 8px; background: var(--border);
       border-radius: 10px; overflow: hidden; margin-top: 30px;
@@ -279,7 +299,6 @@
   .progress-bar-fill {
       height: 100%; width: 0%; background: var(--text-main);
       border-radius: 10px;
-      /* Se llena en 20 segundos */
       animation: fillBar 20s cubic-bezier(0.1, 0.7, 1.0, 0.1) forwards; 
   }
   @keyframes fillBar { 
@@ -287,7 +306,7 @@
       20% { width: 30%; }
       50% { width: 60%; }
       80% { width: 85%; }
-      100% { width: 95%; } /* Se queda en 95% creando expectativa */
+      100% { width: 95%; } 
   }
 
   /* ================= FOOTER REDES SOCIALES ================= */
@@ -307,7 +326,7 @@
   .si-wa { background: #25D366; }
   .si-tk { background: #000000; }
   .social-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 2px;}
-  .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 500;}
+  .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 600;}
 
   .loader { display: flex; flex-direction: column; align-items: center; padding: 40px; grid-column: 1/-1; color: var(--text-muted);}
   .loader i { font-size: 24px; animation: spin 1s linear infinite; margin-bottom: 10px; color: var(--text-main);}
@@ -337,24 +356,24 @@
     <!-- ================= PANTALLA PRINCIPAL (HUB) ================= -->
     <section id="view-home" class="view-container active">
         <div class="section-header" style="padding: 0 20px;">
-            <h1 class="section-title">Bienvenido</h1>
+            <h1 class="section-title">¡Qué gusto verte!</h1>
             <p class="section-desc">Selecciona la línea de negocio que deseas explorar hoy.</p>
         </div>
         
         <div class="home-grid">
             <!-- Tarjeta Perfumería -->
             <div class="home-card" onclick="openCategory('perfumes')">
-                <i class="fa-solid fa-spray-can hc-icon"></i>
+                <div class="hc-icon-wrapper"><i class="fa-solid fa-droplet hc-icon" style="color: var(--text-main);"></i></div>
                 <h2 class="hc-title">Perfumería 100% Original</h2>
-                <p class="hc-desc">Catálogo disponible para entregas inmediatas y dinámicas exclusivas.</p>
+                <p class="hc-desc">Catálogo disponible para entregas inmediatas y dinámicas.</p>
             </div>
             
             <!-- Tarjeta Joyería -->
             <div class="home-card" onclick="openCategory('joyeria')">
-                <span class="badge-new">Nuevo</span>
-                <i class="fa-solid fa-ring hc-icon" style="color: #D4AF37;"></i>
+                <span class="badge-new" style="background:var(--text-main);">NUEVO</span>
+                <div class="hc-icon-wrapper"><i class="fa-solid fa-gem hc-icon" style="color: var(--text-main);"></i></div>
                 <h2 class="hc-title">Oro Laminado</h2>
-                <p class="hc-desc">Joyas exclusivas con 5 años de garantía.</p>
+                <p class="hc-desc">Cadenas, dijes y aretes con 5 años de garantía.</p>
             </div>
         </div>
     </section>
@@ -362,8 +381,16 @@
     <!-- ================= CATEGORÍA: PERFUMERÍA ================= -->
     <section id="category-perfumes" class="view-container">
         
+        <div class="category-main-title">PERFUMERÍA 100% ORIGINAL</div>
+
         <!-- SUB-VISTA: STOCK LOCAL -->
         <div id="sub-inmediata" class="sub-view active">
+            
+            <!-- BOTÓN COTIZACIÓN GIGANTE ARRIBA -->
+            <button class="btn-primary btn-cotizar-especial" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n-\n-\n-')">
+                SI QUIERES OBTENER MEJORES PRECIOS, COTIZA TUS PERFUMES
+            </button>
+
             <div class="section-header">
                 <h1 class="section-title">Entrega Inmediata</h1>
                 <p class="section-desc">Para entrega inmediata en Medellín. <b>Pídelo hoy, recíbelo hoy</b>. Domicilio gratis y pago seguro.</p>
@@ -378,14 +405,9 @@
                 <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock...</span></div>
             </div>
 
-            <!-- BOTÓN COTIZACIÓN GIGANTE -->
-            <button class="btn-primary btn-cotizar-especial" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n- \n- \n- ')">
-                SI QUIERES OBTENER MEJORES PRECIOS, COTIZA TUS PERFUMES
-            </button>
-            
             <!-- BOTÓN CROSS-SELLING -->
             <button class="btn-primary btn-cross-sell" onclick="openCategory('joyeria')">
-                TE PUEDE INTERESAR: JOYERÍA - ORO LAMINADO (5 años de garantía) <i class="fa-solid fa-arrow-right"></i>
+                TE PUEDE INTERESAR: ORO LAMINADO (5 años de garantía) <i class="fa-solid fa-arrow-right"></i>
             </button>
         </div>
 
@@ -402,7 +424,7 @@
 
             <!-- BOTÓN CROSS-SELLING -->
             <button class="btn-primary btn-cross-sell" onclick="openCategory('joyeria')">
-                TE PUEDE INTERESAR: JOYERÍA - ORO LAMINADO <i class="fa-solid fa-arrow-right"></i>
+                TE PUEDE INTERESAR: ORO LAMINADO <i class="fa-solid fa-arrow-right"></i>
             </button>
         </div>
 
@@ -411,6 +433,8 @@
     <!-- ================= CATEGORÍA: ORO LAMINADO (MUY PRONTO) ================= -->
     <section id="category-joyeria" class="view-container">
         
+        <div class="category-main-title">ORO LAMINADO</div>
+
         <div class="coming-soon-container">
             <!-- Overlay Coming Soon -->
             <div class="overlay-soon">
@@ -427,7 +451,7 @@
             <div class="fake-content sub-view active">
                 <div class="section-header">
                     <h1 class="section-title">Catálogo Actualizado</h1>
-                    <p class="section-desc">Joyas exclusivas con 5 años de garantía.</p>
+                    <p class="section-desc">Cadenas, dijes y aretes con 5 años de garantía.</p>
                 </div>
                 <div class="product-grid">
                     <div class="prod-card"><div class="prod-img"></div><div class="prod-title">Cadena Cubana</div></div>
@@ -449,13 +473,13 @@
 
     <!-- ================= FOOTER GLOBAL (REDES SOCIALES) ================= -->
     <div id="global-footer" class="global-footer" style="display: none; padding: 20px;">
-        <h3 class="footer-title">Nuestra Comunidad</h3>
+        <h3 class="footer-title">Redes Sociales</h3>
         
         <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20VIP" class="social-card" target="_blank">
             <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
             <div class="social-info">
                 <h4>Estados de WhatsApp</h4>
-                <p>Ofertas relámpago y novedades.</p>
+                <p>Ofertas relámpago y novedades diarias.</p>
             </div>
         </a>
 
@@ -473,10 +497,8 @@
 <script>
   // ================= NAVEGACIÓN PRINCIPAL =================
   function openCategory(cat) {
-      // Ocultar Home
       document.getElementById('view-home').classList.remove('active');
       
-      // Ajustar Botonera Superior
       document.getElementById('mainLogo').style.display = 'none';
       document.getElementById('onlineIndicator').style.display = 'none';
       document.getElementById('btnBack').style.display = 'flex';
@@ -484,7 +506,6 @@
       const tabsWrapper = document.getElementById('dynamicTabs');
       tabsWrapper.style.display = 'flex';
       
-      // Mostrar Categoría y renderizar Sub-Tabs
       if(cat === 'perfumes') {
           document.getElementById('category-joyeria').classList.remove('active');
           document.getElementById('category-perfumes').classList.add('active');
@@ -494,7 +515,6 @@
               <button class="tab-pill" onclick="switchSubTab('sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
           `;
           
-          // Por defecto abrir inmediata
           document.querySelectorAll('#category-perfumes .sub-view').forEach(v => v.classList.remove('active'));
           document.getElementById('sub-inmediata').classList.add('active');
           
@@ -507,29 +527,22 @@
           `;
       }
 
-      // Mostrar Footer Global
       document.getElementById('global-footer').style.display = 'block';
-      
       window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
   function goHome() {
-      // Ocultar categorías
       document.getElementById('category-perfumes').classList.remove('active');
       document.getElementById('category-joyeria').classList.remove('active');
       
-      // Mostrar Home
       document.getElementById('view-home').classList.add('active');
       
-      // Restaurar Botonera Superior
       document.getElementById('btnBack').style.display = 'none';
       document.getElementById('dynamicTabs').style.display = 'none';
       document.getElementById('mainLogo').style.display = 'block';
       document.getElementById('onlineIndicator').style.display = 'flex';
       
-      // Ocultar Footer en Home (Opcional, pero mantengamos el diseño limpio del Hub)
       document.getElementById('global-footer').style.display = 'none';
-      
       window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
@@ -608,7 +621,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-      // 1. INMEDIATA
       fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           dataInmediata = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
@@ -620,7 +632,6 @@
           renderInmediata(dataInmediata);
       });
 
-      // 2. DINÁMICAS
       fetch(URL_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           let rows = parseCSV(csv).slice(1);
           if (rows.length > 0 && rows[0].length >= 7) {
@@ -650,7 +661,7 @@
               pData = pData.filter(p => parseInt(p.id) <= 30);
               renderSorteo(title, desc, price, pData);
           } else {
-              document.getElementById('board-dinamica').innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-muted);">Organizando próxima dinámica...</div>';
+              document.getElementById('board-dinamica').innerHTML = '<div class="empty-state" style="padding:20px;">Organizando próxima dinámica...</div>';
           }
       });
   });
@@ -658,12 +669,13 @@
   // ================= RENDERIZADO =================
   function renderInmediata(lista) {
       const grid = document.getElementById('grid-inmediata');
-      if(lista.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">No hay resultados.</div>'; return; }
+      if(lista.length === 0) { grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No hay resultados.</div>'; return; }
       
       grid.innerHTML = lista.map(p => {
           const isAgotado = p.estado.toLowerCase().includes('agotad'); 
           const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
           const btnTxt = isAgotado ? 'AGOTADO' : 'LO QUIERO HOY';
+          const btnCls = isAgotado ? 'btn-catalogo' : 'btn-inmediata';
           
           const btnAction = isAgotado 
               ? `disabled style="opacity:0.4; cursor:not-allowed;"` 
@@ -683,7 +695,7 @@
             </div>
             <div class="prod-title">${esc(p.nombre)}</div>
             <div class="prod-price" style="color: ${colorEstado};">${esc(p.estado)}</div>
-            <button class="btn-action btn-inmediata" ${btnAction}>${btnTxt}</button>
+            <button class="btn-action ${btnCls}" ${btnAction}>${btnTxt}</button>
           </div>
         `;
       }).join('');
@@ -700,10 +712,10 @@
       
       let htmlInfo = `
         <div style="background:#FFF; border:1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow:var(--shadow-sm);">
-            <div style="font-size: 22px; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
-            <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 20px; line-height:1.5;">${esc(desc)}</div>
-            <div style="font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 15px;">${esc(price)}</div>
-            <p style="font-size: 13px; font-weight:600; color:var(--text-main);">Cada puesto incluye <b>3 números</b>. ¡Más opciones de ganar!</p>
+            <div style="font-size: 22px; font-weight:900; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
+            <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 20px; line-height:1.5; font-weight: 500;">${esc(desc)}</div>
+            <div style="font-size: 26px; font-weight: 900; color: var(--accent); margin-bottom: 15px; letter-spacing:-1px;">${esc(price)}</div>
+            <p style="font-size: 13px; font-weight:700; color:var(--text-main);">Cada puesto incluye <b>3 números</b>. ¡Más opciones de ganar!</p>
         </div>
       `;
 
@@ -737,14 +749,14 @@
       }
 
       let secVendidos = carruselVendidos !== '' ? `
-          <h4 style="font-size:15px; font-weight:800; margin-bottom:12px; letter-spacing:-0.5px;">Puestos Vendidos 🎉</h4>
+          <h4 style="font-size:16px; font-weight:900; margin-bottom:12px; letter-spacing:-0.5px;">Puestos Vendidos 🎉</h4>
           <div class="ticket-carousel">${carruselVendidos}</div>
       ` : '';
 
       container.innerHTML = `
           ${htmlInfo}
           ${secVendidos}
-          <h4 style="font-size:15px; font-weight:800; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Puestos Disponibles 👇</h4>
+          <h4 style="font-size:16px; font-weight:900; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Puestos Disponibles 👇</h4>
           <div class="puestos-grid">${gridDisponibles}</div>
           <div style="text-align:center; font-size:12px; font-weight:600; color:var(--text-muted); margin-top:25px;">
               👆 Toca un puesto para separarlo por WhatsApp.
