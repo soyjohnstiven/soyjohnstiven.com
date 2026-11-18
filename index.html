@@ -181,15 +181,14 @@
   .puesto-box.pendiente .pb-nums { color: var(--accent); }
 
   /* ================= CLIENTES Y REDES ================= */
-  .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 30px;}
-  .gallery-img { width: 100%; aspect-ratio: 1; border-radius: 16px; object-fit: cover; border: 1px solid var(--border);}
-  
   .social-card { 
       display: flex; align-items: center; gap: 15px; padding: 15px; 
       background: var(--bg-alt); border-radius: 16px; margin-bottom: 12px; 
       text-decoration: none; color: var(--text-main); border: 1px solid var(--border);
   }
   .social-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #FFF; }
+  .si-wa { background: #25D366; }
+  .si-tk { background: #000000; }
   .social-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 2px;}
   .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 500;}
 
@@ -232,20 +231,20 @@
     </div>
     
     <div class="tabs-wrapper">
-        <button class="tab-pill active" onclick="switchTab('inmediata', this)">⚡ Para Hoy</button>
-        <button class="tab-pill" onclick="switchTab('catalogo', this)">📦 Bajo Pedido</button>
-        <button class="tab-pill" onclick="switchTab('sorteos', this)">🎁 Sorteos</button>
-        <button class="tab-pill" onclick="switchTab('clientes', this)">⭐ Clientes</button>
+        <button class="tab-pill active" onclick="switchTab('inmediata', this)">⚡ Entrega Inmediata</button>
+        <button class="tab-pill" onclick="switchTab('catalogo', this)">📦 Mejores Precios</button>
+        <button class="tab-pill" onclick="switchTab('sorteos', this)">🎁 Dinámicas</button>
+        <button class="tab-pill" onclick="switchTab('clientes', this)">⭐ Redes Sociales</button>
     </div>
 </div>
 
 <main class="main-content">
 
-    <!-- ================= 1. STOCK LOCAL (INICIO POR DEFECTO) ================= -->
+    <!-- ================= 1. ENTREGA INMEDIATA ================= -->
     <section id="view-inmediata" class="view-section active">
         <div class="section-header">
-            <h1 class="section-title">Stock Local</h1>
-            <p class="section-desc">Bodega Medellín: <b>Pídelo hoy, recíbelo hoy</b>. Domicilio gratis y pago seguro.</p>
+            <h1 class="section-title">Entrega Inmediata</h1>
+            <p class="section-desc">Para entrega inmediata en Medellín. <b>Pídelo hoy, recíbelo hoy</b>. Domicilio gratis y pago seguro.</p>
         </div>
         
         <div class="search-box">
@@ -258,10 +257,10 @@
         </div>
     </section>
 
-    <!-- ================= 2. CATÁLOGO GENERAL (ECONÓMICO) ================= -->
+    <!-- ================= 2. MEJORES PRECIOS ================= -->
     <section id="view-catalogo" class="view-section">
         <div class="section-header">
-            <h1 class="section-title">Catálogo General</h1>
+            <h1 class="section-title">Mejores Precios</h1>
             <p class="section-desc">Precios económicos bajo encargo. <b>Los envíos se realizan exclusivamente por transportadora</b> a nivel nacional.</p>
         </div>
         
@@ -275,10 +274,10 @@
         </div>
     </section>
 
-    <!-- ================= 3. DINÁMICAS (SORTEOS) ================= -->
+    <!-- ================= 3. DINÁMICAS ================= -->
     <section id="view-sorteos" class="view-section">
         <div class="section-header">
-            <h1 class="section-title">Sorteos VIP</h1>
+            <h1 class="section-title">Dinámicas</h1>
             <p class="section-desc">Participa y gana fragancias exclusivas por una fracción del precio.</p>
         </div>
         
@@ -287,10 +286,10 @@
         </div>
     </section>
 
-    <!-- ================= 4. CLIENTES Y REDES ================= -->
+    <!-- ================= 4. REDES SOCIALES ================= -->
     <section id="view-clientes" class="view-section">
         <div class="section-header">
-            <h1 class="section-title">Nuestra Comunidad</h1>
+            <h1 class="section-title">Redes Sociales</h1>
             <p class="section-desc">Tu confianza es nuestra garantía. Únete a nuestras redes.</p>
         </div>
         
@@ -310,16 +309,6 @@
                 <p>Reseñas y recomendaciones perfumeras.</p>
             </div>
         </a>
-
-        <!-- Entregas Reales -->
-        <h3 style="font-size:16px; font-weight:800; margin-bottom:15px;">Entregas Reales 📦</h3>
-        <div class="gallery-grid">
-            <!-- Sustituye con tus fotos reales -->
-            <img src="https://images.unsplash.com/photo-1588661663189-94b63e9fcc01?w=300&q=80" class="gallery-img">
-            <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=300&q=80" class="gallery-img">
-            <img src="https://images.unsplash.com/photo-1628102491629-778571d893a3?w=300&q=80" class="gallery-img">
-            <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=300&q=80" class="gallery-img">
-        </div>
     </section>
 
 </main>
@@ -339,12 +328,9 @@
 <script>
   // ================= LÓGICA DE PESTAÑAS (TABS) =================
   function switchTab(viewId, element) {
-      // Ocultar todas las vistas
       document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
-      // Quitar clase active a todas las pastillas
       document.querySelectorAll('.tab-pill').forEach(el => el.classList.remove('active'));
       
-      // Mostrar la seleccionada
       document.getElementById('view-' + viewId).classList.add('active');
       element.classList.add('active');
       
@@ -376,7 +362,6 @@
     for (let item in cartObj) { totalItems += cartObj[item].qty; }
     document.getElementById('cartCount').innerText = totalItems;
     
-    // Animar badge
     let badge = document.getElementById('cartCount');
     badge.style.transform = 'scale(1.3)';
     setTimeout(() => badge.style.transform = 'scale(1)', 200);
@@ -423,7 +408,6 @@
     
     if(totalItems === 0) {
       closeSheets();
-      // Restaurar botones de Inmediata a su estado normal
       document.querySelectorAll('.btn-inmediata').forEach(btn => { 
           if(btn.classList.contains('added')) {
               btn.classList.remove('added'); 
@@ -496,19 +480,17 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-      // Cargar Inmediata (Con Precio y Botón Naranja de Agregar al Carrito)
       fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           dataInmediata = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
               let nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
-              let estado = String(cols[1]||'').replace(/"/g,'').trim(); // Aquí viene el precio
+              let estado = String(cols[1]||'').replace(/"/g,'').trim();
               let foto = formatImageLink(cols[2]);
               return { nombre, estado, foto };
           }).filter(Boolean);
           renderInmediata(dataInmediata);
       });
 
-      // Cargar Catálogo General (Sin Precio visible, Botón Negro "PRECIO ACTUALIZADO")
       fetch(URL_CATALOGO + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           dataCatalogo = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
@@ -516,11 +498,10 @@
               let foto = formatImageLink(cols[2]);
               return { nombre, foto };
           }).filter(Boolean);
-          dataCatalogo.sort(() => Math.random() - 0.5); // Mezclar para variedad
+          dataCatalogo.sort(() => Math.random() - 0.5);
           renderCatalogo(dataCatalogo);
       });
 
-      // Cargar Único Sorteo (30 Puestos exactos)
       fetch(URL_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           let rows = parseCSV(csv).slice(1);
           if (rows.length > 0 && rows[0].length >= 7) {
@@ -547,7 +528,6 @@
                   return { id: idPuesto, numeros: arr, estado: estado, nombre: comprador };
               }).filter(Boolean);
 
-              // Garantizar que solo se rendericen 30 puestos
               pData = pData.filter(p => parseInt(p.id) <= 30);
               renderSorteo(title, desc, price, pData);
           } else {
@@ -565,13 +545,13 @@
           const isAgotado = p.estado.toLowerCase().includes('agotad'); 
           const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
           const btnTxt = isAgotado ? 'AGOTADO' : 'AGREGAR';
-          const btnCls = isAgotado ? 'btn-catalogo' : 'btn-inmediata'; // Negro si agotado, Naranja si disponible
+          const btnCls = isAgotado ? 'btn-catalogo' : 'btn-inmediata';
           const btnAction = isAgotado ? `disabled style="opacity:0.3; cursor:not-allowed;"` : `onclick="addDirectToCart('${esc(p.nombre)}', '${esc(p.estado)}', this)" data-text="AGREGAR"`;
           
           let overlayHtml = isAgotado ? `
               <div class="overlay-soldout">
                   <i class="fa-solid fa-xmark"></i>
-                  <div class="badge-soldout">LLEGA EN 4 DÍAS</div>
+                  <div class="badge-soldout">LLEGAN PRONTO</div>
               </div>` : '';
           
           return `
@@ -593,12 +573,11 @@
       if(lista.length === 0) { grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No hay resultados.</div>'; return; }
       
       grid.innerHTML = lista.map(p => {
-          // El botón negro que invita a consultar el precio
           return `
           <div class="prod-card">
             <div class="prod-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
             <div class="prod-title" style="margin-bottom:15px;">${esc(p.nombre)}</div>
-            <button class="btn-action btn-catalogo" onclick="openWhatsApp('Hola John, ayúdame a cotizar este perfume del catálogo económico:\\n- ${esc(p.nombre)}')">PRECIO ACTUALIZADO</button>
+            <button class="btn-action btn-catalogo" onclick="openWhatsApp('Hola, el perfume ${esc(p.nombre)} ¿qué precio tiene hoy y hay descuento?')">PRECIO ACTUALIZADO</button>
           </div>
         `;
       }).join('');
@@ -631,7 +610,6 @@
       let carruselVendidos = '';
       let gridDisponibles = '';
       
-      // Construir 30 puestos estrictamente
       for (let i = 1; i <= 30; i++) {
           let idStr = i < 10 ? '0' + i : '' + i;
           let p = pData.find(x => x.id === idStr);
@@ -643,7 +621,7 @@
               carruselVendidos += `
               <div class="ticket-sold">
                   <div class="ts-name">👤 ${esc(nombreComprador)}</div>
-                  <div style="font-size:12px; margin-top:4px;">Puesto ${idStr}</div>
+                  <div style="font-size:12px; margin-top:4px;">Puesto #${idStr}</div>
                   <div class="ts-nums">${numText}</div>
               </div>`;
           } else {
