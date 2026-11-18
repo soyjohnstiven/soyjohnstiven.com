@@ -126,7 +126,7 @@
   /* ================= CONTENEDOR PRINCIPAL ================= */
   .main-content {
       padding-top: calc(var(--header-height) + 15px);
-      padding-bottom: calc(var(--safe-bottom) + 80px);
+      padding-bottom: calc(var(--safe-bottom) + 50px);
       max-width: 600px; margin: 0 auto;
   }
 
@@ -234,8 +234,8 @@
     <div class="tabs-wrapper">
         <button class="tab-pill active" onclick="switchTab('inmediata', this)"><i class="fa-solid fa-bolt" style="color:var(--accent);"></i> Entrega Inmediata</button>
         <button class="tab-pill" onclick="switchTab('catalogo', this)"><i class="fa-solid fa-box-open" style="color:var(--text-muted);"></i> Mejores Precios</button>
-        <button class="tab-pill" onclick="switchTab('sorteos', this)"><i class="fa-solid fa-gift" style="color:#FF3B30;"></i> Dinámicas</button>
-        <button class="tab-pill" onclick="switchTab('clientes', this)"><i class="fa-solid fa-star" style="color:#FFD60A;"></i> Redes Sociales</button>
+        <button class="tab-pill" onclick="switchTab('sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
+        <button class="tab-pill" onclick="switchTab('clientes', this)"><i class="fa-solid fa-star" style="color:var(--text-muted);"></i> Redes Sociales</button>
     </div>
 </div>
 
@@ -298,15 +298,15 @@
             <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
             <div class="social-info">
                 <h4>Estados de WhatsApp</h4>
-                <p>Regalos & Promociones.</p>
+                <p>Las mejores ofertas relámpago se suben aquí.</p>
             </div>
         </a>
 
         <a href="https://www.tiktok.com/@soyjohnstiven" class="social-card" target="_blank" style="margin-bottom: 30px;">
             <div class="social-icon si-tk"><i class="fa-brands fa-tiktok"></i></div>
             <div class="social-info">
-                <h4>Cuenta de TikTok</h4>
-                <p>Toca para ver mi perfil.</p>
+                <h4>Perfil de TikTok</h4>
+                <p>Reseñas y recomendaciones.</p>
             </div>
         </a>
     </section>
@@ -319,7 +319,7 @@
       document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
       document.querySelectorAll('.tab-pill').forEach(el => {
           el.classList.remove('active');
-          // Restaurar colores de íconos inactivos si es necesario
+          // Restaurar colores de íconos inactivos
           let icon = el.querySelector('i');
           if(icon) {
               if(icon.classList.contains('fa-bolt')) icon.style.color = 'var(--text-muted)';
@@ -460,7 +460,6 @@
   });
 
   // ================= RENDERIZADO =================
-
   function renderInmediata(lista) {
       const grid = document.getElementById('grid-inmediata');
       if(lista.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">No hay resultados.</div>'; return; }
@@ -471,7 +470,6 @@
           const btnTxt = isAgotado ? 'AGOTADO' : 'LO QUIERO HOY';
           const btnCls = isAgotado ? 'btn-catalogo' : 'btn-inmediata';
           
-          // SIN CARRITO: Acción Directa a WhatsApp
           const btnAction = isAgotado 
               ? `disabled style="opacity:0.4; cursor:not-allowed;"` 
               : `onclick="openWhatsApp('Hola John, quiero este perfume para entrega inmediata en Medellín:\\n- ${esc(p.nombre)}') "`;
@@ -549,16 +547,16 @@
               carruselVendidos += `
               <div class="ticket-sold">
                   <div class="ts-name">👤 ${esc(nombreComprador)}</div>
-                  <div style="font-size:12px; margin-top:4px;">Puesto #${idStr}</div>
+                  <div style="font-size:12px; margin-top:4px;">Puesto #${i}</div>
                   <div class="ts-nums">${numText}</div>
               </div>`;
           } else {
               let cls = estado;
-              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${idStr} del sorteo.')"`;
+              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${i} del sorteo.')"`;
               gridDisponibles += `
               <div class="puesto-box ${cls}" ${act}>
                   <div class="pb-label">Puesto</div>
-                  <div class="pb-id">#${idStr}</div>
+                  <div class="pb-id">#${i}</div>
                   <div class="pb-nums">${numText}</div>
               </div>`;
           }
