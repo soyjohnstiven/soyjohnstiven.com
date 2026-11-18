@@ -6,7 +6,7 @@
 <title>John Stiven | Perfumería</title>
 
 <meta property="og:title" content="John Stiven - Perfumería">
-<meta property="og:description" content="Entregas inmediatas, catálogo para revendedores y sorteos exclusivos.">
+<meta property="og:description" content="Entregas inmediatas, catálogo económico y sorteos exclusivos.">
 <meta property="og:type" content="website">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,29 +14,34 @@
 
 <style>
   /* =========================================
-     DISEÑO TIPO APPLE (GLASSMORPHISM / TRANSPARENTE)
+     DISEÑO E-COMMERCE PREMIUM (PESTAÑAS INTELIGENTES)
      PALETA: BLANCO, NEGRO, NARANJA (#FF6600)
   ========================================= */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
   :root {
-    --bg-base: #F5F5F7; 
-    
-    /* Variables de Cristal (Apple Style) */
-    --glass-bg: rgba(255, 255, 255, 0.65);
-    --glass-border: rgba(255, 255, 255, 0.8);
-    --glass-blur: blur(24px) saturate(180%);
+    --bg-base: #FFFFFF;
+    --bg-alt: #F5F5F7; 
     
     --text-main: #111111;
     --text-muted: #86868B;
     
     --accent: #FF6600; 
-    --accent-light: rgba(255, 102, 0, 0.15);
+    --accent-light: rgba(255, 102, 0, 0.1);
     
-    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.04);
+    --border: #E5E5EA;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
     
-    --header-height: 110px;
+    --header-height: 110px; /* Altura base para PC */
     --safe-bottom: env(safe-area-inset-bottom, 20px);
+  }
+  
+  /* Ajuste de altura del encabezado para celulares (alojar las 2 filas de botones) */
+  @media (max-width: 500px) {
+      :root {
+          --header-height: 145px;
+      }
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -44,22 +49,17 @@
   html, body {
     width: 100%; height: 100%;
     font-family: 'Inter', -apple-system, sans-serif;
-    color: var(--text-main);
     background-color: var(--bg-base);
-    /* Fondo con destellos muy sutiles para que el cristal (Glassmorphism) se note al hacer scroll */
-    background-image: 
-        radial-gradient(circle at 10% 20%, rgba(255, 102, 0, 0.05), transparent 25%),
-        radial-gradient(circle at 90% 80%, rgba(0, 0, 0, 0.04), transparent 25%);
-    background-attachment: fixed;
+    color: var(--text-main);
   }
 
-  /* ================= NAVEGACIÓN SUPERIOR (TRANSPARENTE) ================= */
+  /* ================= NAVEGACIÓN SUPERIOR ================= */
   .header-container {
       position: fixed; top: 0; left: 0; width: 100%;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
       z-index: 1000;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      border-bottom: 1px solid var(--border);
   }
 
   .navbar {
@@ -73,10 +73,9 @@
   /* Indicador Usuarios En Línea */
   .online-indicator {
       display: flex; align-items: center; gap: 8px;
-      background: var(--glass-bg); padding: 8px 14px;
+      background: var(--bg-alt); padding: 8px 14px;
       border-radius: 100px; font-size: 12px; font-weight: 700;
-      color: var(--text-muted); border: 1px solid var(--glass-border);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      color: var(--text-muted); border: 1px solid var(--border);
   }
   .pulse-dot {
       width: 8px; height: 8px; background-color: #34C759;
@@ -99,21 +98,35 @@
   .tabs-wrapper::-webkit-scrollbar { display: none; } 
   
   .tab-pill {
-      background: var(--glass-bg); color: var(--text-muted);
-      border: 1px solid var(--glass-border); padding: 10px 18px;
+      background: var(--bg-alt); color: var(--text-muted);
+      border: 1px solid transparent; padding: 10px 18px;
       border-radius: 100px; font-size: 13px; font-weight: 700;
       white-space: nowrap; cursor: pointer; transition: 0.3s;
+      display: flex; align-items: center; gap: 6px;
   }
   .tab-pill.active {
       background: var(--text-main); color: #FFF;
-      border-color: var(--text-main);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+  
+  /* AJUSTE MÓVIL: Los botones bajan a una segunda línea para que no se pierdan */
+  @media (max-width: 500px) {
+      .tabs-wrapper {
+          flex-wrap: wrap; /* Permite crear filas */
+          justify-content: center;
+      }
+      .tab-pill {
+          flex: 1 1 calc(50% - 8px); /* Toma la mitad de la pantalla menos el margen */
+          justify-content: center;
+          padding: 8px 10px;
+          font-size: 12px;
+      }
   }
 
   /* ================= CONTENEDOR PRINCIPAL ================= */
   .main-content {
-      padding-top: calc(var(--header-height) + 20px);
-      padding-bottom: calc(var(--safe-bottom) + 50px);
+      padding-top: calc(var(--header-height) + 15px);
+      padding-bottom: calc(var(--safe-bottom) + 80px);
       max-width: 600px; margin: 0 auto;
   }
 
@@ -122,111 +135,88 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   .section-header { margin-bottom: 20px; }
-  .section-title { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px;}
-  .section-desc { font-size: 14.5px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
+  .section-title { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px;}
+  .section-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
 
-  /* Buscador Tipo Apple */
+  /* Buscador */
   .search-box {
-      display: flex; align-items: center; 
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px; padding: 14px 18px; margin-bottom: 25px;
-      box-shadow: var(--shadow-glass);
-      transition: 0.3s;
-  }
-  .search-box:focus-within {
-      border-color: var(--text-main);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: flex; align-items: center; background: var(--bg-alt);
+      border-radius: 14px; padding: 12px 16px; margin-bottom: 20px;
   }
   .search-box i { color: var(--text-muted); font-size: 16px; margin-right: 12px; }
   .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; font-family: inherit; font-weight: 500;}
 
-  /* ================= TARJETAS DE PRODUCTOS (GLASSMORPHISM) ================= */
+  /* ================= TARJETAS DE PRODUCTOS ================= */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
   
   .prod-card {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px; padding: 14px; display: flex; flex-direction: column;
-      box-shadow: var(--shadow-glass); position: relative; transition: 0.3s;
+      background: #FFF; border: 1px solid var(--border);
+      border-radius: 16px; padding: 12px; display: flex; flex-direction: column;
+      box-shadow: var(--shadow-sm); position: relative;
   }
-  .prod-card:active { transform: scale(0.96); }
-
-  .prod-img { width: 100%; aspect-ratio: 1; background: rgba(255,255,255,0.5); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; position: relative;}
+  .prod-img { width: 100%; aspect-ratio: 1; background: var(--bg-alt); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; position: relative;}
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; padding: 10px;}
   
-  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 34px;}
-  .prod-price { font-size: 17px; font-weight: 800; color: var(--text-main); margin-bottom: 14px;}
+  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
+  .prod-price { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 12px;}
   
   /* Botones del producto */
   .btn-action {
-      width: 100%; padding: 12px; border-radius: 12px; border: none;
-      font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      width: 100%; padding: 10px; border-radius: 10px; border: none;
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
       cursor: pointer; transition: 0.2s; text-align: center;
   }
   .btn-action:active { transform: scale(0.95); }
   
-  /* Estilo Inmediata (Naranja) */
-  .btn-inmediata { background: var(--accent); color: #FFF; box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);}
+  .btn-inmediata { background: var(--accent); color: #FFF; }
+  .btn-catalogo { background: var(--text-main); color: #FFF; }
   
-  /* Estilo Catálogo (Negro) */
-  .btn-catalogo { background: var(--text-main); color: #FFF; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);}
-  
-  /* Overlay Agotado Transparente */
+  /* Overlay Agotado */
   .overlay-soldout {
-      position: absolute; inset: 0; 
-      background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      position: absolute; inset: 0; background: rgba(255,255,255,0.8);
       display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2;
   }
-  .overlay-soldout i { font-size: 35px; color: var(--text-main); margin-bottom: 5px; opacity: 0.8;}
-  .badge-soldout { background: var(--text-main); color: #FFF; font-size: 9px; font-weight: 800; padding: 5px 10px; border-radius: 10px; }
+  .overlay-soldout i { font-size: 35px; color: var(--text-main); margin-bottom: 5px; }
+  .badge-soldout { background: var(--text-main); color: #FFF; font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 8px; }
 
   /* ================= DINÁMICAS (SORTEOS) ================= */
-  .ticket-carousel { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none;}
+  .dinamica-card { background: var(--bg-alt); border-radius: 20px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border);}
+  .d-price { font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 15px;}
+  
+  .ticket-carousel { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none;}
   .ticket-carousel::-webkit-scrollbar { display: none; }
   .ticket-sold {
-      background: var(--text-main); color: #FFF; border-radius: 18px; padding: 18px;
-      min-width: 180px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      background: var(--text-main); color: #FFF; border-radius: 16px; padding: 15px;
+      min-width: 180px; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px;
   }
-  .ts-name { font-size: 13.5px; font-weight: 800; color: var(--accent); }
+  .ts-name { font-size: 13px; font-weight: 800; color: var(--accent); }
   .ts-nums { font-size: 16px; font-weight: 800; margin-top: 5px;}
 
-  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
+  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 8px; }
   .puesto-box {
-      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border); border-radius: 16px;
-      padding: 12px 6px; text-align: center; cursor: pointer; transition: 0.2s;
-      box-shadow: var(--shadow-glass);
+      background: #FFF; border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 5px; text-align: center; cursor: pointer; transition: 0.2s;
   }
   .puesto-box:active { transform: scale(0.92); }
-  .pb-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-  .pb-id { font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 6px;}
-  .pb-nums { font-size: 11px; font-weight: 700; color: var(--text-muted); min-height: 14px;}
-  
+  .pb-id { font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;}
+  .pb-nums { font-size: 10px; font-weight: 700; color: var(--text-muted); min-height: 12px;}
   .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
   .puesto-box.pendiente .pb-nums { color: var(--accent); }
 
   /* ================= REDES SOCIALES ================= */
   .social-card { 
-      display: flex; align-items: center; gap: 16px; padding: 18px; 
-      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border-radius: 20px; margin-bottom: 15px; 
-      text-decoration: none; color: var(--text-main); border: 1px solid var(--glass-border);
-      box-shadow: var(--shadow-glass); transition: 0.3s;
+      display: flex; align-items: center; gap: 15px; padding: 15px; 
+      background: var(--bg-alt); border-radius: 16px; margin-bottom: 12px; 
+      text-decoration: none; color: var(--text-main); border: 1px solid var(--border);
   }
-  .social-card:active { transform: scale(0.97); }
-  .social-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; color: #FFF; }
+  .social-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #FFF; }
   .si-wa { background: #25D366; }
   .si-tk { background: #000000; }
-  .social-info h4 { font-size: 16px; font-weight: 800; margin-bottom: 4px;}
-  .social-info p { font-size: 13px; color: var(--text-muted); font-weight: 500;}
-
+  .social-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 2px;}
+  .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 500;}
+  
   .loader { display: flex; flex-direction: column; align-items: center; padding: 40px; grid-column: 1/-1; color: var(--text-muted);}
-  .loader i { font-size: 26px; animation: spin 1s linear infinite; margin-bottom: 12px; color: var(--text-main);}
-  @keyframes spin { 100% { transform: rotate(360deg); } }
+  .loader i { font-size: 24px; animation: spin 1s linear infinite; margin-bottom: 10px;}
 </style>
 </head>
 <body>
@@ -240,12 +230,12 @@
         </div>
     </div>
     
-    <!-- Filtros Superiores Inteligentes -->
+    <!-- Filtros Superiores Inteligentes (Adaptativos a Celular) -->
     <div class="tabs-wrapper">
-        <button class="tab-pill active" onclick="switchTab('inmediata', this)">⚡ Entrega Inmediata</button>
-        <button class="tab-pill" onclick="switchTab('catalogo', this)">📦 Mejores Precios</button>
-        <button class="tab-pill" onclick="switchTab('sorteos', this)">🎁 Dinámicas</button>
-        <button class="tab-pill" onclick="switchTab('clientes', this)">⭐ Redes Sociales</button>
+        <button class="tab-pill active" onclick="switchTab('inmediata', this)"><i class="fa-solid fa-bolt" style="color:var(--accent);"></i> Entrega Inmediata</button>
+        <button class="tab-pill" onclick="switchTab('catalogo', this)"><i class="fa-solid fa-box-open" style="color:var(--text-muted);"></i> Mejores Precios</button>
+        <button class="tab-pill" onclick="switchTab('sorteos', this)"><i class="fa-solid fa-gift" style="color:#FF3B30;"></i> Dinámicas</button>
+        <button class="tab-pill" onclick="switchTab('clientes', this)"><i class="fa-solid fa-star" style="color:#FFD60A;"></i> Redes Sociales</button>
     </div>
 </div>
 
@@ -264,7 +254,7 @@
         </div>
 
         <div id="grid-inmediata" class="product-grid">
-            <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock en Medellín...</span></div>
+            <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock...</span></div>
         </div>
     </section>
 
@@ -272,7 +262,7 @@
     <section id="view-catalogo" class="view-section">
         <div class="section-header">
             <h1 class="section-title">Mejores Precios</h1>
-            <p class="section-desc">Paga hoy y te enviamos hoy mismo. <b>Obtén excelentes precios ideales para que revendas.</b></p>
+            <p class="section-desc">Precios económicos bajo encargo. <b>Los envíos se realizan exclusivamente por transportadora</b> a nivel nacional.</p>
         </div>
         
         <div class="search-box">
@@ -289,11 +279,11 @@
     <section id="view-sorteos" class="view-section">
         <div class="section-header">
             <h1 class="section-title">Dinámicas</h1>
-            <p class="section-desc">Participa y gana fragancias exclusivas por una fracción de su precio original.</p>
+            <p class="section-desc">Participa y gana fragancias exclusivas por una fracción del precio.</p>
         </div>
         
         <div id="board-dinamica">
-            <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas activas...</span></div>
+            <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas...</span></div>
         </div>
     </section>
 
@@ -301,18 +291,18 @@
     <section id="view-clientes" class="view-section">
         <div class="section-header">
             <h1 class="section-title">Redes Sociales</h1>
-            <p class="section-desc">Tu confianza es nuestra garantía. Únete a nuestra comunidad VIP.</p>
+            <p class="section-desc">Tu confianza es nuestra garantía. Únete a nuestras redes.</p>
         </div>
         
         <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20VIP" class="social-card" target="_blank">
             <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
             <div class="social-info">
                 <h4>Estados de WhatsApp</h4>
-                <p>Ofertas relámpago todos los días.</p>
+                <p>Las mejores ofertas relámpago se suben aquí.</p>
             </div>
         </a>
 
-        <a href="https://www.tiktok.com/@soyjohnstiven" class="social-card" target="_blank">
+        <a href="https://www.tiktok.com/@soyjohnstiven" class="social-card" target="_blank" style="margin-bottom: 30px;">
             <div class="social-icon si-tk"><i class="fa-brands fa-tiktok"></i></div>
             <div class="social-info">
                 <h4>Perfil de TikTok</h4>
@@ -327,10 +317,29 @@
   // ================= LÓGICA DE PESTAÑAS (TABS) =================
   function switchTab(viewId, element) {
       document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
-      document.querySelectorAll('.tab-pill').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-pill').forEach(el => {
+          el.classList.remove('active');
+          // Restaurar colores de íconos inactivos si es necesario
+          let icon = el.querySelector('i');
+          if(icon) {
+              if(icon.classList.contains('fa-bolt')) icon.style.color = 'var(--text-muted)';
+              if(icon.classList.contains('fa-box-open')) icon.style.color = 'var(--text-muted)';
+              if(icon.classList.contains('fa-gift')) icon.style.color = 'var(--text-muted)';
+              if(icon.classList.contains('fa-star')) icon.style.color = 'var(--text-muted)';
+          }
+      });
       
       document.getElementById('view-' + viewId).classList.add('active');
       element.classList.add('active');
+      
+      // Resaltar ícono activo
+      let activeIcon = element.querySelector('i');
+      if(activeIcon) {
+          if(viewId === 'inmediata') activeIcon.style.color = 'var(--accent)';
+          if(viewId === 'catalogo') activeIcon.style.color = '#FFF';
+          if(viewId === 'sorteos') activeIcon.style.color = '#FF3B30';
+          if(viewId === 'clientes') activeIcon.style.color = '#FFD60A';
+      }
       
       window.scrollTo({top: 0, behavior: 'smooth'});
       
@@ -344,10 +353,12 @@
 
   // ================= CONTADOR DE USUARIOS EN LÍNEA =================
   document.addEventListener('DOMContentLoaded', () => {
+      // Generar usuario aleatorio entre 71 y 210
       let currentUsers = Math.floor(Math.random() * (210 - 71 + 1)) + 71;
       const userCountEl = document.getElementById('userCount');
       userCountEl.innerText = currentUsers;
 
+      // Fluctúa sutilmente el número para que parezca vivo
       setInterval(() => {
           let change = Math.floor(Math.random() * 5) - 2; 
           currentUsers += change;
@@ -448,7 +459,7 @@
       });
   });
 
-  // ================= RENDERIZADO DE INTERFAZ =================
+  // ================= RENDERIZADO =================
 
   function renderInmediata(lista) {
       const grid = document.getElementById('grid-inmediata');
@@ -460,6 +471,7 @@
           const btnTxt = isAgotado ? 'AGOTADO' : 'LO QUIERO HOY';
           const btnCls = isAgotado ? 'btn-catalogo' : 'btn-inmediata';
           
+          // SIN CARRITO: Acción Directa a WhatsApp
           const btnAction = isAgotado 
               ? `disabled style="opacity:0.4; cursor:not-allowed;"` 
               : `onclick="openWhatsApp('Hola John, quiero este perfume para entrega inmediata en Medellín:\\n- ${esc(p.nombre)}') "`;
@@ -515,7 +527,7 @@
       let container = document.getElementById('board-dinamica');
       
       let htmlInfo = `
-        <div style="background:var(--glass-bg); backdrop-filter:var(--glass-blur); border:1px solid var(--glass-border); border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow:var(--shadow-glass);">
+        <div style="background:var(--bg-alt); border:1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 25px;">
             <div style="font-size: 22px; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
             <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 20px; line-height:1.5;">${esc(desc)}</div>
             <div style="font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 15px;">${esc(price)}</div>
@@ -537,16 +549,16 @@
               carruselVendidos += `
               <div class="ticket-sold">
                   <div class="ts-name">👤 ${esc(nombreComprador)}</div>
-                  <div style="font-size:12px; margin-top:4px;">Puesto #${i}</div>
+                  <div style="font-size:12px; margin-top:4px;">Puesto #${idStr}</div>
                   <div class="ts-nums">${numText}</div>
               </div>`;
           } else {
               let cls = estado;
-              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${i} del sorteo.')"`;
+              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${idStr} del sorteo.')"`;
               gridDisponibles += `
               <div class="puesto-box ${cls}" ${act}>
                   <div class="pb-label">Puesto</div>
-                  <div class="pb-id">#${i}</div>
+                  <div class="pb-id">#${idStr}</div>
                   <div class="pb-nums">${numText}</div>
               </div>`;
           }
