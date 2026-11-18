@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>John Stiven | Perfumería</title>
+<title>Perfumería Original</title>
 
 <!-- META TAGS -->
-<meta property="og:title" content="John Stiven - Tienda Oficial">
+<meta property="og:title" content="John Stiven - Catálogo">
 <meta property="og:description" content="Perfumería original, entregas inmediatas y dinámicas exclusivas.">
 <meta property="og:type" content="website">
 
@@ -15,24 +15,28 @@
 
 <style>
   /* =========================================
-     ESTÉTICA CHAT (WHATSAPP STYLE) + BRANDING NARANJA Y NEGRO
+     ESTÉTICA FREEFORM (APPLE NATIVE CANVAS)
+     PALETA: BLANCO, NEGRO, NARANJA (#FF6600)
   ========================================= */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
   :root {
-    --bg-chat: #EFEAE2; /* Color clásico de fondo de chat */
-    --bubble-received: #FFFFFF;
-    --bubble-sent: #FF6600; /* Naranja corporativo */
+    --bg-canvas: #F5F5F7; /* Gris muy claro nativo de Apple */
+    --card-bg: #FFFFFF;
+    --card-border: rgba(0, 0, 0, 0.04);
     
     --text-main: #111111;
-    --text-muted: #667781;
-    --text-sent: #FFFFFF;
+    --text-muted: #86868B;
     
-    --header-bg: #111111; /* Negro corporativo */
-    --header-text: #FFFFFF;
+    --accent: #FF6600; /* Naranja corporativo */
+    --accent-light: rgba(255, 102, 0, 0.1);
     
-    --shadow-sm: 0 1px 2px rgba(11, 20, 26, 0.1);
-    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow-float: 0 14px 40px rgba(0, 0, 0, 0.08);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
+    
+    --radius-lg: 32px;
+    --radius-md: 20px;
+    --radius-sm: 12px;
     
     --safe-bottom: env(safe-area-inset-bottom, 20px);
   }
@@ -42,325 +46,337 @@
   html, body {
     width: 100%;
     height: 100%;
-    overflow: hidden;
     font-family: 'Inter', -apple-system, sans-serif;
-    background-color: var(--bg-chat);
+    background-color: var(--bg-canvas);
+    color: var(--text-main);
   }
 
-  /* Fondo con patrón sutil (Opcional, estilo chat) */
+  /* El fondo de Canvas con puntos tipo Freeform */
   body::before {
     content: "";
     position: fixed; inset: 0; z-index: -1;
-    background-image: radial-gradient(rgba(0,0,0,0.03) 2px, transparent 2px);
+    background-image: radial-gradient(#D2D2D7 1px, transparent 1px);
     background-size: 24px 24px;
+    opacity: 0.8;
   }
 
-  .app-container { 
-      display: flex; 
-      flex-direction: column; 
-      height: 100vh; 
-      max-width: 600px; 
-      margin: 0 auto; 
-      background: var(--bg-chat); 
-      position: relative;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  /* Contenedor principal estilo tablero infinito */
+  .canvas-container { 
+      padding: max(20px, env(safe-area-inset-top)) 20px calc(140px + var(--safe-bottom)) 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      min-height: 100vh;
   }
 
-  /* ================= CHAT HEADER ================= */
-  .chat-header {
-      background: var(--header-bg);
-      color: var(--header-text);
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      z-index: 1000;
-      padding-top: max(15px, env(safe-area-inset-top));
+  /* ================= PANELES FLOTANTES (FREEFORM CARDS) ================= */
+  .ff-board {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-float);
+      padding: 30px;
+      margin-bottom: 30px;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
   }
-  .avatar {
-      width: 45px; height: 45px;
-      border-radius: 50%;
-      background: var(--bubble-sent);
-      display: flex; justify-content: center; align-items: center;
-      font-size: 20px; color: #FFF;
-      font-weight: 800;
+  @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
   }
-  .contact-info { display: flex; flex-direction: column; }
-  .contact-name { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 6px;}
-  .contact-status { font-size: 13px; color: #25D366; font-weight: 500; }
-  .verified-badge { color: #1DA1F2; font-size: 14px; }
 
-  /* ================= CHAT SCROLL AREA ================= */
-  .chat-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 15px;
-      padding-bottom: 120px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      scroll-behavior: smooth;
-  }
-  .chat-body::-webkit-scrollbar { display: none; }
+  /* Board header */
+  .board-title { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;}
+  .board-subtitle { font-size: 15px; color: var(--text-muted); font-weight: 500; line-height: 1.5; margin-bottom: 25px;}
 
-  /* ================= BUBBLES ================= */
-  .msg-row { display: flex; width: 100%; margin-bottom: 5px; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; opacity: 0; transform: translateY(15px); }
-  .msg-row.received { justify-content: flex-start; }
-  .msg-row.sent { justify-content: flex-end; }
-  
-  @keyframes popIn { to { opacity: 1; transform: translateY(0); } }
-
-  /* Aplicamos delays a los primeros mensajes para simular que llegan */
-  #msg-1 { animation-delay: 0.2s; }
-  #msg-2 { animation-delay: 1.2s; }
-  #msg-3 { animation-delay: 2.2s; }
-
-  .bubble {
-      max-width: 90%;
-      padding: 12px 16px;
-      border-radius: 18px;
-      font-size: 15px;
-      line-height: 1.4;
-      position: relative;
+  /* Nota adhesiva / Política */
+  .sticky-note {
+      background: #FFF9F2; /* Tono cálido sutil */
+      border-left: 4px solid var(--accent);
+      padding: 20px;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-bottom: 30px;
       box-shadow: var(--shadow-sm);
   }
-  .received .bubble {
-      background: var(--bubble-received);
-      color: var(--text-main);
-      border-top-left-radius: 4px;
-  }
-  .sent .bubble {
-      background: var(--bubble-sent);
-      color: var(--text-sent);
-      border-top-right-radius: 4px;
-      font-weight: 500;
-  }
+  .sticky-note p { font-size: 14px; line-height: 1.6; color: var(--text-main); font-weight: 500; margin-bottom: 10px;}
+  .sticky-note p:last-child { margin-bottom: 0; }
 
-  .bubble-time {
-      display: block;
-      font-size: 10px;
-      color: var(--text-muted);
-      text-align: right;
-      margin-top: 6px;
+  /* ================= BOTONES ================= */
+  .btn-primary { 
+      background: var(--text-main); 
+      color: #FFF; 
+      border: none; 
+      padding: 14px 24px; 
+      border-radius: 100px; 
+      font-size: 14px; 
+      font-weight: 700; 
+      cursor: pointer; 
+      transition: 0.2s; 
+      display: inline-flex; 
+      align-items: center; justify-content: center; gap: 8px;
   }
-  .sent .bubble-time { color: rgba(255,255,255,0.7); }
+  .btn-primary:active { transform: scale(0.95); }
+  
+  .btn-accent { background: var(--accent); color: #FFF; box-shadow: 0 8px 20px rgba(255,102,0,0.3);}
+  
+  .btn-outline { background: transparent; border: 2px solid var(--text-main); color: var(--text-main); }
 
-  /* ================= QUICK REPLIES (OPCIONES DEL CHAT) ================= */
-  .quick-replies {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 12px;
-  }
-  .qr-btn {
-      background: var(--bg-chat);
-      border: 1px solid rgba(0,0,0,0.08);
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-main);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: 0.2s;
-      text-align: left;
-  }
-  .qr-btn:active { transform: scale(0.97); background: #E5D5C5; }
-  .qr-btn i { color: var(--bubble-sent); font-size: 16px; }
-
-  /* ================= TARJETAS DE PRODUCTOS ================= */
-  .catalog-wrapper {
-      display: flex; gap: 12px; overflow-x: auto; padding: 5px 0; margin-top: 10px;
-      scroll-snap-type: x mandatory; scrollbar-width: none;
-  }
-  .catalog-wrapper::-webkit-scrollbar { display: none; }
+  /* ================= PRODUCTOS GRID / MASONRY ================= */
+  .grid-2-col { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
   
   .prod-card {
-      background: #FFFFFF; border-radius: 16px; border: 1px solid rgba(0,0,0,0.05);
-      min-width: 200px; scroll-snap-align: start; flex-shrink: 0;
-      overflow: hidden; display: flex; flex-direction: column;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+      transition: 0.3s;
+      position: relative;
   }
-  .prod-img { width: 100%; aspect-ratio: 1; background: #FFF; display: flex; align-items: center; justify-content: center; position: relative;}
-  .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; padding: 10px;}
+  .prod-card:active { transform: scale(0.96); }
   
-  .prod-info { padding: 12px; display: flex; flex-direction: column; flex: 1; }
-  .prod-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .prod-img { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; position: relative;}
+  .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; border-radius: 8px;}
   
-  /* Botones dentro del catálogo */
-  .btn-buy { 
-      background: var(--header-bg); color: #FFF; border: none; padding: 10px; 
-      border-radius: 10px; font-size: 11px; font-weight: 800; cursor: pointer; 
-      text-transform: uppercase; margin-top: auto; text-align: center; letter-spacing: 0.5px;
-  }
-  .btn-buy.immediate { background: var(--bubble-sent); }
-  .btn-buy.soldout { background: rgba(0,0,0,0.1); color: var(--text-muted); cursor: not-allowed; }
+  .prod-title { font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 36px;}
+  
+  .price-main { font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
 
-  .price-tag { font-size: 15px; font-weight: 800; color: var(--bubble-sent); margin-bottom: 10px;}
-
-  /* Overlay de agotado */
+  /* OVERLAY AGOTADO */
   .overlay-soldout {
-      position: absolute; inset: 0; background: rgba(255,255,255,0.7);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: absolute; inset: 0; background: rgba(255,255,255,0.75);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px;
   }
-  .overlay-soldout i { font-size: 50px; color: var(--header-bg); margin-bottom: 5px; }
-  .badge-soldout { background: var(--header-bg); color: #FFF; font-size: 10px; font-weight: 800; padding: 4px 8px; border-radius: 8px; }
+  .overlay-soldout i { font-size: 40px; color: var(--text-main); margin-bottom: 5px; }
+  .badge-soldout { background: var(--text-main); color: #FFF; font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 8px; text-align: center; }
 
-  /* ================= TARJETAS DINÁMICAS (SORTEOS) ================= */
-  .ticket-carousel { display: flex; gap: 10px; overflow-x: auto; padding: 5px 0; margin-bottom: 15px; scroll-snap-type: x mandatory;}
+  /* ================= DINÁMICAS (SORTEOS) ================= */
+  .ticket-carousel { display: flex; gap: 12px; overflow-x: auto; padding: 5px 0; margin-bottom: 25px; scroll-snap-type: x mandatory; scrollbar-width: none;}
   .ticket-carousel::-webkit-scrollbar { display: none; }
   
   .ticket-sold {
-      background: var(--header-bg); color: #FFF; border-radius: 12px; padding: 15px;
-      min-width: 160px; scroll-snap-align: start; flex-shrink: 0;
-      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 5px;
+      background: var(--text-main); color: #FFF; border-radius: 20px; padding: 20px;
+      min-width: 200px; scroll-snap-align: start; flex-shrink: 0;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 8px;
   }
-  .ts-name { font-size: 13px; font-weight: 800; color: var(--bubble-sent); }
-  .ts-puesto { font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px;}
-  .ts-nums { font-size: 16px; font-weight: 800; margin-top: 5px;}
+  .ts-name { font-size: 15px; font-weight: 800; color: var(--accent); }
+  .ts-puesto { font-size: 12px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 600;}
+  .ts-nums { font-size: 18px; font-weight: 800; margin-top: 5px;}
 
-  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 8px; margin-top: 10px; }
+  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 10px; }
   .puesto-box {
-      background: #FFF; border: 1px solid var(--border-color); border-radius: 10px;
-      padding: 10px 5px; text-align: center; cursor: pointer; transition: 0.2s;
+      background: var(--bg-canvas); border: 1px solid var(--card-border); border-radius: 16px;
+      padding: 12px 5px; text-align: center; cursor: pointer; transition: 0.2s; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
   }
-  .puesto-box:active { transform: scale(0.95); }
+  .puesto-box:active { transform: scale(0.92); }
   .pb-label { font-size: 9px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-  .pb-id { font-size: 20px; font-weight: 800; color: var(--text-main); margin: 2px 0;}
-  .pb-nums { font-size: 10px; font-weight: 700; color: var(--bubble-sent); min-height: 12px;}
+  .pb-id { font-size: 22px; font-weight: 800; color: var(--text-main); margin: 2px 0;}
+  .pb-nums { font-size: 11px; font-weight: 700; color: var(--accent); min-height: 14px;}
   
-  .puesto-box.pendiente { border: 1px dashed var(--bubble-sent); background: rgba(255, 102, 0, 0.05); }
+  .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
 
-  /* ================= TESTIMONIOS (ENTREGAS REALES) ================= */
-  .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-  .gallery-img { width: 100%; aspect-ratio: 1; border-radius: 12px; object-fit: cover; background: #FFF; border: 1px solid var(--border-color);}
+  /* ================= TESTIMONIOS Y REDES ================= */
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+  .gallery-img { width: 100%; aspect-ratio: 1; border-radius: var(--radius-sm); object-fit: cover; background: #FFF; border: 1px solid var(--card-border); box-shadow: var(--shadow-sm);}
 
-  /* ================= REDES SOCIALES ================= */
-  .social-card { display: flex; align-items: center; gap: 15px; padding: 15px; background: #FFF; border-radius: 16px; margin-bottom: 10px; border: 1px solid var(--border-color); text-decoration: none; color: var(--text-main);}
-  .social-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #FFF; }
+  .social-card { display: flex; align-items: center; gap: 18px; padding: 20px; background: var(--card-bg); border-radius: var(--radius-md); margin-bottom: 15px; border: 1px solid var(--card-border); text-decoration: none; color: var(--text-main); box-shadow: var(--shadow-sm); transition: 0.3s;}
+  .social-card:active { transform: scale(0.97); }
+  .social-icon { width: 45px; height: 45px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #FFF; }
   .si-wa { background: #25D366; }
   .si-tk { background: #000000; }
-  .social-info h4 { font-size: 15px; font-weight: 800; }
-  .social-info p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .social-info h4 { font-size: 16px; font-weight: 800; margin-bottom: 4px;}
+  .social-info p { font-size: 13px; color: var(--text-muted); font-weight: 500;}
 
-  /* ================= CHAT FOOTER (ACTION BAR) ================= */
-  .chat-footer {
+  /* ================= FLOATING DOCK (Navegación tipo iPad) ================= */
+  .floating-dock {
       position: fixed;
-      bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 100%; max-width: 600px;
-      background: var(--bg-chat);
-      padding: 15px 20px calc(15px + var(--safe-bottom)) 20px;
-      z-index: 1000;
+      bottom: max(20px, env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      padding: 10px;
+      border-radius: 40px;
+      display: flex;
+      gap: 5px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.5);
+      z-index: 2000;
   }
-  .btn-quote {
-      background: var(--header-bg);
+  .dock-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 60px; height: 60px; border-radius: 20px; cursor: pointer; transition: 0.3s;
+      color: var(--text-muted); font-size: 22px;
+  }
+  .dock-item span { font-size: 9px; font-weight: 700; margin-top: 4px; display: none;}
+  .dock-item:active { transform: scale(0.9); }
+  .dock-item.active { background: var(--text-main); color: #FFF; box-shadow: 0 8px 20px rgba(0,0,0,0.15);}
+  .dock-item.active span { display: block; }
+
+  /* ================= FLOATING ACTION BUTTON (QUIERO MEJORES PRECIOS) ================= */
+  .fab-quote {
+      position: fixed;
+      bottom: calc(100px + var(--safe-bottom));
+      right: 20px;
+      background: var(--text-main);
       color: #FFF;
-      width: 100%;
-      padding: 18px;
-      border: none;
+      padding: 16px 24px;
       border-radius: 100px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      cursor: pointer;
       display: flex;
-      justify-content: center;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      transition: 0.2s;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 1500;
+      transition: 0.3s;
+      border: 2px solid rgba(255,255,255,0.1);
   }
-  .btn-quote:active { transform: scale(0.96); }
-  .btn-quote i { font-size: 18px; color: #25D366; } /* Ícono WA en verde para resaltar */
+  .fab-quote:active { transform: scale(0.95); }
+  .fab-quote i { font-size: 20px; color: #25D366; }
 
-  .loader-spinner { font-size: 24px; color: var(--bubble-sent); animation: spin 1s linear infinite; display: block; margin: 20px auto; text-align: center;}
+  /* Vistas */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* Loading Spinner */
+  .loader { display: flex; flex-direction: column; align-items: center; padding: 40px; color: var(--accent); }
+  .loader i { font-size: 30px; animation: spin 1s linear infinite; margin-bottom: 15px;}
   @keyframes spin { 100% { transform: rotate(360deg); } }
   
-  .typing-indicator { display: flex; gap: 4px; padding: 5px 10px; align-items: center; }
-  .typing-dot { width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
-  .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-  .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-  @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+  .search-box { display: flex; align-items: center; background: var(--bg-canvas); border-radius: 16px; padding: 12px 18px; margin-bottom: 25px; border: 1px solid var(--card-border);}
+  .search-box i { color: var(--text-muted); font-size: 16px; margin-right: 10px;}
+  .search-box input { border: none; background: transparent; width: 100%; font-size: 15px; outline: none; font-weight: 500;}
 </style>
 </head>
 <body>
 
-<div class="app-container">
+<div class="canvas-container">
   
-  <!-- HEADER CHAT -->
-  <header class="chat-header">
-      <div class="avatar">JS</div>
-      <div class="contact-info">
-          <div class="contact-name">John Stiven <i class="fa-solid fa-circle-check verified-badge"></i></div>
-          <div class="contact-status">En línea</div>
-      </div>
-      <div style="flex:1;"></div>
-      <i class="fa-solid fa-ellipsis-vertical" style="font-size: 20px; color: rgba(255,255,255,0.7);"></i>
-  </header>
-
-  <!-- BODY CHAT -->
-  <main class="chat-body" id="chatContainer">
+  <!-- ================= VISTA: STOCK LOCAL (INICIO) ================= -->
+  <section id="view-inmediata" class="view active">
       
-      <!-- Mensaje 1 -->
-      <div class="msg-row received" id="msg-1">
-          <div class="bubble">
-              <b>¡Hola, parce!</b> Bienvenido a mi mundo. 🚀<br>Aquí vas a encontrar la mejor perfumería y dinámicas exclusivas.
-              <span class="bubble-time" id="t1"></span>
+      <div class="ff-board" style="animation-delay: 0s;">
+          <h1 class="board-title"><i class="fa-solid fa-bolt" style="color: var(--accent);"></i> Stock Local (Para Hoy)</h1>
+          <p class="board-subtitle">Inventario físico disponible en nuestra bodega de Medellín. Pídelo hoy, recíbelo hoy.</p>
+          
+          <div class="sticky-note">
+              <p>📌 <b>Política de Precios:</b> Los perfumes de entrega inmediata tienen un valor acorde a su disponibilidad instantánea y domicilio incluido en Medellín.</p>
+              <p>Si buscas los precios <b>más económicos</b>, visita la pestaña de <b>Catálogo</b>. Esos pedidos se despachan estrictamente por transportadora a nivel nacional.</p>
+          </div>
+
+          <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="search-inmediata" placeholder="Buscar perfume disponible..." onkeyup="filtrarInmediata()">
+          </div>
+
+          <div id="grid-inmediata" class="grid-2-col">
+              <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock local...</span></div>
           </div>
       </div>
 
-      <!-- Mensaje 2 (Aclaración Precios) -->
-      <div class="msg-row received" id="msg-2">
-          <div class="bubble">
-              💡 <b>Aclaración importante:</b><br><br>
-              Si buscas los precios más económicos (por encargo), los envíos se hacen <b>sí o sí por transportadora</b>, incluso en Medellín. <br><br>
-              Los perfumes de <b>Entrega Inmediata</b> tienen un precio distinto por su disponibilidad al instante.<br><br>
-              ¡Transparencia y respeto ante todo! 🤝
-              <span class="bubble-time" id="t2"></span>
+  </section>
+
+  <!-- ================= VISTA: CATÁLOGO GENERAL (SIN PRECIOS) ================= -->
+  <section id="view-catalogo" class="view">
+      
+      <div class="ff-board" style="animation-delay: 0s;">
+          <h1 class="board-title"><i class="fa-solid fa-book-open" style="color: var(--text-main);"></i> Catálogo General</h1>
+          <p class="board-subtitle">Precios económicos por encargo. Envíos por Interrapidísimo a nivel nacional.</p>
+          
+          <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="search-catalogo" placeholder="Buscar referencia..." onkeyup="filtrarCatalogo()">
+          </div>
+
+          <div id="grid-catalogo" class="grid-2-col">
+              <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando catálogo...</span></div>
           </div>
       </div>
 
-      <!-- Mensaje 3 (Opciones) -->
-      <div class="msg-row received" id="msg-3">
-          <div class="bubble">
-              ¿Qué te gustaría ver hoy? Toca una opción:
-              <div class="quick-replies">
-                  <button class="qr-btn" onclick="sendReply('Para Hoy (Stock Inmediato)', 'inmediata')">
-                      Para Hoy (Stock Local) <i class="fa-solid fa-motorcycle"></i>
-                  </button>
-                  <button class="qr-btn" onclick="sendReply('Catálogo Económico', 'catalogo')">
-                      Catálogo General <i class="fa-solid fa-book-open"></i>
-                  </button>
-                  <button class="qr-btn" onclick="sendReply('Ver Sorteos Activos', 'sorteos')">
-                      Dinámicas y Sorteos <i class="fa-solid fa-ticket"></i>
-                  </button>
-                  <button class="qr-btn" onclick="sendReply('Entregas Reales', 'testimonios')">
-                      Entregas Reales <i class="fa-solid fa-camera-retro"></i>
-                  </button>
-                  <button class="qr-btn" onclick="sendReply('Mis Redes VIP', 'redes')">
-                      Mis Redes VIP <i class="fa-solid fa-star"></i>
-                  </button>
+  </section>
+
+  <!-- ================= VISTA: DINÁMICAS (30 PUESTOS) ================= -->
+  <section id="view-sorteos" class="view">
+      
+      <div class="ff-board" style="animation-delay: 0s;">
+          <h1 class="board-title"><i class="fa-solid fa-gift" style="color: var(--accent);"></i> Dinámica Activa</h1>
+          
+          <div id="board-dinamica">
+              <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando tablero...</span></div>
+          </div>
+      </div>
+
+  </section>
+
+  <!-- ================= VISTA: ENTREGAS Y REDES ================= -->
+  <section id="view-redes" class="view">
+      
+      <!-- Pruebas Sociales (Testimonios) -->
+      <div class="ff-board" style="animation-delay: 0s;">
+          <h1 class="board-title">Entregas Reales 📦</h1>
+          <p class="board-subtitle">La confianza de mis clientes es mi mayor garantía. Mira algunos de nuestros envíos recientes.</p>
+          <div class="gallery-grid">
+              <!-- Reemplaza estos links con los links de tus fotos reales de entregas en Drive o Imgur -->
+              <img src="https://images.unsplash.com/photo-1588661663189-94b63e9fcc01?w=300&q=80" class="gallery-img">
+              <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=300&q=80" class="gallery-img">
+              <img src="https://images.unsplash.com/photo-1628102491629-778571d893a3?w=300&q=80" class="gallery-img">
+              <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=300&q=80" class="gallery-img">
+          </div>
+      </div>
+
+      <div class="ff-board" style="animation-delay: 0.1s;">
+          <h1 class="board-title">Comunidad VIP ⭐</h1>
+          <p class="board-subtitle">Únete a nuestras redes para ofertas relámpago y contenido exclusivo.</p>
+          
+          <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20VIP" class="social-card" target="_blank">
+              <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
+              <div class="social-info">
+                  <h4>Estados de WhatsApp</h4>
+                  <p>Las mejores promociones se suben aquí todos los días.</p>
               </div>
-              <span class="bubble-time" id="t3"></span>
-          </div>
+          </a>
+
+          <a href="https://www.tiktok.com/@soyjohnstiven" class="social-card" target="_blank">
+              <div class="social-icon si-tk"><i class="fa-brands fa-tiktok"></i></div>
+              <div class="social-info">
+                  <h4>Perfil de TikTok</h4>
+                  <p>Reseñas, unboxings y mucho más contenido sobre perfumes.</p>
+              </div>
+          </a>
       </div>
 
-      <!-- AQUÍ SE INYECTARÁN LAS RESPUESTAS DINÁMICAS -->
-      <div id="dynamic-content"></div>
-
-  </main>
-
-  <!-- FOOTER ACTION -->
-  <footer class="chat-footer">
-      <button class="btn-quote" onclick="openWhatsApp('Hola John, quiero cotizar y obtener mejores precios para estos perfumes:\n\n- ')">
-          Quiero Mejores Precios <i class="fa-brands fa-whatsapp"></i>
-      </button>
-  </footer>
+  </section>
 
 </div>
+
+<!-- BOTÓN FLOTANTE PARA COTIZAR -->
+<button class="fab-quote" onclick="openWhatsApp('Hola John, quiero cotizar estos perfumes y acceder a los precios económicos:\n\n- ')">
+    Cotizar Económicos <i class="fa-brands fa-whatsapp"></i>
+</button>
+
+<!-- DOCK DE NAVEGACIÓN TIPO iPAD -->
+<nav class="floating-dock">
+    <div class="dock-item active" onclick="switchView('inmediata', this)">
+        <i class="fa-solid fa-bolt"></i>
+        <span>Stock Local</span>
+    </div>
+    <div class="dock-item" onclick="switchView('catalogo', this)">
+        <i class="fa-solid fa-book-open"></i>
+        <span>Catálogo</span>
+    </div>
+    <div class="dock-item" onclick="switchView('sorteos', this)">
+        <i class="fa-solid fa-gift"></i>
+        <span>Sorteos</span>
+    </div>
+    <div class="dock-item" onclick="switchView('redes', this)">
+        <i class="fa-solid fa-star"></i>
+        <span>Social</span>
+    </div>
+</nav>
 
 <script>
   // ================= URLs GOOGLE SHEETS =================
@@ -370,20 +386,28 @@
 
   let dataCatalogo = [];
   let dataInmediata = [];
-  let dataSorteos = [];
 
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
+  const PHONE = "573245706274"; 
 
-  // SET TIMESTAMPS
-  document.addEventListener('DOMContentLoaded', () => {
-      const timeStr = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
-      document.getElementById('t1').innerText = timeStr;
-      document.getElementById('t2').innerText = timeStr;
-      document.getElementById('t3').innerText = timeStr;
+  function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
+
+  // Cambiar Vistas (Dock)
+  function switchView(viewId, element) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + viewId).classList.add('active');
       
-      cargarBasesDeDatos();
-  });
+      document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+      
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      
+      if(viewId === 'sorteos') {
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#FF6600', '#111111', '#FFFFFF'] });
+      }
+  }
 
+  // Parse CSV Utility
   function parseCSV(t){
     var rows=[], row=[], f='', inQ=false;
     for(var i=0; i<t.length; i++){
@@ -405,9 +429,9 @@
     return url;
   }
 
-  // ================= FETCH DATA =================
-  function cargarBasesDeDatos() {
-      // 1. Inmediata
+  // ================= FETCH Y RENDER DE DATOS =================
+  document.addEventListener('DOMContentLoaded', () => {
+      // Cargar Inmediata
       fetch(URL_INMEDIATA + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           dataInmediata = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
@@ -416,25 +440,29 @@
               let foto = formatImageLink(cols[2]);
               return { nombre, estado, foto };
           }).filter(Boolean);
+          renderInmediata(dataInmediata);
       });
 
-      // 2. Catálogo (Económico)
+      // Cargar Catálogo (Solo nombre y foto, sin precios)
       fetch(URL_CATALOGO + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           dataCatalogo = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
               let nombre = String(cols[0]||'').replace(/"/g,'').trim(); if(!nombre) return null;
               let foto = formatImageLink(cols[2]);
-              return { nombre, foto }; // No guardamos el precio para el catálogo
+              return { nombre, foto };
           }).filter(Boolean);
-          // Mezclar catálogo
+          // Mostrar aleatoriamente para variedad
           dataCatalogo.sort(() => Math.random() - 0.5);
+          renderCatalogo(dataCatalogo);
       });
 
-      // 3. Sorteos
+      // Cargar Sorteo Único
       fetch(URL_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           let rows = parseCSV(csv).slice(1);
           if (rows.length > 0 && rows[0].length >= 7) {
-              let title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Activa';
+              let title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Especial';
+              let desc = rows[0][4] ? rows[0][4].trim() : '';
+              let lottery = rows[0][5] ? rows[0][5].trim() : ''; 
               let price = rows[0][6] ? rows[0][6].trim() : '';
               
               let pData = rows.map(cols => {
@@ -451,215 +479,141 @@
                   if(st.includes('PEN')) estado = 'pendiente';
                   else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
                   
-                  let comprador = cols[3] ? cols[3].trim() : 'VIP'; // Suponemos que el nombre está en la col D (índice 3) si hay. Si no, dice VIP.
+                  // Nombre del comprador (asumimos col D / índice 3)
+                  let comprador = cols[3] && cols[3].trim() !== '' ? cols[3].trim() : 'VIP';
                   
                   return { id: idPuesto, numeros: arr, estado: estado, nombre: comprador };
               }).filter(Boolean);
 
-              // Filtrar solo hasta el puesto 30
+              // Restringir al tablero de 30 puestos estrictamente
               pData = pData.filter(p => parseInt(p.id) <= 30);
-
-              dataSorteos = { title, price, pData };
+              
+              renderSorteoTablero(title, desc, lottery, price, pData);
+          } else {
+              document.getElementById('board-dinamica').innerHTML = '<div class="empty-state">No hay dinámicas activas en este momento.</div>';
           }
       });
-  }
+  });
 
-  // ================= CHAT LOGIC =================
-  const chatContainer = document.getElementById('chatContainer');
-  const dynamicContent = document.getElementById('dynamic-content');
-
-  function sendReply(userText, action) {
-      const timeStr = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+  // RENDER STOCK INMEDIATO (CON PRECIO Y "LO QUIERO HOY")
+  function renderInmediata(lista) {
+      const grid = document.getElementById('grid-inmediata');
+      if(lista.length === 0) { grid.innerHTML = '<div class="empty-state">No hay resultados.</div>'; return; }
       
-      // Burbuja del usuario
-      const userBubble = document.createElement('div');
-      userBubble.className = 'msg-row sent';
-      userBubble.innerHTML = `<div class="bubble">${userText}<span class="bubble-time">${timeStr} <i class="fa-solid fa-check-double" style="font-size:10px; color:#4FACFE;"></i></span></div>`;
-      dynamicContent.appendChild(userBubble);
-      scrollToBottom();
-
-      // Indicador de escribiendo de John
-      const typingBubble = document.createElement('div');
-      typingBubble.className = 'msg-row received typing-indicator-row';
-      typingBubble.innerHTML = `<div class="bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
-      dynamicContent.appendChild(typingBubble);
-      scrollToBottom();
-
-      // Resolver acción
-      setTimeout(() => {
-          typingBubble.remove();
-          appendJohnResponse(action, timeStr);
-      }, 1000);
-  }
-
-  function appendJohnResponse(action, timeStr) {
-      const johnBubble = document.createElement('div');
-      johnBubble.className = 'msg-row received';
-      
-      let innerHTML = '';
-
-      if(action === 'inmediata') {
-          let htmlGrid = dataInmediata.length > 0 ? dataInmediata.map(p => {
-              const isAgotado = p.estado.toLowerCase().includes('agotad'); 
-              const priceText = isAgotado ? 'AGOTADO' : esc(p.estado);
-              const btnClass = isAgotado ? 'btn-buy soldout' : 'btn-buy immediate';
-              const btnText = isAgotado ? 'AGOTADO' : 'LO QUIERO HOY';
-              const clickAct = isAgotado ? '' : `onclick="openWhatsApp('Hola John, quiero este perfume para entrega inmediata en Medellín:\\n- ${esc(p.nombre)}')"`;
-              
-              let overlay = isAgotado ? `<div class="overlay-soldout"><i class="fa-solid fa-xmark"></i><div class="badge-soldout">LLEGA EN 4 DÍAS</div></div>` : '';
-
-              return `
-              <div class="prod-card">
-                  <div class="prod-img">
-                      ${overlay}
-                      <img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy">
-                  </div>
-                  <div class="prod-info">
-                      <div class="prod-title">${esc(p.nombre)}</div>
-                      <div class="price-tag" style="color: ${isAgotado?'var(--text-muted)':'var(--bubble-sent)'};">${priceText}</div>
-                      <button class="${btnClass}" ${clickAct}>${btnText}</button>
-                  </div>
-              </div>`;
-          }).join('') : 'Cargando stock... intenta de nuevo en segundos.';
-
-          innerHTML = `
-          <div class="bubble" style="max-width: 95%; background: transparent; padding:0; box-shadow:none;">
-              <div style="background:var(--bubble-received); padding:12px 16px; border-radius:18px; margin-bottom:10px; box-shadow:var(--shadow-sm);">
-                  Excelente. Este es el inventario que te puedo enviar hoy mismo (Domicilio gratis en Medellín). 🛵💨
-              </div>
-              <div class="catalog-wrapper">
-                  ${htmlGrid}
-              </div>
-          </div>`;
-      } 
-      else if(action === 'catalogo') {
-          let htmlGrid = dataCatalogo.length > 0 ? dataCatalogo.slice(0, 15).map(p => {
-              return `
-              <div class="prod-card">
-                  <div class="prod-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
-                  <div class="prod-info">
-                      <div class="prod-title">${esc(p.nombre)}</div>
-                      <button class="btn-buy" onclick="openWhatsApp('Hola John, ayúdame a cotizar este perfume del catálogo general:\\n- ${esc(p.nombre)}')">Precio Actualizado</button>
-                  </div>
-              </div>`;
-          }).join('') : 'Cargando catálogo...';
-
-          innerHTML = `
-          <div class="bubble" style="max-width: 95%; background: transparent; padding:0; box-shadow:none;">
-              <div style="background:var(--bubble-received); padding:12px 16px; border-radius:18px; margin-bottom:10px; box-shadow:var(--shadow-sm);">
-                  Aquí tienes algunas referencias de nuestro catálogo por encargo. Toca en <b>"PRECIO ACTUALIZADO"</b> para darte la cotización exacta al día de hoy. 📖👇
-              </div>
-              <div class="catalog-wrapper">
-                  ${htmlGrid}
-                  <div class="prod-card" style="align-items:center; justify-content:center; padding:20px; text-align:center;">
-                     <i class="fa-solid fa-magnifying-glass" style="font-size:30px; margin-bottom:10px; color:var(--bubble-sent);"></i>
-                     <b>¿No lo ves aquí?</b>
-                     <p style="font-size:11px; margin-top:5px;">Escríbeme al chat y te lo consigo.</p>
-                     <button class="btn-buy immediate" style="margin-top:15px; width:100%;" onclick="openWhatsApp('Hola John, busco un perfume que no vi en el catálogo. ¿Me ayudas?')">Preguntar</button>
-                  </div>
-              </div>
-          </div>`;
-      }
-      else if(action === 'testimonios') {
-          // URLs de ejemplo para testimonios
-          let fotos = [
-              'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80',
-              'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80',
-              'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80',
-              'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80'
-          ];
-          let grid = fotos.map(f => `<img src="${f}" class="gallery-img">`).join('');
+      grid.innerHTML = lista.map(p => {
+          const isAgotado = p.estado.toLowerCase().includes('agotad'); 
+          const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
+          const btnTxt = isAgotado ? 'AGOTADO' : 'LO QUIERO HOY';
+          const btnCls = isAgotado ? 'btn-outline' : 'btn-accent';
+          const btnAction = isAgotado ? `disabled style="opacity:0.5; cursor:not-allowed;"` : `onclick="openWhatsApp('Hola John, quiero este perfume para entrega inmediata en Medellín:\\n- ${esc(p.nombre)}') "`;
           
-          innerHTML = `
-          <div class="bubble">
-              La confianza de mis clientes es lo más importante. Aquí algunas entregas recientes: 📦📸
-              <div class="gallery-grid">
-                  ${grid}
-              </div>
-              <span class="bubble-time">${timeStr}</span>
-          </div>`;
-      }
-      else if(action === 'redes') {
-          innerHTML = `
-          <div class="bubble">
-              ¡Claro que sí! Sígueme para que no te pierdas ninguna oferta loca que saco por ahí. 😉
-              <div style="margin-top:15px;">
-                  <a href="https://wa.me/${PHONE}?text=Hola,%20agrégeme%20para%20ver%20estados" class="social-card">
-                      <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
-                      <div class="social-info"><h4>Estados VIP</h4><p>Promociones flash diarias.</p></div>
-                  </a>
-                  <a href="https://www.tiktok.com/@soyjohnstiven" class="social-card" target="_blank">
-                      <div class="social-icon si-tk"><i class="fa-brands fa-tiktok"></i></div>
-                      <div class="social-info"><h4>TikTok</h4><p>Reseñas y recomendaciones.</p></div>
-                  </a>
-              </div>
-              <span class="bubble-time">${timeStr}</span>
-          </div>`;
-      }
-      else if(action === 'sorteos') {
-          if(!dataSorteos.title) {
-              innerHTML = `<div class="bubble">En este momento estamos organizando la próxima dinámica. ¡Escríbeme al WhatsApp para avisarte apenas salga! <span class="bubble-time">${timeStr}</span></div>`;
+          let overlayHtml = isAgotado ? `
+              <div class="overlay-soldout">
+                  <i class="fa-solid fa-xmark"></i>
+                  <div class="badge-soldout">LLEGA EN 4 DÍAS</div>
+              </div>` : '';
+          
+          return `
+          <div class="prod-card">
+            <div class="prod-img">
+              ${overlayHtml}
+              <img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy">
+            </div>
+            <h4 class="prod-title">${esc(p.nombre)}</h4>
+            <div class="price-main" style="color: ${colorEstado};">${esc(p.estado)}</div>
+            <button class="btn-primary ${btnCls}" ${btnAction} style="margin-top:auto; font-size:12px; width:100%; padding:10px;">${btnTxt}</button>
+          </div>
+        `;
+      }).join('');
+  }
+
+  // RENDER CATÁLOGO (SIN PRECIOS, BOTÓN "PRECIO ACTUALIZADO")
+  function renderCatalogo(lista) {
+      const grid = document.getElementById('grid-catalogo');
+      if(lista.length === 0) { grid.innerHTML = '<div class="empty-state">No hay resultados.</div>'; return; }
+      
+      grid.innerHTML = lista.map(p => {
+          return `
+          <div class="prod-card">
+            <div class="prod-img"><img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy"></div>
+            <h4 class="prod-title" style="margin-bottom:15px;">${esc(p.nombre)}</h4>
+            <button class="btn-primary btn-outline" style="margin-top:auto; font-size:12px; width:100%; padding:10px; background:var(--bg-canvas);" onclick="openWhatsApp('Hola John, ayúdame a cotizar este perfume del catálogo general:\\n- ${esc(p.nombre)}')">PRECIO ACTUALIZADO</button>
+          </div>
+        `;
+      }).join('');
+  }
+
+  // FILTROS
+  function filtrarInmediata() {
+      let term = document.getElementById('search-inmediata').value.toLowerCase().trim();
+      let filtrados = term ? dataInmediata.filter(p => p.nombre.toLowerCase().includes(term)) : dataInmediata;
+      renderInmediata(filtrados);
+  }
+
+  function filtrarCatalogo() {
+      let term = document.getElementById('search-catalogo').value.toLowerCase().trim();
+      let filtrados = term ? dataCatalogo.filter(p => p.nombre.toLowerCase().includes(term)) : dataCatalogo;
+      renderCatalogo(filtrados);
+  }
+
+  // RENDER TABLERO DINÁMICA (COMPRADORES ARRIBA, 30 PUESTOS ABAJO)
+  function renderSorteoTablero(title, desc, lottery, price, pData) {
+      let container = document.getElementById('board-dinamica');
+      
+      let htmlInfo = `
+        <p class="board-subtitle">${desc ? esc(desc) : 'Gana este increíble premio.'}</p>
+        <div style="background: var(--bg-canvas); border: 1px solid var(--card-border); padding: 20px; border-radius: 16px; margin-bottom:25px;">
+            <div style="font-size:24px; font-weight:800; color:var(--text-main); margin-bottom:5px;">Valor: ${price}</div>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.5;">Cada puesto incluye <b>3 números diferentes</b>. Tienes 3 oportunidades reales de ganar.</p>
+            ${lottery ? `<p style="font-size:12px; font-weight:700; color:var(--accent); margin-top:10px;">Lotería: ${esc(lottery)}</p>` : ''}
+        </div>
+      `;
+
+      let carruselVendidos = '';
+      let gridDisponibles = '';
+      
+      // Separar los 30 puestos lógicamente
+      for (let i = 1; i <= 30; i++) {
+          let idStr = i < 10 ? '0' + i : '' + i;
+          let p = pData.find(x => x.id === idStr);
+          let estado = p ? p.estado : 'libre';
+          let numText = p && p.numeros.length > 0 ? p.numeros.join(' - ') : '---';
+          let nombreComprador = p ? p.nombre : 'VIP';
+          
+          if(estado === 'ocupado') {
+              carruselVendidos += `
+              <div class="ticket-sold">
+                  <div class="ts-name">👤 ${esc(nombreComprador)}</div>
+                  <div class="ts-puesto">Puesto ${idStr}</div>
+                  <div class="ts-nums">${numText}</div>
+              </div>`;
           } else {
-              let carruselVendidos = '';
-              let gridDisponibles = '';
-              
-              dataSorteos.pData.forEach(p => {
-                  let numStr = p.numeros.length > 0 ? p.numeros.join(' - ') : '---';
-                  if(p.estado === 'ocupado') {
-                      // Tarjeta de comprador en carrusel
-                      carruselVendidos += `
-                      <div class="ticket-sold">
-                          <div class="ts-name">👤 ${esc(p.nombre)}</div>
-                          <div class="ts-puesto">Puesto ${p.id}</div>
-                          <div class="ts-nums">${numStr}</div>
-                      </div>`;
-                  } else {
-                      // Cajas libres/pendientes
-                      let cls = p.estado;
-                      let act = p.estado !== 'ocupado' ? `onclick="openWhatsApp('Hola, quiero comprar el puesto ${p.id} de la dinámica.')"` : '';
-                      gridDisponibles += `
-                      <div class="puesto-box ${cls}" ${act}>
-                          <div class="pb-label">Puesto</div>
-                          <div class="pb-id">${p.id}</div>
-                          <div class="pb-nums">${numStr}</div>
-                      </div>`;
-                  }
-              });
-
-              let secVendidos = carruselVendidos !== '' ? `
-                  <div style="font-size:12px; font-weight:700; margin-bottom:8px; margin-top:15px; color:var(--text-muted); text-transform:uppercase;">Puestos Vendidos 🎉</div>
-                  <div class="ticket-carousel">${carruselVendidos}</div>
-              ` : '';
-
-              innerHTML = `
-              <div class="bubble" style="max-width:95%;">
-                  <b>${dataSorteos.title}</b> 🎁<br>
-                  Valor del Puesto: <b>${dataSorteos.price}</b>
-                  ${secVendidos}
-                  <div style="font-size:12px; font-weight:700; margin-bottom:8px; margin-top:15px; color:var(--text-muted); text-transform:uppercase;">Puestos Disponibles 👇</div>
-                  <div class="puestos-grid">${gridDisponibles}</div>
-                  <div style="font-size:11px; margin-top:15px; text-align:center; color:var(--text-muted);">Toca un puesto libre para separarlo por WhatsApp.</div>
-                  <span class="bubble-time">${timeStr}</span>
+              let cls = estado;
+              let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto ${idStr} de la dinámica activa.')"`;
+              gridDisponibles += `
+              <div class="puesto-box ${cls}" ${act}>
+                  <div class="pb-label">Puesto</div>
+                  <div class="pb-id">${idStr}</div>
+                  <div class="pb-nums">${numText}</div>
               </div>`;
           }
       }
 
-      johnBubble.innerHTML = innerHTML;
-      dynamicContent.appendChild(johnBubble);
-      scrollToBottom();
-  }
+      let secVendidos = carruselVendidos !== '' ? `
+          <div style="font-size:12px; font-weight:800; margin-bottom:10px; color:var(--text-muted); text-transform:uppercase;">Compradores (Vendidos 🎉)</div>
+          <div class="ticket-carousel">${carruselVendidos}</div>
+      ` : '';
 
-  function scrollToBottom() {
-      setTimeout(() => {
-          chatContainer.scrollTo({
-              top: chatContainer.scrollHeight,
-              behavior: 'smooth'
-          });
-      }, 50);
+      container.innerHTML = `
+          ${htmlInfo}
+          ${secVendidos}
+          <div style="font-size:12px; font-weight:800; margin-bottom:10px; margin-top:15px; color:var(--text-muted); text-transform:uppercase;">Elige tu Puesto Disponible 👇</div>
+          <div class="puestos-grid">${gridDisponibles}</div>
+          <div style="font-size:12px; font-weight:600; text-align:center; color:var(--text-muted); margin-top:20px;">
+             👆 Toca un cuadro libre para apartarlo vía WhatsApp.
+          </div>
+      `;
   }
-
-  const PHONE = "573245706274"; 
-  function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
 
 </script>
 </body>
