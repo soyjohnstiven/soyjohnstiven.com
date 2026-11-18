@@ -89,7 +89,7 @@
   .btn-back:active { background: rgba(0,0,0,0.05); transform: scale(0.95); }
   .btn-back i { color: var(--accent); font-size: 16px; }
 
-  /* Indicador Usuarios En Línea (Solo en Inicio) */
+  /* Indicador Usuarios En Línea */
   .online-indicator {
       display: flex; align-items: center; gap: 8px;
       background: #FFF; padding: 8px 14px;
@@ -232,7 +232,7 @@
       background: var(--accent);
       color: #FFF;
       box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3);
-      margin-top: 25px;
+      margin-bottom: 25px;
       padding: 18px 20px;
       text-align: center;
       line-height: 1.4;
@@ -243,35 +243,39 @@
       box-shadow: var(--shadow-sm); margin-top: 35px; font-size: 12px;
   }
 
-  /* ================= DINÁMICAS (SORTEOS) ================= */
-  .dinamica-card { background: #FFF; border-radius: 20px; padding: 25px; margin-bottom: 25px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);}
-  .d-price { font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 15px;}
-  
-  .ticket-carousel { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none;}
-  .ticket-carousel::-webkit-scrollbar { display: none; }
-  .ticket-sold {
-      background: var(--text-main); color: #FFF; border-radius: 16px; padding: 16px;
-      min-width: 180px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  /* ================= DINÁMICAS (SORTEOS - GRID NORMAL 5x6) ================= */
+  .puestos-grid { 
+      display: grid; 
+      grid-template-columns: repeat(5, 1fr); 
+      gap: 8px; 
   }
-  .ts-name { font-size: 14px; font-weight: 800; color: var(--accent); }
-  .ts-nums { font-size: 18px; font-weight: 800; margin-top: 5px;}
-
-  .puestos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 10px; }
+  
   .puesto-box {
-      background: #FFF; border: 1px solid var(--border); border-radius: 14px;
-      padding: 12px 5px; text-align: center; cursor: pointer; transition: 0.2s;
-      box-shadow: var(--shadow-sm);
+      background: #FFF; border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 2px; text-align: center; cursor: pointer; transition: 0.2s;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; align-items: center;
   }
   .puesto-box:active { transform: scale(0.92); }
-  .pb-id { font-size: 20px; font-weight: 900; color: var(--text-main); margin-bottom: 4px;}
-  .pb-nums { font-size: 11px; font-weight: 700; color: var(--text-muted); min-height: 14px;}
+  .pb-label { font-size: 9px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+  .pb-id { font-size: 18px; font-weight: 900; color: var(--text-main); margin-bottom: 2px;}
+  .pb-nums { font-size: 10px; font-weight: 700; color: var(--text-muted); min-height: 12px;}
+  
   .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
   .puesto-box.pendiente .pb-nums { color: var(--accent); }
 
+  .puesto-box.ocupado {
+      background: #181818; 
+      border-color: #181818; 
+      cursor: not-allowed;
+  }
+  .puesto-box.ocupado .pb-label { color: #666666; }
+  .puesto-box.ocupado .pb-id { color: #555555; text-decoration: line-through; }
+  .puesto-box.ocupado .pb-nums { color: var(--accent); font-size: 9px; opacity: 0.8;}
+  .puesto-box.ocupado:active { transform: none; }
+
   /* ================= PANTALLA COMING SOON (ORO LAMINADO) ================= */
   .coming-soon-container {
-      position: relative; width: 100%; min-height: 60vh;
+      position: relative; width: 100%; min-height: 65vh;
   }
   .fake-content {
       filter: blur(8px); opacity: 0.4; pointer-events: none; user-select: none; padding:0;
@@ -285,23 +289,21 @@
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   
   .os-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 10px;}
-  .os-desc { font-size: 14px; font-weight: 600; color: var(--text-muted); max-width: 280px; line-height: 1.5;}
+  .os-sub { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 15px; letter-spacing: 1px;}
+  .os-desc { font-size: 14px; font-weight: 600; color: var(--text-main); line-height: 1.8;}
 
   .progress-bar-container {
       width: 100%; max-width: 250px; height: 8px; background: var(--border);
       border-radius: 10px; overflow: hidden; margin-top: 30px;
   }
   .progress-bar-fill {
-      height: 100%; width: 0%; background: var(--text-main);
+      height: 100%; width: 58%; background: var(--text-main);
       border-radius: 10px;
-      animation: fillBar 20s cubic-bezier(0.1, 0.7, 1.0, 0.1) forwards; 
+      animation: fillBar 3s cubic-bezier(0.1, 0.7, 1.0, 0.1) forwards; 
   }
   @keyframes fillBar { 
-      0% { width: 0%; } 
-      20% { width: 30%; }
-      50% { width: 60%; }
-      80% { width: 85%; }
-      100% { width: 95%; } 
+      0% { width: 58%; } 
+      100% { width: 90%; } 
   }
 
   /* ================= FOOTER REDES SOCIALES ================= */
@@ -342,7 +344,6 @@
         </div>
     </div>
     
-    <!-- SUB-TABS DINÁMICAS -->
     <div class="tabs-wrapper" id="dynamicTabs" style="display: none; padding-top: 15px;"></div>
 </div>
 
@@ -356,14 +357,12 @@
         </div>
         
         <div class="home-grid">
-            <!-- Tarjeta Perfumería -->
             <div class="home-card" onclick="openCategory('perfumes')">
                 <div class="hc-icon-wrapper"><i class="fa-solid fa-droplet hc-icon"></i></div>
                 <h2 class="hc-title">Perfumería 100% Original</h2>
                 <p class="hc-desc">Catálogo disponible para entregas inmediatas y dinámicas.</p>
             </div>
             
-            <!-- Tarjeta Joyería -->
             <div class="home-card" onclick="openCategory('joyeria')">
                 <span class="badge-new">NUEVO</span>
                 <div class="hc-icon-wrapper"><i class="fa-solid fa-gem hc-icon"></i></div>
@@ -381,6 +380,11 @@
         <!-- SUB-VISTA: STOCK LOCAL -->
         <div id="sub-perfumes-inmediata" class="sub-view active">
             
+            <!-- BOTÓN COTIZACIÓN GIGANTE ARRIBA -->
+            <button class="btn-primary btn-cotizar-especial" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n-\n-\n-')">
+                SI QUIERES OBTENER MEJORES PRECIOS, COTIZA TUS PERFUMES
+            </button>
+
             <div class="section-header">
                 <h1 class="section-title">Entrega Inmediata</h1>
                 <p class="section-desc">Para entrega inmediata en Medellín. <b>Pídelo hoy, recíbelo hoy</b>. Domicilio gratis y pago seguro.</p>
@@ -394,11 +398,6 @@
             <div id="grid-perfumes-inmediata" class="product-grid">
                 <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock...</span></div>
             </div>
-
-            <!-- BOTÓN COTIZACIÓN GIGANTE ABAJO -->
-            <button class="btn-primary btn-cotizar-especial" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n-\n-\n-')">
-                SI QUIERES OBTENER MEJORES PRECIOS, COTIZA TUS PERFUMES
-            </button>
             
             <!-- BOTÓN CROSS-SELLING -->
             <button class="btn-primary btn-cross-sell" onclick="openCategory('joyeria')">
@@ -430,15 +429,16 @@
         <div class="category-main-title">ORO LAMINADO</div>
 
         <div class="coming-soon-container">
-            <!-- Overlay Coming Soon -->
+            <!-- Overlay Coming Soon (NUEVO DISEÑO) -->
             <div class="overlay-soon">
                 <i class="fa-solid fa-clock os-icon"></i>
                 <h1 class="os-title">¡MUY PRONTO!</h1>
-                <p class="os-desc">Oro laminado* 5 años de garantía...<br><br>Entregas INMEDIATAS en Medellín - Envíos a todo el país.</p>
+                <h2 class="os-sub">ORO LAMINADO</h2>
+                <p class="os-desc">✨ Garantía de 5 años<br>📦 Envíos a todo el país<br>🛵 Entregas inmediatas en Medellín</p>
                 <div class="progress-bar-container">
                     <div class="progress-bar-fill"></div>
                 </div>
-                <p style="font-size: 11px; font-weight:700; color:var(--text-muted); margin-top:15px; text-transform:uppercase; letter-spacing:1px;">Preparando inventario...</p>
+                <p style="font-size: 11px; font-weight:700; color:var(--text-muted); margin-top:15px; text-transform:uppercase; letter-spacing:1px;">Preparando inventario... 90%</p>
             </div>
 
             <!-- Contenido Falso Borroso para dar efecto visual -->
@@ -451,13 +451,11 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Buscar joya..." disabled>
                 </div>
-                <!-- El grid real se carga aquí atrás del cristal -->
                 <div id="grid-joyas-catalogo" class="product-grid">
                     <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando catálogo...</span></div>
                 </div>
             </div>
 
-            <!-- Pestaña Sorteos Joyas Oculta por defecto, también borrosa -->
             <div class="fake-content sub-view" id="sub-joyas-sorteos">
                 <div class="section-header">
                     <h1 class="section-title">Dinámicas</h1>
@@ -470,7 +468,6 @@
         </div>
 
         <div style="padding: 0 20px;">
-            <!-- BOTÓN CROSS-SELLING -->
             <button class="btn-primary btn-cross-sell" onclick="openCategory('perfumes')" style="margin-top: 10px;">
                 TE PUEDE INTERESAR: PERFUMERÍA 100% ORIGINAL <i class="fa-solid fa-arrow-right"></i>
             </button>
@@ -486,7 +483,7 @@
             <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
             <div class="social-info">
                 <h4>Estados de WhatsApp</h4>
-                <p>Ofertas relámpago y novedades diarias.</p>
+                <p>Promociones y más.</p>
             </div>
         </a>
 
@@ -494,7 +491,7 @@
             <div class="social-icon si-tk"><i class="fa-brands fa-tiktok"></i></div>
             <div class="social-info">
                 <h4>Perfil de TikTok</h4>
-                <p>Reseñas y recomendaciones.</p>
+                <p>Revisa mi cuenta.</p>
             </div>
         </a>
     </div>
@@ -558,7 +555,6 @@
   }
 
   function switchSubTab(subId, element) {
-      // Ocultar sub vistas de ambas categorías por si acaso
       document.querySelectorAll('.sub-view').forEach(v => v.classList.remove('active'));
       
       document.querySelectorAll('.tab-pill').forEach(el => {
@@ -591,7 +587,7 @@
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
 
-  // ================= CONTADOR DE USUARIOS EN LÍNEA =================
+  // ================= CONTADOR DE USUARIOS =================
   document.addEventListener('DOMContentLoaded', () => {
       let currentUsers = Math.floor(Math.random() * (210 - 71 + 1)) + 71;
       const userCountEl = document.getElementById('userCount');
@@ -609,16 +605,12 @@
   // ================= CARGA DE DATOS (GOOGLE SHEETS) =================
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
   
-  // URLs Proporcionadas
   const URL_PERFUMES_INM = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=0&single=true&output=csv';
   const URL_PERFUMES_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1378134320&single=true&output=csv';
   const URL_JOYAS_CAT = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1835000586&single=true&output=csv';
   const URL_JOYAS_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1408527128&single=true&output=csv';
 
-  let globalData = {
-      'perfumes-inmediata': [],
-      'joyas-catalogo': []
-  };
+  let globalData = { 'perfumes-inmediata': [], 'joyas-catalogo': [] };
 
   function parseCSV(t){
     var rows=[], row=[], f='', inQ=false;
@@ -657,11 +649,10 @@
 
       // 2. Cargar Dinámicas Perfumes
       fetch(URL_PERFUMES_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
-          let html = procesarSorteoCSV(csv, 'perfumes');
-          document.getElementById('board-dinamica-perfumes').innerHTML = html;
+          document.getElementById('board-dinamica-perfumes').innerHTML = procesarSorteoCSV(csv, 'perfumes');
       });
 
-      // 3. Cargar Joyas Catálogo (Atrás del blur)
+      // 3. Cargar Joyas Catálogo
       fetch(URL_JOYAS_CAT + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
           globalData['joyas-catalogo'] = parseCSV(csv).slice(1).map(cols => {
               if(!cols || cols.length < 2) return null;
@@ -673,10 +664,9 @@
           renderGrid(globalData['joyas-catalogo'], 'grid-joyas-catalogo', 'joyas');
       });
 
-      // 4. Cargar Dinámicas Joyas (Atrás del blur)
+      // 4. Cargar Dinámicas Joyas
       fetch(URL_JOYAS_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
-          let html = procesarSorteoCSV(csv, 'joyas');
-          document.getElementById('board-dinamica-joyas').innerHTML = html;
+          document.getElementById('board-dinamica-joyas').innerHTML = procesarSorteoCSV(csv, 'joyas');
       });
   });
 
@@ -758,12 +748,9 @@
           else if(st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
           
           let comprador = cols[3] && cols[3].trim() !== '' ? cols[3].trim() : 'VIP';
-          
           return { id: idPuesto, numeros: arr, estado: estado, nombre: comprador };
       }).filter(Boolean);
 
-      pData = pData.filter(p => parseInt(p.id) <= 30);
-      
       let htmlInfo = `
         <div style="background:#FFF; border:1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow:var(--shadow-sm);">
             <div style="font-size: 20px; font-weight:900; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
@@ -773,28 +760,27 @@
         </div>
       `;
 
-      let carruselVendidos = '';
-      let gridDisponibles = '';
+      let gridHtml = '';
       
+      // Construir 30 puestos estrictos
       for (let i = 1; i <= 30; i++) {
           let idStr = i < 10 ? '0' + i : '' + i;
           let p = pData.find(x => x.id === idStr);
           let estado = p ? p.estado : 'libre';
           let numText = p && p.numeros.length > 0 ? p.numeros.join(' - ') : '---';
-          let nombreComprador = p ? p.nombre : 'VIP';
           
           if(estado === 'ocupado') {
-              carruselVendidos += `
-              <div class="ticket-sold">
-                  <div class="ts-name">👤 ${esc(nombreComprador)}</div>
-                  <div style="font-size:12px; margin-top:4px; font-weight:600; color:rgba(255,255,255,0.7);">PUESTO #${i}</div>
-                  <div class="ts-nums">${numText}</div>
+              gridHtml += `
+              <div class="puesto-box ocupado">
+                  <div class="pb-label">Puesto</div>
+                  <div class="pb-id">#${i}</div>
+                  <div class="pb-nums">NO DISPONIBLE</div>
               </div>`;
           } else {
               let cls = estado;
               let tipoMsg = tipo === 'joyas' ? 'Oro Laminado' : 'Perfumería';
               let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${i} de la dinámica de ${tipoMsg}.')"`;
-              gridDisponibles += `
+              gridHtml += `
               <div class="puesto-box ${cls}" ${act}>
                   <div class="pb-label">Puesto</div>
                   <div class="pb-id">#${i}</div>
@@ -803,18 +789,12 @@
           }
       }
 
-      let secVendidos = carruselVendidos !== '' ? `
-          <h4 style="font-size:15px; font-weight:900; margin-bottom:12px; letter-spacing:-0.5px;">Puestos Vendidos 🎉</h4>
-          <div class="ticket-carousel">${carruselVendidos}</div>
-      ` : '';
-
       return `
           ${htmlInfo}
-          ${secVendidos}
-          <h4 style="font-size:15px; font-weight:900; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Puestos Disponibles 👇</h4>
-          <div class="puestos-grid">${gridDisponibles}</div>
+          <h4 style="font-size:15px; font-weight:900; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Tablero de Puestos 👇</h4>
+          <div class="puestos-grid">${gridHtml}</div>
           <div style="text-align:center; font-size:12px; font-weight:600; color:var(--text-muted); margin-top:25px;">
-              👆 Toca un puesto para separarlo por WhatsApp.
+              👆 Toca un puesto libre para separarlo por WhatsApp.
           </div>
       `;
   }
