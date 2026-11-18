@@ -232,6 +232,7 @@
       background: var(--accent);
       color: #FFF;
       box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3);
+      margin-top: 10px;
       margin-bottom: 25px;
       padding: 18px 20px;
       text-align: center;
@@ -344,6 +345,7 @@
         </div>
     </div>
     
+    <!-- SUB-TABS DINÁMICAS -->
     <div class="tabs-wrapper" id="dynamicTabs" style="display: none; padding-top: 15px;"></div>
 </div>
 
@@ -353,21 +355,23 @@
     <section id="view-home" class="view-container active">
         <div class="section-header" style="padding: 0 20px;">
             <h1 class="section-title">¡Qué gusto verte!</h1>
-            <p class="section-desc">Selecciona la línea de negocio que deseas explorar hoy.</p>
+            <p class="section-desc"></p>
         </div>
         
         <div class="home-grid">
+            <!-- Tarjeta Perfumería -->
             <div class="home-card" onclick="openCategory('perfumes')">
                 <div class="hc-icon-wrapper"><i class="fa-solid fa-droplet hc-icon"></i></div>
                 <h2 class="hc-title">Perfumería 100% Original</h2>
-                <p class="hc-desc">Catálogo disponible para entregas inmediatas y dinámicas.</p>
+                <p class="hc-desc">Catálogo disponible para entregas inmediatas.</p>
             </div>
             
+            <!-- Tarjeta Joyería -->
             <div class="home-card" onclick="openCategory('joyeria')">
                 <span class="badge-new">NUEVO</span>
                 <div class="hc-icon-wrapper"><i class="fa-solid fa-gem hc-icon"></i></div>
                 <h2 class="hc-title">Oro Laminado</h2>
-                <p class="hc-desc">Cadenas, dijes y aretes con 5 años de garantía.</p>
+                <p class="hc-desc">Aretas - Cadenas Y Dijes con 5 años de garantía.</p>
             </div>
         </div>
     </section>
@@ -735,8 +739,12 @@
       
       let pData = rows.map(cols => {
           if(!cols || cols.length < 1) return null;
-          let idPuesto = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : '';
-          if(idPuesto === '') return null;
+          
+          // Solución robusta para extraer solo el número del puesto ignorando los #, espacios, etc.
+          let rawId = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : '';
+          let idPuesto = parseInt(rawId.replace(/[^0-9]/g, ''), 10).toString();
+          
+          if(isNaN(idPuesto) || idPuesto === 'NaN') return null;
           
           let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
               let v = n.replace(/[^0-9]/g, ''); return v.length === 1 ? '0'+v : v;
@@ -764,7 +772,7 @@
       
       // Construir 30 puestos estrictos
       for (let i = 1; i <= 30; i++) {
-          let idStr = i < 10 ? '0' + i : '' + i;
+          let idStr = i.toString(); // Esto compara 1, 2, 3... 30 exactamente con el idPuesto parseado
           let p = pData.find(x => x.id === idStr);
           let estado = p ? p.estado : 'libre';
           let numText = p && p.numeros.length > 0 ? p.numeros.join(' - ') : '---';
