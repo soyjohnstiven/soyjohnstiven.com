@@ -16,9 +16,9 @@
   /* =========================================
      DISEÑO NATIVO TIPO APPLE / FREEFORM
      PALETA: BLANCO, NEGRO, NARANJA (#FF6600)
-     TIPOGRAFÍA: MONTSERRAT
+     TIPOGRAFÍA: PLUS JAKARTA SANS
   ========================================= */
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
   :root {
     --bg-base: #F5F5F7; 
@@ -45,7 +45,7 @@
   
   html, body {
     width: 100%; height: 100%;
-    font-family: 'Montserrat', -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg-base);
     color: var(--text-main);
   }
@@ -57,6 +57,86 @@
     background-image: radial-gradient(#D2D2D7 1px, transparent 1px);
     background-size: 24px 24px;
     opacity: 0.7;
+  }
+
+  /* ================= ALERTA / MODAL NUEVO SORTEO ================= */
+  .sorteo-alert-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+  }
+  .sorteo-alert-overlay.active {
+      opacity: 1; pointer-events: auto;
+  }
+  .sorteo-alert-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 32px 24px 26px 24px;
+      width: 100%; max-width: 380px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      position: relative;
+      transform: scale(0.88) translateY(15px);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .sorteo-alert-overlay.active .sorteo-alert-card {
+      transform: scale(1) translateY(0);
+  }
+  .sa-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--bg-base); border: 1px solid var(--border);
+      color: var(--text-muted); font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: 0.2s;
+  }
+  .sa-close:active { transform: scale(0.9); }
+  .sa-icon-badge {
+      width: 72px; height: 72px; margin: 0 auto 18px auto;
+      background: var(--accent-light);
+      border: 2px solid rgba(255, 102, 0, 0.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; color: var(--accent);
+      animation: bounceGift 2s infinite;
+  }
+  @keyframes bounceGift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+  }
+  .sa-title {
+      font-size: 22px; font-weight: 800; color: var(--text-main);
+      line-height: 1.25; letter-spacing: -0.5px; margin-bottom: 10px;
+      text-transform: uppercase;
+  }
+  .sa-title span { color: var(--accent); }
+  .sa-desc {
+      font-size: 13.5px; color: var(--text-muted); font-weight: 500;
+      line-height: 1.45; margin-bottom: 24px;
+  }
+  .sa-btn-go {
+      width: 100%; padding: 16px 20px;
+      background: var(--accent); color: #FFFFFF;
+      border: none; border-radius: 16px;
+      font-family: inherit; font-size: 14px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 10px 25px rgba(255, 102, 0, 0.35);
+      animation: pulseBtn 2s infinite;
+      transition: transform 0.2s;
+  }
+  .sa-btn-go:active { transform: scale(0.95); }
+  @keyframes pulseBtn {
+      0% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.6); }
+      70% { box-shadow: 0 0 0 12px rgba(255, 102, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
   }
 
   /* ================= NAVEGACIÓN SUPERIOR ================= */
@@ -74,7 +154,7 @@
       height: var(--header-height);
   }
 
-  .brand-logo { font-size: 18px; font-weight: 900; letter-spacing: -0.5px; text-transform: uppercase;}
+  .brand-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase;}
   .brand-logo span { color: var(--accent); }
 
   /* Botón Volver al Inicio */
@@ -149,13 +229,13 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   .category-main-title {
-      font-size: 16px; font-weight: 900; text-align: center; 
+      font-size: 16px; font-weight: 800; text-align: center; 
       letter-spacing: 1.5px; margin-bottom: 25px; padding-top: 10px;
       color: var(--text-main);
   }
 
   .section-header { margin-bottom: 20px; }
-  .section-title { font-size: 24px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 5px;}
+  .section-title { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px;}
   .section-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; font-weight: 500;}
 
   /* Buscador */
@@ -186,7 +266,7 @@
       border: 1px solid var(--border); box-shadow: var(--shadow-sm);
   }
   .hc-icon { font-size: 35px; color: var(--text-main); }
-  .hc-title { font-size: 20px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.5px;}
+  .hc-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;}
   .hc-desc { font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.4; padding: 0 10px;}
   
   .badge-new { position: absolute; top: 15px; right: 15px; background: var(--text-main); color: #FFF; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px;}
@@ -213,7 +293,6 @@
   }
   .btn-action:active { transform: scale(0.95); }
   
-  /* Estilos específicos restaurados para los botones */
   .btn-inmediata { background: var(--text-main); color: #FFF; }
   .btn-catalogo { background: var(--text-main); color: #FFF; }
   
@@ -263,7 +342,7 @@
   }
   .puesto-box:active { transform: scale(0.92); }
   .pb-label { font-size: 9px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-  .pb-id { font-size: 18px; font-weight: 900; color: var(--text-main); margin-bottom: 2px;}
+  .pb-id { font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 2px;}
   .pb-nums { font-size: 10px; font-weight: 700; color: var(--text-muted); min-height: 12px;}
   
   .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
@@ -294,7 +373,7 @@
   .os-icon { font-size: 60px; color: var(--accent); margin-bottom: 20px; animation: float 3s ease-in-out infinite;}
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   
-  .os-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 10px;}
+  .os-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px;}
   .os-sub { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 15px; letter-spacing: 1px;}
   .os-desc { font-size: 14px; font-weight: 600; color: var(--text-main); line-height: 1.8;}
 
@@ -337,6 +416,21 @@
 </style>
 </head>
 <body>
+
+<!-- ================= ALERTA / NOTIFICACIÓN DE SORTEO ================= -->
+<div class="sorteo-alert-overlay" id="sorteoAlertOverlay">
+    <div class="sorteo-alert-card">
+        <button class="sa-close" onclick="closeSorteoAlert()" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+        <div class="sa-icon-badge">
+            <i class="fa-solid fa-gift"></i>
+        </div>
+        <h2 class="sa-title">NUEVO SORTEO,<br><span>APROVECHA Y GANA</span></h2>
+        <p class="sa-desc">Cupos limitados disponibles. Elige tus números de la suerte antes de que se agoten.</p>
+        <button class="sa-btn-go" onclick="goDirectoAlSorteo()">
+            IR DIRECTO AL SORTEO <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+</div>
 
 <div class="header-container">
     <div class="navbar">
@@ -508,6 +602,26 @@
 </main>
 
 <script>
+  // ================= ALERTA / NOTIFICACIÓN DE INGRESO =================
+  document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+          document.getElementById('sorteoAlertOverlay').classList.add('active');
+      }, 900);
+  });
+
+  function closeSorteoAlert() {
+      document.getElementById('sorteoAlertOverlay').classList.remove('active');
+  }
+
+  function goDirectoAlSorteo() {
+      closeSorteoAlert();
+      openCategory('perfumes');
+      const tabSorteo = document.getElementById('tab-perfumes-sorteos');
+      if (tabSorteo) {
+          switchSubTab('perfumes-sorteos', tabSorteo);
+      }
+  }
+
   // ================= NAVEGACIÓN PRINCIPAL =================
   function openCategory(cat) {
       document.getElementById('view-home').classList.remove('active');
@@ -524,8 +638,8 @@
           document.getElementById('category-perfumes').classList.add('active');
           
           tabsWrapper.innerHTML = `
-              <button class="tab-pill active" onclick="switchSubTab('perfumes-inmediata', this)"><i class="fa-solid fa-bolt" style="color:var(--accent);"></i> Entrega Inmediata</button>
-              <button class="tab-pill" onclick="switchSubTab('perfumes-sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
+              <button class="tab-pill active" id="tab-perfumes-inmediata" onclick="switchSubTab('perfumes-inmediata', this)"><i class="fa-solid fa-bolt" style="color:var(--accent);"></i> Entrega Inmediata</button>
+              <button class="tab-pill" id="tab-perfumes-sorteos" onclick="switchSubTab('perfumes-sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
           `;
           
           document.querySelectorAll('#category-perfumes .sub-view').forEach(v => v.classList.remove('active'));
@@ -689,8 +803,6 @@
           const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
           
           let btnTxt = 'LO QUIERO HOY';
-          
-          // Modificado el mensaje de WhatsApp a lo solicitado
           let wspMsg = `Hola, que precio tiene este perfume hoy: ${esc(p.nombre)}`;
           
           if(tipo === 'joyas') {
@@ -747,7 +859,6 @@
       let pData = rows.map(cols => {
           if(!cols || cols.length < 1) return null;
           
-          // Solución robusta para extraer solo el número del puesto ignorando los #, espacios, etc.
           let rawId = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : '';
           let idPuesto = parseInt(rawId.replace(/[^0-9]/g, ''), 10).toString();
           
@@ -768,18 +879,17 @@
 
       let htmlInfo = `
         <div style="background:#FFF; border:1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow:var(--shadow-sm);">
-            <div style="font-size: 20px; font-weight:900; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
+            <div style="font-size: 20px; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
             <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 20px; line-height:1.5; font-weight: 500;">${esc(desc)}</div>
-            <div style="font-size: 26px; font-weight: 900; color: var(--accent); margin-bottom: 15px; letter-spacing:-1px;">${esc(price)}</div>
+            <div style="font-size: 26px; font-weight: 800; color: var(--accent); margin-bottom: 15px; letter-spacing:-1px;">${esc(price)}</div>
             <p style="font-size: 13px; font-weight:700; color:var(--text-main);">Cada puesto incluye <b>3 números</b>. ¡Más opciones de ganar!</p>
         </div>
       `;
 
       let gridHtml = '';
       
-      // Construir 30 puestos estrictos
       for (let i = 1; i <= 30; i++) {
-          let idStr = i.toString(); // Esto compara 1, 2, 3... 30 exactamente con el idPuesto parseado
+          let idStr = i.toString();
           let p = pData.find(x => x.id === idStr);
           let estado = p ? p.estado : 'libre';
           let numText = p && p.numeros.length > 0 ? p.numeros.join(' - ') : '---';
@@ -806,7 +916,7 @@
 
       return `
           ${htmlInfo}
-          <h4 style="font-size:15px; font-weight:900; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Tablero de Puestos 👇</h4>
+          <h4 style="font-size:15px; font-weight:800; margin-top:25px; margin-bottom:15px; letter-spacing:-0.5px;">Tablero de Puestos 👇</h4>
           <div class="puestos-grid">${gridHtml}</div>
           <div style="text-align:center; font-size:12px; font-weight:600; color:var(--text-muted); margin-top:25px;">
               👆 Toca un puesto libre para separarlo por WhatsApp.
