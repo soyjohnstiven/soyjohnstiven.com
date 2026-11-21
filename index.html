@@ -325,6 +325,16 @@
   }
 
   /* ================= DINÁMICAS (SORTEOS - GRID NORMAL 5x6) ================= */
+  .sorteo-banner-img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      border: 1px solid var(--border);
+      display: block;
+  }
+
   .puestos-grid { 
       display: grid; 
       grid-template-columns: repeat(5, 1fr); 
@@ -850,6 +860,14 @@
       let title = rows[0][3] ? rows[0][3].trim() : 'Dinámica Activa';
       let desc = rows[0][4] ? rows[0][4].trim() : '';
       let price = rows[0][6] ? rows[0][6].trim() : '';
+
+      // Leer la foto desde la casilla D3 (fila 3 de la hoja = rows[1], columna D = índice 3)
+      let rawFotoD3 = (rows[1] && rows[1][3]) ? rows[1][3].trim() : '';
+      let fotoHtml = '';
+      if (rawFotoD3 && (rawFotoD3.startsWith('http') || rawFotoD3.includes('drive.google.com'))) {
+          let imgUrl = formatImageLink(rawFotoD3);
+          fotoHtml = `<img src="${esc(imgUrl)}" class="sorteo-banner-img" alt="${esc(title)}" onerror="this.style.display='none'">`;
+      }
       
       let pData = rows.map(cols => {
           if(!cols || cols.length < 1) return null;
@@ -874,6 +892,7 @@
 
       let htmlInfo = `
         <div style="background:#FFF; border:1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow:var(--shadow-sm);">
+            ${fotoHtml}
             <div style="font-size: 20px; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
             <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 20px; line-height:1.5; font-weight: 500;">${esc(desc)}</div>
             <div style="font-size: 26px; font-weight: 800; color: var(--accent); margin-bottom: 15px; letter-spacing:-1px;">${esc(price)}</div>
