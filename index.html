@@ -135,6 +135,55 @@
       100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
   }
 
+  /* ================= MODAL ZOOM / VER GRANDE ================= */
+  .zoom-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+  }
+  .zoom-modal-overlay.active {
+      opacity: 1; pointer-events: auto;
+  }
+  .zoom-modal-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 18px;
+      width: 100%; max-width: 420px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .zoom-modal-overlay.active .zoom-modal-card {
+      transform: scale(1);
+  }
+  .zoom-close-btn {
+      position: absolute; top: 12px; right: 12px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(17, 17, 17, 0.85); color: #FFF;
+      border: none; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 2; transition: 0.2s;
+  }
+  .zoom-close-btn:active { transform: scale(0.9); }
+  .zoom-modal-img {
+      width: 100%; max-height: 68vh;
+      object-fit: contain;
+      border-radius: 16px;
+      display: block;
+      margin-bottom: 12px;
+  }
+  .zoom-modal-title {
+      font-size: 15px; font-weight: 800; color: var(--text-main);
+      line-height: 1.3; padding: 0 8px;
+  }
+
   /* ================= NAVEGACIÓN SUPERIOR ================= */
   .header-container {
       position: fixed; top: 0; left: 0; width: 100%;
@@ -283,8 +332,32 @@
       border-radius: 16px; padding: 12px; display: flex; flex-direction: column;
       box-shadow: var(--shadow-sm); position: relative;
   }
-  .prod-img { width: 100%; aspect-ratio: 1; background: var(--bg-alt); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; position: relative;}
+  .prod-img { width: 100%; aspect-ratio: 1; background: var(--bg-alt); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; position: relative; cursor: pointer; }
   .prod-img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; padding: 10px;}
+
+  /* Botón VER GRANDE en la mitad de la foto */
+  .btn-zoom-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(17, 17, 17, 0.72);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 6px 10px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 5px;
+      white-space: nowrap;
+      cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      transition: transform 0.2s, background 0.2s;
+  }
+  .btn-zoom-center:active { transform: translate(-50%, -50%) scale(0.92); background: var(--accent); }
   
   .prod-title { font-size: 12px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
   .prod-price { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 12px;}
@@ -409,6 +482,15 @@
         <button class="sa-btn-go" onclick="goDirectoAlOro()">
             VER CATÁLOGO AHORA <i class="fa-solid fa-arrow-right"></i>
         </button>
+    </div>
+</div>
+
+<!-- ================= MODAL ZOOM / VER GRANDE ================= -->
+<div class="zoom-modal-overlay" id="zoomModalOverlay" onclick="closeZoomModal(event)">
+    <div class="zoom-modal-card" onclick="event.stopPropagation()">
+        <button class="zoom-close-btn" onclick="closeZoomModal()" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+        <img id="zoomModalImg" class="zoom-modal-img" src="" alt="Vista ampliada">
+        <div id="zoomModalTitle" class="zoom-modal-title"></div>
     </div>
 </div>
 
@@ -597,6 +679,21 @@
       }
   }
 
+  // ================= MODAL ZOOM / VER GRANDE =================
+  function openZoomModal(el) {
+      const imgUrl = el.getAttribute('data-img');
+      const title = el.getAttribute('data-title');
+      document.getElementById('zoomModalImg').src = imgUrl;
+      document.getElementById('zoomModalTitle').textContent = title;
+      document.getElementById('zoomModalOverlay').classList.add('active');
+  }
+
+  function closeZoomModal(event) {
+      if (!event || event.target === document.getElementById('zoomModalOverlay')) {
+          document.getElementById('zoomModalOverlay').classList.remove('active');
+      }
+  }
+
   // ================= NAVEGACIÓN PRINCIPAL =================
   function openCategory(cat) {
       document.getElementById('view-home').classList.remove('active');
@@ -778,11 +875,14 @@
               <div class="overlay-soldout">
                   <i class="fa-solid fa-xmark"></i>
                   <div class="badge-soldout">LLEGAN PRONTO</div>
-              </div>` : '';
+              </div>` : `
+              <button type="button" class="btn-zoom-center">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i> VER GRANDE
+              </button>`;
           
           return `
           <div class="prod-card">
-            <div class="prod-img">
+            <div class="prod-img" data-img="${esc(p.foto)}" data-title="${esc(p.nombre)}" onclick="${isAgotado ? '' : 'openZoomModal(this)'}">
               ${overlayHtml}
               <img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy">
             </div>
