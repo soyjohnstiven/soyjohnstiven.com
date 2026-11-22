@@ -59,7 +59,7 @@
     opacity: 0.7;
   }
 
-  /* ================= ALERTA / MODAL NUEVO SORTEO ================= */
+  /* ================= ALERTA / MODAL BIENVENIDA (ORO LAMINADO) ================= */
   .sorteo-alert-overlay {
       position: fixed; inset: 0;
       background: rgba(0, 0, 0, 0.55);
@@ -146,11 +146,12 @@
 
   .navbar {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 15px 20px;
+      padding: 12px 16px;
       height: var(--header-height);
+      gap: 10px;
   }
 
-  .brand-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase;}
+  .brand-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; flex-shrink: 0;}
   .brand-logo span { color: var(--accent); }
 
   /* Botón Volver al Inicio */
@@ -159,30 +160,37 @@
       align-items: center; gap: 6px;
       font-size: 14px; font-weight: 700; color: var(--text-main);
       background: transparent; border: none; cursor: pointer;
-      padding: 8px 12px; border-radius: 100px; transition: 0.2s;
-      font-family: inherit;
+      padding: 8px 10px; border-radius: 100px; transition: 0.2s;
+      font-family: inherit; flex-shrink: 0;
   }
   .btn-back:active { background: rgba(0,0,0,0.05); transform: scale(0.95); }
   .btn-back i { color: var(--accent); font-size: 16px; }
 
-  /* Indicador Usuarios En Línea */
-  .online-indicator {
+  /* Botón Flotante Sorteo en Esquina Superior */
+  .sorteo-corner-btn {
       display: flex; align-items: center; gap: 8px;
-      background: #FFF; padding: 8px 14px;
-      border-radius: 100px; font-size: 12px; font-weight: 700;
-      color: var(--text-muted); border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
+      background: var(--accent); color: #FFF;
+      padding: 7px 12px;
+      border-radius: 100px; border: none;
+      cursor: pointer; font-family: inherit;
+      box-shadow: 0 4px 14px rgba(255, 102, 0, 0.35);
+      animation: pulseBtn 2.2s infinite;
+      transition: transform 0.2s;
+      text-align: left;
   }
-  .pulse-dot {
-      width: 8px; height: 8px; background-color: #34C759;
-      border-radius: 50%; display: block;
-      box-shadow: 0 0 0 rgba(52, 199, 89, 0.4);
-      animation: pulse 2s infinite;
+  .sorteo-corner-btn:active { transform: scale(0.94); }
+  .sorteo-corner-btn i { font-size: 14px; flex-shrink: 0; }
+  .scb-text {
+      display: flex; flex-direction: column;
+      line-height: 1.15;
   }
-  @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.7); }
-      70% { box-shadow: 0 0 0 6px rgba(52, 199, 89, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); }
+  .scb-top {
+      font-size: 9.5px; font-weight: 800; letter-spacing: 0.3px;
+      text-transform: uppercase;
+  }
+  .scb-sub {
+      font-size: 8.5px; font-weight: 700; opacity: 0.92;
+      text-transform: uppercase; letter-spacing: 0.2px;
   }
 
   /* ================= PESTAÑAS (SUB-NAVEGACIÓN) ================= */
@@ -265,7 +273,7 @@
   .hc-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;}
   .hc-desc { font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.4; padding: 0 10px;}
   
-  .badge-new { position: absolute; top: 15px; right: 15px; background: var(--text-main); color: #FFF; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px;}
+  .badge-new { position: absolute; top: 15px; right: 15px; background: var(--accent); color: #FFF; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px;}
 
   /* ================= TARJETAS DE PRODUCTOS ================= */
   .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
@@ -364,39 +372,6 @@
   .puesto-box.ocupado .pb-nums { color: var(--accent); font-size: 9px; opacity: 0.8;}
   .puesto-box.ocupado:active { transform: none; }
 
-  /* ================= PANTALLA COMING SOON (ORO LAMINADO) ================= */
-  .coming-soon-container {
-      position: relative; width: 100%; min-height: 65vh;
-  }
-  .fake-content {
-      filter: blur(8px); opacity: 0.4; pointer-events: none; user-select: none; padding:0;
-  }
-  .overlay-soon {
-      position: absolute; inset: 0; z-index: 10;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 20px;
-  }
-  .os-icon { font-size: 60px; color: var(--accent); margin-bottom: 20px; animation: float 3s ease-in-out infinite;}
-  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-  
-  .os-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px;}
-  .os-sub { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 15px; letter-spacing: 1px;}
-  .os-desc { font-size: 14px; font-weight: 600; color: var(--text-main); line-height: 1.8;}
-
-  .progress-bar-container {
-      width: 100%; max-width: 250px; height: 8px; background: var(--border);
-      border-radius: 10px; overflow: hidden; margin-top: 30px;
-  }
-  .progress-bar-fill {
-      height: 100%; width: 58%; background: var(--text-main);
-      border-radius: 10px;
-      animation: fillBar 3s cubic-bezier(0.1, 0.7, 1.0, 0.1) forwards; 
-  }
-  @keyframes fillBar { 
-      0% { width: 58%; } 
-      100% { width: 90%; } 
-  }
-
   /* ================= FOOTER REDES SOCIALES ================= */
   .global-footer {
       margin-top: 40px; padding: 30px 20px 40px 20px; border-top: 1px solid var(--border);
@@ -423,16 +398,16 @@
 </head>
 <body>
 
-<!-- ================= ALERTA / NOTIFICACIÓN DE SORTEO ================= -->
+<!-- ================= ALERTA / NOTIFICACIÓN DE ORO LAMINADO DISPONIBLE ================= -->
 <div class="sorteo-alert-overlay" id="sorteoAlertOverlay">
     <div class="sorteo-alert-card">
         <button class="sa-close" onclick="closeSorteoAlert()" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
         <div class="sa-icon-badge">
-            <i class="fa-solid fa-gift"></i>
+            <i class="fa-solid fa-gem"></i>
         </div>
-        <h2 class="sa-title">NUEVO SORTEO,<br><span>APROVECHA Y GANA</span></h2>
-        <button class="sa-btn-go" onclick="goDirectoAlSorteo()">
-            IR DIRECTO AL SORTEO <i class="fa-solid fa-arrow-right"></i>
+        <h2 class="sa-title">¡YA ESTÁ DISPONIBLE EL<br><span>ORO LAMINADO</span>!</h2>
+        <button class="sa-btn-go" onclick="goDirectoAlOro()">
+            VER CATÁLOGO AHORA <i class="fa-solid fa-arrow-right"></i>
         </button>
     </div>
 </div>
@@ -443,10 +418,13 @@
             <i class="fa-solid fa-chevron-left"></i> Inicio
         </button>
         <div class="brand-logo" id="mainLogo">JOHN<span>STIVEN</span></div>
-        <div class="online-indicator" id="onlineIndicator">
-            <span class="pulse-dot"></span>
-            <span id="userCount">--</span> en línea
-        </div>
+        <button class="sorteo-corner-btn" onclick="goDirectoAlSorteo()">
+            <i class="fa-solid fa-gift"></i>
+            <span class="scb-text">
+                <span class="scb-top">NUEVO SORTEO DISPONIBLE</span>
+                <span class="scb-sub">PARTICIPA TOCANDO AQUÍ</span>
+            </span>
+        </button>
     </div>
     
     <!-- SUB-TABS DINÁMICAS -->
@@ -472,10 +450,10 @@
             
             <!-- Tarjeta Joyería -->
             <div class="home-card" onclick="openCategory('joyeria')">
-                <span class="badge-new">NUEVO</span>
+                <span class="badge-new">YA DISPONIBLE</span>
                 <div class="hc-icon-wrapper"><i class="fa-solid fa-gem hc-icon"></i></div>
                 <h2 class="hc-title">Oro Laminado</h2>
-                <p class="hc-desc">Cadenas, dijes y aretes con 5 años de garantía.</p>
+                <p class="hc-desc">¡Ya disponible! Cadenas, dijes y aretes con 5 años de garantía.</p>
             </div>
         </div>
     </section>
@@ -536,47 +514,34 @@
         
         <div class="category-main-title">ORO LAMINADO</div>
 
-        <div class="coming-soon-container">
-            <!-- Overlay Coming Soon (NUEVO DISEÑO) -->
-            <div class="overlay-soon">
-                <i class="fa-solid fa-clock os-icon"></i>
-                <h1 class="os-title">¡MUY PRONTO!</h1>
-                <h2 class="os-sub">ORO LAMINADO</h2>
-                <p class="os-desc">✨ Garantía de 5 años<br>📦 Envíos a todo el país<br>🛵 Entregas inmediatas en Medellín</p>
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill"></div>
-                </div>
-                <p style="font-size: 11px; font-weight:700; color:var(--text-muted); margin-top:15px; text-transform:uppercase; letter-spacing:1px;">Preparando inventario... 90%</p>
+        <!-- SUB-VISTA: CATÁLOGO JOYAS -->
+        <div class="sub-view active" id="sub-joyas-catalogo">
+            <div class="section-header">
+                <h1 class="section-title">Catálogo Actualizado</h1>
+                <p class="section-desc">Cadenas, dijes y aretes con 5 años de garantía. Envíos a todo el país y entregas inmediatas en Medellín.</p>
             </div>
-
-            <!-- Contenido Falso Borroso para dar efecto visual -->
-            <div class="fake-content sub-view active" id="sub-joyas-catalogo" style="display: block;">
-                <div class="section-header">
-                    <h1 class="section-title">Catálogo Actualizado</h1>
-                    <p class="section-desc">Cadenas, dijes y aretes con 5 años de garantía.</p>
-                </div>
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Buscar joya..." disabled>
-                </div>
-                <div id="grid-joyas-catalogo" class="product-grid">
-                    <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando catálogo...</span></div>
-                </div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-joyas-catalogo" placeholder="Buscar joya..." onkeyup="filtrarCatalogo('joyas-catalogo')">
             </div>
+            <div id="grid-joyas-catalogo" class="product-grid">
+                <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando catálogo...</span></div>
+            </div>
+        </div>
 
-            <div class="fake-content sub-view" id="sub-joyas-sorteos">
-                <div class="section-header">
-                    <h1 class="section-title">Dinámicas</h1>
-                    <p class="section-desc">Sorteos de piezas de Oro Laminado.</p>
-                </div>
-                <div id="board-dinamica-joyas">
-                    <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas...</span></div>
-                </div>
+        <!-- SUB-VISTA: DINÁMICAS JOYAS -->
+        <div class="sub-view" id="sub-joyas-sorteos">
+            <div class="section-header">
+                <h1 class="section-title">Dinámicas</h1>
+                <p class="section-desc">Sorteos de piezas de Oro Laminado.</p>
+            </div>
+            <div id="board-dinamica-joyas">
+                <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas...</span></div>
             </div>
         </div>
 
         <div style="padding: 0 20px;">
-            <button class="btn-primary btn-cross-sell" onclick="openCategory('perfumes')" style="margin-top: 10px;">
+            <button class="btn-primary btn-cross-sell" onclick="openCategory('perfumes')" style="margin-top: 35px;">
                 TE PUEDE INTERESAR: PERFUMERÍA 100% ORIGINAL <i class="fa-solid fa-arrow-right"></i>
             </button>
         </div>
@@ -618,6 +583,11 @@
       document.getElementById('sorteoAlertOverlay').classList.remove('active');
   }
 
+  function goDirectoAlOro() {
+      closeSorteoAlert();
+      openCategory('joyeria');
+  }
+
   function goDirectoAlSorteo() {
       closeSorteoAlert();
       openCategory('perfumes');
@@ -632,7 +602,6 @@
       document.getElementById('view-home').classList.remove('active');
       
       document.getElementById('mainLogo').style.display = 'none';
-      document.getElementById('onlineIndicator').style.display = 'none';
       document.getElementById('btnBack').style.display = 'flex';
       
       const tabsWrapper = document.getElementById('dynamicTabs');
@@ -676,7 +645,6 @@
       document.getElementById('btnBack').style.display = 'none';
       document.getElementById('dynamicTabs').style.display = 'none';
       document.getElementById('mainLogo').style.display = 'block';
-      document.getElementById('onlineIndicator').style.display = 'flex';
       
       document.getElementById('global-footer').style.display = 'none';
       window.scrollTo({top: 0, behavior: 'smooth'});
@@ -714,21 +682,6 @@
 
   const PHONE = "573245706274"; 
   function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
-
-  // ================= CONTADOR DE USUARIOS =================
-  document.addEventListener('DOMContentLoaded', () => {
-      let currentUsers = Math.floor(Math.random() * (210 - 71 + 1)) + 71;
-      const userCountEl = document.getElementById('userCount');
-      userCountEl.innerText = currentUsers;
-
-      setInterval(() => {
-          let change = Math.floor(Math.random() * 5) - 2; 
-          currentUsers += change;
-          if(currentUsers < 71) currentUsers = 71 + Math.floor(Math.random() * 5);
-          if(currentUsers > 210) currentUsers = 210 - Math.floor(Math.random() * 5);
-          userCountEl.innerText = currentUsers;
-      }, 4500);
-  });
 
   // ================= CARGA DE DATOS (GOOGLE SHEETS) =================
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
@@ -842,10 +795,11 @@
   }
 
   function filtrarCatalogo(dataKey) {
-      let inputId = dataKey === 'perfumes-inmediata' ? 'search-perfumes-inmediata' : '';
-      if(!inputId) return;
+      let inputId = 'search-' + dataKey;
+      let inputEl = document.getElementById(inputId);
+      if(!inputEl) return;
       
-      let term = document.getElementById(inputId).value.toLowerCase().trim();
+      let term = inputEl.value.toLowerCase().trim();
       let data = globalData[dataKey];
       let filtrados = term ? data.filter(p => p.nombre.toLowerCase().includes(term)) : data;
       renderGrid(filtrados, 'grid-' + dataKey, dataKey.split('-')[0]);
