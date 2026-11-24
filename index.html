@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>John Stiven | Emprendedor</title>
+<title>John Stiven | Tienda</title>
 
 <meta property="og:title" content="John Stiven - Tienda">
 <meta property="og:description" content="Perfumería original y Oro Laminado. Entregas inmediatas y dinámicas exclusivas.">
@@ -14,32 +14,38 @@
 
 <style>
   /* =========================================
-     DISEÑO NATIVO TIPO APPLE / FREEFORM
-     PALETA: BLANCO, NEGRO, NARANJA (#FF6600)
+     BENTO APP ULTRA-RÁPIDA (iOS / RAPPI TURBO)
+     PALETA: BLANCO, NEGRO MATE, NARANJA (#FF6600)
      TIPOGRAFÍA: PLUS JAKARTA SANS
   ========================================= */
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
   :root {
-    --bg-base: #F5F5F7;
-    --bg-alt: #F8F8FA;
+    --bg-canvas: #F2F2F7;
+    --surface: #FFFFFF;
+    --surface-soft: #F7F7FA;
+    --surface-dark: #111113;
+    --surface-dark-2: #1C1C1F;
 
-    --glass-bg: rgba(255, 255, 255, 0.82);
-    --glass-border: rgba(255, 255, 255, 0.85);
-    --glass-blur: blur(20px) saturate(180%);
+    --glass: rgba(255, 255, 255, 0.86);
+    --glass-dark: rgba(17, 17, 19, 0.9);
+    --blur: blur(22px) saturate(180%);
 
-    --text-main: #111111;
+    --text-main: #111113;
     --text-muted: #6E6E73;
 
     --accent: #FF6600;
-    --accent-light: rgba(255, 102, 0, 0.1);
+    --accent-soft: rgba(255, 102, 0, 0.12);
 
-    --border: #E5E5EA;
-    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.07);
+    --border: rgba(17, 17, 19, 0.07);
+    --shadow-xs: 0 2px 8px rgba(0, 0, 0, 0.03);
+    --shadow-sm: 0 6px 20px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.16);
 
-    --header-height: 70px;
-    --safe-bottom: env(safe-area-inset-bottom, 20px);
+    --radius-card: 22px;
+    --radius-bento: 26px;
+    --header-h: 64px;
+    --safe-bottom: env(safe-area-inset-bottom, 12px);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -47,632 +53,570 @@
   html, body {
     width: 100%; min-height: 100%;
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: var(--bg-base);
+    background-color: var(--bg-canvas);
     color: var(--text-main);
     -webkit-font-smoothing: antialiased;
   }
 
   body.modal-open { overflow: hidden; }
 
-  /* Fondo estilo Freeform (Puntos grises) */
-  body::before {
-    content: "";
-    position: fixed; inset: 0; z-index: -1;
-    background-image: radial-gradient(#D2D2D7 1px, transparent 1px);
-    background-size: 24px 24px;
-    opacity: 0.7;
+  /* ================= HEADER SUPERIOR MINIMAL ================= */
+  .app-header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: var(--glass);
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
   }
-
-  /* ================= ALERTA / MODAL BIENVENIDA (ORO LAMINADO) ================= */
-  .sorteo-alert-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      z-index: 9999;
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.35s ease;
-  }
-  .sorteo-alert-overlay.active {
-      opacity: 1; pointer-events: auto;
-  }
-  .sorteo-alert-card {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 32px 24px 28px 24px;
-      width: 100%; max-width: 380px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-      position: relative;
-      transform: scale(0.88) translateY(15px);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  .sorteo-alert-overlay.active .sorteo-alert-card {
-      transform: scale(1) translateY(0);
-  }
-  .sa-close {
-      position: absolute; top: 14px; right: 14px;
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--bg-base); border: 1px solid var(--border);
-      color: var(--text-muted); font-size: 14px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: 0.2s;
-  }
-  .sa-close:active { transform: scale(0.9); }
-  .sa-icon-badge {
-      width: 72px; height: 72px; margin: 0 auto 18px auto;
-      background: var(--accent-light);
-      border: 2px solid rgba(255, 102, 0, 0.25);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 32px; color: var(--accent);
-      animation: bounceGift 2s infinite;
-  }
-  @keyframes bounceGift {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-  }
-  .sa-title {
-      font-size: 22px; font-weight: 800; color: var(--text-main);
-      line-height: 1.25; letter-spacing: -0.5px; margin-bottom: 10px;
-      text-transform: uppercase;
-  }
-  .sa-title span { color: var(--accent); }
-  .sa-sub {
-      font-size: 13px; color: var(--text-muted); font-weight: 600;
-      margin-bottom: 22px; line-height: 1.45;
-  }
-  .sa-btn-go {
-      width: 100%; padding: 16px 20px;
-      background: var(--accent); color: #FFFFFF;
-      border: none; border-radius: 16px;
-      font-family: inherit; font-size: 14px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      box-shadow: 0 10px 25px rgba(255, 102, 0, 0.35);
-      animation: pulseBtn 2s infinite;
-      transition: transform 0.2s;
-  }
-  .sa-btn-go:active { transform: scale(0.95); }
-  @keyframes pulseBtn {
-      0% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.55); }
-      70% { box-shadow: 0 0 0 12px rgba(255, 102, 0, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
-  }
-
-  /* ================= MODAL ZOOM HD / VER GRANDE ================= */
-  .zoom-modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(10, 10, 12, 0.9);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      z-index: 10000;
-      display: flex; align-items: center; justify-content: center;
-      padding: 16px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s ease;
-  }
-  .zoom-modal-overlay.active {
-      opacity: 1; pointer-events: auto;
-  }
-  .zoom-modal-card {
-      background: #FFFFFF;
-      border-radius: 26px;
-      padding: 16px;
-      width: 100%; max-width: 460px;
-      position: relative;
-      text-align: center;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-      transform: scale(0.92);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      display: flex; flex-direction: column; gap: 12px;
-  }
-  .zoom-modal-overlay.active .zoom-modal-card {
-      transform: scale(1);
-  }
-  .zoom-top-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 10px;
-  }
-  .zoom-hint {
-      font-size: 11px; font-weight: 700; color: var(--text-muted);
-      display: flex; align-items: center; gap: 6px;
-      background: var(--bg-base); padding: 6px 12px; border-radius: 100px;
-  }
-  .zoom-hint i { color: var(--accent); }
-  .zoom-close-btn {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: var(--text-main); color: #FFF;
-      border: none; font-size: 15px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: 0.2s;
-  }
-  .zoom-close-btn:active { transform: scale(0.9); }
-
-  .zoom-stage {
-      width: 100%; height: 52vh; max-height: 440px; min-height: 280px;
-      background: var(--bg-alt);
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      touch-action: none;
-      cursor: zoom-in;
-      user-select: none;
-  }
-  .zoom-stage.zoomed { cursor: grab; }
-  .zoom-stage.zoomed:active { cursor: grabbing; }
-
-  .zoom-modal-img {
-      max-width: 100%; max-height: 100%;
-      object-fit: contain;
-      display: block;
-      transform-origin: center center;
-      will-change: transform;
-      transition: transform 0.18s ease-out;
-      image-rendering: -webkit-optimize-contrast;
-      pointer-events: none;
-  }
-  .zoom-stage.dragging .zoom-modal-img {
-      transition: none;
-  }
-
-  .zoom-controls {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .zoom-ctrl-btn {
-      height: 36px; min-width: 36px; padding: 0 12px;
-      border-radius: 12px; border: 1px solid var(--border);
-      background: var(--bg-base); color: var(--text-main);
-      font-family: inherit; font-size: 13px; font-weight: 800;
-      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
-      cursor: pointer; transition: 0.15s;
-  }
-  .zoom-ctrl-btn:active { transform: scale(0.93); background: var(--text-main); color: #FFF; }
-  .zoom-ctrl-btn.accent-btn {
-      background: var(--accent-light); color: var(--accent);
-      border-color: rgba(255, 102, 0, 0.25);
-  }
-  .zoom-level-badge {
-      min-width: 56px; font-size: 12px; font-weight: 800; color: var(--text-main);
-      background: #FFF; border: 1px solid var(--border);
-      height: 36px; border-radius: 12px;
-      display: inline-flex; align-items: center; justify-content: center;
-  }
-
-  .zoom-footer-info {
-      text-align: left; padding: 2px 4px 0 4px;
-      display: flex; flex-direction: column; gap: 10px;
-  }
-  .zoom-title-row {
+  .header-inner {
+      max-width: 600px; margin: 0 auto;
+      height: var(--header-h);
+      padding: 0 16px;
       display: flex; align-items: center; justify-content: space-between; gap: 10px;
   }
-  .zoom-modal-title {
-      font-size: 14px; font-weight: 800; color: var(--text-main);
-      line-height: 1.3;
+  .brand-logo {
+      font-size: 18px; font-weight: 800; letter-spacing: -0.6px;
+      text-transform: uppercase; cursor: pointer; flex-shrink: 0;
   }
-  .zoom-modal-status {
-      font-size: 12px; font-weight: 800; color: var(--accent);
-      background: var(--accent-light); padding: 4px 10px; border-radius: 100px;
-      white-space: nowrap; flex-shrink: 0;
-  }
-  .zoom-wa-btn {
-      width: 100%; padding: 14px 16px;
-      background: var(--text-main); color: #FFF;
-      border: none; border-radius: 14px;
-      font-family: inherit; font-size: 13px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      cursor: pointer; transition: 0.2s;
-  }
-  .zoom-wa-btn:active { transform: scale(0.97); }
-  .zoom-wa-btn i { color: #25D366; font-size: 17px; }
-
-  /* ================= NAVEGACIÓN SUPERIOR ================= */
-  .header-container {
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      z-index: 1000;
-      border-bottom: 1px solid var(--border);
-  }
-
-  .navbar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 16px;
-      height: var(--header-height);
-      gap: 10px;
-      max-width: 640px; margin: 0 auto;
-  }
-
-  .brand-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; flex-shrink: 0; cursor: pointer;}
   .brand-logo span { color: var(--accent); }
 
-  /* Botón Volver al Inicio */
-  .btn-back {
-      display: none;
-      align-items: center; gap: 6px;
-      font-size: 14px; font-weight: 700; color: var(--text-main);
-      background: #FFF; border: 1px solid var(--border); cursor: pointer;
-      padding: 8px 14px; border-radius: 100px; transition: 0.2s;
-      font-family: inherit; flex-shrink: 0;
-      box-shadow: var(--shadow-sm);
-  }
-  .btn-back:active { background: var(--bg-base); transform: scale(0.95); }
-  .btn-back i { color: var(--accent); font-size: 14px; }
-
-  /* Botón Flotante Sorteo en Esquina Superior */
+  /* Botón Sorteo en esquina superior */
   .sorteo-corner-btn {
       display: flex; align-items: center; gap: 8px;
       background: var(--accent); color: #FFF;
-      padding: 7px 12px;
-      border-radius: 100px; border: none;
-      cursor: pointer; font-family: inherit;
-      box-shadow: 0 4px 14px rgba(255, 102, 0, 0.35);
-      animation: pulseBtn 2.2s infinite;
-      transition: transform 0.2s;
-      text-align: left;
+      padding: 7px 12px; border-radius: 100px; border: none;
+      cursor: pointer; font-family: inherit; text-align: left;
+      box-shadow: 0 6px 16px rgba(255, 102, 0, 0.32);
+      animation: pulseBtn 2.4s infinite;
+      transition: transform 0.18s;
   }
   .sorteo-corner-btn:active { transform: scale(0.94); }
-  .sorteo-corner-btn i { font-size: 14px; flex-shrink: 0; }
+  .sorteo-corner-btn i { font-size: 13px; flex-shrink: 0; }
   .scb-text { display: flex; flex-direction: column; line-height: 1.15; }
-  .scb-top { font-size: 9.5px; font-weight: 800; letter-spacing: 0.3px; text-transform: uppercase; }
-  .scb-sub { font-size: 8.5px; font-weight: 700; opacity: 0.92; text-transform: uppercase; letter-spacing: 0.2px; }
+  .scb-top { font-size: 9px; font-weight: 800; letter-spacing: 0.3px; text-transform: uppercase; }
+  .scb-sub { font-size: 8px; font-weight: 700; opacity: 0.92; text-transform: uppercase; }
 
-  /* ================= PESTAÑAS (SUB-NAVEGACIÓN) ================= */
-  .tabs-wrapper {
-      padding: 10px 16px 12px 16px;
-      display: flex; gap: 8px; overflow-x: auto;
-      scrollbar-width: none;
-      border-top: 1px solid rgba(229, 229, 234, 0.7);
-      max-width: 640px; margin: 0 auto;
-  }
-  .tabs-wrapper::-webkit-scrollbar { display: none; }
-
-  .tab-pill {
-      background: #FFF; color: var(--text-muted); font-family: inherit;
-      border: 1px solid var(--border); padding: 9px 16px;
-      border-radius: 100px; font-size: 13px; font-weight: 700;
-      white-space: nowrap; cursor: pointer; transition: 0.25s;
-      display: flex; align-items: center; gap: 7px;
-      box-shadow: var(--shadow-sm);
-  }
-  .tab-pill.active {
-      background: var(--text-main); color: #FFF; border-color: var(--text-main);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.16);
+  @keyframes pulseBtn {
+      0% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 102, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
   }
 
-  /* ================= CONTENEDOR PRINCIPAL ================= */
+  /* ================= CONTENIDO PRINCIPAL ================= */
   .main-content {
-      padding-top: calc(var(--header-height) + 22px);
-      padding-bottom: calc(var(--safe-bottom) + 50px);
-      max-width: 640px; margin: 0 auto;
-      transition: padding-top 0.2s ease;
-  }
-  body.in-category .main-content {
-      padding-top: calc(var(--header-height) + 74px);
+      max-width: 600px; margin: 0 auto;
+      padding: calc(var(--header-h) + 18px) 16px calc(96px + var(--safe-bottom)) 16px;
   }
 
-  .view-container { display: none; animation: fadeIn 0.35s ease; }
-  .view-container.active { display: block; }
-
-  .sub-view { display: none; padding: 0 18px; }
-  .sub-view.active { display: block; animation: fadeIn 0.35s ease; }
-
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-  .category-main-title {
-      font-size: 13px; font-weight: 800; text-align: center;
-      letter-spacing: 2px; margin-bottom: 18px;
-      color: var(--text-muted); text-transform: uppercase;
+  .view-container { display: none; }
+  .view-container.active { display: block; animation: viewIn 0.28s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  @keyframes viewIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
   }
 
-  .section-header { margin-bottom: 16px; }
-  .section-title { font-size: 24px; font-weight: 800; letter-spacing: -0.6px; margin-bottom: 5px; }
-  .section-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; font-weight: 500; }
+  .page-eyebrow {
+      font-size: 11px; font-weight: 800; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 4px;
+  }
+  .page-title {
+      font-size: 26px; font-weight: 800; letter-spacing: -0.8px;
+      line-height: 1.15; margin-bottom: 6px;
+  }
+  .page-desc {
+      font-size: 13.5px; color: var(--text-muted); font-weight: 500;
+      line-height: 1.45; margin-bottom: 18px;
+  }
 
-  /* Beneficios rápidos (fácil lectura) */
+  /* ================= BENTO HOME GRID ================= */
+  .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+  }
+
+  .bento-card {
+      background: var(--surface);
+      border-radius: var(--radius-bento);
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .bento-card:active { transform: scale(0.97); }
+  .bento-span-2 { grid-column: span 2; }
+
+  /* Bento Hero Oscuro: Oro Laminado */
+  .bento-dark {
+      background: var(--surface-dark);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.08);
+      min-height: 172px;
+  }
+  .bento-dark::after {
+      content: "";
+      position: absolute; top: -40px; right: -40px;
+      width: 150px; height: 150px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 102, 0, 0.28) 0%, rgba(255, 102, 0, 0) 70%);
+      pointer-events: none;
+  }
+  .bento-top-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+  }
+  .bento-icon {
+      width: 46px; height: 46px; border-radius: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+  }
+  .bento-dark .bento-icon { background: rgba(255, 255, 255, 0.1); color: var(--accent); }
+  .bento-light .bento-icon { background: var(--bg-canvas); color: var(--text-main); }
+  .bento-orange .bento-icon { background: rgba(255, 255, 255, 0.2); color: #FFF; }
+
+  .bento-pill {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.7px;
+      text-transform: uppercase; padding: 5px 10px; border-radius: 100px;
+  }
+  .bento-pill.accent { background: var(--accent); color: #FFF; }
+  .bento-pill.soft { background: var(--bg-canvas); color: var(--text-main); }
+
+  .bento-title { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .bento-sub { font-size: 13px; font-weight: 500; line-height: 1.4; opacity: 0.78; }
+  .bento-footer {
+      margin-top: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; font-weight: 800;
+  }
+  .bento-dark .bento-footer { color: var(--accent); }
+  .bento-light .bento-footer { color: var(--text-main); }
+
+  /* Mini Bento Cards */
+  .bento-mini { min-height: 138px; padding: 16px; }
+  .bento-mini .bento-title { font-size: 15px; margin-top: 12px; }
+  .bento-mini .bento-sub { font-size: 11.5px; }
+
+  .bento-orange {
+      background: var(--accent);
+      color: #FFF;
+      border-color: transparent;
+      box-shadow: 0 10px 24px rgba(255, 102, 0, 0.26);
+  }
+  .bento-orange .bento-sub { opacity: 0.92; }
+
+  /* Social Bento Row */
+  .social-bento-row {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+      margin-top: 14px;
+  }
+  .social-mini-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 13px 14px;
+      display: flex; align-items: center; gap: 11px;
+      text-decoration: none; color: var(--text-main);
+      box-shadow: var(--shadow-xs); transition: transform 0.18s;
+  }
+  .social-mini-card:active { transform: scale(0.96); }
+  .sm-icon {
+      width: 36px; height: 36px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: #FFF; flex-shrink: 0;
+  }
+  .sm-wa { background: #25D366; }
+  .sm-tk { background: #111113; }
+  .sm-info h4 { font-size: 12.5px; font-weight: 800; line-height: 1.2; }
+  .sm-info p { font-size: 10.5px; color: var(--text-muted); font-weight: 600; }
+
+  /* ================= CHIPS & BUSCADOR ================= */
   .trust-strip {
-      display: flex; gap: 8px; flex-wrap: wrap;
-      margin-bottom: 18px;
+      display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+      margin-bottom: 14px;
   }
+  .trust-strip::-webkit-scrollbar { display: none; }
   .trust-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: #FFF; border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       padding: 6px 11px; border-radius: 100px;
       font-size: 11px; font-weight: 700; color: var(--text-main);
-      box-shadow: var(--shadow-sm);
+      white-space: nowrap; display: inline-flex; align-items: center; gap: 5px;
   }
-  .trust-chip i { color: var(--accent); font-size: 12px; }
+  .trust-chip i { color: var(--accent); font-size: 11px; }
 
-  /* Filtros Rápidos (Cadenas, Topos, Dijes) */
   .quick-filters {
-      display: flex; gap: 8px; overflow-x: auto;
-      scrollbar-width: none;
-      margin-bottom: 14px;
-      padding-bottom: 2px;
+      display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+      margin-bottom: 12px; padding-bottom: 2px;
   }
   .quick-filters::-webkit-scrollbar { display: none; }
   .filter-chip {
-      background: #FFF; color: var(--text-main);
+      background: var(--surface); color: var(--text-main);
       border: 1px solid var(--border);
-      padding: 9px 15px; border-radius: 100px;
+      padding: 9px 14px; border-radius: 100px;
       font-family: inherit; font-size: 12.5px; font-weight: 800;
       cursor: pointer; white-space: nowrap;
       display: inline-flex; align-items: center; gap: 6px;
-      box-shadow: var(--shadow-sm);
-      transition: 0.2s;
+      box-shadow: var(--shadow-xs); transition: 0.2s;
   }
   .filter-chip:active { transform: scale(0.95); }
   .filter-chip .fc-count {
-      font-size: 10.5px; font-weight: 800;
-      background: var(--bg-base); color: var(--text-muted);
+      font-size: 10px; font-weight: 800;
+      background: var(--bg-canvas); color: var(--text-muted);
       padding: 2px 7px; border-radius: 100px;
   }
   .filter-chip.active {
-      background: var(--accent); color: #FFF; border-color: var(--accent);
-      box-shadow: 0 6px 16px rgba(255, 102, 0, 0.28);
+      background: var(--surface-dark); color: #FFF; border-color: var(--surface-dark);
   }
   .filter-chip.active .fc-count {
-      background: rgba(255, 255, 255, 0.22); color: #FFF;
+      background: var(--accent); color: #FFF;
   }
 
-  /* Buscador mejorado con botón limpiar */
   .search-box {
-      display: flex; align-items: center; background: #FFF;
-      border-radius: 16px; padding: 12px 16px; margin-bottom: 18px;
-      border: 1px solid var(--border); box-shadow: var(--shadow-sm);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      display: flex; align-items: center; background: var(--surface);
+      border-radius: 16px; padding: 12px 14px; margin-bottom: 16px;
+      border: 1px solid var(--border); box-shadow: var(--shadow-xs);
+      transition: border-color 0.2s;
   }
-  .search-box:focus-within {
-      border-color: var(--accent);
-      box-shadow: 0 4px 16px rgba(255, 102, 0, 0.12);
+  .search-box:focus-within { border-color: var(--accent); }
+  .search-box i.fa-magnifying-glass { color: var(--text-muted); font-size: 14px; margin-right: 10px; }
+  .search-box input {
+      border: none; background: transparent; width: 100%;
+      font-size: 14px; outline: none; font-weight: 600; font-family: inherit; color: var(--text-main);
   }
-  .search-box i.fa-magnifying-glass { color: var(--text-muted); font-size: 15px; margin-right: 11px; }
-  .search-box input { border: none; background: transparent; width: 100%; font-size: 14px; outline: none; font-weight: 600; font-family: inherit; color: var(--text-main); }
   .search-clear {
-      display: none;
-      width: 24px; height: 24px; border-radius: 50%;
-      background: var(--bg-base); border: none; color: var(--text-muted);
+      display: none; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--bg-canvas); border: none; color: var(--text-muted);
       font-size: 11px; cursor: pointer; flex-shrink: 0;
       align-items: center; justify-content: center;
   }
   .search-clear.visible { display: flex; }
 
-  /* ================= PÁGINA DE INICIO (MENÚ PRINCIPAL) ================= */
-  .home-grid {
-      display: flex; flex-direction: column; gap: 16px; padding: 0 18px;
+  .btn-cotizar-banner {
+      width: 100%; padding: 14px 16px; margin-bottom: 16px;
+      background: var(--surface-dark); color: #FFF;
+      border: none; border-radius: 18px;
+      font-family: inherit; font-size: 12px; font-weight: 800;
+      letter-spacing: 0.3px; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      cursor: pointer; box-shadow: var(--shadow-sm); transition: transform 0.18s;
   }
-  .home-card {
-      background: #FFF; border-radius: 24px; padding: 28px 22px;
-      border: 1px solid var(--border); box-shadow: var(--shadow-md);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; cursor: pointer; transition: 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative; overflow: hidden;
-  }
-  .home-card:active { transform: scale(0.97); }
+  .btn-cotizar-banner:active { transform: scale(0.97); }
+  .btn-cotizar-banner span { display: flex; align-items: center; gap: 9px; text-align: left; }
+  .btn-cotizar-banner i.fa-bolt { color: var(--accent); font-size: 15px; }
 
-  .hc-icon-wrapper {
-      width: 72px; height: 72px; background: var(--bg-base); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
-      border: 1px solid var(--border); box-shadow: var(--shadow-sm);
-  }
-  .hc-icon { font-size: 32px; color: var(--text-main); }
-  .hc-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
-  .hc-desc { font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.45; padding: 0 8px; margin-bottom: 14px; }
-  .hc-cta {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 800; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 0.5px;
-  }
-
-  .badge-new {
-      position: absolute; top: 14px; right: 14px;
-      background: var(--accent); color: #FFF;
-      font-size: 10px; font-weight: 800; padding: 5px 10px;
-      border-radius: 100px; text-transform: uppercase; letter-spacing: 0.8px;
-  }
-
-  /* ================= TARJETAS DE PRODUCTOS ================= */
-  .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  /* ================= TARJETAS DE PRODUCTO (CERO FRICCIÓN) ================= */
+  .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
 
   .prod-card {
-      background: #FFF; border: 1px solid var(--border);
-      border-radius: 18px; padding: 10px; display: flex; flex-direction: column;
-      box-shadow: var(--shadow-sm); position: relative;
-      transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 9px;
+      display: flex; flex-direction: column;
+      box-shadow: var(--shadow-xs); position: relative;
   }
   .prod-img {
-      width: 100%; aspect-ratio: 1; background: var(--bg-alt);
-      border-radius: 13px; display: flex; align-items: center; justify-content: center;
-      margin-bottom: 10px; overflow: hidden; position: relative; cursor: pointer;
+      width: 100%; aspect-ratio: 1; background: var(--surface-soft);
+      border-radius: 15px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 9px; overflow: hidden; position: relative; cursor: pointer;
   }
-  .prod-img img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+  .prod-img img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
 
-  /* Botón VER GRANDE (centrado abajo para no tapar la joya) */
-  .btn-zoom-center {
-      position: absolute;
-      bottom: 8px; left: 50%;
-      transform: translateX(-50%);
-      background: rgba(17, 17, 17, 0.78);
+  .btn-zoom-pill {
+      position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
+      background: rgba(17, 17, 19, 0.78);
       backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      color: #FFFFFF;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      padding: 5px 10px;
-      border-radius: 100px;
-      font-family: inherit;
-      font-size: 9px; font-weight: 800;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      display: flex; align-items: center; gap: 5px;
-      white-space: nowrap;
-      cursor: pointer;
-      z-index: 1;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-      transition: transform 0.2s, background 0.2s;
+      color: #FFF; border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 4px 9px; border-radius: 100px;
+      font-family: inherit; font-size: 8.5px; font-weight: 800;
+      letter-spacing: 0.4px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 4px; white-space: nowrap;
+      cursor: pointer; z-index: 1;
   }
-  .btn-zoom-center:active { transform: translateX(-50%) scale(0.92); background: var(--accent); }
+  .btn-zoom-pill:active { background: var(--accent); }
 
   .prod-title {
-      font-size: 12.5px; font-weight: 700; line-height: 1.32;
-      margin-bottom: 6px; color: var(--text-main);
+      font-size: 12.5px; font-weight: 700; line-height: 1.3;
+      margin-bottom: 4px; color: var(--text-main);
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-      min-height: 33px;
+      min-height: 32px; padding: 0 2px;
   }
-  .prod-price { font-size: 13.5px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; }
-
-  /* Botones del producto */
+  .prod-price {
+      font-size: 12.5px; font-weight: 800; color: var(--text-muted);
+      margin-bottom: 9px; padding: 0 2px;
+  }
   .btn-action {
-      width: 100%; padding: 11px 8px; border-radius: 11px; border: none; font-family: inherit;
-      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
-      cursor: pointer; transition: 0.2s; text-align: center;
-      margin-top: auto;
+      width: 100%; padding: 10px 8px; border-radius: 12px; border: none;
+      background: var(--surface-dark); color: #FFF;
+      font-family: inherit; font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.4px;
+      cursor: pointer; transition: 0.18s; margin-top: auto;
   }
-  .btn-action:active { transform: scale(0.95); }
-
-  .btn-inmediata { background: var(--text-main); color: #FFF; }
-  .btn-catalogo { background: var(--text-main); color: #FFF; }
+  .btn-action:active { transform: scale(0.95); background: var(--accent); }
 
   .overlay-soldout {
-      position: absolute; inset: 0; background: rgba(255,255,255,0.82);
+      position: absolute; inset: 0; background: rgba(255, 255, 255, 0.84);
       display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2;
   }
-  .overlay-soldout i { font-size: 32px; color: var(--text-main); margin-bottom: 5px; }
-  .badge-soldout { background: var(--text-main); color: #FFF; font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 8px; }
+  .overlay-soldout i { font-size: 28px; color: var(--text-main); margin-bottom: 4px; }
+  .badge-soldout { background: var(--text-main); color: #FFF; font-size: 8.5px; font-weight: 800; padding: 4px 8px; border-radius: 8px; }
 
-  /* ================= BOTONES GLOBALES Y CROSS-SELLING ================= */
-  .btn-primary {
-      background: var(--text-main); color: #FFF; border: none; padding: 16px 22px; font-family: inherit;
-      border-radius: 16px; font-size: 13px; font-weight: 800; cursor: pointer;
-      transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; text-transform: uppercase; letter-spacing: 0.5px;
+  /* ================= SKELETON LOADERS ================= */
+  .skeleton-card {
+      background: var(--surface); border-radius: var(--radius-card);
+      padding: 9px; border: 1px solid var(--border);
   }
-  .btn-primary:active { transform: scale(0.96); }
-
-  .btn-cotizar-especial {
-      background: var(--accent);
-      color: #FFF;
-      box-shadow: 0 8px 20px rgba(255, 102, 0, 0.28);
-      margin-bottom: 22px;
-      padding: 16px 18px;
-      text-align: center;
-      line-height: 1.4;
+  .skel-box {
+      background: linear-gradient(90deg, #ECECF1 25%, #F7F7FA 50%, #ECECF1 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.3s infinite linear;
+      border-radius: 12px;
   }
-
-  .btn-cross-sell {
-      background: #FFF; border: 1px solid var(--border); color: var(--text-main);
-      box-shadow: var(--shadow-sm); margin-top: 32px; font-size: 12px;
+  .skel-img { width: 100%; aspect-ratio: 1; margin-bottom: 10px; border-radius: 15px; }
+  .skel-line { height: 12px; margin-bottom: 7px; border-radius: 6px; }
+  .skel-line.short { width: 60%; }
+  .skel-btn { height: 34px; margin-top: 10px; border-radius: 12px; }
+  @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
   }
 
-  /* Botón flotante volver arriba */
-  .btn-scroll-top {
-      position: fixed;
-      right: 16px; bottom: calc(var(--safe-bottom) + 16px);
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--text-main); color: #FFF;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; cursor: pointer; z-index: 900;
-      opacity: 0; pointer-events: none; transform: translateY(12px);
-      transition: opacity 0.25s, transform 0.25s;
-  }
-  .btn-scroll-top.visible {
-      opacity: 1; pointer-events: auto; transform: translateY(0);
-  }
-  .btn-scroll-top:active { transform: scale(0.92); background: var(--accent); }
-
-  /* ================= DINÁMICAS (SORTEOS - GRID NORMAL 5x6) ================= */
-  .sorteo-banner-img {
-      width: 100%;
-      max-height: 280px;
-      object-fit: cover;
-      border-radius: 14px;
+  /* ================= DINÁMICAS + BARRA DE URGENCIA ================= */
+  .segmented-control {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+      background: rgba(17, 17, 19, 0.06);
+      padding: 4px; border-radius: 16px;
       margin-bottom: 18px;
-      border: 1px solid var(--border);
-      display: block;
+  }
+  .seg-btn {
+      border: none; background: transparent; color: var(--text-muted);
+      padding: 10px 12px; border-radius: 12px;
+      font-family: inherit; font-size: 12.5px; font-weight: 800;
+      cursor: pointer; transition: 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .seg-btn.active {
+      background: var(--surface); color: var(--text-main);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  }
+  .seg-btn.active i { color: var(--accent); }
+
+  .sorteo-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-bento); padding: 18px;
+      margin-bottom: 16px; box-shadow: var(--shadow-sm);
+  }
+  .sorteo-banner-img {
+      width: 100%; max-height: 260px; object-fit: cover;
+      border-radius: 16px; margin-bottom: 14px; display: block;
+  }
+  .urgency-box {
+      background: var(--surface-soft); border: 1px solid var(--border);
+      border-radius: 16px; padding: 12px 14px; margin-bottom: 16px;
+  }
+  .urgency-top {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; font-weight: 800; margin-bottom: 8px;
+  }
+  .urgency-top span.u-left { color: var(--accent); }
+  .urgency-track {
+      width: 100%; height: 8px; background: #E5E5EA;
+      border-radius: 100px; overflow: hidden;
+  }
+  .urgency-fill {
+      height: 100%; background: var(--accent); border-radius: 100px;
+      transition: width 0.5s ease;
   }
 
-  .puestos-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-  }
-
+  .puestos-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; }
   .puesto-box {
-      background: #FFF; border: 1px solid var(--border); border-radius: 12px;
-      padding: 10px 2px; text-align: center; cursor: pointer; transition: 0.2s;
-      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; align-items: center;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 10px 2px; text-align: center; cursor: pointer; transition: 0.18s;
+      box-shadow: var(--shadow-xs); display: flex; flex-direction: column; justify-content: center; align-items: center;
   }
   .puesto-box:active { transform: scale(0.92); }
-  .pb-label { font-size: 9px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-  .pb-id { font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 2px; }
-  .pb-nums { font-size: 10px; font-weight: 700; color: var(--text-muted); min-height: 12px; }
+  .pb-label { font-size: 8.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+  .pb-id { font-size: 17px; font-weight: 800; color: var(--text-main); margin: 1px 0; }
+  .pb-nums { font-size: 9.5px; font-weight: 700; color: var(--text-muted); min-height: 12px; }
 
-  .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-light); }
+  .puesto-box.pendiente { border: 1.5px dashed var(--accent); background: var(--accent-soft); }
   .puesto-box.pendiente .pb-nums { color: var(--accent); }
 
-  .puesto-box.ocupado {
-      background: #181818;
-      border-color: #181818;
-      cursor: not-allowed;
-  }
-  .puesto-box.ocupado .pb-label { color: #666666; }
-  .puesto-box.ocupado .pb-id { color: #555555; text-decoration: line-through; }
-  .puesto-box.ocupado .pb-nums { color: var(--accent); font-size: 9px; opacity: 0.8; }
+  .puesto-box.ocupado { background: var(--surface-dark); border-color: var(--surface-dark); cursor: not-allowed; }
+  .puesto-box.ocupado .pb-label { color: #555; }
+  .puesto-box.ocupado .pb-id { color: #444; text-decoration: line-through; }
+  .puesto-box.ocupado .pb-nums { color: var(--accent); font-size: 8px; opacity: 0.85; }
   .puesto-box.ocupado:active { transform: none; }
 
-  /* ================= FOOTER REDES SOCIALES ================= */
-  .global-footer {
-      margin-top: 36px; padding: 28px 18px 40px 18px; border-top: 1px solid var(--border);
+  /* ================= BARRA FLOTANTE INFERIOR (TAB BAR NATIVA) ================= */
+  .bottom-dock-wrap {
+      position: fixed; left: 0; right: 0;
+      bottom: calc(10px + var(--safe-bottom));
+      z-index: 950;
+      display: flex; justify-content: center;
+      padding: 0 14px; pointer-events: none;
   }
-  .footer-title { font-size: 13px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; text-align: center; letter-spacing: 1.2px; }
-
-  .social-card {
-      display: flex; align-items: center; gap: 14px; padding: 14px;
-      background: #FFF; border-radius: 16px; margin-bottom: 12px;
-      text-decoration: none; color: var(--text-main); border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm); transition: 0.2s;
+  .bottom-dock {
+      pointer-events: auto;
+      width: 100%; max-width: 440px;
+      background: var(--glass-dark);
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 100px;
+      padding: 6px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
   }
-  .social-card:active { transform: scale(0.97); }
-  .social-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #FFF; flex-shrink: 0; }
-  .si-wa { background: #25D366; }
-  .si-tk { background: #000000; }
-  .social-info h4 { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
-  .social-info p { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+  .dock-btn {
+      background: transparent; border: none; color: rgba(255, 255, 255, 0.62);
+      padding: 8px 4px; border-radius: 100px;
+      font-family: inherit; font-size: 10px; font-weight: 700;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      cursor: pointer; transition: 0.2s;
+  }
+  .dock-btn i { font-size: 15px; }
+  .dock-btn.active {
+      background: var(--accent); color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(255, 102, 0, 0.4);
+  }
+  .dock-btn:active { transform: scale(0.93); }
 
-  .loader { display: flex; flex-direction: column; align-items: center; padding: 40px; grid-column: 1/-1; color: var(--text-muted); font-size: 13px; font-weight: 600; }
-  .loader i { font-size: 24px; animation: spin 1s linear infinite; margin-bottom: 10px; color: var(--accent); }
-  @keyframes spin { 100% { transform: rotate(360deg); } }
+  /* ================= MODAL BIENVENIDA ================= */
+  .sorteo-alert-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.58);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .sorteo-alert-overlay.active { opacity: 1; pointer-events: auto; }
+  .sorteo-alert-card {
+      background: #FFF; border-radius: 28px; padding: 30px 22px 24px 22px;
+      width: 100%; max-width: 360px; text-align: center;
+      box-shadow: var(--shadow-lg); position: relative;
+      transform: scale(0.9) translateY(12px);
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .sorteo-alert-overlay.active .sorteo-alert-card { transform: scale(1) translateY(0); }
+  .sa-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--bg-canvas); border: none; color: var(--text-muted);
+      font-size: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+  .sa-icon-badge {
+      width: 68px; height: 68px; margin: 0 auto 16px auto;
+      background: var(--accent-soft); border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; color: var(--accent);
+  }
+  .sa-title { font-size: 21px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 8px; text-transform: uppercase; }
+  .sa-title span { color: var(--accent); }
+  .sa-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 20px; line-height: 1.45; }
+  .sa-btn-go {
+      width: 100%; padding: 15px 18px; background: var(--accent); color: #FFF;
+      border: none; border-radius: 16px; font-family: inherit;
+      font-size: 13.5px; font-weight: 800; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      cursor: pointer; box-shadow: 0 10px 24px rgba(255, 102, 0, 0.32);
+  }
+
+  /* ================= MODAL ZOOM HD ================= */
+  .zoom-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(10, 10, 12, 0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      z-index: 10000; display: flex; align-items: center; justify-content: center;
+      padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+  }
+  .zoom-modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .zoom-modal-card {
+      background: #FFF; border-radius: 26px; padding: 16px;
+      width: 100%; max-width: 450px; text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      transform: scale(0.92); transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex; flex-direction: column; gap: 11px;
+  }
+  .zoom-modal-overlay.active .zoom-modal-card { transform: scale(1); }
+  .zoom-top-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .zoom-hint {
+      font-size: 11px; font-weight: 700; color: var(--text-muted);
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg-canvas); padding: 6px 11px; border-radius: 100px;
+  }
+  .zoom-hint i { color: var(--accent); }
+  .zoom-close-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--surface-dark); color: #FFF; border: none; font-size: 15px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+  }
+  .zoom-stage {
+      width: 100%; height: 50vh; max-height: 430px; min-height: 270px;
+      background: var(--surface-soft); border-radius: 18px; border: 1px solid var(--border);
+      overflow: hidden; position: relative;
+      display: flex; align-items: center; justify-content: center;
+      touch-action: none; cursor: zoom-in; user-select: none;
+  }
+  .zoom-stage.zoomed { cursor: grab; }
+  .zoom-stage.zoomed:active { cursor: grabbing; }
+  .zoom-modal-img {
+      max-width: 100%; max-height: 100%; object-fit: contain; display: block;
+      transform-origin: center center; will-change: transform;
+      transition: transform 0.18s ease-out;
+      image-rendering: -webkit-optimize-contrast; pointer-events: none;
+  }
+  .zoom-stage.dragging .zoom-modal-img { transition: none; }
+  .zoom-controls { display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .zoom-ctrl-btn {
+      height: 36px; min-width: 36px; padding: 0 12px;
+      border-radius: 12px; border: 1px solid var(--border);
+      background: var(--bg-canvas); color: var(--text-main);
+      font-family: inherit; font-size: 13px; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px; cursor: pointer;
+  }
+  .zoom-ctrl-btn.accent-btn { background: var(--accent-soft); color: var(--accent); border-color: rgba(255, 102, 0, 0.25); }
+  .zoom-level-badge {
+      min-width: 54px; height: 36px; font-size: 12px; font-weight: 800;
+      background: #FFF; border: 1px solid var(--border); border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+  }
+  .zoom-footer-info { text-align: left; display: flex; flex-direction: column; gap: 10px; }
+  .zoom-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .zoom-modal-title { font-size: 14px; font-weight: 800; line-height: 1.3; }
+  .zoom-modal-status {
+      font-size: 11px; font-weight: 800; color: var(--accent);
+      background: var(--accent-soft); padding: 4px 10px; border-radius: 100px; white-space: nowrap;
+  }
+  .zoom-wa-btn {
+      width: 100%; padding: 14px; background: var(--surface-dark); color: #FFF;
+      border: none; border-radius: 14px; font-family: inherit;
+      font-size: 13px; font-weight: 800; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+  }
+  .zoom-wa-btn i { color: #25D366; font-size: 17px; }
 
   .empty-box {
-      grid-column: 1/-1; text-align: center; padding: 36px 20px;
-      background: #FFF; border: 1px solid var(--border); border-radius: 18px;
-      color: var(--text-muted); font-size: 13.5px; font-weight: 600;
+      grid-column: 1/-1; text-align: center; padding: 34px 18px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      color: var(--text-muted); font-size: 13px; font-weight: 600;
   }
 </style>
 </head>
 <body>
 
-<!-- ================= ALERTA / NOTIFICACIÓN DE ORO LAMINADO DISPONIBLE ================= -->
+<!-- ================= ALERTA BIENVENIDA: ORO LAMINADO ================= -->
 <div class="sorteo-alert-overlay" id="sorteoAlertOverlay">
     <div class="sorteo-alert-card">
         <button class="sa-close" onclick="closeSorteoAlert()" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
-        <div class="sa-icon-badge">
-            <i class="fa-solid fa-gem"></i>
-        </div>
+        <div class="sa-icon-badge"><i class="fa-solid fa-gem"></i></div>
         <h2 class="sa-title">¡YA ESTÁ DISPONIBLE EL<br><span>ORO LAMINADO</span>!</h2>
-        <p class="sa-sub">Cadenas, topos y dijes con 5 años de garantía. Explora el catálogo y mira cada detalle con zoom HD.</p>
+        <p class="sa-sub">Cadenas, topos y dijes con 5 años de garantía. Explora el catálogo y acerca cada joya con zoom HD.</p>
         <button class="sa-btn-go" onclick="goDirectoAlOro()">
             VER CATÁLOGO AHORA <i class="fa-solid fa-arrow-right"></i>
         </button>
     </div>
 </div>
 
-<!-- ================= MODAL ZOOM HD / VER GRANDE ================= -->
+<!-- ================= MODAL ZOOM HD ================= -->
 <div class="zoom-modal-overlay" id="zoomModalOverlay" onclick="closeZoomModal(event)">
     <div class="zoom-modal-card" onclick="event.stopPropagation()">
         <div class="zoom-top-bar">
@@ -696,20 +640,18 @@
                 <div id="zoomModalTitle" class="zoom-modal-title"></div>
                 <div id="zoomModalStatus" class="zoom-modal-status"></div>
             </div>
-            <button type="button" id="zoomWaBtn" class="zoom-wa-btn" onclick="askFromZoomModal()">
-                <i class="fa-brands fa-whatsapp"></i> <span id="zoomWaBtnText">PREGUNTAR PRECIO</span>
+            <button type="button" class="zoom-wa-btn" onclick="askFromZoomModal()">
+                <i class="fa-brands fa-whatsapp"></i> <span id="zoomWaBtnText">ME INTERESA</span>
             </button>
         </div>
     </div>
 </div>
 
-<div class="header-container">
-    <div class="navbar">
-        <button class="btn-back" id="btnBack" onclick="goHome()">
-            <i class="fa-solid fa-chevron-left"></i> Inicio
-        </button>
-        <div class="brand-logo" id="mainLogo" onclick="goHome()">JOHN<span>STIVEN</span></div>
-        <button class="sorteo-corner-btn" onclick="goDirectoAlSorteo()">
+<!-- ================= HEADER ================= -->
+<header class="app-header">
+    <div class="header-inner">
+        <div class="brand-logo" onclick="switchView('home')">JOHN<span>STIVEN</span></div>
+        <button class="sorteo-corner-btn" onclick="switchView('sorteos')">
             <i class="fa-solid fa-gift"></i>
             <span class="scb-text">
                 <span class="scb-top">NUEVO SORTEO DISPONIBLE</span>
@@ -717,190 +659,232 @@
             </span>
         </button>
     </div>
+</header>
 
-    <!-- SUB-TABS DINÁMICAS -->
-    <div class="tabs-wrapper" id="dynamicTabs" style="display: none;"></div>
-</div>
-
+<!-- ================= CONTENIDO ================= -->
 <main class="main-content">
 
-    <!-- ================= PANTALLA PRINCIPAL (HUB) ================= -->
+    <!-- 1. INICIO (BENTO GRID) -->
     <section id="view-home" class="view-container active">
-        <div class="section-header" style="padding: 0 18px;">
-            <h1 class="section-title">¡Qué gusto verte!</h1>
-            <p class="section-desc">Selecciona la línea de negocio que deseas explorar hoy.</p>
+        <div class="page-eyebrow">Tienda Oficial</div>
+        <h1 class="page-title">¿Qué buscas hoy?</h1>
+        <p class="page-desc">Entregas inmediatas en Medellín, envíos nacionales y dinámicas activas.</p>
+
+        <div class="bento-grid">
+            <!-- Hero Oro Laminado -->
+            <div class="bento-card bento-dark bento-span-2" onclick="switchView('joyeria')">
+                <div class="bento-top-row">
+                    <div class="bento-icon"><i class="fa-solid fa-gem"></i></div>
+                    <span class="bento-pill accent">YA DISPONIBLE</span>
+                </div>
+                <div>
+                    <h2 class="bento-title">Oro Laminado</h2>
+                    <p class="bento-sub">Cadenas, topos y dijes con 5 años de garantía. Fotos con Zoom HD.</p>
+                </div>
+                <div class="bento-footer">
+                    <span>Explorar catálogo</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- Perfumería -->
+            <div class="bento-card bento-light bento-span-2" onclick="switchView('perfumes')">
+                <div class="bento-top-row">
+                    <div class="bento-icon"><i class="fa-solid fa-droplet"></i></div>
+                    <span class="bento-pill soft">ENTREGA HOY</span>
+                </div>
+                <div>
+                    <h2 class="bento-title">Perfumería 100% Original</h2>
+                    <p class="bento-sub">Stock local en Medellín con domicilio gratis y pago seguro.</p>
+                </div>
+                <div class="bento-footer">
+                    <span>Ver perfumes disponibles</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- Mini Bento: Dinámicas -->
+            <div class="bento-card bento-orange bento-mini" onclick="switchView('sorteos')">
+                <div class="bento-icon"><i class="fa-solid fa-gift"></i></div>
+                <div>
+                    <h3 class="bento-title">Dinámicas</h3>
+                    <p class="bento-sub">3 números por puesto. Participa ahora.</p>
+                </div>
+            </div>
+
+            <!-- Mini Bento: Cotizar -->
+            <div class="bento-card bento-light bento-mini" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n-\n-\n-')">
+                <div class="bento-icon"><i class="fa-solid fa-tags"></i></div>
+                <div>
+                    <h3 class="bento-title">Mejores Precios</h3>
+                    <p class="bento-sub">Cotiza directo por WhatsApp.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="home-grid">
-            <!-- Tarjeta Perfumería -->
-            <div class="home-card" onclick="openCategory('perfumes')">
-                <div class="hc-icon-wrapper"><i class="fa-solid fa-droplet hc-icon"></i></div>
-                <h2 class="hc-title">Perfumería 100% Original</h2>
-                <p class="hc-desc">Catálogo disponible para entregas inmediatas y dinámicas.</p>
-                <span class="hc-cta">Explorar catálogo <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
-
-            <!-- Tarjeta Joyería -->
-            <div class="home-card" onclick="openCategory('joyeria')">
-                <span class="badge-new">YA DISPONIBLE</span>
-                <div class="hc-icon-wrapper"><i class="fa-solid fa-gem hc-icon"></i></div>
-                <h2 class="hc-title">Oro Laminado</h2>
-                <p class="hc-desc">¡Ya disponible! Cadenas, topos y dijes con 5 años de garantía.</p>
-                <span class="hc-cta">Ver joyas <i class="fa-solid fa-arrow-right"></i></span>
-            </div>
+        <!-- Redes Sociales en Bento compacto -->
+        <div class="social-bento-row">
+            <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20" class="social-mini-card" target="_blank">
+                <div class="sm-icon sm-wa"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="sm-info">
+                    <h4>WhatsApp</h4>
+                    <p>Ver estados</p>
+                </div>
+            </a>
+            <a href="https://www.tiktok.com/@soyjohnstiven" class="social-mini-card" target="_blank">
+                <div class="sm-icon sm-tk"><i class="fa-brands fa-tiktok"></i></div>
+                <div class="sm-info">
+                    <h4>TikTok</h4>
+                    <p>@soyjohnstiven</p>
+                </div>
+            </a>
         </div>
     </section>
 
-    <!-- ================= CATEGORÍA: PERFUMERÍA ================= -->
-    <section id="category-perfumes" class="view-container">
+    <!-- 2. PERFUMERÍA -->
+    <section id="view-perfumes" class="view-container">
+        <div class="page-eyebrow">Perfumería 100% Original</div>
+        <h1 class="page-title">Entrega Inmediata</h1>
+        <p class="page-desc">Pídelo hoy, recíbelo hoy en Medellín. Domicilio gratis y pago seguro.</p>
 
-        <div class="category-main-title">PERFUMERÍA 100% ORIGINAL</div>
+        <button class="btn-cotizar-banner" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n-\n-\n-')">
+            <span><i class="fa-solid fa-bolt"></i> Si quieres obtener mejores precios, toca aquí</span>
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
 
-        <!-- SUB-VISTA: STOCK LOCAL -->
-        <div id="sub-perfumes-inmediata" class="sub-view active">
-
-            <!-- BOTÓN COTIZACIÓN GIGANTE ARRIBA -->
-            <button class="btn-primary btn-cotizar-especial" onclick="openWhatsApp('Hola, quiero cotizar estos perfumes a buen precio:\n-\n-\n-')">
-                SI QUIERES OBTENER MEJORES PRECIOS, TOCA AQUÍ.
-            </button>
-
-            <div class="section-header">
-                <h1 class="section-title">Entrega Inmediata</h1>
-                <p class="section-desc">Para entrega inmediata en Medellín. <b>Pídelo hoy, recíbelo hoy</b>. Domicilio gratis y pago seguro.</p>
-            </div>
-
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="search-perfumes-inmediata" placeholder="Buscar perfume..." oninput="filtrarCatalogo('perfumes-inmediata')">
-                <button type="button" class="search-clear" id="clear-perfumes-inmediata" onclick="limpiarBusqueda('perfumes-inmediata')" aria-label="Limpiar"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div id="grid-perfumes-inmediata" class="product-grid">
-                <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando stock...</span></div>
-            </div>
-
-            <!-- BOTÓN CROSS-SELLING -->
-            <button class="btn-primary btn-cross-sell" onclick="openCategory('joyeria')">
-                TE PUEDE INTERESAR: ORO LAMINADO (5 años de garantía) <i class="fa-solid fa-arrow-right"></i>
-            </button>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="search-perfumes-inmediata" placeholder="Buscar perfume..." oninput="filtrarCatalogo('perfumes-inmediata')">
+            <button type="button" class="search-clear" id="clear-perfumes-inmediata" onclick="limpiarBusqueda('perfumes-inmediata')" aria-label="Limpiar"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <!-- SUB-VISTA: DINÁMICAS PERFUMES -->
-        <div id="sub-perfumes-sorteos" class="sub-view">
-            <div class="section-header">
-                <h1 class="section-title">Dinámicas</h1>
-                <p class="section-desc">Los 10 primeros en comprar su puesto reciben 1 número extra de regalo.</p>
-            </div>
-
-            <div id="board-dinamica-perfumes">
-                <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas...</span></div>
-            </div>
-
-            <button class="btn-primary btn-cross-sell" onclick="openCategory('joyeria')">
-                TE PUEDE INTERESAR: ORO LAMINADO <i class="fa-solid fa-arrow-right"></i>
-            </button>
-        </div>
-
+        <div id="grid-perfumes-inmediata" class="product-grid"></div>
     </section>
 
-    <!-- ================= CATEGORÍA: ORO LAMINADO ================= -->
-    <section id="category-joyeria" class="view-container">
+    <!-- 3. ORO LAMINADO -->
+    <section id="view-joyeria" class="view-container">
+        <div class="page-eyebrow">Oro Laminado</div>
+        <h1 class="page-title">Catálogo Actualizado</h1>
+        <p class="page-desc">Toca <b>Ver grande</b> en cualquier joya para hacerle zoom HD.</p>
 
-        <div class="category-main-title">ORO LAMINADO</div>
-
-        <!-- SUB-VISTA: CATÁLOGO JOYAS -->
-        <div class="sub-view active" id="sub-joyas-catalogo">
-            <div class="section-header">
-                <h1 class="section-title">Catálogo Actualizado</h1>
-                <p class="section-desc">Toca cualquier joya en <b>Ver grande</b> para hacerle zoom y ver cada detalle.</p>
-            </div>
-
-            <div class="trust-strip">
-                <span class="trust-chip"><i class="fa-solid fa-shield-halved"></i> 5 años de garantía</span>
-                <span class="trust-chip"><i class="fa-solid fa-truck-fast"></i> Envíos a todo el país</span>
-                <span class="trust-chip"><i class="fa-solid fa-bolt"></i> Entrega inmediata Medellín</span>
-            </div>
-
-            <!-- FILTROS RÁPIDOS DE JOYERÍA -->
-            <div class="quick-filters" id="joyasQuickFilters">
-                <button type="button" class="filter-chip active" data-filter="todos" onclick="setJoyaFilter('todos', this)">
-                    Todos <span class="fc-count" id="count-todos">0</span>
-                </button>
-                <button type="button" class="filter-chip" data-filter="cadenas" onclick="setJoyaFilter('cadenas', this)">
-                    Cadenas <span class="fc-count" id="count-cadenas">0</span>
-                </button>
-                <button type="button" class="filter-chip" data-filter="topos" onclick="setJoyaFilter('topos', this)">
-                    Topos <span class="fc-count" id="count-topos">0</span>
-                </button>
-                <button type="button" class="filter-chip" data-filter="dijes" onclick="setJoyaFilter('dijes', this)">
-                    Dijes <span class="fc-count" id="count-dijes">0</span>
-                </button>
-            </div>
-
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="search-joyas-catalogo" placeholder="Buscar cadena, topo, dije..." oninput="filtrarCatalogo('joyas-catalogo')">
-                <button type="button" class="search-clear" id="clear-joyas-catalogo" onclick="limpiarBusqueda('joyas-catalogo')" aria-label="Limpiar"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div id="grid-joyas-catalogo" class="product-grid">
-                <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Cargando catálogo...</span></div>
-            </div>
+        <div class="trust-strip">
+            <span class="trust-chip"><i class="fa-solid fa-shield-halved"></i> 5 años de garantía</span>
+            <span class="trust-chip"><i class="fa-solid fa-truck-fast"></i> Envíos nacionales</span>
+            <span class="trust-chip"><i class="fa-solid fa-bolt"></i> Entrega hoy Medellín</span>
         </div>
 
-        <!-- SUB-VISTA: DINÁMICAS JOYAS -->
-        <div class="sub-view" id="sub-joyas-sorteos">
-            <div class="section-header">
-                <h1 class="section-title">Dinámicas</h1>
-                <p class="section-desc">Sorteos de piezas de Oro Laminado.</p>
-            </div>
-            <div id="board-dinamica-joyas">
-                <div class="loader"><i class="fa-solid fa-circle-notch"></i><span>Buscando dinámicas...</span></div>
-            </div>
-        </div>
-
-        <div style="padding: 0 18px;">
-            <button class="btn-primary btn-cross-sell" onclick="openCategory('perfumes')" style="margin-top: 32px;">
-                TE PUEDE INTERESAR: PERFUMERÍA 100% ORIGINAL <i class="fa-solid fa-arrow-right"></i>
+        <div class="quick-filters" id="joyasQuickFilters">
+            <button type="button" class="filter-chip active" onclick="setJoyaFilter('todos', this)">
+                Todos <span class="fc-count" id="count-todos">0</span>
+            </button>
+            <button type="button" class="filter-chip" onclick="setJoyaFilter('cadenas', this)">
+                Cadenas <span class="fc-count" id="count-cadenas">0</span>
+            </button>
+            <button type="button" class="filter-chip" onclick="setJoyaFilter('topos', this)">
+                Topos <span class="fc-count" id="count-topos">0</span>
+            </button>
+            <button type="button" class="filter-chip" onclick="setJoyaFilter('dijes', this)">
+                Dijes <span class="fc-count" id="count-dijes">0</span>
             </button>
         </div>
 
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="search-joyas-catalogo" placeholder="Buscar cadena, topo, dije..." oninput="filtrarCatalogo('joyas-catalogo')">
+            <button type="button" class="search-clear" id="clear-joyas-catalogo" onclick="limpiarBusqueda('joyas-catalogo')" aria-label="Limpiar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div id="grid-joyas-catalogo" class="product-grid"></div>
     </section>
 
-    <!-- ================= FOOTER GLOBAL (REDES SOCIALES) ================= -->
-    <div id="global-footer" class="global-footer" style="display: none;">
-        <h3 class="footer-title">Redes Sociales</h3>
+    <!-- 4. DINÁMICAS / SORTEOS -->
+    <section id="view-sorteos" class="view-container">
+        <div class="page-eyebrow">Dinámicas Activas</div>
+        <h1 class="page-title">Participa y Gana</h1>
+        <p class="page-desc">Los 10 primeros en comprar su puesto reciben 1 número extra de regalo.</p>
 
-        <a href="https://wa.me/573245706274?text=Hola,%20agrégeme%20para%20ver%20los%20estados%20" class="social-card" target="_blank">
-            <div class="social-icon si-wa"><i class="fa-brands fa-whatsapp"></i></div>
-            <div class="social-info">
-                <h4>Estados de WhatsApp</h4>
-                <p>Promociones y más.</p>
-            </div>
-        </a>
+        <div class="segmented-control">
+            <button type="button" class="seg-btn active" id="seg-perfumes" onclick="switchSorteoType('perfumes')">
+                <i class="fa-solid fa-droplet"></i> Perfumería
+            </button>
+            <button type="button" class="seg-btn" id="seg-joyas" onclick="switchSorteoType('joyas')">
+                <i class="fa-solid fa-gem"></i> Oro Laminado
+            </button>
+        </div>
 
-        <a href="https://www.tiktok.com/@soyjohnstiven" class="social-card" target="_blank">
-            <div class="social-icon si-tk"><i class="fa-brands fa-tiktok"></i></div>
-            <div class="social-info">
-                <h4>Perfil de TikTok</h4>
-                <p>Revisa mi cuenta.</p>
-            </div>
-        </a>
-    </div>
+        <div id="board-dinamica-perfumes"></div>
+        <div id="board-dinamica-joyas" style="display: none;"></div>
+    </section>
 
 </main>
 
-<!-- Botón flotante para subir rápido -->
-<button type="button" class="btn-scroll-top" id="btnScrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Subir">
-    <i class="fa-solid fa-arrow-up"></i>
-</button>
+<!-- ================= BARRA FLOTANTE INFERIOR ================= -->
+<nav class="bottom-dock-wrap" aria-label="Navegación principal">
+    <div class="bottom-dock">
+        <button type="button" class="dock-btn active" id="dock-home" onclick="switchView('home')">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </button>
+        <button type="button" class="dock-btn" id="dock-perfumes" onclick="switchView('perfumes')">
+            <i class="fa-solid fa-droplet"></i>
+            <span>Perfumes</span>
+        </button>
+        <button type="button" class="dock-btn" id="dock-joyeria" onclick="switchView('joyeria')">
+            <i class="fa-solid fa-gem"></i>
+            <span>Oro</span>
+        </button>
+        <button type="button" class="dock-btn" id="dock-sorteos" onclick="switchView('sorteos')">
+            <i class="fa-solid fa-gift"></i>
+            <span>Sorteos</span>
+        </button>
+    </div>
+</nav>
 
 <script>
-  // ================= ALERTA / NOTIFICACIÓN DE INGRESO =================
+  const PHONE = "573245706274";
+  const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
+
+  const URL_PERFUMES_INM = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=0&single=true&output=csv';
+  const URL_PERFUMES_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1378134320&single=true&output=csv';
+  const URL_JOYAS_CAT = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1835000586&single=true&output=csv';
+  const URL_JOYAS_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1408527128&single=true&output=csv';
+
+  let globalData = { 'perfumes-inmediata': [], 'joyas-catalogo': [] };
+  let activeJoyaFilter = 'todos';
+
+  function openWhatsApp(msg) {
+      window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // ================= NAVEGACIÓN APP =================
+  function switchView(viewName) {
+      document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.dock-btn').forEach(b => b.classList.remove('active'));
+
+      const target = document.getElementById('view-' + viewName);
+      const dockBtn = document.getElementById('dock-' + viewName);
+      if (target) target.classList.add('active');
+      if (dockBtn) dockBtn.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (viewName === 'sorteos') {
+          confetti({ particleCount: 75, spread: 65, origin: { y: 0.65 }, colors: ['#FF6600', '#111113', '#FFFFFF'] });
+      }
+  }
+
+  function switchSorteoType(tipo) {
+      document.getElementById('seg-perfumes').classList.toggle('active', tipo === 'perfumes');
+      document.getElementById('seg-joyas').classList.toggle('active', tipo === 'joyas');
+      document.getElementById('board-dinamica-perfumes').style.display = tipo === 'perfumes' ? 'block' : 'none';
+      document.getElementById('board-dinamica-joyas').style.display = tipo === 'joyas' ? 'block' : 'none';
+  }
+
+  // ================= MODAL BIENVENIDA =================
   document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
           document.getElementById('sorteoAlertOverlay').classList.add('active');
-      }, 900);
+      }, 850);
   });
 
   function closeSorteoAlert() {
@@ -909,38 +893,30 @@
 
   function goDirectoAlOro() {
       closeSorteoAlert();
-      openCategory('joyeria');
+      switchView('joyeria');
   }
 
-  function goDirectoAlSorteo() {
-      closeSorteoAlert();
-      openCategory('perfumes');
-      const tabSorteo = document.getElementById('tab-perfumes-sorteos');
-      if (tabSorteo) {
-          switchSubTab('perfumes-sorteos', tabSorteo);
-      }
+  // ================= SKELETON LOADERS =================
+  function renderSkeletons(containerId, count = 6) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      el.innerHTML = Array.from({ length: count }).map(() => `
+          <div class="skeleton-card">
+              <div class="skel-box skel-img"></div>
+              <div class="skel-box skel-line"></div>
+              <div class="skel-box skel-line short"></div>
+              <div class="skel-box skel-btn"></div>
+          </div>
+      `).join('');
   }
-
-  // ================= BOTÓN SUBIR =================
-  window.addEventListener('scroll', () => {
-      const btn = document.getElementById('btnScrollTop');
-      if (window.scrollY > 360) btn.classList.add('visible');
-      else btn.classList.remove('visible');
-  }, { passive: true });
 
   // ================= MODAL ZOOM HD + PAN + PINCH =================
   const ZOOM_STEPS = [1, 1.8, 2.6, 3.5];
   let zoomState = {
-      scale: 1,
-      panX: 0,
-      panY: 0,
-      isDragging: false,
-      startX: 0,
-      startY: 0,
-      pinchStartDist: 0,
-      pinchStartScale: 1,
-      lastTap: 0,
-      currentWaMsg: ''
+      scale: 1, panX: 0, panY: 0,
+      isDragging: false, startX: 0, startY: 0,
+      pinchStartDist: 0, pinchStartScale: 1,
+      lastTap: 0, currentWaMsg: ''
   };
 
   function applyZoomTransform() {
@@ -948,7 +924,6 @@
       const stage = document.getElementById('zoomStage');
       const badge = document.getElementById('zoomLevelText');
 
-      // Limitar el arrastre proporcionalmente al zoom
       if (zoomState.scale <= 1) {
           zoomState.panX = 0;
           zoomState.panY = 0;
@@ -967,40 +942,34 @@
   function stepZoom(dir) {
       let idx = ZOOM_STEPS.findIndex(v => v >= zoomState.scale - 0.05);
       if (idx === -1) idx = ZOOM_STEPS.length - 1;
-      let nextIdx = Math.max(0, Math.min(ZOOM_STEPS.length - 1, idx + dir));
-      zoomState.scale = ZOOM_STEPS[nextIdx];
+      zoomState.scale = ZOOM_STEPS[Math.max(0, Math.min(ZOOM_STEPS.length - 1, idx + dir))];
       applyZoomTransform();
   }
 
   function resetZoom() {
-      zoomState.scale = 1;
-      zoomState.panX = 0;
-      zoomState.panY = 0;
+      zoomState.scale = 1; zoomState.panX = 0; zoomState.panY = 0;
       applyZoomTransform();
   }
 
   function openZoomModal(el) {
       const imgHD = el.getAttribute('data-img-hd') || el.getAttribute('data-img');
       const imgFallback = el.getAttribute('data-img');
-      const title = el.getAttribute('data-title') || '';
-      const estado = el.getAttribute('data-estado') || '';
-      const waMsg = el.getAttribute('data-wa') || '';
-      const btnText = el.getAttribute('data-btn') || 'ME INTERESA';
-
       const imgEl = document.getElementById('zoomModalImg');
+
       imgEl.onerror = function() {
           if (this.src !== imgFallback) this.src = imgFallback;
           else this.src = DEF_IMG;
       };
       imgEl.src = imgHD;
 
-      document.getElementById('zoomModalTitle').textContent = title;
+      document.getElementById('zoomModalTitle').textContent = el.getAttribute('data-title') || '';
+      const estado = el.getAttribute('data-estado') || '';
       const statusEl = document.getElementById('zoomModalStatus');
       statusEl.textContent = estado;
       statusEl.style.display = estado ? 'inline-block' : 'none';
 
-      zoomState.currentWaMsg = waMsg;
-      document.getElementById('zoomWaBtnText').textContent = btnText;
+      zoomState.currentWaMsg = el.getAttribute('data-wa') || '';
+      document.getElementById('zoomWaBtnText').textContent = el.getAttribute('data-btn') || 'ME INTERESA';
 
       resetZoom();
       document.getElementById('zoomModalOverlay').classList.add('active');
@@ -1016,22 +985,17 @@
   }
 
   function askFromZoomModal() {
-      if (zoomState.currentWaMsg) {
-          openWhatsApp(zoomState.currentWaMsg);
-      }
+      if (zoomState.currentWaMsg) openWhatsApp(zoomState.currentWaMsg);
   }
 
-  // Eventos táctiles y mouse dentro del visor de zoom
   document.addEventListener('DOMContentLoaded', () => {
       const stage = document.getElementById('zoomStage');
 
-      // Doble clic en computador
       stage.addEventListener('dblclick', () => {
           zoomState.scale = zoomState.scale > 1.2 ? 1 : 2.6;
           applyZoomTransform();
       });
 
-      // Mouse drag
       stage.addEventListener('mousedown', (e) => {
           if (zoomState.scale <= 1) return;
           zoomState.isDragging = true;
@@ -1046,18 +1010,17 @@
           applyZoomTransform();
       });
       window.addEventListener('mouseup', () => {
-          if (!zoomState.isDragging) return;
           zoomState.isDragging = false;
           stage.classList.remove('dragging');
       });
 
-      // Touch (1 dedo arrastra / doble toque hace zoom / 2 dedos pellizco)
       stage.addEventListener('touchstart', (e) => {
           if (e.touches.length === 2) {
               zoomState.isDragging = false;
-              const dx = e.touches[0].clientX - e.touches[1].clientX;
-              const dy = e.touches[0].clientY - e.touches[1].clientY;
-              zoomState.pinchStartDist = Math.hypot(dx, dy);
+              zoomState.pinchStartDist = Math.hypot(
+                  e.touches[0].clientX - e.touches[1].clientX,
+                  e.touches[0].clientY - e.touches[1].clientY
+              );
               zoomState.pinchStartScale = zoomState.scale;
               stage.classList.add('dragging');
           } else if (e.touches.length === 1) {
@@ -1069,7 +1032,6 @@
                   return;
               }
               zoomState.lastTap = now;
-
               if (zoomState.scale > 1) {
                   zoomState.isDragging = true;
                   zoomState.startX = e.touches[0].clientX - zoomState.panX;
@@ -1082,11 +1044,11 @@
       stage.addEventListener('touchmove', (e) => {
           if (e.touches.length === 2 && zoomState.pinchStartDist > 0) {
               e.preventDefault();
-              const dx = e.touches[0].clientX - e.touches[1].clientX;
-              const dy = e.touches[0].clientY - e.touches[1].clientY;
-              const dist = Math.hypot(dx, dy);
-              const nextScale = zoomState.pinchStartScale * (dist / zoomState.pinchStartDist);
-              zoomState.scale = Math.max(1, Math.min(3.5, nextScale));
+              const dist = Math.hypot(
+                  e.touches[0].clientX - e.touches[1].clientX,
+                  e.touches[0].clientY - e.touches[1].clientY
+              );
+              zoomState.scale = Math.max(1, Math.min(3.5, zoomState.pinchStartScale * (dist / zoomState.pinchStartDist)));
               applyZoomTransform();
           } else if (e.touches.length === 1 && zoomState.isDragging) {
               e.preventDefault();
@@ -1102,109 +1064,12 @@
           stage.classList.remove('dragging');
       });
 
-      // Cerrar con tecla Escape
       document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-              closeZoomModal();
-              closeSorteoAlert();
-          }
+          if (e.key === 'Escape') { closeZoomModal(); closeSorteoAlert(); }
       });
   });
 
-  // ================= NAVEGACIÓN PRINCIPAL =================
-  function openCategory(cat) {
-      document.getElementById('view-home').classList.remove('active');
-      document.body.classList.add('in-category');
-
-      document.getElementById('mainLogo').style.display = 'none';
-      document.getElementById('btnBack').style.display = 'flex';
-
-      const tabsWrapper = document.getElementById('dynamicTabs');
-      tabsWrapper.style.display = 'flex';
-
-      if (cat === 'perfumes') {
-          document.getElementById('category-joyeria').classList.remove('active');
-          document.getElementById('category-perfumes').classList.add('active');
-
-          tabsWrapper.innerHTML = `
-              <button class="tab-pill active" id="tab-perfumes-inmediata" onclick="switchSubTab('perfumes-inmediata', this)"><i class="fa-solid fa-bolt" style="color:var(--accent);"></i> Entrega Inmediata</button>
-              <button class="tab-pill" id="tab-perfumes-sorteos" onclick="switchSubTab('perfumes-sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
-          `;
-
-          document.querySelectorAll('#category-perfumes .sub-view').forEach(v => v.classList.remove('active'));
-          document.getElementById('sub-perfumes-inmediata').classList.add('active');
-
-      } else if (cat === 'joyeria') {
-          document.getElementById('category-perfumes').classList.remove('active');
-          document.getElementById('category-joyeria').classList.add('active');
-
-          tabsWrapper.innerHTML = `
-              <button class="tab-pill active" onclick="switchSubTab('joyas-catalogo', this)"><i class="fa-solid fa-book-open" style="color:var(--accent);"></i> Catálogo Actualizado</button>
-              <button class="tab-pill" onclick="switchSubTab('joyas-sorteos', this)"><i class="fa-solid fa-gift" style="color:var(--text-muted);"></i> Dinámicas</button>
-          `;
-
-          document.querySelectorAll('#category-joyeria .sub-view').forEach(v => v.classList.remove('active'));
-          document.getElementById('sub-joyas-catalogo').classList.add('active');
-      }
-
-      document.getElementById('global-footer').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function goHome() {
-      document.getElementById('category-perfumes').classList.remove('active');
-      document.getElementById('category-joyeria').classList.remove('active');
-      document.body.classList.remove('in-category');
-
-      document.getElementById('view-home').classList.add('active');
-
-      document.getElementById('btnBack').style.display = 'none';
-      document.getElementById('dynamicTabs').style.display = 'none';
-      document.getElementById('mainLogo').style.display = 'block';
-
-      document.getElementById('global-footer').style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function switchSubTab(subId, element) {
-      document.querySelectorAll('.sub-view').forEach(v => v.classList.remove('active'));
-
-      document.querySelectorAll('.tab-pill').forEach(el => {
-          el.classList.remove('active');
-          let icon = el.querySelector('i');
-          if (icon) icon.style.color = 'var(--text-muted)';
-      });
-
-      document.getElementById('sub-' + subId).classList.add('active');
-      element.classList.add('active');
-
-      let activeIcon = element.querySelector('i');
-      if (activeIcon) {
-          if (subId.includes('inmediata') || subId.includes('catalogo')) activeIcon.style.color = 'var(--accent)';
-          if (subId.includes('sorteos')) activeIcon.style.color = '#FF3B30';
-      }
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      if (subId.includes('sorteos')) {
-          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#FF6600', '#111111', '#FFFFFF'] });
-      }
-  }
-
-  const PHONE = "573245706274";
-  function openWhatsApp(msg) { window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank'); }
-
-  // ================= CARGA DE DATOS (GOOGLE SHEETS) =================
-  const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
-
-  const URL_PERFUMES_INM = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=0&single=true&output=csv';
-  const URL_PERFUMES_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1378134320&single=true&output=csv';
-  const URL_JOYAS_CAT = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1835000586&single=true&output=csv';
-  const URL_JOYAS_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1408527128&single=true&output=csv';
-
-  let globalData = { 'perfumes-inmediata': [], 'joyas-catalogo': [] };
-  let activeJoyaFilter = 'todos';
-
+  // ================= PARSEO Y CARGA DE GOOGLE SHEETS =================
   function parseCSV(t) {
     var rows = [], row = [], f = '', inQ = false;
     for (var i = 0; i < t.length; i++) {
@@ -1257,45 +1122,40 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-      // 1. Cargar Perfumes Inmediata
-      fetch(URL_PERFUMES_INM + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      renderSkeletons('grid-perfumes-inmediata', 6);
+      renderSkeletons('grid-joyas-catalogo', 6);
+
+      fetch(URL_PERFUMES_INM + '&t=' + Date.now()).then(r => r.text()).then(csv => {
           globalData['perfumes-inmediata'] = parseCSV(csv).slice(1).map(cols => {
               if (!cols || cols.length < 2) return null;
               let nombre = String(cols[0] || '').replace(/"/g, '').trim(); if (!nombre) return null;
               let estado = String(cols[1] || '').replace(/"/g, '').trim();
-              let foto = formatImageLink(cols[2], 800);
-              let fotoHD = formatImageLink(cols[2], 2000);
-              return { nombre, estado, foto, fotoHD };
+              return { nombre, estado, foto: formatImageLink(cols[2], 800), fotoHD: formatImageLink(cols[2], 2000) };
           }).filter(Boolean);
           renderGrid(globalData['perfumes-inmediata'], 'grid-perfumes-inmediata', 'perfumes');
       });
 
-      // 2. Cargar Dinámicas Perfumes
-      fetch(URL_PERFUMES_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      fetch(URL_PERFUMES_SORTEOS + '&t=' + Date.now()).then(r => r.text()).then(csv => {
           document.getElementById('board-dinamica-perfumes').innerHTML = procesarSorteoCSV(csv, 'perfumes');
       });
 
-      // 3. Cargar Joyas Catálogo
-      fetch(URL_JOYAS_CAT + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      fetch(URL_JOYAS_CAT + '&t=' + Date.now()).then(r => r.text()).then(csv => {
           globalData['joyas-catalogo'] = parseCSV(csv).slice(1).map(cols => {
               if (!cols || cols.length < 2) return null;
               let nombre = String(cols[0] || '').replace(/"/g, '').trim(); if (!nombre) return null;
               let estado = String(cols[1] || '').replace(/"/g, '').trim();
-              let foto = formatImageLink(cols[2], 800);
-              let fotoHD = formatImageLink(cols[2], 2000);
-              return { nombre, estado, foto, fotoHD };
+              return { nombre, estado, foto: formatImageLink(cols[2], 800), fotoHD: formatImageLink(cols[2], 2000) };
           }).filter(Boolean);
           updateJoyaFilterCounts(globalData['joyas-catalogo']);
           renderGrid(globalData['joyas-catalogo'], 'grid-joyas-catalogo', 'joyas');
       });
 
-      // 4. Cargar Dinámicas Joyas
-      fetch(URL_JOYAS_SORTEOS + '&t=' + new Date().getTime()).then(r => r.text()).then(csv => {
+      fetch(URL_JOYAS_SORTEOS + '&t=' + Date.now()).then(r => r.text()).then(csv => {
           document.getElementById('board-dinamica-joyas').innerHTML = procesarSorteoCSV(csv, 'joyas');
       });
   });
 
-  // ================= RENDERIZADO =================
+  // ================= RENDERIZADO DE PRODUCTOS =================
   function renderGrid(lista, containerId, tipo) {
       const grid = document.getElementById(containerId);
       if (lista.length === 0) {
@@ -1305,30 +1165,20 @@
 
       grid.innerHTML = lista.map(p => {
           const isAgotado = p.estado.toLowerCase().includes('agotad');
-          const colorEstado = isAgotado ? 'var(--text-muted)' : 'var(--text-main)';
-
-          let btnTxt = 'LO QUIERO HOY';
-          let wspMsg = `Hola, que precio tiene este perfume hoy: ${p.nombre}`;
-
-          if (tipo === 'joyas') {
-              btnTxt = 'ME INTERESA';
-              wspMsg = `Hola, que precio tiene esta joya: ${p.nombre}`;
-          }
+          let btnTxt = tipo === 'joyas' ? 'ME INTERESA' : 'LO QUIERO HOY';
+          let wspMsg = tipo === 'joyas'
+              ? `Hola, que precio tiene esta joya: ${p.nombre}`
+              : `Hola, que precio tiene este perfume hoy: ${p.nombre}`;
 
           if (isAgotado) btnTxt = 'AGOTADO';
 
           const btnAttr = isAgotado
-              ? `disabled style="opacity:0.4; cursor:not-allowed;"`
+              ? `disabled style="opacity:0.38; cursor:not-allowed;"`
               : `data-wa="${esc(wspMsg)}" onclick="openWhatsApp(this.getAttribute('data-wa'))"`;
 
-          let overlayHtml = isAgotado ? `
-              <div class="overlay-soldout">
-                  <i class="fa-solid fa-xmark"></i>
-                  <div class="badge-soldout">LLEGAN PRONTO</div>
-              </div>` : `
-              <button type="button" class="btn-zoom-center">
-                  <i class="fa-solid fa-magnifying-glass-plus"></i> VER GRANDE
-              </button>`;
+          const overlayHtml = isAgotado
+              ? `<div class="overlay-soldout"><i class="fa-solid fa-xmark"></i><div class="badge-soldout">LLEGAN PRONTO</div></div>`
+              : `<button type="button" class="btn-zoom-pill"><i class="fa-solid fa-magnifying-glass-plus"></i> VER GRANDE</button>`;
 
           return `
           <div class="prod-card">
@@ -1344,10 +1194,9 @@
               <img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy" alt="${esc(p.nombre)}">
             </div>
             <div class="prod-title">${esc(p.nombre)}</div>
-            <div class="prod-price" style="color: ${colorEstado};">${esc(p.estado)}</div>
-            <button type="button" class="btn-action btn-inmediata" ${btnAttr}>${btnTxt}</button>
-          </div>
-        `;
+            <div class="prod-price">${esc(p.estado)}</div>
+            <button type="button" class="btn-action" ${btnAttr}>${btnTxt}</button>
+          </div>`;
       }).join('');
   }
 
@@ -1356,9 +1205,7 @@
       const clearBtn = document.getElementById('clear-' + dataKey);
       const term = inputEl ? normalizeText(inputEl.value.trim()) : '';
 
-      if (clearBtn) {
-          clearBtn.classList.toggle('visible', term.length > 0);
-      }
+      if (clearBtn) clearBtn.classList.toggle('visible', term.length > 0);
 
       let data = globalData[dataKey] || [];
       let filtrados = data.filter(p => {
@@ -1366,19 +1213,16 @@
           const okCat = dataKey === 'joyas-catalogo' ? matchesJoyaCategory(p.nombre, activeJoyaFilter) : true;
           return okText && okCat;
       });
-
       renderGrid(filtrados, 'grid-' + dataKey, dataKey.split('-')[0]);
   }
 
   function limpiarBusqueda(dataKey) {
       const inputEl = document.getElementById('search-' + dataKey);
-      if (inputEl) {
-          inputEl.value = '';
-          inputEl.focus();
-      }
+      if (inputEl) { inputEl.value = ''; inputEl.focus(); }
       filtrarCatalogo(dataKey);
   }
 
+  // ================= DINÁMICAS CON BARRA DE URGENCIA =================
   function procesarSorteoCSV(csv, tipo) {
       let rows = parseCSV(csv).slice(1);
       if (rows.length === 0 || rows[0].length < 7) {
@@ -1389,20 +1233,16 @@
       let desc = rows[0][4] ? rows[0][4].trim() : '';
       let price = rows[0][6] ? rows[0][6].trim() : '';
 
-      // Leer la foto desde la casilla D3 (fila 3 de la hoja = rows[1], columna D = índice 3)
       let rawFotoD3 = (rows[1] && rows[1][3]) ? rows[1][3].trim() : '';
       let fotoHtml = '';
       if (rawFotoD3 && (rawFotoD3.startsWith('http') || rawFotoD3.includes('drive.google.com'))) {
-          let imgUrl = formatImageLink(rawFotoD3, 1200);
-          fotoHtml = `<img src="${esc(imgUrl)}" class="sorteo-banner-img" alt="${esc(title)}" onerror="this.style.display='none'">`;
+          fotoHtml = `<img src="${esc(formatImageLink(rawFotoD3, 1200))}" class="sorteo-banner-img" alt="${esc(title)}" onerror="this.style.display='none'">`;
       }
 
       let pData = rows.map(cols => {
           if (!cols || cols.length < 1) return null;
-
           let rawId = (cols[0] && cols[0].trim() !== '') ? cols[0].trim() : '';
           let idPuesto = parseInt(rawId.replace(/[^0-9]/g, ''), 10).toString();
-
           if (isNaN(idPuesto) || idPuesto === 'NaN') return null;
 
           let arr = (cols[1] || '').toString().replace(/[-;\s]+/g, ',').split(',').map(n => {
@@ -1414,41 +1254,30 @@
           if (st.includes('PEN')) estado = 'pendiente';
           else if (st.includes('OCU') || st.includes('VEN') || st.includes('PAG') || st.includes('X')) estado = 'ocupado';
 
-          let comprador = cols[3] && cols[3].trim() !== '' ? cols[3].trim() : 'VIP';
-          return { id: idPuesto, numeros: arr, estado: estado, nombre: comprador };
+          return { id: idPuesto, numeros: arr, estado };
       }).filter(Boolean);
 
-      let htmlInfo = `
-        <div style="background:#FFF; border:1px solid var(--border); border-radius: 20px; padding: 22px; margin-bottom: 22px; box-shadow:var(--shadow-sm);">
-            ${fotoHtml}
-            <div style="font-size: 20px; font-weight:800; margin-bottom:8px; letter-spacing:-0.5px;">${esc(title)}</div>
-            <div style="font-size: 14px; color:var(--text-muted); margin-bottom: 18px; line-height:1.5; font-weight: 500;">${esc(desc)}</div>
-            <div style="font-size: 26px; font-weight: 800; color: var(--accent); margin-bottom: 12px; letter-spacing:-1px;">${esc(price)}</div>
-            <p style="font-size: 13px; font-weight:700; color:var(--text-main);">Cada puesto incluye <b>3 números</b>. ¡Más opciones de ganar!</p>
-        </div>
-      `;
-
+      let ocupadosCount = 0;
       let gridHtml = '';
 
       for (let i = 1; i <= 30; i++) {
-          let idStr = i.toString();
-          let p = pData.find(x => x.id === idStr);
+          let p = pData.find(x => x.id === i.toString());
           let estado = p ? p.estado : 'libre';
           let numText = p && p.numeros.length > 0 ? p.numeros.join(' - ') : '---';
 
           if (estado === 'ocupado') {
+              ocupadosCount++;
               gridHtml += `
               <div class="puesto-box ocupado">
                   <div class="pb-label">Puesto</div>
                   <div class="pb-id">#${i}</div>
-                  <div class="pb-nums">NO DISPONIBLE</div>
+                  <div class="pb-nums">VENDIDO</div>
               </div>`;
           } else {
-              let cls = estado;
               let tipoMsg = tipo === 'joyas' ? 'Oro Laminado' : 'Perfumería';
               let act = `onclick="openWhatsApp('Hola John, quiero separar el puesto #${i} de la dinámica de ${tipoMsg}.')"`;
               gridHtml += `
-              <div class="puesto-box ${cls}" ${act}>
+              <div class="puesto-box ${estado}" ${act}>
                   <div class="pb-label">Puesto</div>
                   <div class="pb-id">#${i}</div>
                   <div class="pb-nums">${numText}</div>
@@ -1456,13 +1285,32 @@
           }
       }
 
+      let libres = 30 - ocupadosCount;
+      let porcentaje = Math.round((ocupadosCount / 30) * 100);
+
       return `
-          ${htmlInfo}
-          <h4 style="font-size:15px; font-weight:800; margin-top:22px; margin-bottom:14px; letter-spacing:-0.5px;">Tablero de Puestos 👇</h4>
-          <div class="puestos-grid">${gridHtml}</div>
-          <div style="text-align:center; font-size:12px; font-weight:600; color:var(--text-muted); margin-top:22px;">
-              👆 Toca un puesto libre para separarlo por WhatsApp.
-          </div>
+        <div class="sorteo-card">
+            ${fotoHtml}
+            <div style="font-size: 20px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px;">${esc(title)}</div>
+            <div style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; font-weight: 500;">${esc(desc)}</div>
+            <div style="font-size: 26px; font-weight: 800; color: var(--accent); margin-bottom: 10px; letter-spacing: -1px;">${esc(price)}</div>
+            <p style="font-size: 12.5px; font-weight: 700; color: var(--text-main);">Cada puesto incluye <b>3 números</b>. ¡Más opciones de ganar!</p>
+        </div>
+
+        <div class="urgency-box">
+            <div class="urgency-top">
+                <span class="u-left">Quedan ${libres} de 30 puestos disponibles</span>
+                <span>${porcentaje}% vendido</span>
+            </div>
+            <div class="urgency-track">
+                <div class="urgency-fill" style="width: ${porcentaje}%;"></div>
+            </div>
+        </div>
+
+        <div class="puestos-grid">${gridHtml}</div>
+        <div style="text-align: center; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 18px;">
+            Toca cualquier puesto disponible para separarlo por WhatsApp.
+        </div>
       `;
   }
 </script>
