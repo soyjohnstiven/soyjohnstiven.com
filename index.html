@@ -167,6 +167,7 @@
       font-weight: 800; letter-spacing: -1.2px; line-height: 1.1;
       max-width: 680px;
   }
+  .hero-title span { color: var(--accent); }
   .hero-desc {
       font-size: 15px; color: var(--text-muted); font-weight: 500;
       line-height: 1.55; max-width: 560px;
@@ -667,9 +668,9 @@
     <!-- 1. INICIO -->
     <section id="view-home" class="view-section active">
         <div class="hero-web">
-            <div class="hero-eyebrow"></div>
-            <h1 class="hero-title">CALIDAD - GARANTÍA & BUENOS PRECIOS</h1>
-            <p class="hero-desc"></p>
+            <div class="hero-eyebrow">Bienvenido</div>
+            <h1 class="hero-title" id="dynamicGreeting">¡BUENOS <span>DÍAS</span>!</h1>
+            <p class="hero-desc">Chismosea con calma y me escribes si te antojas de algo.</p>
         </div>
 
         <div class="categories-web-grid">
@@ -842,6 +843,19 @@
       window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
+  // ================= SALUDO AUTOMÁTICO SEGÚN LA HORA =================
+  function setDynamicGreeting() {
+      const hour = new Date().getHours();
+      let greetingHtml = '¡BUENAS <span>NOCHES</span>!';
+      if (hour >= 5 && hour < 12) {
+          greetingHtml = '¡BUENOS <span>DÍAS</span>!';
+      } else if (hour >= 12 && hour < 19) {
+          greetingHtml = '¡BUENAS <span>TARDES</span>!';
+      }
+      const el = document.getElementById('dynamicGreeting');
+      if (el) el.innerHTML = greetingHtml;
+  }
+
   // ================= NAVEGACIÓN WEB =================
   function switchView(viewName) {
       document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
@@ -868,6 +882,7 @@
 
   // ================= MODAL BIENVENIDA =================
   document.addEventListener('DOMContentLoaded', () => {
+      setDynamicGreeting();
       setTimeout(() => {
           document.getElementById('sorteoAlertOverlay').classList.add('active');
       }, 850);
