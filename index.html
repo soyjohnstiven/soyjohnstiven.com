@@ -339,6 +339,7 @@
       padding: 18px 20px;
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      flex-shrink: 0;
   }
   .cm-title { font-size: 17px; font-weight: 800; letter-spacing: -0.4px; }
   .cm-sub { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
@@ -350,33 +351,34 @@
   }
 
   .cm-steps-bar {
-      display: flex; gap: 8px; padding: 12px 20px;
+      display: flex; gap: 10px; padding: 14px 20px;
       background: var(--bg-subtle); border-bottom: 1px solid var(--border);
       overflow-x: auto; scrollbar-width: none;
+      flex-shrink: 0;
   }
   .cm-steps-bar::-webkit-scrollbar { display: none; }
   .cm-step-pill {
-      flex: 1; min-width: 140px;
-      background: #FFF; border: 1px solid var(--border);
-      border-radius: 10px; padding: 9px 12px;
-      display: flex; align-items: center; gap: 9px;
+      flex: 1; min-width: 155px;
+      background: #FFF; border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px;
       cursor: pointer; font-family: inherit; text-align: left;
       transition: 0.18s;
   }
   .cm-step-pill.active { border-color: var(--bg-dark); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
   .cm-step-pill.done { border-color: var(--accent); background: var(--accent-soft); }
   .cm-step-num {
-      width: 24px; height: 24px; border-radius: 50%;
+      width: 26px; height: 26px; border-radius: 50%;
       background: var(--bg-subtle); color: var(--text-muted);
-      font-size: 11px; font-weight: 800;
+      font-size: 11.5px; font-weight: 800;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .cm-step-pill.active .cm-step-num { background: var(--bg-dark); color: #FFF; }
   .cm-step-pill.done .cm-step-num { background: var(--accent); color: #FFF; }
-  .cm-step-info { overflow: hidden; }
-  .cm-step-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); }
+  .cm-step-info { overflow: hidden; display: flex; flex-direction: column; gap: 2px; }
+  .cm-step-label { font-size: 10.5px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.4px; }
   .cm-step-val {
-      font-size: 12px; font-weight: 700; color: var(--text-main);
+      font-size: 12.5px; font-weight: 700; color: var(--text-main);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
@@ -384,16 +386,23 @@
       padding: 16px 20px;
       overflow-y: auto;
       flex: 1;
+      min-height: 0;
   }
   .cm-search {
       display: flex; align-items: center; gap: 10px;
-      background: var(--bg-subtle); border: 1px solid var(--border);
-      border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+      background: #FFFFFF; border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 11px 16px; margin-bottom: 16px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .cm-search i { color: var(--text-muted); font-size: 13px; }
+  .cm-search:focus-within {
+      border-color: var(--text-main);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  }
+  .cm-search i { color: var(--text-muted); font-size: 14px; }
   .cm-search input {
       border: none; background: transparent; width: 100%;
-      font-family: inherit; font-size: 13.5px; font-weight: 600; outline: none;
+      font-family: inherit; font-size: 13.5px; font-weight: 600; outline: none; color: var(--text-main);
   }
 
   .cm-items-grid {
@@ -404,7 +413,7 @@
   .cm-item {
       background: #FFF; border: 1.5px solid var(--border);
       border-radius: 12px; padding: 9px; cursor: pointer;
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex; flex-direction: column; gap: 7px;
       transition: border-color 0.18s, transform 0.15s;
       position: relative;
   }
@@ -423,8 +432,11 @@
   }
   .cm-item-img img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
   .cm-item-name {
-      font-size: 12px; font-weight: 700; line-height: 1.3;
+      font-size: 12.5px; font-weight: 700; line-height: 1.3; color: var(--text-main);
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .cm-item-sub {
+      font-size: 11px; font-weight: 600; color: var(--text-muted); line-height: 1.25;
   }
 
   .cm-footer {
@@ -432,6 +444,7 @@
       border-top: 1px solid var(--border);
       background: #FFF;
       display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+      flex-shrink: 0;
   }
   .cm-progress-txt { font-size: 12.5px; font-weight: 700; color: var(--text-muted); }
   .cm-progress-txt b { color: var(--text-main); }
@@ -475,7 +488,7 @@
   .filter-chip {
       background: #FFF; color: var(--text-main);
       border: 1px solid var(--border);
-      padding: 9px 15px; border-radius: 8px;
+      padding: 9px 15px; border-radius: 10px;
       font-family: inherit; font-size: 13px; font-weight: 700;
       cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
       transition: 0.18s;
@@ -492,22 +505,27 @@
       background: var(--accent); color: #FFF;
   }
 
+  /* Buscador limpio y moderno */
   .search-box {
-      display: flex; align-items: center; background: var(--bg-subtle);
-      border-radius: 10px; padding: 10px 14px;
-      border: 1px solid var(--border);
+      display: flex; align-items: center; background: #FFFFFF;
+      border-radius: 12px; padding: 11px 16px;
+      border: 1.5px solid var(--border);
       width: 100%; max-width: 340px;
-      transition: border-color 0.2s, background 0.2s;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .search-box:focus-within { border-color: var(--text-main); background: #FFF; }
+  .search-box:focus-within {
+      border-color: var(--text-main);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  }
   .search-box i.fa-magnifying-glass { color: var(--text-muted); font-size: 14px; margin-right: 10px; }
   .search-box input {
       border: none; background: transparent; width: 100%;
-      font-size: 14px; outline: none; font-weight: 600; font-family: inherit; color: var(--text-main);
+      font-size: 13.5px; outline: none; font-weight: 600; font-family: inherit; color: var(--text-main);
   }
   .search-clear {
       display: none; width: 22px; height: 22px; border-radius: 50%;
-      background: #E2E2E7; border: none; color: var(--text-main);
+      background: var(--bg-subtle); border: none; color: var(--text-main);
       font-size: 10px; cursor: pointer; flex-shrink: 0;
       align-items: center; justify-content: center;
   }
@@ -553,13 +571,16 @@
   .btn-zoom-pill:hover { background: var(--accent); }
 
   .prod-title {
-      font-size: 13px; font-weight: 700; line-height: 1.35;
-      margin-bottom: 6px; color: var(--text-main);
+      font-size: 13px; font-weight: 700; line-height: 1.32;
+      margin-bottom: 4px; color: var(--text-main);
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-      min-height: 35px;
+  }
+  .prod-subtitle {
+      font-size: 11.5px; font-weight: 600; color: var(--text-muted);
+      line-height: 1.3; margin-bottom: 6px;
   }
   .prod-price {
-      font-size: 13px; font-weight: 800; color: var(--text-muted);
+      font-size: 12.5px; font-weight: 800; color: var(--text-muted);
       margin-bottom: 12px;
   }
   .prod-actions-row {
@@ -1212,7 +1233,6 @@
             <div>
                 <div class="hero-eyebrow">Respaldo y Confianza</div>
                 <h1 class="catalog-title">Garantía, Cuidados y Envíos</h1>
-                <p class="catalog-desc">Todo lo que necesitas saber sobre la calidad de nuestro Oro Laminado, cómo cuidarlo y cómo recibes tus pedidos.</p>
             </div>
         </div>
 
@@ -1267,7 +1287,7 @@
             <!-- Cómo cuidar tu joya -->
             <div class="info-panel" style="grid-column: 1 / -1;">
                 <div class="ip-head">
-                    <div class="ip-icon"><i class="fa-solid fa-sparkles"></i></div>
+                    <div class="ip-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                     <div>
                         <h3 class="ip-title">Cómo cuidar tu joya de Oro Laminado</h3>
                         <p class="ip-sub">Sigue estos 4 hábitos sencillos para que brille como nueva por años</p>
@@ -1370,6 +1390,39 @@
 
   function openWhatsApp(msg) {
       window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // ================= SEPARAR TÍTULO Y SUBTÍTULO (MEDIDAS / COLORES) =================
+  function splitJoyaTitle(rawName) {
+      let title = String(rawName || '').trim();
+      let details = [];
+
+      // 1. Extraer todo lo que esté entre paréntesis (ej: (1.7 mm / 60 cm), (Dorado))
+      title = title.replace(/\(([^)]+)\)/g, (_, inside) => {
+          const clean = inside.trim();
+          if (clean) details.push(clean);
+          return '';
+      });
+
+      // 2. Extraer medidas sueltas fuera de paréntesis (ej: 45 cm, 1.5 mm)
+      title = title.replace(/\b\d+(?:[.,]\d+)?\s*(?:cm|mm)\b/gi, (match) => {
+          details.push(match.trim());
+          return '';
+      });
+
+      // 3. Extraer colores comunes si quedaron sueltos al final o tras guión/barra
+      const colorRegex = /(?:[-/|,]\s*|\b)(dorado|plateado|oro rosa|tricolor|blanco|negro|azul|verde|rojo|esmeralda|rosado|morado|tornasol|fucsia|turquesa)\b/gi;
+      title = title.replace(colorRegex, (_, color) => {
+          const cap = color.charAt(0).toUpperCase() + color.slice(1).toLowerCase();
+          details.push(cap);
+          return '';
+      });
+
+      // Limpiar guiones, barras o espacios sobrantes
+      title = title.replace(/[\s\-/|]+$/g, '').replace(/\s{2,}/g, ' ').trim();
+      const subtitle = details.join(' · ');
+
+      return { title: title || rawName, subtitle };
   }
 
   // ================= SALUDO AUTOMÁTICO SEGÚN LA HORA =================
@@ -1514,7 +1567,6 @@
       const preset = COMBO_PRESETS[comboState.presetKey];
       comboState.selections[stepKey] = nombre;
 
-      // Avanzar automáticamente al siguiente paso si aún falta
       const nextEmpty = preset.steps.findIndex(s => !comboState.selections[s.key]);
       if (nextEmpty !== -1) {
           comboState.activeStep = nextEmpty;
@@ -1532,12 +1584,13 @@
           const picked = comboState.selections[s.key];
           const isActive = idx === comboState.activeStep;
           const cls = (isActive ? ' active' : '') + (picked ? ' done' : '');
+          const shortPicked = picked ? splitJoyaTitle(picked).title : 'Sin elegir';
           return `
               <button type="button" class="cm-step-pill${cls}" onclick="setComboStep(${idx})">
                   <div class="cm-step-num">${picked ? '<i class="fa-solid fa-check"></i>' : (idx + 1)}</div>
                   <div class="cm-step-info">
                       <div class="cm-step-label">${esc(s.label)}</div>
-                      <div class="cm-step-val">${picked ? esc(picked) : 'Sin elegir'}</div>
+                      <div class="cm-step-val">${esc(shortPicked)}</div>
                   </div>
               </button>
           `;
@@ -1573,6 +1626,7 @@
       const selectedName = comboState.selections[currentStep.key];
       grid.innerHTML = disponibles.map(p => {
           const isSelected = selectedName === p.nombre;
+          const parts = splitJoyaTitle(p.nombre);
           return `
               <div class="cm-item${isSelected ? ' selected' : ''}"
                    data-step="${esc(currentStep.key)}"
@@ -1582,7 +1636,8 @@
                   <div class="cm-item-img">
                       <img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy" alt="${esc(p.nombre)}">
                   </div>
-                  <div class="cm-item-name">${esc(p.nombre)}</div>
+                  <div class="cm-item-name">${esc(parts.title)}</div>
+                  ${parts.subtitle ? `<div class="cm-item-sub">${esc(parts.subtitle)}</div>` : ''}
               </div>
           `;
       }).join('');
@@ -1913,6 +1968,10 @@
               ? `<div class="overlay-soldout"><i class="fa-solid fa-xmark"></i><div class="badge-soldout">LLEGAN PRONTO</div></div>`
               : `<button type="button" class="btn-zoom-pill"><i class="fa-solid fa-magnifying-glass-plus"></i> VER GRANDE</button>`;
 
+          const titleInfo = tipo === 'joyas'
+              ? splitJoyaTitle(p.nombre)
+              : { title: p.nombre, subtitle: '' };
+
           return `
           <div class="prod-card">
             <div class="prod-img"
@@ -1926,7 +1985,8 @@
               ${overlayHtml}
               <img src="${esc(p.foto)}" onerror="this.src='${DEF_IMG}'" loading="lazy" decoding="async" alt="${esc(p.nombre)}">
             </div>
-            <div class="prod-title">${esc(p.nombre)}</div>
+            <div class="prod-title">${esc(titleInfo.title)}</div>
+            ${titleInfo.subtitle ? `<div class="prod-subtitle">${esc(titleInfo.subtitle)}</div>` : ''}
             <div class="prod-price">${esc(p.estado)}</div>
             <div class="prod-actions-row">
                 <button type="button" class="btn-action" ${btnAttr}>${btnTxt}</button>
