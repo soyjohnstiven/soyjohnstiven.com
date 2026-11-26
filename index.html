@@ -81,7 +81,7 @@
       gap: 12px;
   }
 
-  /* Grupo Logo + Reproductor de Música */
+  /* Grupo Logo + Botón Único de Música */
   .brand-audio-group {
       display: flex;
       align-items: center;
@@ -94,50 +94,29 @@
   }
   .brand-logo span { color: var(--accent); }
 
-  .audio-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      background: var(--bg-subtle);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 3px 5px;
-      transition: border-color 0.2s, background 0.2s;
-  }
-  .audio-pill.playing {
-      border-color: rgba(255, 102, 0, 0.45);
-      background: var(--accent-soft);
-  }
-  .audio-btn {
-      width: 26px; height: 26px;
+  .music-only-btn {
+      width: 30px; height: 30px;
       border-radius: 50%;
-      border: none;
-      background: transparent;
-      color: var(--text-main);
-      font-size: 11px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s, transform 0.12s;
-  }
-  .audio-btn:hover { background: rgba(0, 0, 0, 0.06); }
-  .audio-btn:active { transform: scale(0.92); }
-  .audio-btn.play-toggle {
+      border: 1px solid var(--border);
       background: var(--bg-dark);
       color: #FFF;
+      font-size: 11.5px;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.12s;
+      flex-shrink: 0;
   }
-  .audio-pill.playing .audio-btn.play-toggle {
+  .music-only-btn:hover { transform: scale(1.05); }
+  .music-only-btn:active { transform: scale(0.93); }
+  .music-only-btn.playing {
       background: var(--accent);
+      border-color: var(--accent);
       color: #FFF;
       animation: musicPulse 1.8s infinite;
   }
-  .audio-sep {
-      width: 1px; height: 14px;
-      background: var(--border);
-      margin: 0 1px;
-  }
   @keyframes musicPulse {
       0% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.45); }
-      70% { box-shadow: 0 0 0 6px rgba(255, 102, 0, 0); }
+      70% { box-shadow: 0 0 0 7px rgba(255, 102, 0, 0); }
       100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
   }
 
@@ -198,8 +177,8 @@
   }
   @media (max-width: 440px) {
       .brand-logo { font-size: 17px; }
-      .brand-audio-group { gap: 6px; }
-      .audio-btn { width: 24px; height: 24px; font-size: 10px; }
+      .brand-audio-group { gap: 8px; }
+      .music-only-btn { width: 27px; height: 27px; font-size: 10.5px; }
       .sorteo-corner-btn { padding: 7px 10px; gap: 6px; }
       .scb-top { font-size: 8px; }
       .scb-sub { display: none; }
@@ -1131,19 +1110,10 @@
         <div class="brand-audio-group">
             <div class="brand-logo" onclick="switchView('home')">JOHN<span>STIVEN</span></div>
 
-            <!-- Controles de Música y Volumen al lado del logo -->
-            <div class="audio-pill" id="audioPill" title="Música ambiental">
-                <button type="button" class="audio-btn play-toggle" id="musicToggleBtn" onclick="toggleBgMusic()" aria-label="Reproducir o pausar música" title="Poner / Pausar música">
-                    <i class="fa-solid fa-music" id="musicPlayIcon"></i>
-                </button>
-                <span class="audio-sep"></span>
-                <button type="button" class="audio-btn" onclick="changeBgVolume(-0.1)" aria-label="Bajar volumen" title="Bajar volumen">
-                    <i class="fa-solid fa-volume-low"></i>
-                </button>
-                <button type="button" class="audio-btn" onclick="changeBgVolume(0.1)" aria-label="Subir volumen" title="Subir volumen">
-                    <i class="fa-solid fa-volume-high"></i>
-                </button>
-            </div>
+            <!-- Botón único de Iniciar / Pausar música -->
+            <button type="button" class="music-only-btn" id="musicToggleBtn" onclick="toggleBgMusic()" aria-label="Iniciar o pausar música" title="Música ambiental">
+                <i class="fa-solid fa-music" id="musicPlayIcon"></i>
+            </button>
         </div>
 
         <nav class="web-nav" aria-label="Navegación principal">
@@ -1541,11 +1511,11 @@
   let activeJoyaFilter = 'todos';
   let quoteList = [];
 
-  // ================= MÚSICA AMBIENTAL DESDE GOOGLE SHEETS (SEGUNDO 20 GARANTIZADO) =================
+  // ================= MÚSICA AMBIENTAL DESDE GOOGLE SHEETS (SEGUNDO 20 + VOLUMEN SUAVE) =================
   const MUSIC_START_SEC = 20;
+  const MUSIC_SOFT_VOL = 0.15; // Volumen bajo y suave (15%)
   let musicJumped = false;
   let musicPlaying = false;
-  let musicVolume = 0.22; // Volumen inicial bajo (22%)
   let musicSources = [];
   let musicSourceIdx = 0;
 
@@ -1589,7 +1559,7 @@
   function applyNextAudioSource(audio) {
       if (musicSourceIdx >= musicSources.length) return;
       audio.src = musicSources[musicSourceIdx];
-      audio.volume = musicVolume;
+      audio.volume = MUSIC_SOFT_VOL;
       audio.load();
   }
 
@@ -1636,10 +1606,10 @@
   }
 
   function updateMusicUI() {
-      const pill = document.getElementById('audioPill');
+      const btn = document.getElementById('musicToggleBtn');
       const icon = document.getElementById('musicPlayIcon');
-      if (!pill || !icon) return;
-      pill.classList.toggle('playing', musicPlaying);
+      if (!btn || !icon) return;
+      btn.classList.toggle('playing', musicPlaying);
       icon.className = musicPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-music';
   }
 
@@ -1660,7 +1630,7 @@
           musicPlaying = false;
           updateMusicUI();
       } else {
-          audio.volume = musicVolume;
+          audio.volume = MUSIC_SOFT_VOL;
           audio.play().then(() => {
               jumpToStartSecond(audio);
               setTimeout(() => jumpToStartSecond(audio), 150);
@@ -1673,16 +1643,6 @@
                   toggleBgMusic();
               }
           });
-      }
-  }
-
-  function changeBgVolume(delta) {
-      const audio = document.getElementById('bgMusic');
-      if (!audio) return;
-      musicVolume = Math.max(0.05, Math.min(0.85, +(musicVolume + delta).toFixed(2)));
-      audio.volume = musicVolume;
-      if (!musicPlaying && audio.src) {
-          toggleBgMusic();
       }
   }
 
