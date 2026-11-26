@@ -1025,7 +1025,7 @@
 <body>
 
 <!-- Reproductor de audio ambiental -->
-<audio id="bgMusic" loop preload="metadata"></audio>
+<audio id="bgMusic" loop preload="auto"></audio>
 
 <!-- ================= ALERTA BIENVENIDA: ORO LAMINADO 18K ================= -->
 <div class="sorteo-alert-overlay" id="sorteoAlertOverlay">
@@ -1542,10 +1542,11 @@
   const PHONE = "573245706274";
   const DEF_IMG = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80';
 
-  const URL_PERFUMES_INM = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=0&single=true&output=csv';
-  const URL_PERFUMES_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1378134320&single=true&output=csv';
-  const URL_JOYAS_CAT = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1835000586&single=true&output=csv';
-  const URL_JOYAS_SORTEOS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub?gid=1408527128&single=true&output=csv';
+  const SHEET_PUB_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlEU_5RcCDy9eUMUupjhGSTr1AwbN7ZxUTQOb9IiDZH8rbxayJ-o17nEXxGGwi7rgmUpCOoc9DlMel/pub';
+  const URL_PERFUMES_INM = `${SHEET_PUB_BASE}?gid=0&single=true&output=csv`;
+  const URL_PERFUMES_SORTEOS = `${SHEET_PUB_BASE}?gid=1378134320&single=true&output=csv`;
+  const URL_JOYAS_CAT = `${SHEET_PUB_BASE}?gid=1835000586&single=true&output=csv`;
+  const URL_JOYAS_SORTEOS = `${SHEET_PUB_BASE}?gid=1408527128&single=true&output=csv`;
 
   let globalData = { 'perfumes-inmediata': [], 'joyas-catalogo': [] };
   let activeJoyaFilter = 'todos';
@@ -1555,54 +1556,80 @@
   const MUSIC_START_SEC = 20;
   let musicInitializedStart = false;
   let musicPlaying = false;
-  let musicVolume = 0.22; // Volumen inicial bajo y agradable (22%)
+  let musicVolume = 0.22; // Volumen inicial bajo (22%)
+  let musicSources = [];
+  let musicSourceIdx = 0;
 
-  function formatAudioLink(rawUrl) {
+  function buildAudioCandidates(rawUrl) {
       let url = String(rawUrl || '').replace(/"/g, '').trim();
-      if (!url) return '';
+      if (!url) return [];
       if (url.includes('drive.google.com')) {
           const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
           if (match && match[1]) {
-              return `https://docs.google.com/uc?export=download&id=${match[1]}`;
+              const id = match[1];
+              return [
+                  `https://drive.google.com/uc?export=open&id=${id}`,
+                  `https://docs.google.com/uc?export=download&id=${id}`,
+                  `https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t`
+              ];
           }
       }
       if (url.includes('dropbox.com')) {
-          return url.replace('dl=0', 'dl=1');
+          return [url.replace('dl=0', 'dl=1')];
       }
-      return url;
+      return [url];
+  }
+
+  function applyNextAudioSource(audio) {
+      if (musicSourceIdx >= musicSources.length) return;
+      audio.src = musicSources[musicSourceIdx];
+      audio.volume = musicVolume;
+      audio.load();
   }
 
   function setupBgMusicFromCSV(rows) {
       if (!rows || rows.length < 2) return;
-      // Buscar columna "Música" en encabezado o usar columna E (índice 4)
-      let colIdx = 4;
+      let colIdx = 4; // Columna E ("Música")
       const headers = rows[0].map(h => normalizeText(h).trim());
       const foundIdx = headers.findIndex(h => h === 'musica');
       if (foundIdx !== -1) colIdx = foundIdx;
 
-      let link = '';
+      let rawLink = '';
       for (let i = 1; i < rows.length; i++) {
           if (rows[i] && rows[i][colIdx] && rows[i][colIdx].trim() !== '') {
-              link = formatAudioLink(rows[i][colIdx]);
+              rawLink = rows[i][colIdx].trim();
               break;
           }
       }
-      if (!link) return;
+      if (!rawLink) return;
 
       const audio = document.getElementById('bgMusic');
-      if (!audio || audio.getAttribute('data-raw-src') === link) return;
+      if (!audio || audio.getAttribute('data-sheet-url') === rawLink) return;
 
-      audio.setAttribute('data-raw-src', link);
-      audio.src = link;
-      audio.volume = musicVolume;
+      audio.setAttribute('data-sheet-url', rawLink);
+      musicSources = buildAudioCandidates(rawLink);
+      musicSourceIdx = 0;
       musicInitializedStart = false;
+
+      audio.onerror = () => {
+          musicSourceIdx++;
+          if (musicSourceIdx < musicSources.length) {
+              applyNextAudioSource(audio);
+              if (musicPlaying) audio.play().catch(() => {});
+          } else {
+              musicPlaying = false;
+              updateMusicUI();
+          }
+      };
 
       audio.addEventListener('loadedmetadata', () => {
           if (!musicInitializedStart && audio.duration > MUSIC_START_SEC) {
               audio.currentTime = MUSIC_START_SEC;
               musicInitializedStart = true;
           }
-      }, { once: true });
+      });
+
+      applyNextAudioSource(audio);
   }
 
   function updateMusicUI() {
@@ -1615,27 +1642,38 @@
 
   function toggleBgMusic() {
       const audio = document.getElementById('bgMusic');
-      if (!audio || !audio.src) return;
+      if (!audio) return;
+
+      if (!audio.src && musicSources.length > 0) {
+          applyNextAudioSource(audio);
+      }
+      if (!audio.src) {
+          alert('Aún no se ha detectado el enlace de música en la columna Música del Sheet.');
+          return;
+      }
 
       if (musicPlaying) {
           audio.pause();
           musicPlaying = false;
           updateMusicUI();
       } else {
-          if (!musicInitializedStart) {
-              try {
-                  audio.currentTime = MUSIC_START_SEC;
-                  musicInitializedStart = true;
-              } catch (e) {}
-          }
           audio.volume = musicVolume;
           audio.play().then(() => {
-              if (audio.currentTime < MUSIC_START_SEC - 1 && (!audio.duration || audio.duration > MUSIC_START_SEC)) {
-                  audio.currentTime = MUSIC_START_SEC;
+              if (!musicInitializedStart || audio.currentTime < MUSIC_START_SEC - 1) {
+                  if (!audio.duration || audio.duration > MUSIC_START_SEC) {
+                      audio.currentTime = MUSIC_START_SEC;
+                      musicInitializedStart = true;
+                  }
               }
               musicPlaying = true;
               updateMusicUI();
-          }).catch(() => {});
+          }).catch(() => {
+              musicSourceIdx++;
+              if (musicSourceIdx < musicSources.length) {
+                  applyNextAudioSource(audio);
+                  toggleBgMusic();
+              }
+          });
       }
   }
 
@@ -2154,8 +2192,8 @@
               try { prev = localStorage.getItem(cacheKey); } catch (e) {}
               if (csv !== prev) {
                   try { localStorage.setItem(cacheKey, csv); } catch (e) {}
-                  onData(csv);
               }
+              onData(csv);
           })
           .catch(() => {});
   }
