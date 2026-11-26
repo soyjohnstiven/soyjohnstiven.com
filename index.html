@@ -1552,13 +1552,19 @@
   let activeJoyaFilter = 'todos';
   let quoteList = [];
 
-  // ================= MÚSICA AMBIENTAL DESDE GOOGLE SHEETS (SEGUNDO 20 + VOLUMEN SUAVE) =================
+  // ================= MÚSICA AMBIENTAL DESDE GOOGLE SHEETS (SEGUNDO 20 GARANTIZADO) =================
   const MUSIC_START_SEC = 20;
-  let musicInitializedStart = false;
+  let musicJumped = false;
   let musicPlaying = false;
   let musicVolume = 0.22; // Volumen inicial bajo (22%)
   let musicSources = [];
   let musicSourceIdx = 0;
+
+  function addTimeFragment(url) {
+      if (!url) return url;
+      const base = url.split('#')[0];
+      return `${base}#t=${MUSIC_START_SEC}`;
+  }
 
   function buildAudioCandidates(rawUrl) {
       let url = String(rawUrl || '').replace(/"/g, '').trim();
@@ -1568,16 +1574,27 @@
           if (match && match[1]) {
               const id = match[1];
               return [
-                  `https://drive.google.com/uc?export=open&id=${id}`,
-                  `https://docs.google.com/uc?export=download&id=${id}`,
-                  `https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t`
+                  addTimeFragment(`https://drive.google.com/uc?export=open&id=${id}`),
+                  addTimeFragment(`https://docs.google.com/uc?export=download&id=${id}`)
               ];
           }
       }
       if (url.includes('dropbox.com')) {
-          return [url.replace('dl=0', 'dl=1')];
+          return [addTimeFragment(url.replace('dl=0', 'dl=1'))];
       }
-      return [url];
+      return [addTimeFragment(url)];
+  }
+
+  function jumpToStartSecond(audio) {
+      if (musicJumped) return;
+      try {
+          if (audio.readyState >= 1) {
+              audio.currentTime = MUSIC_START_SEC;
+              if (audio.currentTime >= MUSIC_START_SEC - 1) {
+                  musicJumped = true;
+              }
+          }
+      } catch (e) {}
   }
 
   function applyNextAudioSource(audio) {
@@ -1609,7 +1626,7 @@
       audio.setAttribute('data-sheet-url', rawLink);
       musicSources = buildAudioCandidates(rawLink);
       musicSourceIdx = 0;
-      musicInitializedStart = false;
+      musicJumped = false;
 
       audio.onerror = () => {
           musicSourceIdx++;
@@ -1622,12 +1639,9 @@
           }
       };
 
-      audio.addEventListener('loadedmetadata', () => {
-          if (!musicInitializedStart && audio.duration > MUSIC_START_SEC) {
-              audio.currentTime = MUSIC_START_SEC;
-              musicInitializedStart = true;
-          }
-      });
+      audio.addEventListener('loadedmetadata', () => jumpToStartSecond(audio));
+      audio.addEventListener('canplay', () => jumpToStartSecond(audio));
+      audio.addEventListener('playing', () => jumpToStartSecond(audio));
 
       applyNextAudioSource(audio);
   }
@@ -1659,12 +1673,8 @@
       } else {
           audio.volume = musicVolume;
           audio.play().then(() => {
-              if (!musicInitializedStart || audio.currentTime < MUSIC_START_SEC - 1) {
-                  if (!audio.duration || audio.duration > MUSIC_START_SEC) {
-                      audio.currentTime = MUSIC_START_SEC;
-                      musicInitializedStart = true;
-                  }
-              }
+              jumpToStartSecond(audio);
+              setTimeout(() => jumpToStartSecond(audio), 150);
               musicPlaying = true;
               updateMusicUI();
           }).catch(() => {
